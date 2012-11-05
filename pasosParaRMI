@@ -1,0 +1,4 @@
+rmiregistry
+rmic ConexionImpl
+java -Djava.rmi.server.codebase=file:///home/xafilox/workspace/ProyectoTwitter/bin/ Servidor
+java -Djava.rmi.server.codebaseile:///home/xafilox/workspace/ProyectoTwitter/bin/ Cliente
