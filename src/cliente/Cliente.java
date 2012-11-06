@@ -1,10 +1,20 @@
+package cliente;
+
+
+import interfacesComunes.ClienteCallback;
+import interfacesComunes.Conexion;
+import interfacesComunes.User;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Cliente extends UnicastRemoteObject implements ClienteInterfaz{
+
+
+
+public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 
 	protected Cliente() throws RemoteException {
 		super();
@@ -23,10 +33,10 @@ public class Cliente extends UnicastRemoteObject implements ClienteInterfaz{
 	public static void main(String[] args) throws RemoteException {
 		// TODO Auto-generated method stub
 		String rmiUrl = "rmi://localhost/Conectar";
-		ClienteInterfaz self = new Cliente();
+		ClienteCallback self = new Cliente();
 		
 		try {
-			ConexionInterfaz stub = (ConexionInterfaz) Naming.lookup(rmiUrl);
+			Conexion stub = (Conexion) Naming.lookup(rmiUrl);
 			User user1 = stub.getData("Antonio", "pajarito", self);
 			User user2 = stub.getData("Perico", "cachalote", self);
 			System.out.println("Usuarios:" + user1.getName() + " y "+user2.getName());

@@ -1,10 +1,19 @@
+package servidor;
 
+
+
+
+
+import interfacesComunes.ClienteCallback;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+
+
 
 public class Servidor {
 
@@ -14,7 +23,7 @@ public class Servidor {
 	 */
 	public static void main(String[] args) throws RemoteException {
 		
-		LinkedList<ClienteInterfaz> clientes = new LinkedList<ClienteInterfaz>();
+		LinkedList<ClienteCallback> clientes = new LinkedList<ClienteCallback>();
 		
 		try {
 			Naming.rebind("Conectar", new ConexionImpl(clientes));
@@ -26,9 +35,9 @@ public class Servidor {
 		
 		try {
 			Thread.sleep(3000);
-			Iterator<ClienteInterfaz> it = clientes.iterator();
+			Iterator<ClienteCallback> it = clientes.iterator();
 			while(it.hasNext()){
-				ClienteInterfaz cli = (ClienteInterfaz) it.next();
+				ClienteCallback cli = (ClienteCallback) it.next();
 				cli.notifyMessage("Este es un mensaje desde el servidor");
 			}
 		} catch (InterruptedException e) {
