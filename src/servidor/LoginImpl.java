@@ -5,7 +5,7 @@ package servidor;
 
 
 import interfacesComunes.ClienteCallback;
-import interfacesComunes.Conexion;
+import interfacesComunes.Login;
 import interfacesComunes.User;
 
 import java.rmi.RemoteException;
@@ -16,14 +16,14 @@ import java.util.LinkedList;
 
 
 
-public class ConexionImpl extends UnicastRemoteObject implements
-		Conexion {
+public class LoginImpl extends UnicastRemoteObject implements
+		Login {
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
 	LinkedList<ClienteCallback> clientes;
 	
-	public ConexionImpl(LinkedList<ClienteCallback> clientes) throws RemoteException {
+	public LoginImpl(LinkedList<ClienteCallback> clientes) throws RemoteException {
 		super();
 		this.clientes = clientes;
 	}

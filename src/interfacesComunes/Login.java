@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 
 
 
-public interface Conexion extends Remote{
+public interface Login extends Remote{
 	
 	public User getData(String user, String pass, ClienteCallback client) throws RemoteException;
 }

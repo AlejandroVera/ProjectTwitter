@@ -2,7 +2,7 @@ package cliente;
 
 
 import interfacesComunes.ClienteCallback;
-import interfacesComunes.Conexion;
+import interfacesComunes.Login;
 import interfacesComunes.User;
 
 import java.net.MalformedURLException;
@@ -36,7 +36,7 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 		ClienteCallback self = new Cliente();
 		
 		try {
-			Conexion stub = (Conexion) Naming.lookup(rmiUrl);
+			Login stub = (Login) Naming.lookup(rmiUrl);
 			User user1 = stub.getData("Antonio", "pajarito", self);
 			User user2 = stub.getData("Perico", "cachalote", self);
 			System.out.println("Usuarios:" + user1.getName() + " y "+user2.getName());

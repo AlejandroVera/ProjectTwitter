@@ -26,7 +26,7 @@ public class Servidor {
 		LinkedList<ClienteCallback> clientes = new LinkedList<ClienteCallback>();
 		
 		try {
-			Naming.rebind("Conectar", new ConexionImpl(clientes));
+			Naming.rebind("Conectar", new LoginImpl(clientes));
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {

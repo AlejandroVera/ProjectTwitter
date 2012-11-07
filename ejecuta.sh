@@ -20,7 +20,7 @@ fi
 
 
 echo -n "Generando stub del servidor"
-rmic servidor.ConexionImpl
+rmic servidor.LoginImpl
 check
 
 echo -n "Generando el stub del cliente"
