@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 public class Conexion {
@@ -62,8 +62,8 @@ public class Conexion {
 		connectionProps.put("password", dbPassword);
 
 		try {
-			this.con = DriverManager.getConnection("jdbc:mysql://" + dbName
-					+ ":" + dbPort + "/", connectionProps);
+			//this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/"+dbName+"?useUnicode=true&characterEncoding=utf8", "root", "opelcorsa");
+			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + dbPort + "/"+ dbName , connectionProps);
 			this.est = this.con.createStatement();
 		} catch (SQLException e) {
 			System.err.println("Error durante la conexión a la base de datos");
@@ -130,7 +130,7 @@ public class Conexion {
 	 * @param params Parámetros de la query (debe haber el mismo número que '?' hay en la query).
 	 * @return Un ResultSet si la query se ha ejecutado correctamente; null en caso de error.
 	 */
-	public ResultSet query(String query, LinkedList<Object> params) {
+	public ResultSet query(String query, List<Object> params) {
 		try {
 			PreparedStatement est = con.prepareStatement(query);
 			fillPreparedStatementCall(est,  params);
@@ -149,7 +149,7 @@ public class Conexion {
 	 * @param params Parámetros de la query (debe haber el mismo número que '?' hay en la query).
 	 * @return Un entero con el número de filas afectadas o 0 en caso de que esa consulta no devuelva nada. Null en caso de error.
 	 */
-	public Integer updateQuery(String query, LinkedList<Object> params) {
+	public Integer updateQuery(String query, List<Object> params) {
 		try {
 			PreparedStatement est = con.prepareStatement(query);
 			fillPreparedStatementCall(est,  params);
@@ -161,7 +161,7 @@ public class Conexion {
 		}
 	}
 	
-	private void fillPreparedStatementCall(PreparedStatement pre, LinkedList<Object> params) throws SQLException{
+	private void fillPreparedStatementCall(PreparedStatement pre, List<Object> params) throws SQLException{
 		Iterator<Object> it = params.iterator();
 		while(it.hasNext()){
 			Object param = it.next();
@@ -184,6 +184,20 @@ public class Conexion {
 				throw new SQLException("Tipo de dato "+param.getClass().getName() + " no soportado en el método fillPreparedStatementCall.");
 		}
 		
+	}
+	
+	public static void main(String[] args){
+		Conexion con = new Conexion();
+		int val = con.updateQuery("INSERT INTO usuario (screenName, name, email, password) VALUES ('Camilo', 'Camilo', 'c.perei@gmail.com', 'cuba88')");
+		System.out.println("Devolvió el valor "+ val);
+		ResultSet res = con.query("SELECT name FROM usuario");
+		try {
+			res.next();
+			System.out.println("Se ha encontrado un usuario: " + res.getString(1));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
