@@ -2,7 +2,7 @@ package cliente;
 
 
 import interfacesComunes.ClienteCallback;
-import interfacesComunes.Login;
+import interfacesComunes.TwitterInit;
 import interfacesComunes.User;
 
 import java.net.MalformedURLException;
@@ -36,9 +36,9 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 		ClienteCallback self = new Cliente();
 		
 		try {
-			Login stub = (Login) Naming.lookup(rmiUrl);
-			User user1 = stub.getData("Antonio", "pajarito", self);
-			User user2 = stub.getData("Perico", "cachalote", self);
+			TwitterInit stub = (TwitterInit) Naming.lookup(rmiUrl);
+			User user1 = stub.login("Antonio", "pajarito", self);
+			User user2 = stub.login("Perico", "cachalote", self);
 			System.out.println("Usuarios:" + user1.getName() + " y "+user2.getName());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

@@ -14,10 +14,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import servidor.ServerCommon;
+
 public class Conexion {
 
-	private static final String CONFIG_FILE = "dbconfig.cnf";
-	private static final boolean DEBUG = true;
+	private static final String CONFIG_FILE = "../dbconfig.cnf";
 	private static String dbName;
 	private static String dbUser;
 	private static String dbPassword;
@@ -40,19 +41,13 @@ public class Conexion {
 				dbPort = buffer.readLine(); // Cuarta linea del archivo
 											// (opcional)
 			} catch (Exception e) {
-				System.err
-						.println("No se ha podido encontrar el archivo de configuración "
-								+ CONFIG_FILE + " en el directorio de trabajo");
-				if (DEBUG)
-					e.printStackTrace();
-				System.exit(1);
+				ServerCommon.TwitterError(e, "No se ha podido encontrar el archivo de configuración "
+						+ CONFIG_FILE + " en el directorio de trabajo " + System.getProperty("user.dir"), 1);
 			}
 
 			if (dbName == null || dbUser == null || dbPassword == null) {
-				System.err
-						.println("La sintaxis del archivo de configuración es incorrecta. Debe contener tres lineas "
-								+ "con el nombre de la BD, el usuario y la contraseña. Opcionalmente puede contener una cuerta linea con el número de puerto.");
-				System.exit(2);
+				ServerCommon.TwitterError("La sintaxis del archivo de configuración es incorrecta. Debe contener tres lineas "
+						+ "con el nombre de la BD, el usuario y la contraseña. Opcionalmente puede contener una cuerta linea con el número de puerto.", 2);
 			} else if (dbPort == null)
 				dbPort = "3306";
 		}
@@ -66,10 +61,7 @@ public class Conexion {
 			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + dbPort + "/"+ dbName , connectionProps);
 			this.est = this.con.createStatement();
 		} catch (SQLException e) {
-			System.err.println("Error durante la conexión a la base de datos");
-			if (DEBUG)
-				e.printStackTrace();
-			System.exit(3);
+			ServerCommon.TwitterError(e, "Error durante la conexión a la base de datos", 3);
 		}
 
 	}
@@ -81,14 +73,10 @@ public class Conexion {
 		connectionProps.put("password", pass);
 
 		try {
-			this.con = DriverManager.getConnection("jdbc:mysql://" + name + ":"
-					+ port + "/", connectionProps);
+			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + port + "/"+ name, connectionProps);
 			this.est = this.con.createStatement();
 		} catch (SQLException e) {
-			System.err.println("Error durante la conexión a la base de datos");
-			if (DEBUG)
-				e.printStackTrace();
-			System.exit(3);
+			ServerCommon.TwitterError("Error durante la conexión a la base de datos", 3);
 		}
 
 	}
@@ -103,8 +91,7 @@ public class Conexion {
 			return est.executeQuery(query);
 
 		} catch (SQLException e) {
-			if (DEBUG)
-				e.printStackTrace();
+			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;
 		}
 	}
@@ -118,8 +105,7 @@ public class Conexion {
 		try {
 			return est.executeUpdate(query);
 		} catch (SQLException e) {
-			if (DEBUG)
-				e.printStackTrace();
+			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;
 		}
 	}
@@ -137,8 +123,7 @@ public class Conexion {
 			return est.executeQuery();
 
 		} catch (SQLException e) {
-			if (DEBUG)
-				e.printStackTrace();
+			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;
 		}
 	}
@@ -155,8 +140,7 @@ public class Conexion {
 			fillPreparedStatementCall(est,  params);
 			return est.executeUpdate();
 		} catch (SQLException e) {
-			if (DEBUG)
-				e.printStackTrace();
+			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;
 		}
 	}
