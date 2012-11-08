@@ -30,7 +30,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 	}
 	
 	@Override
-	public User login(String user, String pass, ClienteCallback cliente) throws RemoteException {
+	public User login(String screenName, String pass, ClienteCallback cliente) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
 		try {
@@ -40,30 +40,27 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 			return null;
 		}
 		
-		
-		System.out.println("La contraseña en SHA-1: " + pass);
-		
 		//Preparamos los parámetros a pasarle a la query
 		LinkedList<Object> params = new LinkedList<Object>();
-		params.add(user);
+		params.add(screenName);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT name FROM usuario WHERE name = ? AND password = ?", params);
+		ResultSet res = con.query("SELECT screenName FROM usuario WHERE screenName = ? AND password = ?", params);
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				this.clientes.add(cliente);
-				return new UserImpl(user);
+				return new UserImpl(screenName);
 			}
 		} catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + user);
+			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
 		}
 		
 		return null;
 	}
 
 	@Override
-	public int register(String user, String pass, String email)
+	public int register(String screenName, String pass, String email)
 			throws RemoteException {
 		
 		//Hacemos el hash de la contraseña
@@ -76,21 +73,21 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 		
 		//Preparamos los parámetros a pasarle a la query
 		LinkedList<Object> params = new LinkedList<Object>();
-		params.add(user);
+		params.add(screenName);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT name FROM usuario WHERE name = ? OR email = ? LIMIT 1", params);
+		ResultSet res = con.query("SELECT screenName FROM usuario WHERE screenName = ? OR email = ? LIMIT 1", params);
 		
 		try {
 			//Si existe ya un usuario con esos datos, no se puede registrar
 			if(res.next()){
-				if(res.getString("name").equals(user))
+				if(res.getString("name").equals(screenName))
 					return 1; // Ya existe un usuario con ese nombre
 				else
 					return 2; //Ya existe un usuario con ese email
 			}else{
 				params.clear();
-				params.add(user);
+				params.add(screenName);
 				params.add(email);
 				params.add(pass);
 				int ins = con.updateQuery("INSERT INTO usuario (screenName, email, password) VALUES (?, ?, ?)", params);
@@ -100,7 +97,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 					return -1; //Error desconocido
 			}
 		} catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + user);
+			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
 			return -1; //Error desconocido
 		}
 		

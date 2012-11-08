@@ -38,8 +38,11 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 		try {
 			TwitterInit stub = (TwitterInit) Naming.lookup(rmiUrl);
 			User user1 = stub.login("Antonio", "pajarito", self);
+			if(user1 != null)
+				System.out.println("Conectado con usuario:" + user1.getName());
 			User user2 = stub.login("Perico", "cachalote", self);
-			System.out.println("Usuarios:" + user1.getName() + " y "+user2.getName());
+			if(user2 != null)
+				System.out.println("Conectado con usuario:" + user2.getName());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
