@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-11-2012 a las 17:57:43
--- Versión del servidor: 5.5.27
--- Versión de PHP: 5.4.7
+-- Tiempo de generación: 08-11-2012 a las 19:54:01
+-- Versión del servidor: 5.5.16
+-- Versión de PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -102,12 +102,19 @@ CREATE TABLE IF NOT EXISTS `tweet` (
 
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `screenName` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `name` varchar(15) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `screenName` varchar(15) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `password` char(32) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `password` char(40) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`) VALUES
+(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

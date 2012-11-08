@@ -54,12 +54,6 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 			e.printStackTrace();
 		}
 		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 	public void notifyMessage(String message){
