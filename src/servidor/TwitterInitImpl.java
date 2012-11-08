@@ -7,6 +7,7 @@ import interfacesComunes.User;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -32,24 +33,22 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 	public User login(String user, String pass, ClienteCallback cliente) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
-		MessageDigest md;
 		try {
-			md = MessageDigest.getInstance("SHA-1");
-			pass = md.digest(pass.getBytes("UTF-8")).toString();
+	        pass = sha1String(pass);
 		} catch (Exception e) {
 			ServerCommon.TwitterWarning("Imposible obtener hash MD5 de la contraseña.");
 			return null;
 		}
 		
 		
-		System.out.println("La contraseña en MD5: " + pass);
+		System.out.println("La contraseña en SHA-1: " + pass);
 		
 		//Preparamos los parámetros a pasarle a la query
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(user);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT FROM usuario WHERE name = ? AND password = ? LIMIT 1", params);
+		ResultSet res = con.query("SELECT name FROM usuario WHERE name = ? AND password = ?", params);
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
@@ -67,12 +66,20 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 	public int register(String user, String pass, String email)
 			throws RemoteException {
 		
+		//Hacemos el hash de la contraseña
+		try {
+			pass = sha1String(pass);
+		} catch (Exception e) {
+			ServerCommon.TwitterWarning("Imposible obtener hash MD5 de la contraseña.");
+			return -1;
+		}
+		
 		//Preparamos los parámetros a pasarle a la query
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(user);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT FROM usuario WHERE name = ? OR email = ? LIMIT 1", params);
+		ResultSet res = con.query("SELECT name FROM usuario WHERE name = ? OR email = ? LIMIT 1", params);
 		
 		try {
 			//Si existe ya un usuario con esos datos, no se puede registrar
@@ -97,6 +104,27 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 			return -1; //Error desconocido
 		}
 		
+	}
+	
+	/**
+	 * Calcula el hash de un String dado.
+	 * @param str Cadena de la cual calcular el hash SHA-1
+	 * @return Cadena de 40 caracteres con el hash.
+	 * @throws NoSuchAlgorithmException
+	 */
+	private String sha1String(String str) throws NoSuchAlgorithmException{
+		MessageDigest md = MessageDigest.getInstance("SHA-1");
+        md.update(str.getBytes());
+ 
+        byte byteData[] = md.digest();
+
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        
+        return sb.toString();
 	}
 
 }

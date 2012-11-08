@@ -147,9 +147,10 @@ public class Conexion {
 	
 	private void fillPreparedStatementCall(PreparedStatement pre, List<Object> params) throws SQLException{
 		Iterator<Object> it = params.iterator();
+		Object param;
+		int x = 1;
 		while(it.hasNext()){
-			Object param = it.next();
-			int x = 0;
+			param = it.next();
 			if(param instanceof String)
 				pre.setString(x++, (String) param);
 			else if(param instanceof Integer)
