@@ -41,7 +41,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		Place getPlace(); 
 		String 	getText();
 		List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
-		UserImpl getUser();
+		User getUser();
 	}
 	/**
 	 * 
