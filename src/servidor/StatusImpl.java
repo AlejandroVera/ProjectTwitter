@@ -1,11 +1,13 @@
 package servidor;
 
 import interfacesComunes.*;
-import interfacesComunes.Twitter.KEntityType;
-import interfacesComunes.Twitter.TweetEntity;
 
 
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StatusImpl implements TwitterImpl.ITweet, Status{
 
@@ -54,6 +56,16 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		// TODO 
 		return null;
 	}
-
+	
+	public static void main(String[] args){
+		ArrayList<String> hashtags=new ArrayList<String>();
+		String cadena="venga #juguemos #starcraft2 error#almoadilla # #terran1";
+		Pattern p=Pattern.compile("\\s#[a-zA-Z0-9]+");
+		Matcher m = p.matcher(cadena);
+		while(m.find()){
+			hashtags.add(cadena.substring( m.start(),m.end()).substring(1));
+		}
+		System.out.println(hashtags.toString());
+	}
 
 }

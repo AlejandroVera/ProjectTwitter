@@ -4,6 +4,7 @@ import java.util.List;
 
 import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
+import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
@@ -26,7 +27,14 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 	
 	public class TweetEntity{
-		//TODO
+		private Status tweet;
+		private int start;
+		private int end;
+		public TweetEntity(Status tweet, int start, int end){
+			this.tweet = tweet;
+			this.start = start;
+			this.end=end;
+		}
 		
 	}
 
