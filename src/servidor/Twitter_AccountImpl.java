@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import excepcionesComunes.TwitterException;
+
 import servidor.db.Conexion;
 
 public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
@@ -42,7 +44,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		
 		LinkedList<Object> params2 = new LinkedList<Object>();
 		params2.add(name);
-		con.query("UPDATE usuario SET url= ?, location = ?, descripcion = ? WHERE name = ?", params);
+		con.updateQuery("UPDATE usuario SET url= ?, location = ?, descripcion = ? WHERE name = ?", params);
 		ResultSet res = con.query("SELECT Name FROM usuario WHERE name = ? ", (params2));
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
@@ -67,14 +69,13 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	}
 
 	/*Tiene que haber alguna excepcion para las credenciales, se vera con el metodo
-	is valid login
+	is valid login*/
 	public User verifyCredentials() throws Exception {
 		
 		if (twitter.isValidLogin())
 			return twitter.self();
 		else
-			throw 
-			ServerCommon.TwitterError("Credenciales fallidas");
-	}*/
+			throw new TwitterException("Credenciales fallidas");
+	}
 
 }
