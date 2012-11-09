@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import servidor.TwitterImpl.KEntityType;
+
+
 public class StatusImpl implements TwitterImpl.ITweet, Status{
 
 	private int id;
@@ -48,8 +51,30 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	}
 	
 	public List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
-		//TODO
-		return null;
+		List<TwitterImpl.TweetEntity> entities=new ArrayList<TwitterImpl.TweetEntity>();
+		if(type==KEntityType.urls){
+				Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");//OJO al crear el tweet se acorta la url siempre.
+				Matcher m = p.matcher(this.text);
+				while(m.find()){
+					entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
+				}
+		}
+		else if(type==KEntityType.hashtags){
+			Pattern p=Pattern.compile("\\s#[a-zA-Z0-9]+");
+			Matcher m = p.matcher(this.text);
+			while(m.find()){
+				entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
+			}
+		}
+		else if(type==KEntityType.user_mentions){
+			Pattern p=Pattern.compile("\\s@[a-zA-Z0-9]+");
+			Matcher m = p.matcher(this.text);
+			while(m.find()){
+				entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
+			}
+		}
+
+		return entities;
 	}
 	
 	public List<String> getMentions() {
@@ -57,15 +82,14 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		return null;
 	}
 	
-	public static void main(String[] args){
-		ArrayList<String> hashtags=new ArrayList<String>();
-		String cadena="venga #juguemos #starcraft2 error#almoadilla # #terran1";
-		Pattern p=Pattern.compile("\\s#[a-zA-Z0-9]+");
-		Matcher m = p.matcher(cadena);
-		while(m.find()){
-			hashtags.add(cadena.substring( m.start(),m.end()).substring(1));
-		}
-		System.out.println(hashtags.toString());
+public static void main(String[] args){
+	String cadena="vamos.com";
+	Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
+	Matcher m = p.matcher(cadena);
+	while(m.find()){
+		System.out.println(cadena.substring(m.start(),m.end()));
 	}
+
+}
 
 }
