@@ -1,7 +1,7 @@
 package servidor;
 
 import java.util.Date;
-//import java.util.List;
+import java.util.List;
 
 public class Status {
 
@@ -54,8 +54,8 @@ public class Status {
 		return null;
 	}
 	
-//	public List<Twitter.TweetEntity> getTweetEntities(Twitter.KEntityType type){
-//		
-//		
-//	}
+	public List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
+		return null;
+		
+	}
 }
