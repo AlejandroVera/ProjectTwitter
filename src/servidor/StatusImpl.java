@@ -56,10 +56,4 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	}
 
 
-	public List<TweetEntity> getTweetEntities(KEntityType type) {
-		//TODO
-		return null;
-	}
-
-
 }

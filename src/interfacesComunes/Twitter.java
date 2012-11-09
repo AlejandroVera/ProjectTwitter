@@ -3,16 +3,21 @@ package interfacesComunes;
 import java.util.Date;
 import java.util.List;
 
+import servidor.TwitterImpl;
+
 import excepcionesComunes.TwitterException;
 
 public interface Twitter {
 
-	public interface KEntityType {
-		//TODO Camilo: rellenala
-	}
-
-	public interface TweetEntity {
-		//TODO Camilo: rellenala
+	public static interface TweetEntity {
+		java.util.Date 	getCreatedAt();
+		int	getId();
+		String 	getLocation();
+		java.util.List<java.lang.String> getMentions(); 
+		Place getPlace();
+		String 	getText();
+		List<Twitter.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
+		User getUser();
 	}
 
 	public interface ITweet {
