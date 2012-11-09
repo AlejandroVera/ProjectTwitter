@@ -1,10 +1,13 @@
 package servidor;
-//TODO Camilo: crear la interfaz común Status
-import interfacesComunes.User;
+
+import interfacesComunes.*;
+import interfacesComunes.Twitter.KEntityType;
+import interfacesComunes.Twitter.TweetEntity;
+
 
 import java.util.List;
 
-public class Status implements TwitterImpl.ITweet{
+public class StatusImpl implements TwitterImpl.ITweet, Status{
 
 	private int id;
 	private int retweetCount;
@@ -51,5 +54,12 @@ public class Status implements TwitterImpl.ITweet{
 		// TODO 
 		return null;
 	}
+
+
+	public List<TweetEntity> getTweetEntities(KEntityType type) {
+		//TODO
+		return null;
+	}
+
 
 }

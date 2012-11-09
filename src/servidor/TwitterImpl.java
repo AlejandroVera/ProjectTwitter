@@ -68,7 +68,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	public void destroy(Twitter.ITweet tweet) throws TwitterException{
-		if(tweet instanceof Status){
+		if(tweet instanceof StatusImpl){
 			destroyStatus(tweet.getId());
 		}else if (tweet instanceof Message){
 			destroyMessage(tweet.getId());
@@ -138,8 +138,8 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	@Override
-	public List<Status> getFavorites() {
-		LinkedList<Status> list = new LinkedList<Status>();
+	public List<StatusImpl> getFavorites() {
+		LinkedList<StatusImpl> list = new LinkedList<StatusImpl>();
 		
 		//El usuario debe estar logueado
 		if(this.user != null){
@@ -154,8 +154,8 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	@Override
-	public List<Status> getFavorites(String screenName) {
-		LinkedList<Status> list = new LinkedList<Status>();
+	public List<StatusImpl> getFavorites(String screenName) {
+		LinkedList<StatusImpl> list = new LinkedList<StatusImpl>();
 		
 		//El usuario debe estar logueado
 		if(this.user != null){

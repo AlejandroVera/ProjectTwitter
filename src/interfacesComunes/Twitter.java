@@ -2,6 +2,7 @@ package interfacesComunes;
 
 import java.util.Date;
 import java.util.List;
+
 import excepcionesComunes.TwitterException;
 
 public interface Twitter {
@@ -19,7 +20,7 @@ public interface Twitter {
 		int getId();
 		String 	getLocation();
 		List<String> getMentions();
-		Place getPlace(); //TODO Camilo: tienes que definir una interfaz Place y mover la implementación a la clase PlaceImpl
+		Place getPlace();
 		String 	getText();
 		List<Twitter.TweetEntity> getTweetEntities(Twitter.KEntityType type);
 		User getUser();
