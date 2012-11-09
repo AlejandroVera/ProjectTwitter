@@ -1,24 +1,17 @@
 package servidor;
 
+import interfacesComunes.User;
 import java.util.Date;
 import java.util.List;
 
-public class Status implements TwitterImpl.ITweet {
+public class Status implements TwitterImpl.ITweet{
 
 	private int id;
 	private int retweetCount;
 	private String text;
-	private UserImpl usuario;
+	private User usuario;
 	private java.util.Date 	createdAt;
 	
-	public Status(UserImpl usuario,String text,int id){
-		this.id=id;
-		retweetCount=0;
-		this.usuario=usuario;
-		this.text=text;
-		createdAt=new Date();
-		
-	}
 	
 	public int getId() {
 		return id;
@@ -32,7 +25,7 @@ public class Status implements TwitterImpl.ITweet {
 		return text;
 	}
 
-	public UserImpl getUser() {
+	public User getUser() {
 		return usuario;
 	}
 
@@ -53,10 +46,10 @@ public class Status implements TwitterImpl.ITweet {
 		//TODO
 		return null;
 	}
-
 	
 	public List<String> getMentions() {
 		// TODO 
 		return null;
 	}
+
 }

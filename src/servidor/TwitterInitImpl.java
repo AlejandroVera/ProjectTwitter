@@ -1,8 +1,8 @@
 package servidor;
 
 import interfacesComunes.ClienteCallback;
+import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
-import interfacesComunes.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -30,7 +30,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 	}
 	
 	@Override
-	public User login(String screenName, String pass, ClienteCallback cliente) throws RemoteException {
+	public Twitter login(String screenName, String pass, ClienteCallback cliente) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
 		try {
@@ -45,12 +45,12 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 		params.add(screenName);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT screenName FROM usuario WHERE screenName = ? AND password = ?", params);
+		ResultSet res = con.query("SELECT id FROM usuario WHERE screenName = ? AND password = ?", params);
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				this.clientes.add(cliente);
-				return new UserImpl(screenName);
+				return new TwitterImpl(res.getInt(1));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
@@ -76,7 +76,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 		params.add(screenName);
 		params.add(pass);
 		
-		ResultSet res = con.query("SELECT screenName FROM usuario WHERE screenName = ? OR email = ? LIMIT 1", params);
+		ResultSet res = con.query("SELECT id FROM usuario WHERE screenName = ? OR email = ? LIMIT 1", params);
 		
 		try {
 			//Si existe ya un usuario con esos datos, no se puede registrar
