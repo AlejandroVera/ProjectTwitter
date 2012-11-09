@@ -1,8 +1,29 @@
 package interfacesComunes;
 
+import java.util.Date;
+import java.util.List;
 import excepcionesComunes.TwitterException;
 
 public interface Twitter {
+
+	public interface KEntityType {
+		//TODO Camilo: rellenala
+	}
+
+	public interface TweetEntity {
+		//TODO Camilo: rellenala
+	}
+
+	public interface ITweet {
+		Date getCreatedAt();
+		int getId();
+		String 	getLocation();
+		List<String> getMentions();
+		Place getPlace(); //TODO Camilo: tienes que definir una interfaz Place y mover la implementación a la clase PlaceImpl
+		String 	getText();
+		List<Twitter.TweetEntity> getTweetEntities(Twitter.KEntityType type);
+		User getUser();
+	}
 
 	public Twitter_Account account();
 	
@@ -18,6 +39,24 @@ public interface Twitter {
 	public void destroyMessage(java.lang.Number id); //Y ESTE POR QUÉ COJONES NO LANZA EXCEPCIÓN??
 	
 	public void destroyStatus(java.lang.Number id) throws TwitterException;
+	
+	/**
+	 * Método que devuelve la lista de Message's enviados <u>al</u> usuario actual
+	 * @return Lista de Message's enviados <u>al</u> usuario actual
+	 */
+	public List<Message> getDirectMessages();
+	
+	/**
+	 * Método que devuelve la lista de Message's enviados <u>por</u> el usuario actual
+	 * @return Lista de Message's enviados <u>por</u> el usuario actual
+	 */
+	public List<Message> getDirectMessagesSent();
+	
+	public List<Status> getFavorites();
+	
+	public List<Status> getFavorites(String screenName);
+	
+	
 	
 	
 }

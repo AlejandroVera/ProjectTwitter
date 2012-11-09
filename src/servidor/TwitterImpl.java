@@ -16,8 +16,6 @@ import java.util.LinkedList;
 
 import servidor.db.Conexion;
 
-import excepcionesComunes.TwitterException;
-
 
 public class TwitterImpl implements Serializable, Twitter {
 
@@ -32,17 +30,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		
 	}
 
-	//interface que engloba tweets y mensajes.
-	interface ITweet{
-		Date getCreatedAt();
-		int getId();
-		String 	getLocation();
-		List<String> getMentions();
-		Place getPlace(); 
-		String 	getText();
-		List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
-		User getUser();
-	}
 	/**
 	 * 
 	 */
@@ -51,6 +38,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	private User user;
 	private static HashMap<Integer, LinkedList<ClienteCallback>> clientes;
 	private Conexion con;
+	private int maxResults = 20;
 
 	/**
 	 * Contructor para conexión sin usuario. Solo lectura.
@@ -70,7 +58,7 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	public Twitter_Account account() {
 		// TODO Auto-generated method stub
-		return new Twitter_Account(this);
+		return new Twitter_AccountImpl(this);
 	}
 
 	public int countCharacters(String statusText) {
@@ -117,6 +105,71 @@ public class TwitterImpl implements Serializable, Twitter {
 			
 		}else
 			throw new TwitterException("No se pueden borrar tweets (no logueado)");
+	}
+
+	@Override
+	public List<Message> getDirectMessages() {
+		LinkedList<Message> list = new LinkedList<Message>();
+		
+		//El usuario debe estar logueado
+		if(this.user != null){
+			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_destinatario = " + this.user.getId());
+			while(res.next()){
+				list.add(new MessageImpl(res.getInt(1)));
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Message> getDirectMessagesSent() {
+		LinkedList<Message> list = new LinkedList<Message>();
+		
+		//El usuario debe estar logueado
+		if(this.user != null){
+			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_autor = " + this.user.getId());
+			while(res.next()){
+				list.add(new MessageImpl(res.getInt(1)));
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Status> getFavorites() {
+		LinkedList<Status> list = new LinkedList<Status>();
+		
+		//El usuario debe estar logueado
+		if(this.user != null){
+			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw WHERE fa.id_usuario = " +
+								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults);
+			while(res.next()){
+				list.add(new StatusImpl(res.getInt(1)));
+			}
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<Status> getFavorites(String screenName) {
+		LinkedList<Status> list = new LinkedList<Status>();
+		
+		//El usuario debe estar logueado
+		if(this.user != null){
+			LinkedList<Object> param = new LinkedList<Object>();
+			param.add(screenName);
+			
+			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
+					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults, param);
+			while(res.next()){
+				list.add(new StatusImpl(res.getInt(1)));
+			}
+		}
+		
+		return list;
 	}
 	
 

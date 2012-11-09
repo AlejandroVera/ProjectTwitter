@@ -20,12 +20,10 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
-	LinkedList<ClienteCallback> clientes;
 	Conexion con;
 	
 	public TwitterInitImpl(LinkedList<ClienteCallback> clientes) throws RemoteException {
 		super();
-		this.clientes = clientes;
 		this.con = new Conexion();
 	}
 	
@@ -49,8 +47,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
-				this.clientes.add(cliente);
-				return new TwitterImpl(res.getInt(1));
+				return new TwitterImpl(res.getInt(1), cliente);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);

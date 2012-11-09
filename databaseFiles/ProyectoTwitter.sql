@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-11-2012 a las 19:54:01
+-- Tiempo de generación: 09-11-2012 a las 17:06:31
 -- Versión del servidor: 5.5.16
 -- Versión de PHP: 5.3.8
 
@@ -59,6 +59,24 @@ CREATE TABLE IF NOT EXISTS `hashtagsTweets` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `mensajes`
+--
+
+CREATE TABLE IF NOT EXISTS `mensajes` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_autor` int(10) unsigned NOT NULL,
+  `id_destinatario` int(10) unsigned NOT NULL,
+  `texto` text COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_autor` (`id_autor`),
+  KEY `id_destinatario` (`id_destinatario`),
+  KEY `fecha` (`fecha`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `retweet`
 --
 
@@ -66,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `retweet` (
   `usuario` int(10) unsigned NOT NULL,
   `tweet` int(10) unsigned NOT NULL,
   PRIMARY KEY (`usuario`,`tweet`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
@@ -88,11 +106,12 @@ CREATE TABLE IF NOT EXISTS `seguidores` (
 
 CREATE TABLE IF NOT EXISTS `tweet` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `texto` varchar(140) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `texto` varchar(140) COLLATE utf8_spanish2_ci NOT NULL,
   `autor` int(10) unsigned NOT NULL,
   `fecha` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`),
+  KEY `autor` (`autor`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -102,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `tweet` (
 
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `screenName` varchar(15) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
-  `password` char(40) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `screenName` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `password` char(40) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `usuario`

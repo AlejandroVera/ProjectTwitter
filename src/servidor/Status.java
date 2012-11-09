@@ -1,5 +1,5 @@
 package servidor;
-
+//TODO Camilo: crear la interfaz común Status
 import interfacesComunes.User;
 
 import java.util.List;
