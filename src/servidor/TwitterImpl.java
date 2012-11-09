@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.List;
 
 import interfacesComunes.ClienteCallback;
+import interfacesComunes.Message;
 import interfacesComunes.Twitter;
 import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
