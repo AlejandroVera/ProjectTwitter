@@ -1,4 +1,6 @@
 package servidor;
+import java.util.Date;
+import java.util.List;
 
 import interfacesComunes.ClienteCallback;
 import interfacesComunes.Twitter;
@@ -28,7 +30,18 @@ public class TwitterImpl implements Serializable, Twitter {
 		//TODO
 		
 	}
-	
+
+	//interface que engloba tweets y mensajes.
+	interface ITweet{
+		Date getCreatedAt();
+		int getId();
+		String 	getLocation();
+		List<String> getMentions();
+		Place getPlace(); 
+		String 	getText();
+		List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
+		UserImpl getUser();
+	}
 	/**
 	 * 
 	 */
@@ -48,7 +61,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 	
 	public TwitterImpl(int accountId, ClienteCallback callback){
-		this.user = new User(accountId);
+		this.user = new UserImpl(accountId);
 		clientes.get(accountId).add(callback);
 		this.con = new Conexion(); //TODO: conexión nueva por cada Twitter o una compartida para todos??
 	}
@@ -105,8 +118,6 @@ public class TwitterImpl implements Serializable, Twitter {
 			throw new TwitterException("No se pueden borrar tweets (no logueado)");
 	}
 	
-	
-	
-	
+
 
 }

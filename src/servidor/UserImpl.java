@@ -11,10 +11,12 @@ public class UserImpl implements User{
 
 	private String name;
 	private int id;
+	private String location;
 	
-	//Constrcutor 1
-	public UserImpl(String name){
+	//Constructor 1
+	public UserImpl(String name, String location){
 		this.name = name;
+		this.location=location;
 	}
 	//Constructor 2
 	public UserImpl(int id){
@@ -27,5 +29,9 @@ public class UserImpl implements User{
 	
 	public int getId(){
 		return id;
+	}
+	
+	public String getLocation(){
+		return location;
 	}
 }
