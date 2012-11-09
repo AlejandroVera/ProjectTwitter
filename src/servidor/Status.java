@@ -3,7 +3,7 @@ package servidor;
 import java.util.Date;
 import java.util.List;
 
-public class Status {
+public class Status implements TwitterImpl.ITweet {
 
 	private int id;
 	private int retweetCount;
@@ -12,6 +12,7 @@ public class Status {
 	private java.util.Date 	createdAt;
 	
 	public Status(UserImpl usuario,String text,int id){
+		this.id=id;
 		retweetCount=0;
 		this.usuario=usuario;
 		this.text=text;
@@ -39,14 +40,8 @@ public class Status {
 		return createdAt;
 	}
 
-	public String getMention(){
-		//TODO
-		return null;
-	}
-	
 	public String getLocation(){
-		//TODO
-		return null;
+		return usuario.getLocation();
 	}
 	
 	public Place getPlace(){
@@ -55,7 +50,13 @@ public class Status {
 	}
 	
 	public List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
+		//TODO
 		return null;
-		
+	}
+
+	
+	public List<String> getMentions() {
+		// TODO 
+		return null;
 	}
 }
