@@ -1,13 +1,23 @@
 package servidor;
 
+import java.util.Date;
+//import java.util.List;
+
 public class Status {
 
 	private int id;
 	private int retweetCount;
 	private String text;
-	private User usuario;
+	private UserImpl usuario;
 	private java.util.Date 	createdAt;
 	
+	public Status(UserImpl usuario,String text,int id){
+		retweetCount=0;
+		this.usuario=usuario;
+		this.text=text;
+		createdAt=new Date();
+		
+	}
 	
 	public int getId() {
 		return id;
@@ -21,7 +31,7 @@ public class Status {
 		return text;
 	}
 
-	public User getUsuario() {
+	public UserImpl getUser() {
 		return usuario;
 	}
 
@@ -33,5 +43,19 @@ public class Status {
 		//TODO
 		return null;
 	}
-
+	
+	public String getLocation(){
+		//TODO
+		return null;
+	}
+	
+	public Place getPlace(){
+		//TODO
+		return null;
+	}
+	
+//	public List<Twitter.TweetEntity> getTweetEntities(Twitter.KEntityType type){
+//		
+//		
+//	}
 }
