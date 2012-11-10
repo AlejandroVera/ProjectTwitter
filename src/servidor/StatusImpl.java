@@ -75,9 +75,9 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	 *@param type Tipo de entity del que se quiere obtener la lista.
 	 *@return List(TweetEntity) lista de entities que contiene este status(tweet).
 	 */
-	public List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
+	public List<Twitter.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
 
-		List<TwitterImpl.TweetEntity> entities=new ArrayList<TwitterImpl.TweetEntity>();
+		List<Twitter.TweetEntity> entities=new ArrayList<Twitter.TweetEntity>();
 		int inicio;
 		Pattern p=null;
 		Matcher m=null;
@@ -113,4 +113,5 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		}
 		return mencionados;
 	}
+
 }

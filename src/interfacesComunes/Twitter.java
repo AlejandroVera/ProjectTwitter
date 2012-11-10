@@ -9,10 +9,6 @@ import excepcionesComunes.TwitterException;
 
 public interface Twitter {
 
-	public interface KEntityType {
-
-	}
-
 	public static interface TweetEntity {
 		
 	}
@@ -24,7 +20,7 @@ public interface Twitter {
 		List<String> getMentions();
 		Place getPlace();
 		String 	getText();
-		List<Twitter.TweetEntity> getTweetEntities(Twitter.KEntityType type);
+		List<Twitter.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
 		User getUser();
 	}
 
@@ -91,6 +87,7 @@ public interface Twitter {
 	 */
 	public List<Status> search(String searchTerm);
 	
-	public List<Status> search(String searchTerm, Twitter.ICallback callback, int rpp);
+	//TODO: Alex
+	//public List<Status> search(String searchTerm, Twitter.ICallback callback, int rpp);
 	
 }
