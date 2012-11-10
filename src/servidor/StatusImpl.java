@@ -19,8 +19,8 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	private String text;
 	private User usuario;
 	private java.util.Date 	createdAt;
-	
-	
+
+
 	public int getId() {
 		return id;
 	}
@@ -44,52 +44,68 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	public String getLocation(){
 		return usuario.getLocation();
 	}
-	
+
 	public Place getPlace(){
-		//TODO
+		//TODO: Esperando a tener la clase Place
 		return null;
 	}
-	
+
+	/**
+	 * getTweetEntities
+	 * 
+	 *@param type Tipo de entity del que se quiere obtener la lista.
+	 *@return List(TweetEntity) lista de entities que contiene este status(tweet).
+	 */
 	public List<TwitterImpl.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type){
+
 		List<TwitterImpl.TweetEntity> entities=new ArrayList<TwitterImpl.TweetEntity>();
+		int inicio;
+		Pattern p=null;
+		Matcher m=null;
 		if(type==KEntityType.urls){
-				Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");//OJO al crear el tweet se acorta la url siempre.
-				Matcher m = p.matcher(this.text);
-				while(m.find()){
-					entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
-				}
+			p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");//OJO al crear el tweet se acorta la url siempre.
 		}
 		else if(type==KEntityType.hashtags){
-			Pattern p=Pattern.compile("\\s#[a-zA-Z0-9]+");
-			Matcher m = p.matcher(this.text);
-			while(m.find()){
-				entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
-			}
+			p=Pattern.compile("(^|\\s)#[a-zA-Z0-9]+");
 		}
 		else if(type==KEntityType.user_mentions){
-			Pattern p=Pattern.compile("\\s@[a-zA-Z0-9]+");
-			Matcher m = p.matcher(this.text);
-			while(m.find()){
-				entities.add(new TwitterImpl.TweetEntity(this,m.start()+1,m.end()));
-			}
+			p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
 		}
-
+		m= p.matcher(this.text);
+		while(m.find()){
+			if(this.text.substring(m.start(),m.end()).charAt(0)==' '){
+				inicio=m.start()+1;
+			}
+			else{
+				inicio=m.start();
+			}
+			entities.add(new TwitterImpl.TweetEntity(this,inicio,m.end()));
+		}
 		return entities;
 	}
 	
+
 	public List<String> getMentions() {
-		// TODO 
-		return null;
-	}
-	
-public static void main(String[] args){
-	String cadena="vamos.com";
-	Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
-	Matcher m = p.matcher(cadena);
-	while(m.find()){
-		System.out.println(cadena.substring(m.start(),m.end()));
+		List<String> mencionados=new ArrayList<String>();
+		Pattern p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
+		Matcher m=p.matcher(this.text);
+		while(m.find()){
+			mencionados.add(this.text.substring(m.start(),m.end()).replaceAll(" ",""));
+		}
+		return mencionados;
 	}
 
-}
+//	public static void main(String[] args){
+//		String cadena="@xafilox noob @kmilinho master";
+//		Pattern p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
+//		Matcher m = p.matcher(cadena);
+//		while(m.find()){
+//			if(cadena.substring(m.start(),m.end()).charAt(0)==' '){
+//				System.out.println("hola");
+//			}
+//			System.out.println(cadena.substring(m.start(),m.end()));
+//		}
+//
+//	}
 
 }
