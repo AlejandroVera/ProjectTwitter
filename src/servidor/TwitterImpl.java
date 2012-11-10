@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import servidor.db.Conexion;
 
 
-public class TwitterImpl implements Serializable, Twitter {
+public class TwitterImpl implements Twitter {
 
 	public enum KEntityType {
 		hashtags, 
@@ -44,11 +44,13 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * 
 	 */
 	private static final long serialVersionUID = -6621123794067420801L;
+	private static final int maxAllowedResults = 300;
 	
 	private User user;
 	private static HashMap<Integer, LinkedList<ClienteCallback>> clientes;
 	private Conexion con;
 	private int maxResults = 20;
+	
 
 	/**
 	 * Contructor para conexión sin usuario. Solo lectura.
@@ -56,13 +58,13 @@ public class TwitterImpl implements Serializable, Twitter {
 	public TwitterImpl() {
 		super();
 		this.user = null;
-		this.con = new Conexion(); //TODO: conexión nueva por cada Twitter o una compartida para todos??
+		this.con = new Conexion();
 	}
 	
 	public TwitterImpl(int accountId, ClienteCallback callback){
 		this.user = new UserImpl(accountId);
 		clientes.get(accountId).add(callback);
-		this.con = new Conexion(); //TODO: conexión nueva por cada Twitter o una compartida para todos??
+		this.con = new Conexion();
 	}
 
 
@@ -160,7 +162,8 @@ public class TwitterImpl implements Serializable, Twitter {
 		//El usuario debe estar logueado
 		if(this.user != null){
 			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw WHERE fa.id_usuario = " +
-								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults);
+								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
+								(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 			if(res != null)
 				while(res.next())
 					list.add(new StatusImpl(res.getInt(1), this.con));
@@ -180,7 +183,8 @@ public class TwitterImpl implements Serializable, Twitter {
 			param.add(screenName);
 			
 			ResultSet res = this.con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
-					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults, param);
+					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
+					(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults), param);
 			if(res != null)
 				while(res.next())
 					list.add(new StatusImpl(res.getInt(1), this.con));
@@ -212,7 +216,9 @@ public class TwitterImpl implements Serializable, Twitter {
 		
 		ResultSet res = this.con.query("SELECT DISTINCT tw.id FROM tweet tw, retweet re, seguidores se WHERE " +
 				"tw.autor = " + user.getId() + " OR ( se.id_seguidor = "+user.getId()+" AND " +
-					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.usuario AND tw.id = re.tweet ) ) )");
+					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.usuario AND tw.id = re.tweet ) ) ) " +
+					"ORDER BY tw.fecha DESC " +
+					"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 		
 		if(res != null)
 			while(res.next())
@@ -236,6 +242,135 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	@Override
 	public List<Status> search(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getMaxResults() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Status> getMentions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> getRetweeters(Status tweet) {
+		if(this.user == null)
+			return null;
+		ResultSet res = this.con.query("SELECT id_usuario FROM retweet WHERE re.id_tweet = "+tweet.getId() + 
+				"LIMIT" + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
+		
+		List<User> list = new LinkedList<User>();
+		if(res != null){
+			try {
+				while(res.next()){
+					list.add(new UserImpl(res.getInt(1), this.con));
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Status> getRetweetsByMe() {
+		if(this.user == null)
+			return null;
+		ResultSet res = this.con.query("SELECT tw.id FROM tweet tw, retweet re WHERE re.id_usuario = "+this.user.getId() + 
+				" AND re.id_tweet = tw.id ORDER BY tw.fecha DESC LIMIT" +
+				(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
+		
+		List<Status> list = new LinkedList<Status>();
+		if(res != null){
+			try {
+				while(res.next()){
+					list.add(new StatusImpl(res.getInt(1), this.con));
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<Status> getRetweetsOfMe() {
+		if(this.user == null)
+			return null;
+		ResultSet res = this.con.query("SELECT tw.id FROM tweet tw, retweet re WHERE tw.autor = "+this.user.getId() + 
+				" AND re.id_tweet = tw.id ORDER BY tw.fecha DESC LIMIT" +
+				(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
+		
+		List<Status> list = new LinkedList<Status>();
+		if(res != null){
+			try {
+				while(res.next()){
+					list.add(new StatusImpl(res.getInt(1), this.con));
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String getScreenName() {
+		if(this.user == null)
+			return null;
+		
+		return this.user.getScreenName();
+	}
+
+	@Override
+	public User getSelf() {
+		return this.user;
+	}
+
+	@Override
+	public Status getStatus() throws TwitterException {
+		return this.user.getStatus();
+	}
+
+	@Override
+	public Status getStatus(Number id) throws TwitterException {
+		ResultSet res = this.con.query("SELECT id FROM usuario WHERE id = " + id.intValue() + " LIMIT 1");
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("No existe un usuario con ese ID");
+			else
+				return new StatusImpl(id.intValue());
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getStatus");
+			throw new TwitterException("No existe un usuario con ese ID");
+		}
+	}
+
+	@Override
+	public Status getStatus(String screenName) throws TwitterException {
+		List<Object> param = new LinkedList<Object>();
+		param.add(screenName);
+		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("No existe un usuario con ese screenName");
+			else
+				return new StatusImpl(res.getInt(1));
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.getStatus");
+			throw new TwitterException("No existe un usuario con ese ID");
+		}
+	}
+
+	@Override
+	public Message sendMessage(String recipient, String text)
+			throws TwitterException {
 		// TODO Auto-generated method stub
 		return null;
 	}

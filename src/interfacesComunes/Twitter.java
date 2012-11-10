@@ -1,5 +1,6 @@
 package interfacesComunes;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import servidor.TwitterImpl;
 
 import excepcionesComunes.TwitterException;
 
-public interface Twitter {
+public interface Twitter extends Serializable{
 
 	public static interface TweetEntity {
 		
@@ -62,6 +63,68 @@ public interface Twitter {
 	 */
 	public List<Status> getHomeTimeline() throws TwitterException;
 	
+	/**
+	 * Provee soporte para obtener varias páginas de datos. -1 indica que se quiere obtener el máximo posible.
+	 * @return Máximo de resultados que se pueden obtener.
+	 */
+	public int getMaxResults();
+	
+	public List<Status> getMentions();
+	
+	/**
+	 * Obtiene una lista de usuarios que han retweeteado un determinado tweet.
+	 * @param tweet Tweet del que obtener los retweeters
+	 * @return Lista de usuarios que han retweeteado ese tweet. 
+	 */
+	public List<User> getRetweeters(Status tweet);
+	
+	/**
+	 * Obtiene los tweets que has retweeteado.
+	 * @return Lista de tweets que has retweeteado.  Null si el usuario no esta logueado.
+	 */
+	public List<Status> getRetweetsByMe();
+	
+	/**
+	 * Obtiene la lista de tus tweets que han sido retweeteados.
+	 * @return Lista de tus tweets que han sido retweeteados. Null si el usuario no esta logueado.
+	 */
+	public List<Status> getRetweetsOfMe();
+	
+	/**
+	 * Obtiene el screenName (ej: xafilox) del usuario.
+	 * @return String con el screeName.
+	 */
+	public String getScreenName();
+	
+	/**
+	 * Devuelve al usuario actual.
+	 * @return El User actual o <b>null</b> si no se ha logeado y es una sesión anónima.
+	 */
+	public User getSelf();
+	
+	/**
+	 * Obtiene el "status" del usuario (su último tweet).
+	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @throws TwitterException Si el usuario no está logueado.
+	 */
+	public Status getStatus() throws TwitterException;
+	
+	/**
+	 * Obtiene el "status" del usuario indicado(su último tweet).
+	 * @param userId Usuario del que obtener el status.
+	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @throws TwitterException Si el usuario no existe.
+	 */
+	public Status getStatus(Number id) throws TwitterException;
+	
+	/**
+	 * Obtiene el "status" del usuario indicado(su último tweet).
+	 * @param screenName Usuario del que obtener el status.
+	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @throws TwitterException Si el usuario no existe.
+	 */
+	public Status getStatus(String screenName) throws TwitterException;
+	
 	public List<Status> getUserTimeline(Number userId) throws TwitterException;
 	
 	public List<Status> getUserTimeline(String screenName) throws TwitterException;
@@ -87,7 +150,15 @@ public interface Twitter {
 	 */
 	public List<Status> search(String searchTerm);
 	
-	//TODO: Alex
-	//public List<Status> search(String searchTerm, Twitter.ICallback callback, int rpp);
+	public List<Status> search(String searchTerm, Twitter.ICallback callback, int rpp);
+	
+	/**
+	 * Envia un mensaje privado desde el usuario actual al usuario especificado.
+	 * @param recipient ScreenName del usuario al que mandar el mensaje.
+	 * @param text Texto del mensaje.
+	 * @return Message enviado.
+	 * @throws TwitterException
+	 */
+	public Message sendMessage(String recipient, String text) throws TwitterException;
 	
 }
