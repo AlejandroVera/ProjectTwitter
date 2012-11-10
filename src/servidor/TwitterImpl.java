@@ -205,7 +205,7 @@ public class TwitterImpl implements Twitter {
 	
 	@Override
 	public List<Status> getUserTimeline(String screenName) throws TwitterException {
-		return this.getTimeline(new UserImpl(screenName));
+		return this.getTimeline(new UserImpl(screenName)); //TODO: comprobar la existencia
 	}
 	
 	private List<Status> getTimeline(User user) throws TwitterException {
@@ -216,7 +216,7 @@ public class TwitterImpl implements Twitter {
 		
 		ResultSet res = this.con.query("SELECT DISTINCT tw.id FROM tweet tw, retweet re, seguidores se WHERE " +
 				"tw.autor = " + user.getId() + " OR ( se.id_seguidor = "+user.getId()+" AND " +
-					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.usuario AND tw.id = re.tweet ) ) ) " +
+					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) ) ) " +
 					"ORDER BY tw.fecha DESC " +
 					"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 		
