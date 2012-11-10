@@ -4,6 +4,8 @@ import interfacesComunes.*;
 
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -23,7 +25,18 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	private Conexion con;
 	
 	public StatusImpl(int id){
-		
+		con = new Conexion();
+		 this.id=id;
+		 ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
+		 try {
+			this.text=res.getString("texto");
+			this.usuario=new UserImpl(res.getInt("autor"));
+			this.createdAt=res.getTimestamp("fecha");
+		} 
+		 catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+		 
 	}
 
 	public int getId() {
@@ -84,7 +97,7 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 			else{
 				inicio=m.start();
 			}
-			entities.add(new TwitterImpl.TweetEntity(this,inicio,m.end()));
+			entities.add(new TwitterImpl.TweetEntity(type, inicio,m.end()));
 		}
 		return entities;
 	}
@@ -98,19 +111,6 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 			mencionados.add(this.text.substring(m.start(),m.end()).replaceAll(" ",""));
 		}
 		return mencionados;
-	}
-
-	public static void main(String[] args){
-		String cadena="www.fi.upm.es ab@.xe.ab";
-		Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
-		Matcher m = p.matcher(cadena);
-		while(m.find()){
-			if(cadena.substring(m.start(),m.end()).charAt(0)==' '){
-				System.out.println("hola");
-			}
-			System.out.println(cadena.substring(m.start(),m.end()));
-		}
-
 	}
 
 }

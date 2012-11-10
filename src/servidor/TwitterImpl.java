@@ -29,11 +29,11 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 	
 	public static class TweetEntity{
-		private Status tweet;
+		private KEntityType type;
 		private int start;
 		private int end;
-		public TweetEntity(Status tweet, int start, int end){
-			this.tweet = tweet;
+		public TweetEntity(KEntityType type, int start, int end){
+			this.type = type;
 			this.start = start;
 			this.end=end;
 		}
