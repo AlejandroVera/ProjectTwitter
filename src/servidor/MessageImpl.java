@@ -1,18 +1,26 @@
 package servidor;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import excepcionesComunes.TwitterException;
 
 import servidor.db.Conexion;
 
 import interfacesComunes.Message;
 import interfacesComunes.Place;
+
+import servidor.TwitterImpl;
+import servidor.TwitterImpl.KEntityType;
+import servidor.TwitterImpl.TweetEntity;
+
 import interfacesComunes.Twitter;
-import interfacesComunes.Twitter.KEntityType;
-import interfacesComunes.Twitter.TweetEntity;
+
+
 import interfacesComunes.User;
 
 public class MessageImpl implements Message{
@@ -37,40 +45,51 @@ public class MessageImpl implements Message{
 		this.con=con;
 	}
 	
-	@Override
-	public Date getCreatedAt() throws TwitterException{
-		ResultSet res = con.query("SELECT fecha FROM mensajes WHERE id ="+id);
-		if (res.next()){
-			Date date = res.getDate(id);
+	
+	public Date getCreatedAt(){
+		ResultSet res = con.query("SELECT fecha FROM mensajes WHERE id ="+id + "LIMIT 1");
+		try {
+			if (res.next()){
+				Date date= new Date(res.getInt(1)*1000);
+				return date;
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener la fecha");
+			e.printStackTrace();
 		}
-		else throw new TwitterException ("Error al obtener la fecha");
+		
 		
 		return null;
 	}
 
-	@Override
+	
 	public int getId() {
 		return id;
 	}
 
-	@Override
+	
 	public String getLocation() {
 		int id_user=getSender().getId();
-		ResultSet res = con.query("SELECT location FROM users WHERE id ="+id_user);
-		if (res.next()){
-			String location = res.toString();
+		ResultSet res = con.query("SELECT location FROM users WHERE id ="+id_user +"LIMIT 1");
+		try {
+			if (res.next()){
+				String location = res.getString(1);
+				return location;
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener la location");
+			e.printStackTrace();
 		}
-		else throw new TwitterException ("Error al obtener la location");
 		
 		return null;
 	}
 	
 
-	@Override
+	
 	public List<String> getMentions() {
 		
-		List<String> menciones;
-		String mencion;
+		List<String> menciones = new ArrayList<String>();
+		String mencion = new String();
 		
 		if (text.contains("@")){
 			for (int i=0; i<text.length();i++){
@@ -94,42 +113,74 @@ public class MessageImpl implements Message{
 		return null;
 	}
 
-	@Override
+	
 	public String getText() {
 		return text;
 	}
 
-	//No lo veo utilidad, porque pone en la API que ni siquiera tiene soporte con Twitter
-	public List<TweetEntity> getTweetEntities(Twitter.KEntityType type) {
+	
+	public List<TweetEntity> getTweetEntities(KEntityType type) {
 		
-		return null;
-	}
-
-	@Override
-	public User getUser() {
-		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id);
-		if (res.next()){
-			int id_autor = Integer.parseInt( res.toString());
-			return UserImpl(id_autor);
+		List<TwitterImpl.TweetEntity> entities=new ArrayList<TwitterImpl.TweetEntity>();
+		int inicio;
+		Pattern p=null;
+		Matcher m=null;
+		if(type==KEntityType.urls){
+			p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
 		}
-		else throw new TwitterException ("Error al obtener el autor del mensaje");
-		
+		else if(type==KEntityType.hashtags){
+			p=Pattern.compile("(^|\\s)#[a-zA-Z0-9]+");
+		}
+		else if(type==KEntityType.user_mentions){
+			p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
+		}
+		m= p.matcher(this.text);
+		while(m.find()){
+			if(this.text.substring(m.start(),m.end()).charAt(0)==' '){
+				inicio=m.start()+1;
+			}
+			else{
+				inicio=m.start();
+			}
+			entities.add(new TwitterImpl.TweetEntity(type,inicio,m.end()));
+		}
+		return entities;
+	}
+	
+	
+
+	
+	public User getUser() {
+		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id+"LIMIT 1");
+		try{
+			if (res.next()){
+				int id_autor = res.getInt(1);
+				return UserImpl(id_autor);
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener la Autor");
+			e.printStackTrace();
+		}
 		return null;
 	}
 
-	@Override
+	
 	public String getDisplayText() {
 		return text;
 	}
 
 	@Override
 	public User getRecipient() {
-		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id);
-		if (res.next()){
-			int id_receptor = Integer.parseInt( res.toString());
-			return UserImpl(id_receptor);
+		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id+"LIMIT 1");
+		try{
+			if (res.next()){
+				int id_receptor = res.getInt(1);
+				return UserImpl(id_receptor);
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener el receptor");
+			e.printStackTrace();
 		}
-		else throw new TwitterException ("Error al obtener el autor del mensaje");
 		
 		return null;
 	}
@@ -141,3 +192,4 @@ public class MessageImpl implements Message{
 	}
 
 }
+
