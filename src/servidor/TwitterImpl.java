@@ -205,7 +205,17 @@ public class TwitterImpl implements Twitter {
 	
 	@Override
 	public List<Status> getUserTimeline(String screenName) throws TwitterException {
-		return this.getTimeline(new UserImpl(screenName)); //TODO: comprobar la existencia
+		List<Object> param = new LinkedList<Object>();
+		param.add(screenName);
+		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("No existe ningún usuario con ese screeName");
+			return this.getTimeline(new UserImpl(res.getInt(1))); 
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
+			return null;
+		}
 	}
 	
 	private List<Status> getTimeline(User user) throws TwitterException {
@@ -248,8 +258,7 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public int getMaxResults() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.maxResults;
 	}
 
 	@Override
