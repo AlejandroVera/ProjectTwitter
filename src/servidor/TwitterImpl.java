@@ -101,15 +101,17 @@ public class TwitterImpl implements Serializable, Twitter {
 			int userId = this.user.getId();
 			ResultSet res = con.query("SELECT id FROM tweet WHERE id = "+id+" AND autor = "+userId+" LIMIT 1");
 			try {
-				if(res.next()){
+				if(res != null && res.next()){
 					con.updateQuery("DELETE FROM favoritos WHERE id_tweet = "+id+" LIMIT 1");
 					con.updateQuery("DELETE FROM retweet WHERE id_tweet = "+id);
 					res = con.query("SELECT id_hashtag FROM hashtagsTweets WHERE id_tweet = "+id);
 					con.updateQuery("DELETE FROM hashtagsTweets WHERE id_tweet = "+id);
-					while(res.next()){
-						con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
+
+					if(res != null)
+						while(res.next())
+							con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
 								" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
-					}
+					
 					con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
 				}else
 					throw new TwitterException("El usuario no es propietario de ese tweet.");
@@ -128,9 +130,9 @@ public class TwitterImpl implements Serializable, Twitter {
 		//El usuario debe estar logueado
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_destinatario = " + this.user.getId());
-			while(res.next()){
-				list.add(new MessageImpl(res.getInt(1), this.con));
-			}
+			if(res != null)
+				while(res.next())
+					list.add(new MessageImpl(res.getInt(1), this.con));
 		}
 		
 		return list;
@@ -143,9 +145,9 @@ public class TwitterImpl implements Serializable, Twitter {
 		//El usuario debe estar logueado
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_autor = " + this.user.getId());
-			while(res.next()){
-				list.add(new MessageImpl(res.getInt(1), this.con));
-			}
+			if(res != null)
+				while(res.next())
+					list.add(new MessageImpl(res.getInt(1), this.con));
 		}
 		
 		return list;
@@ -159,9 +161,10 @@ public class TwitterImpl implements Serializable, Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw WHERE fa.id_usuario = " +
 								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults);
-			while(res.next()){
-				list.add(new StatusImpl(res.getInt(1), this.con));
-			}
+			if(res != null)
+				while(res.next())
+					list.add(new StatusImpl(res.getInt(1), this.con));
+			
 		}
 		
 		return list;
@@ -178,9 +181,9 @@ public class TwitterImpl implements Serializable, Twitter {
 			
 			ResultSet res = this.con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
 					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults, param);
-			while(res.next()){
-				list.add(new StatusImpl(res.getInt(1), this.con));
-			}
+			if(res != null)
+				while(res.next())
+					list.add(new StatusImpl(res.getInt(1), this.con));
 		}
 		
 		return list;
@@ -211,9 +214,9 @@ public class TwitterImpl implements Serializable, Twitter {
 				"tw.autor = " + user.getId() + " OR ( se.id_seguidor = "+user.getId()+" AND " +
 					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.usuario AND tw.id = re.tweet ) ) )");
 		
-		while(res.next()){
-			list.add(new StatusImpl(res.getInt(1), this.con));
-		}
+		if(res != null)
+			while(res.next())
+				list.add(new StatusImpl(res.getInt(1), this.con));
 		
 		return list;
 	}

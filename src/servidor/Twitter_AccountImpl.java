@@ -73,7 +73,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	public User verifyCredentials() throws Exception {
 		
 		if (twitter.isValidLogin())
-			return twitter.self();
+			return twitter.getSelf();
 		else
 			throw new TwitterException("Credenciales fallidas");
 	}
