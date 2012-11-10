@@ -1,5 +1,6 @@
 package interfacesComunes;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 public interface Place extends Serializable {

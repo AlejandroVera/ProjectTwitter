@@ -1,5 +1,6 @@
 package servidor;
 
+import java.awt.Point;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,7 +19,7 @@ public class PlaceImpl implements Place {
 	private String city;
 	private String name;
 	private String type;
-	private int[] boundingBox = new int[4];
+	private Point[] boundingBox = new Point[4];
 
 	public PlaceImpl(int id, Conexion con) throws SQLException{
 		this.id=id;
@@ -32,14 +33,24 @@ public class PlaceImpl implements Place {
 		this.countryName=res.getString(1);
 		res = con.query("SELECT tipo FROM places WHERE id ="+id + "LIMIT 1");
 		this.type=res.getString(1);
-		res = con.query("SELECT coordenada1 FROM places WHERE id ="+id + "LIMIT 1");
-		this.boundingBox[0]=res.getInt(1);
-		res = con.query("SELECT coordenada2 FROM places WHERE id ="+id + "LIMIT 1");
-		this.boundingBox[1]=res.getInt(1);
-		res = con.query("SELECT coordenada3 FROM places WHERE id ="+id + "LIMIT 1");
-		this.boundingBox[2]=res.getInt(1);
-		res = con.query("SELECT coordenada4 FROM places WHERE id ="+id + "LIMIT 1");
-		this.boundingBox[3]=res.getInt(1);
+		//Los bounding boxes
+		res = con.query("SELECT longitud1 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[0].x=res.getInt(1);
+		res = con.query("SELECT latitud1 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[0].y=res.getInt(1);
+		res = con.query("SELECT longitud2 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[1].x=res.getInt(1);
+		res = con.query("SELECT latitud2 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[1].y=res.getInt(1);
+		res = con.query("SELECT longitud3 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[2].x=res.getInt(1);
+		res = con.query("SELECT latitud3 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[2].y=res.getInt(1);
+		res = con.query("SELECT longitud3 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[3].x=res.getInt(1);
+		res = con.query("SELECT latitud3 FROM places WHERE id ="+id + "LIMIT 1");
+		this.boundingBox[3].y=res.getInt(1);
+		
 	}
 	
 	public String getCountryName() {
@@ -70,7 +81,7 @@ public class PlaceImpl implements Place {
 	}*/
 
 	@Override
-	public int[] getBoundingBox() {
+	public Point[] getBoundingBox() {
 		return boundingBox;
 	}
 	
