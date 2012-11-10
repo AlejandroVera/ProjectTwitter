@@ -1,8 +1,9 @@
 package servidor;
 
+import interfacesComunes.Tweeter_Users;
 import interfacesComunes.User;
-
-public class Tweeter_UsersImpl {
+//TODO
+public class Tweeter_UsersImpl implements Tweeter_Users {
 
 	private User user;
 	
