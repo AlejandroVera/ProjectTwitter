@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import servidor.TwitterImpl.KEntityType;
+import servidor.db.Conexion;
 
 
 public class StatusImpl implements TwitterImpl.ITweet, Status{
@@ -19,7 +20,11 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	private String text;
 	private User usuario;
 	private java.util.Date 	createdAt;
-
+	private Conexion con;
+	
+	public StatusImpl(int id){
+		
+	}
 
 	public int getId() {
 		return id;
@@ -95,17 +100,17 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		return mencionados;
 	}
 
-//	public static void main(String[] args){
-//		String cadena="@xafilox noob @kmilinho master";
-//		Pattern p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
-//		Matcher m = p.matcher(cadena);
-//		while(m.find()){
-//			if(cadena.substring(m.start(),m.end()).charAt(0)==' '){
-//				System.out.println("hola");
-//			}
-//			System.out.println(cadena.substring(m.start(),m.end()));
-//		}
-//
-//	}
+	public static void main(String[] args){
+		String cadena="www.fi.upm.es ab@.xe.ab";
+		Pattern p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
+		Matcher m = p.matcher(cadena);
+		while(m.find()){
+			if(cadena.substring(m.start(),m.end()).charAt(0)==' '){
+				System.out.println("hola");
+			}
+			System.out.println(cadena.substring(m.start(),m.end()));
+		}
+
+	}
 
 }
