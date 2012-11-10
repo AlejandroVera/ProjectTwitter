@@ -1,6 +1,7 @@
 package servidor;
 
 import interfacesComunes.*;
+import interfacesComunes.Twitter.TweetEntity;
 
 
 
@@ -23,20 +24,20 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	private User usuario;
 	private java.util.Date 	createdAt;
 	private Conexion con;
-	
+
 	public StatusImpl(int id){
 		con = new Conexion();
-		 this.id=id;
-		 ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
-		 try {
+		this.id=id;
+		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
+		try {
 			this.text=res.getString("texto");
 			this.usuario=new UserImpl(res.getInt("autor"));
 			this.createdAt=res.getTimestamp("fecha");
 		} 
-		 catch (SQLException e) {
+		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
 		}
-		 
+
 	}
 
 	public int getId() {
@@ -101,7 +102,7 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		}
 		return entities;
 	}
-	
+
 
 	public List<String> getMentions() {
 		List<String> mencionados=new ArrayList<String>();
@@ -112,5 +113,4 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 		}
 		return mencionados;
 	}
-
 }

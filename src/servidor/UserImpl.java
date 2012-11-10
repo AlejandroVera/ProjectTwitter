@@ -8,15 +8,34 @@ import interfacesComunes.Status;
 import interfacesComunes.User;
 
 
-
-
 public class UserImpl implements User{
 	
 	private static final long serialVersionUID = -4749433293227574768L;
 
-	private String name;
-	private int id;
-	private String location;
+	private java.util.Date 	createdAt;
+	private String 	description; 
+	private int favoritesCount;
+	private int followersCount;
+	private boolean followRequestSent;//True if the authenticated user has requested to follow this user.
+	private int friendsCount;	//The number of people this user is following.
+	private int id; 
+	private int listedCount;//The number of public lists a user is listed in.
+	private String 	location;//The location, as reported by the user.
+	private String 	name; //The display name, ejemplo: "Camilo Pereira"
+	private boolean notifications;
+	private String 	profileBackgroundColor;
+	private java.net.URI profileBackgroundImageUrl;
+	private boolean profileBackgroundTile ;
+	private java.net.URI profileImageUrl;//The url for the user's Twitter profile picture.
+	private String profileLinkColor; 
+	private String profileSidebarBorderColor;
+	private String profileSidebarFillColor;
+	private String profileTextColor; 
+	private boolean protectedUser; //true if this user keeps their updates private
+	private String screenName; //The login name, ejemplo: "kmilinho"	
+	private Status 	status; //The user's current status - *if* returned by Twitter.
+	private int statusesCount;
+	private java.net.URI 	website;
 	
 	//Constructor 1
 	public UserImpl(String name, String location){
@@ -27,7 +46,11 @@ public class UserImpl implements User{
 	public UserImpl(int id){
 		this.id = id;
 	}
-	
+	//Constructor 3
+	public UserImpl(String name){
+		this.name = name;
+	}
+			
 	public String getName(){
 		return name;
 	}
@@ -39,127 +62,127 @@ public class UserImpl implements User{
 	public String getLocation(){
 		return location;
 	}
-	@Override
+
 	public Date getCreatedAt() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public int getFavoritesCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	public int getFollowersCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	public int getFriendsCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	public String getLang() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public Place getPlace() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+	
 	public String getProfileBackgroundColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public URI getProfileBackgroundImageUrl() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public URI getProfileImageUrl() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public String getProfileLinkColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public String getProfileSidebarBorderColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public String getProfileSidebarFillColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public String getProfileTextColor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public boolean getProtectedUser() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public String getScreenName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public Status getStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public int getStatusesCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
+
 	public URI getWebsite() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public boolean isFollowedByYou() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public Boolean isFollowingYou() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public boolean isNotifications() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public boolean isProfileBackgroundTile() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public boolean isProtectedUser() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public boolean isVerified() {
 		// TODO Auto-generated method stub
 		return false;
