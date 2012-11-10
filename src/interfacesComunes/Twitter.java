@@ -14,14 +14,7 @@ public interface Twitter {
 	}
 
 	public static interface TweetEntity {
-		java.util.Date 	getCreatedAt();
-		int	getId();
-		String 	getLocation();
-		java.util.List<java.lang.String> getMentions(); 
-		Place getPlace();
-		String 	getText();
-		List<Twitter.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
-		User getUser();
+		
 	}
 
 	public interface ITweet {

@@ -28,7 +28,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		user_mentions;
 	}
 	
-	public static class TweetEntity{
+	public static class TweetEntity implements Twitter.TweetEntity{
 		private KEntityType type;
 		private int start;
 		private int end;
