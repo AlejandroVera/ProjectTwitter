@@ -10,6 +10,7 @@ import servidor.db.Conexion;
 
 import interfacesComunes.Message;
 import interfacesComunes.Place;
+import interfacesComunes.Twitter;
 import interfacesComunes.Twitter.KEntityType;
 import interfacesComunes.Twitter.TweetEntity;
 import interfacesComunes.User;
@@ -99,7 +100,7 @@ public class MessageImpl implements Message{
 	}
 
 	//No lo veo utilidad, porque pone en la API que ni siquiera tiene soporte con Twitter
-	public List<TweetEntity> getTweetEntities(KEntityType type) {
+	public List<TweetEntity> getTweetEntities(Twitter.KEntityType type) {
 		
 		return null;
 	}

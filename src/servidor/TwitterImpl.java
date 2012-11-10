@@ -1,5 +1,6 @@
 package servidor;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import interfacesComunes.ClienteCallback;
@@ -71,7 +72,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	public int countCharacters(String statusText) {
-		final String regex = "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+		final String regex = "((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+";
 		//Devolvemos la longitud sustituyendo las URLs con 20 caracteres.
 		return statusText.replaceAll(regex, "********************").length();
 	}
@@ -128,7 +129,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_destinatario = " + this.user.getId());
 			while(res.next()){
-				list.add(new MessageImpl(res.getInt(1)));
+				list.add(new MessageImpl(res.getInt(1), this.con));
 			}
 		}
 		
@@ -143,7 +144,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_autor = " + this.user.getId());
 			while(res.next()){
-				list.add(new MessageImpl(res.getInt(1)));
+				list.add(new MessageImpl(res.getInt(1), this.con));
 			}
 		}
 		
@@ -159,7 +160,7 @@ public class TwitterImpl implements Serializable, Twitter {
 			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw WHERE fa.id_usuario = " +
 								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults);
 			while(res.next()){
-				list.add(new StatusImpl(res.getInt(1)));
+				list.add(new StatusImpl(res.getInt(1), this.con));
 			}
 		}
 		
@@ -175,14 +176,65 @@ public class TwitterImpl implements Serializable, Twitter {
 			LinkedList<Object> param = new LinkedList<Object>();
 			param.add(screenName);
 			
-			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
+			ResultSet res = this.con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
 					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT "+this.maxResults, param);
 			while(res.next()){
-				list.add(new StatusImpl(res.getInt(1)));
+				list.add(new StatusImpl(res.getInt(1), this.con));
 			}
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<Status> getHomeTimeline() throws TwitterException {
+		return this.getTimeline(this.user);
+	}
+	
+	@Override
+	public List<Status> getUserTimeline(Number userId) throws TwitterException{
+		return this.getTimeline(new UserImpl(userId.intValue()));
+	}
+	
+	@Override
+	public List<Status> getUserTimeline(String screenName) throws TwitterException {
+		return this.getTimeline(new UserImpl(screenName));
+	}
+	
+	private List<Status> getTimeline(User user) throws TwitterException {
+		LinkedList<Status> list = new LinkedList<Status>();
+		
+		if(user == null)
+			throw new TwitterException("Usuario no logueado");
+		
+		ResultSet res = this.con.query("SELECT DISTINCT tw.id FROM tweet tw, retweet re, seguidores se WHERE " +
+				"tw.autor = " + user.getId() + " OR ( se.id_seguidor = "+user.getId()+" AND " +
+					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.usuario AND tw.id = re.tweet ) ) )");
+		
+		while(res.next()){
+			list.add(new StatusImpl(res.getInt(1), this.con));
+		}
+		
+		return list;
+	}
+
+	@Override
+	public boolean isValidLogin() {
+		return this.user != null;
+	}
+
+	@Override
+	public Status retweet(Status tweet) {
+		if(this.user == null)
+			return null;
+		this.con.updateQuery("INSERT INTO retweet VALUES ("+this.user.getId()+", "+tweet.getId()+")");
+		return tweet;
+	}
+
+	@Override
+	public List<Status> search(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

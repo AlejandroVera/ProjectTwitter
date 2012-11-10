@@ -9,6 +9,10 @@ import excepcionesComunes.TwitterException;
 
 public interface Twitter {
 
+	public interface KEntityType {
+
+	}
+
 	public static interface TweetEntity {
 		java.util.Date 	getCreatedAt();
 		int	getId();
@@ -42,9 +46,9 @@ public interface Twitter {
 	
 	public void destroy(Twitter.ITweet tweet) throws TwitterException;
 	
-	public void destroyMessage(java.lang.Number id); //Y ESTE POR QUÉ COJONES NO LANZA EXCEPCIÓN??
+	public void destroyMessage(Number id); //Y ESTE POR QUÉ COJONES NO LANZA EXCEPCIÓN??
 	
-	public void destroyStatus(java.lang.Number id) throws TwitterException;
+	public void destroyStatus(Number id) throws TwitterException;
 	
 	/**
 	 * Método que devuelve la lista de Message's enviados <u>al</u> usuario actual
@@ -62,7 +66,38 @@ public interface Twitter {
 	
 	public List<Status> getFavorites(String screenName);
 	
+	/**
+	 * Devuelve los 20 (o número definido por maxResults) Status más recientes posteados por el usuario y sus amigos, incluyendo retweets.
+	 * @return Lista de los 20 (o número definido por maxResults) Status más recientes del timeline
+	 * @throws TwitterException Si no se ha podido obtener el timeline (P.E: el usuario no está logueado)
+	 */
+	public List<Status> getHomeTimeline() throws TwitterException;
 	
+	public List<Status> getUserTimeline(Number userId) throws TwitterException;
 	
+	public List<Status> getUserTimeline(String screenName) throws TwitterException;
+	
+	/**
+	 * Inica si el usuario está logueado
+	 * @return True si está logueado. False en caso contrario.
+	 */
+	public boolean isValidLogin();
+	
+	/**
+	 * Hace un retweet sin modificar el texto.
+	 * @param tweet Tweet a retweetear
+	 * @return El mismo tweet. Null si no se ha podido hacer retweet (el usuario no está logueado).
+	 */
+	public Status retweet(Status tweet);
+	
+	/**
+	 * Realiza una búsqueda en Tweets
+	 * @param searchTerm Término a buscar
+	 * @return Lista de tweets coincidentes.
+	 * @see search(String searchTerm, Twitter.ICallback callback, int rpp)
+	 */
+	public List<Status> search(String searchTerm);
+	
+	public List<Status> search(String searchTerm, Twitter.ICallback callback, int rpp);
 	
 }
