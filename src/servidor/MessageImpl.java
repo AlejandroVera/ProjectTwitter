@@ -18,25 +18,22 @@ import interfacesComunes.User;
 public class MessageImpl implements Message{
 
 	private int id;
-	private int	inReplyToMessageId; //-1 si no es respuesta
-	private String 	text;
+	private String text;
 	private Conexion con;
 	
 	//Constructor para no respuesta
-	MessageImpl(int id, String text, Conexion con){
+	MessageImpl(int id, Conexion con){
+		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + "LIMIT 1");
 		this.id=id;
-		this.inReplyToMessageId=-1;
-		this.text=text;
 		this.con=con;
+		try {
+			this.text=res.getString(1);
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
+			e.printStackTrace();
+		}
 	}
-	
-	MessageImpl(int id, int reply, String text, Conexion con){
-		this.id=id;
-		this.inReplyToMessageId=reply;
-		this.text=text;
-		this.con=con;
-	}
-	
+		
 	
 	public Date getCreatedAt(){
 		ResultSet res = con.query("SELECT fecha FROM mensajes WHERE id ="+id + "LIMIT 1");
