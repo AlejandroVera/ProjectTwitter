@@ -12,6 +12,7 @@ import interfacesComunes.User;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -98,18 +99,22 @@ public class TwitterImpl implements Serializable, Twitter {
 		if(this.user != null && id != null){
 			int userId = this.user.getId();
 			ResultSet res = con.query("SELECT id FROM tweet WHERE id = "+id+" AND autor = "+userId+" LIMIT 1");
-			if(res.next()){
-				con.updateQuery("DELETE FROM favoritos WHERE id_tweet = "+id+" LIMIT 1");
-				con.updateQuery("DELETE FROM retweet WHERE id_tweet = "+id);
-				res = con.query("SELECT id_hashtag FROM hashtagsTweets WHERE id_tweet = "+id);
-				con.updateQuery("DELETE FROM hashtagsTweets WHERE id_tweet = "+id);
-				while(res.next()){
-					con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
-							" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
-				}
-				con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
-			}else
-				throw new TwitterException("El usuario no es propietario de ese tweet.");
+			try {
+				if(res.next()){
+					con.updateQuery("DELETE FROM favoritos WHERE id_tweet = "+id+" LIMIT 1");
+					con.updateQuery("DELETE FROM retweet WHERE id_tweet = "+id);
+					res = con.query("SELECT id_hashtag FROM hashtagsTweets WHERE id_tweet = "+id);
+					con.updateQuery("DELETE FROM hashtagsTweets WHERE id_tweet = "+id);
+					while(res.next()){
+						con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
+								" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
+					}
+					con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
+				}else
+					throw new TwitterException("El usuario no es propietario de ese tweet.");
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error en el borrado de un tweet");
+			}
 			
 		}else
 			throw new TwitterException("No se pueden borrar tweets (no logueado)");
@@ -146,8 +151,8 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	@Override
-	public List<StatusImpl> getFavorites() {
-		LinkedList<StatusImpl> list = new LinkedList<StatusImpl>();
+	public List<Status> getFavorites() {
+		LinkedList<Status> list = new LinkedList<Status>();
 		
 		//El usuario debe estar logueado
 		if(this.user != null){
@@ -162,8 +167,8 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	@Override
-	public List<StatusImpl> getFavorites(String screenName) {
-		LinkedList<StatusImpl> list = new LinkedList<StatusImpl>();
+	public List<Status> getFavorites(String screenName) {
+		LinkedList<Status> list = new LinkedList<Status>();
 		
 		//El usuario debe estar logueado
 		if(this.user != null){
