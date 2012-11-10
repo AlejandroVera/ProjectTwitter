@@ -7,20 +7,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import excepcionesComunes.TwitterException;
-
 import servidor.db.Conexion;
-
 import interfacesComunes.Message;
 import interfacesComunes.Place;
-
 import servidor.TwitterImpl;
 import servidor.TwitterImpl.KEntityType;
-import servidor.TwitterImpl.TweetEntity;
-
-import interfacesComunes.Twitter;
-
-
+import interfacesComunes.Twitter.TweetEntity;
 import interfacesComunes.User;
 
 public class MessageImpl implements Message{
@@ -121,7 +113,7 @@ public class MessageImpl implements Message{
 	
 	public List<TweetEntity> getTweetEntities(KEntityType type) {
 		
-		List<TwitterImpl.TweetEntity> entities=new ArrayList<TwitterImpl.TweetEntity>();
+		List<TweetEntity> entities=new ArrayList<interfacesComunes.Twitter.TweetEntity>();
 		int inicio;
 		Pattern p=null;
 		Matcher m=null;
@@ -155,7 +147,8 @@ public class MessageImpl implements Message{
 		try{
 			if (res.next()){
 				int id_autor = res.getInt(1);
-				return UserImpl(id_autor);
+				UserImpl user= new UserImpl(id_autor);
+				return user;
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al obtener la Autor");
@@ -175,7 +168,8 @@ public class MessageImpl implements Message{
 		try{
 			if (res.next()){
 				int id_receptor = res.getInt(1);
-				return UserImpl(id_receptor);
+				UserImpl user= new UserImpl(id_receptor);
+				return user;
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al obtener el receptor");
