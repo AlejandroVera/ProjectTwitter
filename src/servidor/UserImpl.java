@@ -64,102 +64,75 @@ public class UserImpl implements User{
 	}
 
 	public Date getCreatedAt() {
-		// TODO Auto-generated method stub
-		return null;
+		return createdAt;
 	}
 
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return description;
 	}
 
 	public int getFavoritesCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return favoritesCount;
 	}
 
 	public int getFollowersCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return followersCount;
 	}
 
 	public int getFriendsCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return friendsCount;
 	}
 
-	public String getLang() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Place getPlace() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public String getProfileBackgroundColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileBackgroundColor;
 	}
 
 	public URI getProfileBackgroundImageUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileBackgroundImageUrl;
 	}
 
 	public URI getProfileImageUrl() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileImageUrl;
 	}
 
 	public String getProfileLinkColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileLinkColor;
 	}
 
-	public String getProfileSidebarBorderColor() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProfileSidebarBorderColor(){
+		return profileSidebarBorderColor;
 	}
 
 	public String getProfileSidebarFillColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileSidebarFillColor;
 	}
 
 	public String getProfileTextColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return profileTextColor;
 	}
 
 	public boolean getProtectedUser() {
-		// TODO Auto-generated method stub
-		return false;
+		return protectedUser;
 	}
 
 	public String getScreenName() {
-		// TODO Auto-generated method stub
-		return null;
+		return screenName;
 	}
 
 	public Status getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return status;
 	}
 
 	public int getStatusesCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return statusesCount;
 	}
 
 	public URI getWebsite() {
-		// TODO Auto-generated method stub
-		return null;
+		return website;
 	}
 
 	public boolean isFollowedByYou() {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
@@ -174,17 +147,26 @@ public class UserImpl implements User{
 	}
 
 	public boolean isProfileBackgroundTile() {
-		// TODO Auto-generated method stub
-		return false;
+		return profileBackgroundTile;
 	}
 
 	public boolean isProtectedUser() {
-		// TODO Auto-generated method stub
-		return false;
+		return protectedUser;
 	}
 
 	public boolean isVerified() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	///????????????????????????????????????????????
+	public String getLang() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Place getPlace() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

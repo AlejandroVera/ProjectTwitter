@@ -1,10 +1,6 @@
 package servidor;
 
 import interfacesComunes.*;
-import interfacesComunes.Twitter.TweetEntity;
-
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
