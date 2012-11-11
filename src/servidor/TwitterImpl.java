@@ -67,7 +67,7 @@ public class TwitterImpl implements Twitter {
 	}
 	
 	public TwitterImpl(int accountId, ClienteCallback callback){
-		this.user = new UserImpl(accountId);
+		this.user = new UserImpl(accountId, this.con);
 		this.twitter_user = new Twitter_UsersImpl(this.user);
 		clientes.get(accountId).add(callback);
 		this.con = new Conexion();
@@ -179,8 +179,12 @@ public class TwitterImpl implements Twitter {
 								this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
 								(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 			if(res != null)
-				while(res.next())
-					list.add(new StatusImpl(res.getInt(1), this.con));
+				try {
+					while(res.next())
+						list.add(new StatusImpl(res.getInt(1), this.con));
+				} catch (SQLException e) {
+					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
+				}
 			
 		}
 		
@@ -200,8 +204,12 @@ public class TwitterImpl implements Twitter {
 					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
 					(this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults), param);
 			if(res != null)
-				while(res.next())
-					list.add(new StatusImpl(res.getInt(1), this.con));
+				try {
+					while(res.next())
+						list.add(new StatusImpl(res.getInt(1), this.con));
+				} catch (SQLException e) {
+					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
+				}
 		}
 		
 		return list;
@@ -214,7 +222,7 @@ public class TwitterImpl implements Twitter {
 	
 	@Override
 	public List<Status> getUserTimeline(Number userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId.intValue()));
+		return this.getTimeline(new UserImpl(userId.intValue(), this.con));
 	}
 	
 	@Override
@@ -225,7 +233,7 @@ public class TwitterImpl implements Twitter {
 		try {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe ningún usuario con ese screeName");
-			return this.getTimeline(new UserImpl(res.getInt(1))); 
+			return this.getTimeline(new UserImpl(res.getInt(1), this.con)); 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
 			return null;
@@ -245,8 +253,12 @@ public class TwitterImpl implements Twitter {
 					"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 		
 		if(res != null)
-			while(res.next())
-				list.add(new StatusImpl(res.getInt(1), this.con));
+			try {
+				while(res.next())
+					list.add(new StatusImpl(res.getInt(1), this.con));
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
+			}
 		
 		return list;
 	}
@@ -266,6 +278,12 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public List<Status> search(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<Status> search(String searchTerm, ICallback callback, int rpp) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -545,6 +563,7 @@ public class TwitterImpl implements Twitter {
 	public Twitter_Users users() {
 		return this.twitter_user;
 	}
+
 	
 
 

@@ -10,6 +10,10 @@ import excepcionesComunes.TwitterException;
 
 public interface Twitter extends Serializable{
 
+	public interface ICallback {
+		boolean process(List<Status> statuses);
+	}
+
 	public static interface TweetEntity {
 		
 	}
