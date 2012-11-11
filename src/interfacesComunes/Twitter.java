@@ -161,4 +161,23 @@ public interface Twitter extends Serializable{
 	 */
 	public Message sendMessage(String recipient, String text) throws TwitterException;
 	
+	/**
+	 * Marca/desmarca como favorito un Status
+	 * @param status Status al que poner/quitar de favoritos.
+	 * @param isFavorite True para añadir a favoritos, False para quitarlo.
+	 */
+	public void setFavorite(Status status, boolean isFavorite);
+	
+	public void setPageNumber(Integer pageNumber);
+	
+	/**
+	 * Actaliza el status del usuario conectado (crea un nuevo tweet).
+	 * @param statusText Texto del mensaje. No debe tener más de 140 caracteres.
+	 * @return El nuevo tweet, o <b>null</b> en caso de error.
+	 */
+	public Status updateStatus(String statusText);
+	
+	
+	public Twitter_Users users();
+	
 }

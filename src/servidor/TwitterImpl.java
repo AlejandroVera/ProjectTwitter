@@ -7,11 +7,13 @@ import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
+import interfacesComunes.Twitter_Users;
 import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -48,6 +50,7 @@ public class TwitterImpl implements Twitter {
 	private static final int maxAllowedResults = 300;
 	
 	private User user;
+	private Twitter_Users twitter_user;
 	private static HashMap<Integer, LinkedList<ClienteCallback>> clientes;
 	private Conexion con;
 	private int maxResults = 20;
@@ -59,11 +62,13 @@ public class TwitterImpl implements Twitter {
 	public TwitterImpl() {
 		super();
 		this.user = null;
+		this.twitter_user = null;
 		this.con = new Conexion();
 	}
 	
 	public TwitterImpl(int accountId, ClienteCallback callback){
 		this.user = new UserImpl(accountId);
+		this.twitter_user = new Twitter_UsersImpl(this.user);
 		clientes.get(accountId).add(callback);
 		this.con = new Conexion();
 	}
@@ -420,17 +425,125 @@ public class TwitterImpl implements Twitter {
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
 		int message_id;
 		try {
-			if(res == null || !res.next())
+			if(last_id == null || !last_id.next())
 				throw new TwitterException("Upss, esto no debería ocurrir nunca");
 			else
-				message_id = res.getInt(1);
+				message_id = last_id.getInt(1);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
 			throw new TwitterException("No se ha podido obtener el mensaje, pero sí se ha mandado");
 		}
 		
-		return new MessageImpl(message_id, this.con);
+		Message mes = new MessageImpl(message_id, this.con);
 		
+		List<ClienteCallback> user_callbacks = TwitterImpl.clientes.get(id_dest);
+		if(user_callbacks != null){
+			Iterator<ClienteCallback> it = user_callbacks.iterator();
+			while(it.hasNext()){
+				ClienteCallback call = it.next();
+				try {
+					call.notifyMessage(mes);
+				} catch (RemoteException e) {
+					//Suponemos que ha sido por un error de conexión.
+					//Puede que el user se haya desconectado, así que lo sacamos del array.
+					user_callbacks.remove(call);
+					if(user_callbacks.isEmpty())
+						TwitterImpl.clientes.remove(id_dest);
+					ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+				}
+			}
+		}
+		return mes;
+		
+	}
+
+	@Override
+	public void setFavorite(Status status, boolean isFavorite) {
+		
+		if(this.user == null)
+			return; //User not logged
+		
+		if(!isFavorite){
+			this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
+		}else{
+			this.con.updateQuery("INSERT INTO favoritos (id_usuario, id_tweet) VALUES ("+this.user.getId()+","+status.getId()+")");
+		}
+		
+	}
+
+	@Override
+	public void setPageNumber(Integer pageNumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Status updateStatus(String statusText) {
+		
+		if(this.user == null)
+			return null; //User not logged
+		
+		//Hay que recortar el mensaje
+		if(this.countCharacters(statusText) > 140) {
+			statusText = statusText.substring(0, 140);
+		}
+		
+		List<Object> params = new LinkedList<Object>();
+		params.add(statusText);
+		params.add(this.user.getId());
+		params.add(new Date().getTime()/1000);
+		
+		//Insertamos el nuevo tweet en la BD
+		this.con.updateQuery("INSERT INTO favoritos (texto, autor, fecha) VALUES (?, ?, ?)", params);
+		
+		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
+		int status_id;
+		try {
+			if(last_id == null || !last_id.next())
+				return null; //Emmm, esto NUNCA debería ocurrir
+			else
+				status_id = last_id.getInt(1);
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.updateStatus");
+			return null;
+		}
+		
+		Status status = new StatusImpl(last_id, this.con);
+		
+		//Mandamos el tweet a todos los seguidores
+		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();
+		while(seguidores.hasNext()){
+			
+			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
+			int id_dest = seguidores.next().intValue();
+			List<ClienteCallback> user_callbacks = TwitterImpl.clientes.get(id_dest);
+			
+			if(user_callbacks != null){
+				Iterator<ClienteCallback> it = user_callbacks.iterator();
+				
+				//Iteramos por cada uno de los callbacks notificando el nuevo tweet
+				while(it.hasNext()){
+					ClienteCallback call = it.next();
+					try {
+						call.notifyStatus(status);
+					} catch (RemoteException e) {
+						//Suponemos que ha sido por un error de conexión.
+						//Puede que el user se haya desconectado, así que lo sacamos del array.
+						user_callbacks.remove(call);
+						if(user_callbacks.isEmpty())
+							TwitterImpl.clientes.remove(id_dest);
+						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+					}
+				}
+			}
+		}
+		return status;
+		
+	}
+
+	@Override
+	public Twitter_Users users() {
+		return this.twitter_user;
 	}
 	
 

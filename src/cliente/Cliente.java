@@ -2,6 +2,8 @@ package cliente;
 
 
 import interfacesComunes.ClienteCallback;
+import interfacesComunes.Message;
+import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -56,8 +58,14 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 		
 	}
 	
-	public void notifyMessage(String message){
-		System.out.println(message);
+	public void notifyMessage(Message message){
+		System.out.println(message.getText());
+	}
+
+	@Override
+	public void notifyStatus(Status status) throws RemoteException {
+		System.out.println(status.getText());
+
 	}
 
 }

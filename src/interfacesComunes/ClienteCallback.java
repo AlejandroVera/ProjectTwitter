@@ -6,5 +6,6 @@ import java.rmi.RemoteException;
 
 
 public interface ClienteCallback extends Remote {
-    public void notifyMessage(String mess)  throws RemoteException;
+    public void notifyMessage(Message message)  throws RemoteException;
+    public void notifyStatus(Status status)  throws RemoteException;
 }

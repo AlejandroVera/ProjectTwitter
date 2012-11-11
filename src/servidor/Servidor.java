@@ -38,7 +38,7 @@ public class Servidor {
 			Iterator<ClienteCallback> it = clientes.iterator();
 			while(it.hasNext()){
 				ClienteCallback cli = (ClienteCallback) it.next();
-				cli.notifyMessage("Este es un mensaje desde el servidor");
+				//cli.notifyMessage("Este es un mensaje desde el servidor");
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
