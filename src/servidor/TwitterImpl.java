@@ -14,6 +14,7 @@ import interfacesComunes.User;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -92,7 +93,7 @@ public class TwitterImpl implements Twitter {
 	public void destroyMessage(Number id) {
 		if(this.user != null && id != null){
 			int userId = this.user.getId();
-			//TODO: borrado de mensaje
+			//TODO: borrado de mensaje, si lo borra el emisor se le borra al destinatario??
 			//int res = con.query("DELETE FROM mensaje WHERE id = "+id+" AND owner = "+userId+" LIMIT 1");
 		}
 	}
@@ -133,8 +134,12 @@ public class TwitterImpl implements Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_destinatario = " + this.user.getId());
 			if(res != null)
-				while(res.next())
-					list.add(new MessageImpl(res.getInt(1), this.con));
+				try {
+					while(res.next())
+						list.add(new MessageImpl(res.getInt(1), this.con));
+				} catch (SQLException e) {
+					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessages");
+				}
 		}
 		
 		return list;
@@ -148,8 +153,12 @@ public class TwitterImpl implements Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT id FROM mensajes WHERE id_autor = " + this.user.getId());
 			if(res != null)
-				while(res.next())
-					list.add(new MessageImpl(res.getInt(1), this.con));
+				try {
+					while(res.next())
+						list.add(new MessageImpl(res.getInt(1), this.con));
+				} catch (SQLException e) {
+					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessagesSent");
+				}
 		}
 		
 		return list;
@@ -373,15 +382,55 @@ public class TwitterImpl implements Twitter {
 				return new StatusImpl(res.getInt(1));
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.getStatus");
-			throw new TwitterException("No existe un usuario con ese ID");
+			throw new TwitterException("No existe un usuario con ese screenName");
 		}
 	}
 
 	@Override
 	public Message sendMessage(String recipient, String text)
 			throws TwitterException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//Comprobamos la existencia del destinatario y obtenemos su id
+		List<Object> param = new LinkedList<Object>();
+		param.add(recipient);
+		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
+		int id_dest;
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("No existe un usuario con ese screenName");
+			else
+				id_dest = res.getInt(1);
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
+			throw new TwitterException("No existe un usuario con ese screenName");
+		}
+		
+		List<Object> params = new LinkedList<Object>();
+		params.add(this.user.getId());
+		params.add(id_dest);
+		params.add(text);
+		params.add(new Date().getTime()/1000);
+		
+		int resul = this.con.updateQuery("INSERT INTO mensajes (id_autor, id_destinatario, texto, fecha) " +
+				"VALUES (? , ? , ? , ?)", params);
+		
+		if(resul == 0)
+			throw new TwitterException("No se ha podido enviar el mensaje");
+		
+		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
+		int message_id;
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("Upss, esto no debería ocurrir nunca");
+			else
+				message_id = res.getInt(1);
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
+			throw new TwitterException("No se ha podido obtener el mensaje, pero sí se ha mandado");
+		}
+		
+		return new MessageImpl(message_id, this.con);
+		
 	}
 	
 
