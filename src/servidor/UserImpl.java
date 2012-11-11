@@ -3,6 +3,8 @@ package servidor;
 import java.net.URI;
 import java.util.Date;
 
+import servidor.db.Conexion;
+
 import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.User;
@@ -12,6 +14,8 @@ public class UserImpl implements User{
 	
 	private static final long serialVersionUID = -4749433293227574768L;
 
+	private User loggedUser;
+	
 	private java.util.Date 	createdAt;
 	private String 	description; 
 	private int favoritesCount;
@@ -35,6 +39,7 @@ public class UserImpl implements User{
 	private String screenName; //The login name, ejemplo: "kmilinho"	
 	private Status 	status; //The user's current status - *if* returned by Twitter.
 	private int statusesCount;
+	private boolean verified;
 	private java.net.URI 	website;
 	
 	//Constructor 1
@@ -43,14 +48,18 @@ public class UserImpl implements User{
 		this.location=location;
 	}
 	//Constructor 2
-	public UserImpl(int id){
+	UserImpl(int id, User loggedUser){
 		this.id = id;
+		this.loggedUser=loggedUser;
 	}
 	//Constructor 3
 	public UserImpl(String name){
 		this.name = name;
 	}
 			
+	public UserImpl(int int1, Conexion con) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName(){
 		return name;
 	}
@@ -137,7 +146,7 @@ public class UserImpl implements User{
 	}
 
 	public Boolean isFollowingYou() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -155,14 +164,11 @@ public class UserImpl implements User{
 	}
 
 	public boolean isVerified() {
-		// TODO Auto-generated method stub
-		return false;
+		return verified;
 	}
-
-	///????????????????????????????????????????????
+	
 	public String getLang() {
-		// TODO Auto-generated method stub
-		return null;
+		return "es";
 	}
 
 	public Place getPlace() {

@@ -36,6 +36,10 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 
 	}
 
+	public StatusImpl(int int1, Conexion con2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
