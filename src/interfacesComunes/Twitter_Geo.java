@@ -1,6 +1,6 @@
 package interfacesComunes;
 
-import java.awt.Point;
+
 
 public interface Twitter_Geo {
 	

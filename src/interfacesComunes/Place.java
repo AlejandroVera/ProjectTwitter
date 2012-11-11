@@ -1,6 +1,6 @@
 package interfacesComunes;
 
-import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 public interface Place extends Serializable {
@@ -16,7 +16,7 @@ public interface Place extends Serializable {
     public java.lang.String toString();
     //public com.winterwell.jgeoplanet.Location getCentroid();
    // public java.lang.String getUID();
-    public Point[] getBoundingBox(); //La Bounding Box del lugar, el cuadradito que ocupa
+    public Point2D[] getBoundingBox(); //La Bounding Box del lugar, el cuadradito que ocupa
     
 	
 }
