@@ -1,6 +1,8 @@
 package servidor;
 
 import java.net.URI;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import servidor.db.Conexion;
@@ -15,7 +17,6 @@ public class UserImpl implements User{
 	private static final long serialVersionUID = -4749433293227574768L;
 
 	private User loggedUser;
-	
 	private java.util.Date 	createdAt;
 	private String 	description; 
 	private int favoritesCount;
@@ -43,9 +44,33 @@ public class UserImpl implements User{
 	private java.net.URI 	website;
 	
 	//Constructor 1
-	public UserImpl(String name, String location){
-		this.name = name;
+	public UserImpl(String screeName, String location){
+		this.screenName = screeName;
 		this.location=location;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+screeName);
+		try {
+			
+
+			this.name=res.getString("name");
+			this.id=res.getInt("id");
+			this.status=new StatusImpl(res.getInt("id_status"));
+			this.createdAt=res.getTimestamp("fecha_registro");
+			this.location=res.getString("Localizacion");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");r
+			this.profileImageUrl=res.getString("profileImageUrl");
+			this.profileBackgroundImageUrl=res.getString("profileBackgroundImageUrl");
+			this.profileLinkColor=res.getString("profileLinkColor");
+			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
+			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
+			this.profileTextColor=res.getString("profileTextColor");
+			this.website=new URI(res.getString("web_link"));
+			this.description=res.getString("descripcion");
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+
 	}
 	//Constructor 2
 	UserImpl(int id, User loggedUser){
@@ -56,13 +81,16 @@ public class UserImpl implements User{
 	public UserImpl(String name){
 		this.name = name;
 	}
-			
-	public UserImpl(int int1, Conexion con) {
-		// TODO Auto-generated constructor stub
+	//Constructor 4		
+	public UserImpl(int id, Conexion con) {
+		this.id = id;
 	}
-	public UserImpl(int int1) {
-		// TODO Auto-generated constructor stub
+	//Constructor 5
+	public UserImpl(int id) {
+		this.id = id;
 	}
+	
+	
 	public String getName(){
 		return name;
 	}

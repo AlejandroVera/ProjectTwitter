@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-11-2012 a las 17:06:31
--- Versión del servidor: 5.5.16
--- Versión de PHP: 5.3.8
+-- Tiempo de generación: 12-11-2012 a las 19:55:32
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 --
 
 CREATE TABLE IF NOT EXISTS `retweet` (
-  `usuario` int(10) unsigned NOT NULL,
-  `tweet` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`usuario`,`tweet`)
+  `id_usuario` int(10) unsigned NOT NULL,
+  `id_tweet` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id_usuario`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -125,6 +125,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `password` char(40) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `descripcion` varchar(60) COLLATE utf8_spanish2_ci NOT NULL,
+  `Localizacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileBackgroundColor` varchar(12) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileBackgroundImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileLinkColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileSidebarBorderColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileSidebarFillColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `profileTextColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `id_status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
 
@@ -132,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`) VALUES
-(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048');
+INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `Localizacion`, `profileBackgroundColor`, `profileBackgroundImageUrl`, `profileImageUrl`, `profileLinkColor`, `profileSidebarBorderColor`, `profileSidebarFillColor`, `profileTextColor`, `web_link`, `id_status`) VALUES
+(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
