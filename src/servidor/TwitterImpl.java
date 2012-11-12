@@ -8,6 +8,7 @@ import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.Twitter_Users;
 import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
@@ -482,12 +483,46 @@ public class TwitterImpl implements Twitter {
 		if(this.user == null)
 			return; //User not logged
 		
+		byte event_type = 0;
+		
 		if(!isFavorite){
-			this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
+			int res = this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
+			if(res > 0)
+				event_type = TwitterEvent.Type.UNFAVORITE;
+			
 		}else{
-			this.con.updateQuery("INSERT INTO favoritos (id_usuario, id_tweet) VALUES ("+this.user.getId()+","+status.getId()+")");
+			int res = this.con.updateQuery("INSERT INTO favoritos (id_usuario, id_tweet) VALUES ("+this.user.getId()+","+status.getId()+")");
+			if(res > 0)
+				event_type = TwitterEvent.Type.FAVORITE;
 		}
 		
+		int status_owner = status.getUser().getId();
+		
+		if(event_type != 0){
+			try{
+				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, event_type, this.con);
+				List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(status_owner);
+				if(user_callbacks != null){
+					Iterator<AStream.IListen> it = user_callbacks.iterator();
+					while(it.hasNext()){
+						AStream.IListen call = it.next();
+						try {
+							call.processEvent(event);
+						} catch (RemoteException e) {
+							//Suponemos que ha sido por un error de conexión.
+							//Puede que el user se haya desconectado, así que lo sacamos del array.
+							user_callbacks.remove(call);
+							if(user_callbacks.isEmpty())
+								TwitterImpl.clientes.remove(status_owner);
+							ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+						}
+					}
+				}
+			}catch(SQLException e){
+				ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
+			}
+		}
+	
 	}
 
 	@Override
