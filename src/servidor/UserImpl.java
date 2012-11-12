@@ -60,6 +60,9 @@ public class UserImpl implements User{
 	public UserImpl(int int1, Conexion con) {
 		// TODO Auto-generated constructor stub
 	}
+	public UserImpl(int int1) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getName(){
 		return name;
 	}
