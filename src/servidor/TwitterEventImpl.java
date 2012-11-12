@@ -24,10 +24,10 @@ public class TwitterEventImpl implements TwitterEvent{
 	private User target;
 	private Status status;
 	private Date createdAt;
-	private String type;
+	private byte type;
 	private Conexion con;
 	
-	public TwitterEventImpl(int id, int id_source, int id_target, int id_status, String type, Conexion con) throws SQLException{
+	public TwitterEventImpl(int id, int id_source, int id_target, int id_status, byte type, Conexion con) throws SQLException{
 		this.id=id;
 		this.con=con;
 		this.createdAt=new Date();
@@ -69,12 +69,12 @@ public class TwitterEventImpl implements TwitterEvent{
 	}
 
 	
-	public String getType() {
+	public byte getType() {
 		return type;
 	}
 
-	public boolean is(String type) {
-		if (this.type.compareTo(type)==0)
+	public boolean is(byte type) {
+		if (this.type==type)
 			return true;
 		else
 			return false;

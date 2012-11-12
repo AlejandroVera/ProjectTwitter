@@ -14,10 +14,19 @@ public interface TwitterEvent {
 	
 	public Object getTargetObject();
 	
-	public String getType();
+	public byte getType();
 	
-	public boolean	is(java.lang.String type);
+	public boolean	is(byte type);
 	
-	public String toString();
+	//public String toString();
+	
+	public interface Type{
+		
+		static byte	FAVORITE=1; 
+		static byte	FOLLOW=2;
+		static byte	UNFAVORITE=3;
+		static byte	USER_UPDATE=4;
+		
+	}
 	
 }
