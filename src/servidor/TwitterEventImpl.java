@@ -29,7 +29,7 @@ public class TwitterEventImpl implements TwitterEvent{
 	private Conexion con;
 	/** Constructor para actualizacion de cuenta*/
 	public TwitterEventImpl(int id_source,byte type, Conexion con) throws SQLException{
-		TwitterEventImpl(id_source, 0, status, type, con);
+		TwitterEventImpl(id_source, 0, null, type, con);
 	}
 	
 	/**Constructor para el follow*/
