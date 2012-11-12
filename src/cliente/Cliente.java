@@ -63,7 +63,7 @@ public class Cliente extends UnicastRemoteObject implements AStream.IListen{
 	
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		System.out.println(event.getText());
+		System.out.println(event.getType());
 		return true;
 	}
 
