@@ -14,7 +14,7 @@ import interfacesComunes.User;
 
 
 public class UserImpl implements User{
-
+	//TODO: notificaciones del usuario
 	private static final long serialVersionUID = -4749433293227574768L;
 
 	private User loggedUser;
@@ -25,10 +25,9 @@ public class UserImpl implements User{
 	private boolean followRequestSent;//True if the authenticated user has requested to follow this user.
 	private int friendsCount;	//The number of people this user is following.
 	private int id; 
-	private int listedCount;//The number of public lists a user is listed in.
 	private String 	location;//The location, as reported by the user.
 	private String 	name; //The display name, ejemplo: "Camilo Pereira"
-	private boolean notifications;
+	private boolean notifications;//TODO: pero pero pero esto q eeeeees
 	private String 	profileBackgroundColor;
 	private java.net.URI profileBackgroundImageUrl;
 	private boolean profileBackgroundTile ;
@@ -55,12 +54,11 @@ public class UserImpl implements User{
 			this.id=res.getInt("id");
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
-			
-			
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
 			this.name=res.getString("name");
 			this.status=new StatusImpl(res.getInt("id_status"));
 			this.createdAt=res.getTimestamp("fecha_registro");
-			this.location=res.getString("Localizacion");
 			this.profileBackgroundColor=res.getString("profileBackgroundColor");
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileLinkColor=res.getString("profileLinkColor");
@@ -81,18 +79,132 @@ public class UserImpl implements User{
 	UserImpl(int id, User loggedUser){
 		this.id = id;
 		this.loggedUser=loggedUser;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
+		
+		try {
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			this.name=res.getString("name");
+			this.status=new StatusImpl(res.getInt("id_status"));
+			this.createdAt=res.getTimestamp("fecha_registro");
+			this.location=res.getString("Localizacion");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");
+			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
+			this.profileLinkColor=res.getString("profileLinkColor");
+			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
+			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
+			this.profileTextColor=res.getString("profileTextColor");
+			this.website=new URI(res.getString("web_link"));
+			this.description=res.getString("descripcion");
+			this.screenName = res.getString("screenName");
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+		catch (URISyntaxException e) {
+			ServerCommon.TwitterWarning(e, "Error al crear la URL");
+		}
 	}
+	
+	
 	//Constructor 3
 	public UserImpl(String name){
 		this.name = name;
+		
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT * FROM usuario WHERE name="+this.name);
+		
+		try {
+			this.id=res.getInt("id");
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			this.status=new StatusImpl(res.getInt("id_status"));
+			this.createdAt=res.getTimestamp("fecha_registro");
+			this.location=res.getString("Localizacion");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");
+			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
+			this.profileLinkColor=res.getString("profileLinkColor");
+			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
+			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
+			this.profileTextColor=res.getString("profileTextColor");
+			this.website=new URI(res.getString("web_link"));
+			this.description=res.getString("descripcion");
+			this.screenName = res.getString("screenName");
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+		catch (URISyntaxException e) {
+			ServerCommon.TwitterWarning(e, "Error al crear la URL");
+		}
 	}
 	//Constructor 4		
 	public UserImpl(int id, Conexion con) {
 		this.id = id;
+		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
+		
+		try {
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			this.name=res.getString("name");
+			this.status=new StatusImpl(res.getInt("id_status"));
+			this.createdAt=res.getTimestamp("fecha_registro");
+			this.location=res.getString("Localizacion");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");
+			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
+			this.profileLinkColor=res.getString("profileLinkColor");
+			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
+			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
+			this.profileTextColor=res.getString("profileTextColor");
+			this.website=new URI(res.getString("web_link"));
+			this.description=res.getString("descripcion");
+			this.screenName = res.getString("screenName");
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+		catch (URISyntaxException e) {
+			ServerCommon.TwitterWarning(e, "Error al crear la URL");
+		}
 	}
 	//Constructor 5
 	public UserImpl(int id) {
 		this.id = id;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
+		
+		try {
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			this.name=res.getString("name");
+			this.status=new StatusImpl(res.getInt("id_status"));
+			this.createdAt=res.getTimestamp("fecha_registro");
+			this.location=res.getString("Localizacion");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");
+			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
+			this.profileLinkColor=res.getString("profileLinkColor");
+			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
+			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
+			this.profileTextColor=res.getString("profileTextColor");
+			this.website=new URI(res.getString("web_link"));
+			this.description=res.getString("descripcion");
+			this.screenName = res.getString("screenName");
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
+		catch (URISyntaxException e) {
+			ServerCommon.TwitterWarning(e, "Error al crear la URL");
+		}
 	}
 
 
@@ -177,17 +289,41 @@ public class UserImpl implements User{
 	}
 
 	public boolean isFollowedByYou() {
-
-		return false;
+		boolean sol=false;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
+		try {
+			while(res.next()){
+				if(res.getInt(1)==this.loggedUser.getId()){
+					sol=true;
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+		return sol;	
 	}
 
 	public Boolean isFollowingYou() {
-
-		return null;
+		boolean sol=false;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.loggedUser.getId());
+		try {
+			while(res.next()){
+				if(res.getInt(1)==this.id){
+					sol=true;
+					break;
+				}
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+		return sol;
 	}
 
 	public boolean isNotifications() {
-		// TODO Auto-generated method stub
+		// TODO pero pero pero esto que eeeeees
 		return false;
 	}
 
@@ -208,7 +344,7 @@ public class UserImpl implements User{
 	}
 
 	public Place getPlace() {
-		// TODO Auto-generated method stub
+		// TODO Esperando la tabla places
 		return null;
 	}
 }
