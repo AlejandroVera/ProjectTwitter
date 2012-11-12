@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-11-2012 a las 19:55:32
+-- Tiempo de generación: 12-11-2012 a las 23:02:36
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ProyectoTwitter`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `eventos`
+--
+
+CREATE TABLE IF NOT EXISTS `eventos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_autor` int(11) NOT NULL,
+  `id_destinatario` int(11) NOT NULL,
+  `id_tweet` int(11) NOT NULL,
+  `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -73,6 +89,29 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   KEY `id_destinatario` (`id_destinatario`),
   KEY `fecha` (`fecha`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `places`
+--
+
+CREATE TABLE IF NOT EXISTS `places` (
+  `id` int(10) NOT NULL,
+  `name` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `pais` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `ciudad` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `longitud1` double NOT NULL,
+  `latitud1` double NOT NULL,
+  `longitud2` double NOT NULL,
+  `latitud2` double NOT NULL,
+  `longitud3` double NOT NULL,
+  `latitud3` double NOT NULL,
+  `longitud4` double NOT NULL,
+  `latitud4` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 
