@@ -500,7 +500,7 @@ public class TwitterImpl implements Twitter {
 		
 		if(event_type != 0){
 			try{
-				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, event_type, this.con);
+				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con);
 				List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(status_owner);
 				if(user_callbacks != null){
 					Iterator<AStream.IListen> it = user_callbacks.iterator();
