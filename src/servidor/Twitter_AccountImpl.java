@@ -5,10 +5,7 @@ import interfacesComunes.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import excepcionesComunes.TwitterException;

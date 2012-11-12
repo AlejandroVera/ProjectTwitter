@@ -2,9 +2,6 @@ package cliente;
 
 
 import interfacesComunes.AStream;
-import interfacesComunes.ClienteCallback;
-import interfacesComunes.Message;
-import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
