@@ -21,7 +21,7 @@ public class MessageImpl implements Message{
 	private String text;
 	private Conexion con;
 	
-	//Constructor para no respuesta
+	
 	MessageImpl(int id, Conexion con){
 		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + "LIMIT 1");
 		this.id=id;
