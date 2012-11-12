@@ -1,5 +1,6 @@
 package servidor;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -26,22 +27,41 @@ public class TwitterEventImpl implements TwitterEvent{
 	private Date createdAt;
 	private byte type;
 	private Conexion con;
+	/** Constructor para actualizacion de cuenta*/
+	public TwitterEventImpl(int id_source,byte type, Conexion con) throws SQLException{
+		TwitterEventImpl(id_source, 0, status, type, con);
+	}
 	
-	public TwitterEventImpl(int id, int id_source, int id_target, int id_status, byte type, Conexion con) throws SQLException{
-		this.id=id;
+	/**Constructor para el follow*/
+	public TwitterEventImpl(int id_source, int id_target, byte type, Conexion con) throws SQLException{
+		TwitterEventImpl(id_source, id_target, null, type, con);
+	}
+	
+	/**Tocho con todo, necesitamos este para favorite/unfavorite*/
+	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con) throws SQLException{
+		
+		int id_status=0;
 		this.con=con;
 		this.createdAt=new Date();
 		this.type=type;
 		source= new UserImpl(id_source, this.con);
-		target= new UserImpl(id_target, this.con);
 		
-		if (id_status>0) //Si el id_status se guarda como 0 es que el Event no afecta a un tweet sino a un User
-			status=new StatusImpl(id_status, this.con);
-		else status=null;
+		if (id_target==0)
+			target=null;
+		else	
+			target= new UserImpl(id_target, this.con);
+		
+		this.status=status;
+		
+		if (this.status==null) //Si el id_status se guarda como 0 es que el Event no afecta a un tweet sino a un User
+			id_status=0;
+		else id_status=this.status.getId();
 		
 		//Lo anadimos a la base de datos
-		this.con.updateQuery("INSERT INTO eventos (id, id_autor, id_destinatario, id_tweet,tipo, fecha)" +
-				"VALUES ("+id+","+id_source+","+id_target+","+id_status+","+type+","+createdAt+")");
+		this.con.updateQuery("INSERT INTO eventos (id_autor, id_destinatario, id_tweet,tipo, fecha)" +
+				"VALUES ("+id_source+","+id_target+","+id_status+","+type+","+createdAt+")");
+		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
+		this.id=last_id.getInt(1);
 	}
 	
 	
