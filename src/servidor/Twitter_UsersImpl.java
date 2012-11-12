@@ -3,6 +3,7 @@ package servidor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import excepcionesComunes.TwitterException;
@@ -120,9 +121,6 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	}
 
-
-
-
 	public User follow(String screenName){
 		return follow(new UserImpl(screenName));
 	}
@@ -133,82 +131,44 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return user;
 	}
 
-/*
+    public User getUser(long userId){
+    	return show(userId);
+    }
 
-    getUser
+    public User getUser(String screenName){
+    	return show(screenName);
+    }
 
-    public User getUser(long userId)
+    public boolean isFollower(String userB){
+    	User u=new UserImpl("userB");
+    	return u.isFollowingYou();
+    }
 
-    Synonym for #show(long). show is the Twitter API name, getUser feels more Java-like.
+    public boolean isFollower(String followerScreenName,String followedScreenName){
+    	boolean sol=true;
+    	Conexion con=new Conexion();
+    	User u1=new UserImpl("followerScreenName");
+    	User u2=new UserImpl("followedScreenName");
+		ResultSet res = con.query("SELECT * FROM seguidores WHERE id_seguidor="+u1.getId()+"AND id_seguido"+u2.getId());
+			try {
+				if(!res.next()){
+					sol=false;
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD");
+			}
+    	 return sol;
+    }
+   
 
-    Parameters:
-        userId - The user-id of a user.
-    Returns:
-        the user info
-    See Also:
-        getUser(String)
+    public boolean isFollowing(java.lang.String userB){
+    	return isFollowing(new UserImpl("userB"));
+    }
 
-    getUser
-
-    public User getUser(java.lang.String screenName)
-
-    Synonym for show(String). show is the Twitter API name, getUser feels more Java-like.
-
-    Parameters:
-        screenName - The screen name of a user.
-    Returns:
-        the user info
-
-    isBlocked
-
-    public boolean isBlocked(java.lang.Long userId)
-
-    isBlocked
-
-    public boolean isBlocked(java.lang.String screenName)
-
-    isFollower
-
-    public boolean isFollower(java.lang.String userB)
-
-    Is the authenticating user followed by userB?
-
-    Parameters:
-        userB - The screen name of a Twitter user.
-    Returns:
-        Whether or not the user is followed by userB.
-
-    isFollower
-
-    public boolean isFollower(java.lang.String followerScreenName,
-                     java.lang.String followedScreenName)
-
-    Returns:
-        true if followerScreenName is following followedScreenName
-    Throws:
-        TwitterException.E403 - if one of the users has protected their updates and you don't have access. This can be counter-intuitive (and annoying) at times! Also throws E403 if one of the users has been suspended (we use the TwitterException.SuspendedUser exception sub-class for this).
-        TwitterException.E404 - if one of the users does not exist
-
-    isFollowing
-
-    public boolean isFollowing(java.lang.String userB)
-
-    Does the authenticating user follow userB?
-
-    Parameters:
-        userB - The screen name of a Twitter user.
-    Returns:
-        Whether or not the user follows userB.
-
-    isFollowing
-
-    public boolean isFollowing(User user)
-
-    Convenience for isFollowing(String)
-
-    Parameters:
-        user - 
-
+    public boolean isFollowing(User user){
+    	return user.isFollowedByYou();
+    }
+        /*
     leaveNotifications
 
     public User leaveNotifications(java.lang.String screenName)
@@ -231,52 +191,32 @@ public class Twitter_UsersImpl implements Twitter_Users {
     Returns:
         the specified user
 
-    reportSpammer
-
-    public User reportSpammer(java.lang.String screenName)
-
-    searchUsers
-
-    public java.util.List<User> searchUsers(java.lang.String searchTerm)
-
-    Warning: there is a bug within twitter.com which means that location-based searches are treated as OR. E.g. "John near:Scotland" will happily return "Andrew from Aberdeen" :(
-
-    Unlike tweet search, this method does not support any operators. Only the first 1000 matches are available.
-
-    Does not do paging-to-max-results. But does support using #setPageNumber(Integer), and #setMaxResults(int) for less than the standard 20.
-
-    Parameters:
-        searchTerm - 
-    Returns:
-
-    show
-
-    public java.util.List<User> show(java.util.Collection<java.lang.String> screenNames)
-
-    Lookup user info. This is done in batches of 100. Users can look up at most 1000 users in an hour.
-
-    Parameters:
-        screenNames - Can be empty (in which case we avoid wasting an API call). Bogus names & deleted users will be quietly filtered out.
-    Returns:
-        user objects for screenNames. Warning 1: This may be less than the full set if Twitter returns an error part-way through (e.g. you hit your rate limit). Warning 2: the ordering may be different from the screenNames parameter
-    See Also:
-        #showById(List)
 */
+    
+    
+    
+    //Busqueda por screenName, devuelve una lista con usuarios cuyos screenNames contengan el string pasado
+    public java.util.List<User> searchUsers(String search){
+    	List<User> sol = new ArrayList<User>();
+    	Conexion con = new Conexion();
+    	
+    	return sol;
+    }
 
     public User show(Number userId){
-    	User sol=null;
-    	return sol;
+    	return new UserImpl(userId.intValue());
     }
  
     public User show(String screenName) throws TwitterException{
-    	User sol=null;
-    	
-    	return sol;
+    	return new UserImpl(screenName);
     }
     
     public List<User> showById(java.util.Collection<? extends Number> userIds){
     	List<User> sol= new ArrayList<User>();
-    	
+    	Iterator<? extends Number> it= userIds.iterator();
+    	while(it.hasNext()){
+    		sol.add((User)it.next());
+    	}
     	return sol;
     }
 

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import excepcionesComunes.TwitterException;
+
 import servidor.db.Conexion;
 
 import interfacesComunes.Place;
@@ -49,8 +51,12 @@ public class UserImpl implements User{
 		this.location=location;
 		Conexion con = new Conexion();	
 		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+screeName);
-		
+
 		try {
+			if(!res.next()){
+				throw new TwitterException("Usuario no existe");
+			}
+			
 			this.id=res.getInt("id");
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
@@ -83,6 +89,9 @@ public class UserImpl implements User{
 		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
 		
 		try {
+			if(!res.next()){
+				throw new TwitterException("Usuario no existe");
+			}
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
 			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
@@ -118,6 +127,9 @@ public class UserImpl implements User{
 		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+this.screenName);
 		
 		try {
+			if(!res.next()){
+				throw new TwitterException("Usuario no existe");
+			}
 			this.id=res.getInt("id");
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
@@ -150,6 +162,9 @@ public class UserImpl implements User{
 		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
 		
 		try {
+			if(!res.next()){
+				throw new TwitterException("Usuario no existe");
+			}
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
 			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
@@ -182,6 +197,9 @@ public class UserImpl implements User{
 		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
 		
 		try {
+			if(!res.next()){
+				throw new TwitterException("Usuario no existe");
+			}
 			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
 			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
 			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
