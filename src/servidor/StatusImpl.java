@@ -20,7 +20,9 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	private User usuario;
 	private java.util.Date 	createdAt;
 	private Conexion con;
+	private Place lugar;
 
+	//Constructor1
 	public StatusImpl(int id){
 		con = new Conexion();
 		this.id=id;
@@ -29,14 +31,31 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 			this.text=res.getString("texto");
 			this.usuario=new UserImpl(res.getInt("autor"));
 			this.createdAt=res.getTimestamp("fecha");
+			this.lugar=usuario.getPlace();
 		} 
 		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
 		}
 
 	}
+	//Constructor2
+	public StatusImpl(int id, Conexion con2) {
+		this.con = con2;
+		this.id=id;
+		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
+		try {
+			this.text=res.getString("texto");
+			this.usuario=new UserImpl(res.getInt("autor"));
+			this.createdAt=res.getTimestamp("fecha");
+			this.lugar=usuario.getPlace();
+		} 
+		catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
+		}
 
-	public StatusImpl(int int1, Conexion con2) {
+	}
+	//Constructor3
+	public StatusImpl(ResultSet last_id, Conexion con2) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -65,8 +84,7 @@ public class StatusImpl implements TwitterImpl.ITweet, Status{
 	}
 
 	public Place getPlace(){
-		//TODO: Esperando a tener la clase Place
-		return null;
+		return lugar;
 	}
 
 	/**
