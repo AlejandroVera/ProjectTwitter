@@ -1,6 +1,7 @@
 package servidor;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -13,7 +14,7 @@ import interfacesComunes.User;
 
 
 public class UserImpl implements User{
-	
+
 	private static final long serialVersionUID = -4749433293227574768L;
 
 	private User loggedUser;
@@ -42,7 +43,7 @@ public class UserImpl implements User{
 	private int statusesCount;
 	private boolean verified;
 	private java.net.URI 	website;
-	
+
 	//Constructor 1
 	public UserImpl(String screeName, String location){
 		this.screenName = screeName;
@@ -50,16 +51,15 @@ public class UserImpl implements User{
 		Conexion con = new Conexion();	
 		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+screeName);
 		try {
-			
+
 
 			this.name=res.getString("name");
 			this.id=res.getInt("id");
 			this.status=new StatusImpl(res.getInt("id_status"));
 			this.createdAt=res.getTimestamp("fecha_registro");
 			this.location=res.getString("Localizacion");
-			this.profileBackgroundColor=res.getString("profileBackgroundColor");r
-			this.profileImageUrl=res.getString("profileImageUrl");
-			this.profileBackgroundImageUrl=res.getString("profileBackgroundImageUrl");
+			this.profileBackgroundColor=res.getString("profileBackgroundColor");
+			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileLinkColor=res.getString("profileLinkColor");
 			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
 			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
@@ -70,7 +70,9 @@ public class UserImpl implements User{
 		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
 		}
-
+		catch (URISyntaxException e) {
+			ServerCommon.TwitterWarning(e, "Error al crear la URL");
+		}
 	}
 	//Constructor 2
 	UserImpl(int id, User loggedUser){
@@ -89,16 +91,16 @@ public class UserImpl implements User{
 	public UserImpl(int id) {
 		this.id = id;
 	}
-	
-	
+
+
 	public String getName(){
 		return name;
 	}
-	
+
 	public int getId(){
 		return id;
 	}
-	
+
 	public String getLocation(){
 		return location;
 	}
@@ -177,7 +179,7 @@ public class UserImpl implements User{
 	}
 
 	public Boolean isFollowingYou() {
-		
+
 		return null;
 	}
 
@@ -197,7 +199,7 @@ public class UserImpl implements User{
 	public boolean isVerified() {
 		return verified;
 	}
-	
+
 	public String getLang() {
 		return "es";
 	}
