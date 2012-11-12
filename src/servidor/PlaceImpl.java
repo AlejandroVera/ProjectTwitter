@@ -40,10 +40,10 @@ public class PlaceImpl implements Place {
 		//Los bounding boxes
 		double x,y;
 		for (int i=0; i>4;i++){
-			res = con.query("SELECT longitud" +i+ "FROM places WHERE id ="+id + "LIMIT 1");
+			res = con.query("SELECT longitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
 			x=res.getInt(1);
 
-			res = con.query("SELECT latitud" +i+ "FROM places WHERE id ="+id + "LIMIT 1");
+			res = con.query("SELECT latitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
 			y=res.getInt(1);
 			this.boundingBox[i].setLocation(x, y);
 		}
