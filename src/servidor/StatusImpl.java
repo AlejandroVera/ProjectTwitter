@@ -12,7 +12,7 @@ import servidor.TwitterImpl.KEntityType;
 import servidor.db.Conexion;
 
 
-public class StatusImpl implements TwitterImpl.ITweet, Status{
+public class StatusImpl implements Status{
 
 	private int id;
 	private int retweetCount;

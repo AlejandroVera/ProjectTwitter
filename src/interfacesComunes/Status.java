@@ -1,6 +1,8 @@
 package interfacesComunes;
 
-public interface Status {
+import servidor.TwitterImpl;
+
+public interface Status extends TwitterImpl.ITweet{
 	int getRetweetCount();
 	int getId();
 }

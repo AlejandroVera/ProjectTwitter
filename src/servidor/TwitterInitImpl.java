@@ -1,6 +1,6 @@
 package servidor;
 
-import interfacesComunes.ClienteCallback;
+import interfacesComunes.AStream;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -22,13 +22,13 @@ public class TwitterInitImpl extends UnicastRemoteObject implements
 	private static final long serialVersionUID = -4305345588180033587L;
 	Conexion con;
 	
-	public TwitterInitImpl(LinkedList<ClienteCallback> clientes) throws RemoteException {
+	public TwitterInitImpl(LinkedList<AStream.IListen> clientes) throws RemoteException {
 		super();
 		this.con = new Conexion();
 	}
 	
 	@Override
-	public Twitter login(String screenName, String pass, ClienteCallback cliente) throws RemoteException {
+	public Twitter login(String screenName, String pass, AStream.IListen cliente) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
 		try {

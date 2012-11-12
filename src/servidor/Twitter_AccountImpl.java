@@ -1,6 +1,5 @@
 package servidor;
 
-import interfacesComunes.ClienteCallback;
 import interfacesComunes.Twitter;
 import interfacesComunes.User;
 

@@ -3,6 +3,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import interfacesComunes.AStream;
 import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
@@ -51,7 +52,7 @@ public class TwitterImpl implements Twitter {
 	
 	private User user;
 	private Twitter_Users twitter_user;
-	private static HashMap<Integer, LinkedList<ClienteCallback>> clientes;
+	private static HashMap<Integer, LinkedList<AStream.IListen>> clientes;
 	private Conexion con;
 	private int maxResults = 20;
 	
@@ -66,7 +67,7 @@ public class TwitterImpl implements Twitter {
 		this.con = new Conexion();
 	}
 	
-	public TwitterImpl(int accountId, ClienteCallback callback){
+	public TwitterImpl(int accountId, AStream.IListen callback){
 		this.user = new UserImpl(accountId, this.con);
 		this.twitter_user = new Twitter_UsersImpl(this.user);
 		clientes.get(accountId).add(callback);
@@ -454,13 +455,13 @@ public class TwitterImpl implements Twitter {
 		
 		Message mes = new MessageImpl(message_id, this.con);
 		
-		List<ClienteCallback> user_callbacks = TwitterImpl.clientes.get(id_dest);
+		List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(id_dest);
 		if(user_callbacks != null){
-			Iterator<ClienteCallback> it = user_callbacks.iterator();
+			Iterator<AStream.IListen> it = user_callbacks.iterator();
 			while(it.hasNext()){
-				ClienteCallback call = it.next();
+				AStream.IListen call = it.next();
 				try {
-					call.notifyMessage(mes);
+					call.processTweet(mes);
 				} catch (RemoteException e) {
 					//Suponemos que ha sido por un error de conexión.
 					//Puede que el user se haya desconectado, así que lo sacamos del array.
@@ -526,7 +527,7 @@ public class TwitterImpl implements Twitter {
 			return null;
 		}
 		
-		Status status = new StatusImpl(last_id, this.con);
+		Status status = new StatusImpl(status_id, this.con);
 		
 		//Mandamos el tweet a todos los seguidores
 		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();
@@ -534,16 +535,16 @@ public class TwitterImpl implements Twitter {
 			
 			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
 			int id_dest = seguidores.next().intValue();
-			List<ClienteCallback> user_callbacks = TwitterImpl.clientes.get(id_dest);
+			List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(id_dest);
 			
 			if(user_callbacks != null){
-				Iterator<ClienteCallback> it = user_callbacks.iterator();
+				Iterator<AStream.IListen> it = user_callbacks.iterator();
 				
 				//Iteramos por cada uno de los callbacks notificando el nuevo tweet
 				while(it.hasNext()){
-					ClienteCallback call = it.next();
+					AStream.IListen call = it.next();
 					try {
-						call.notifyStatus(status);
+						call.processTweet(status);
 					} catch (RemoteException e) {
 						//Suponemos que ha sido por un error de conexión.
 						//Puede que el user se haya desconectado, así que lo sacamos del array.

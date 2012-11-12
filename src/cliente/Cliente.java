@@ -1,10 +1,13 @@
 package cliente;
 
 
+import interfacesComunes.AStream;
 import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.TwitterInit;
 
 import java.net.MalformedURLException;
@@ -16,7 +19,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 
-public class Cliente extends UnicastRemoteObject implements ClienteCallback{
+public class Cliente extends UnicastRemoteObject implements AStream.IListen{
 
 	protected Cliente() throws RemoteException {
 		super();
@@ -35,7 +38,7 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 	public static void main(String[] args) throws RemoteException {
 		// TODO Auto-generated method stub
 		String rmiUrl = "rmi://localhost/Conectar";
-		ClienteCallback self = new Cliente();
+		AStream.IListen self = new Cliente();
 		
 		try {
 			TwitterInit stub = (TwitterInit) Naming.lookup(rmiUrl);
@@ -58,14 +61,22 @@ public class Cliente extends UnicastRemoteObject implements ClienteCallback{
 		
 	}
 	
-	public void notifyMessage(Message message){
-		System.out.println(message.getText());
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		System.out.println(event.getText());
+		return true;
 	}
 
 	@Override
-	public void notifyStatus(Status status) throws RemoteException {
-		System.out.println(status.getText());
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		//System.out.println(message.getText());
+		return true;
+	}
 
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		System.out.println(tweet.getText());
+		return true;
 	}
 
 }
