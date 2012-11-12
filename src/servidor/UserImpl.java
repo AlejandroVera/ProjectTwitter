@@ -27,7 +27,7 @@ public class UserImpl implements User{
 	private int id; 
 	private String 	location;//The location, as reported by the user.
 	private String 	name; //The display name, ejemplo: "Camilo Pereira"
-	private boolean notifications;//TODO: pero pero pero esto q eeeeees
+	private boolean notifications;
 	private String 	profileBackgroundColor;
 	private java.net.URI profileBackgroundImageUrl;
 	private boolean profileBackgroundTile ;
@@ -345,7 +345,7 @@ public class UserImpl implements User{
 	}
 
 	public Place getPlace() {
-		// TODO Esperando la tabla places
+		// TODO pero pero pero esto que eeees
 		return null;
 	}
 }

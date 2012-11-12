@@ -20,8 +20,8 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	public List<Integer> getFollowerIDs(){
-		List<Integer> seguidores=new ArrayList<Integer>();
+	public List<Number> getFollowerIDs(){
+		List<Number> seguidores=new ArrayList<Number>();
 		Conexion con = new Conexion();	
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+user.getId());
 		try {
@@ -119,275 +119,217 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
+
+
+	public User follow(String screenName){
+		return follow(new UserImpl(screenName));
+	}
+
+	public User follow(User user){
+		Conexion con = new Conexion();	
+		con.query("INSERT INTO seguidores  VALUES ("+this.user.getId()+", "+user.getId()+")");
+		return user;
+	}
+
 /*
-follow
 
-	public User follow(java.lang.String username)
+    getUser
 
+    public User getUser(long userId)
 
-		Start following a user.
+    Synonym for #show(long). show is the Twitter API name, getUser feels more Java-like.
 
-		Parameters:
-			username - Required. The ID or screen name of the user to befriend.
-			Returns:
-			The befriended user, or null if (a) they were already being followed, or (b) they protect their tweets & you already requested to follow them.
-			Throws:
-		TwitterException - if the user does not exist or has been suspended.
-			See Also:
-	stopFollowing(String)
+    Parameters:
+        userId - The user-id of a user.
+    Returns:
+        the user info
+    See Also:
+        getUser(String)
 
-follow
+    getUser
 
-public User follow(User user)
+    public User getUser(java.lang.String screenName)
 
-Convenience for follow(String)
+    Synonym for show(String). show is the Twitter API name, getUser feels more Java-like.
 
-	Parameters:
-		user - 
-	Returns:
-fresh user object, or null if (a) they were already being followed, or (b) they protect their tweets & you already requested to follow them.
+    Parameters:
+        screenName - The screen name of a user.
+    Returns:
+        the user info
 
-getBlockedIds
+    isBlocked
 
-public java.util.List<java.lang.Number> getBlockedIds()
+    public boolean isBlocked(java.lang.Long userId)
 
-	Returns:
-an array of numeric user ids the authenticating user is blocking. Use showById(Collection) if you want to convert thse into User objects.
+    isBlocked
 
+    public boolean isBlocked(java.lang.String screenName)
 
+    isFollower
 
-public java.util.List<User> getRelationshipInfo(java.util.List<java.lang.String> screenNames)
+    public boolean isFollower(java.lang.String userB)
 
-Bulk-fetch relationship info by screen-name.
+    Is the authenticating user followed by userB?
 
-Parameters:
-screenNames - Can be empty
-Returns:
-User objects which are mostly blank, but do have User.isFollowingYou() and User.isFollowedByYou() set (plus name, screenname and id).
-See Also:
-getRelationshipInfoById(List)
+    Parameters:
+        userB - The screen name of a Twitter user.
+    Returns:
+        Whether or not the user is followed by userB.
 
-getRelationshipInfoById
+    isFollower
 
-																																	public java.util.List<User> getRelationshipInfoById(java.util.List<? extends java.lang.Number> userIDs)
+    public boolean isFollower(java.lang.String followerScreenName,
+                     java.lang.String followedScreenName)
 
-																																	Bulk-fetch relationship info by user-id.
+    Returns:
+        true if followerScreenName is following followedScreenName
+    Throws:
+        TwitterException.E403 - if one of the users has protected their updates and you don't have access. This can be counter-intuitive (and annoying) at times! Also throws E403 if one of the users has been suspended (we use the TwitterException.SuspendedUser exception sub-class for this).
+        TwitterException.E404 - if one of the users does not exist
 
-																																	Parameters:
-																																		userIDs - Can be empty
-																																		Returns:
-																																			User objects which are mostly blank, but which have User.isFollowingYou() and User.isFollowedByYou() set (plus name, screenname and id).
-																																			See Also:
-																																				getRelationshipInfo(List)
+    isFollowing
 
-																																				getUser
+    public boolean isFollowing(java.lang.String userB)
 
-																																				public User getUser(long userId)
+    Does the authenticating user follow userB?
 
-																																			Synonym for #show(long). show is the Twitter API name, getUser feels more Java-like.
+    Parameters:
+        userB - The screen name of a Twitter user.
+    Returns:
+        Whether or not the user follows userB.
 
-																																			Parameters:
-																																				userId - The user-id of a user.
-																																				Returns:
-																																					the user info
-																																					See Also:
-																																						getUser(String)
+    isFollowing
 
-																																						getUser
+    public boolean isFollowing(User user)
 
-																																						public User getUser(java.lang.String screenName)
+    Convenience for isFollowing(String)
 
-																																			Synonym for show(String). show is the Twitter API name, getUser feels more Java-like.
+    Parameters:
+        user - 
 
-																																			Parameters:
-																																				screenName - The screen name of a user.
-																																				Returns:
-																																					the user info
+    leaveNotifications
 
-																																					isBlocked
+    public User leaveNotifications(java.lang.String screenName)
 
-																																					public boolean isBlocked(java.lang.Long userId)
+    Switches off notifications for updates from the specified user who must already be a friend.
 
-																																			isBlocked
+    Parameters:
+        screenName - Stop getting notifications from this user, who must already be one of your friends.
+    Returns:
+        the specified user
 
-																																			public boolean isBlocked(java.lang.String screenName)
+    notify
 
-																																			isFollower
+    public User notify(java.lang.String username)
 
-																																			public boolean isFollower(java.lang.String userB)
+    Enables notifications for updates from the specified user who must already be a friend.
 
-																																			Is the authenticating user followed by userB?
+    Parameters:
+        username - Get notifications from this user, who must already be one of your friends.
+    Returns:
+        the specified user
 
-																																					Parameters:
-																																						userB - The screen name of a Twitter user.
-																																						Returns:
-																																							Whether or not the user is followed by userB.
+    reportSpammer
 
-																																							isFollower
+    public User reportSpammer(java.lang.String screenName)
 
-																																							public boolean isFollower(java.lang.String followerScreenName,
-																																									java.lang.String followedScreenName)
+    searchUsers
 
-																																			Returns:
-																																				true if followerScreenName is following followedScreenName
-																																				Throws:
-																																					TwitterException.E403 - if one of the users has protected their updates and you don't have access. This can be counter-intuitive (and annoying) at times! Also throws E403 if one of the users has been suspended (we use the TwitterException.SuspendedUser exception sub-class for this).
-																																					TwitterException.E404 - if one of the users does not exist
+    public java.util.List<User> searchUsers(java.lang.String searchTerm)
 
-																																					isFollowing
+    Warning: there is a bug within twitter.com which means that location-based searches are treated as OR. E.g. "John near:Scotland" will happily return "Andrew from Aberdeen" :(
 
-																																					public boolean isFollowing(java.lang.String userB)
+    Unlike tweet search, this method does not support any operators. Only the first 1000 matches are available.
 
-																																							Does the authenticating user follow userB?
+    Does not do paging-to-max-results. But does support using #setPageNumber(Integer), and #setMaxResults(int) for less than the standard 20.
 
-																																									Parameters:
-																																										userB - The screen name of a Twitter user.
-																																										Returns:
-																																											Whether or not the user follows userB.
+    Parameters:
+        searchTerm - 
+    Returns:
 
-																																											isFollowing
+    show
 
-																																											public boolean isFollowing(User user)
+    public java.util.List<User> show(java.util.Collection<java.lang.String> screenNames)
 
-																																							Convenience for isFollowing(String)
+    Lookup user info. This is done in batches of 100. Users can look up at most 1000 users in an hour.
 
-																																							Parameters:
-																																								user - 
+    Parameters:
+        screenNames - Can be empty (in which case we avoid wasting an API call). Bogus names & deleted users will be quietly filtered out.
+    Returns:
+        user objects for screenNames. Warning 1: This may be less than the full set if Twitter returns an error part-way through (e.g. you hit your rate limit). Warning 2: the ordering may be different from the screenNames parameter
+    See Also:
+        #showById(List)
 
-																																								leaveNotifications
+    show
 
-																																								public User leaveNotifications(java.lang.String screenName)
+    public User show(java.lang.Number userId)
 
-																																							Switches off notifications for updates from the specified user who must already be a friend.
+    Returns information of a given user, specified by user-id.
 
-																																							Parameters:
-																																								screenName - Stop getting notifications from this user, who must already be one of your friends.
-																																								Returns:
-																																									the specified user
+    Parameters:
+        userId - The user-id of a user.
+    Throws:
+        exception - if the user does not exist - or has been terminated (as happens to spam bots).
 
-																																									notify
+    show
 
-																																									public User notify(java.lang.String username)
+    public User show(java.lang.String screenName)
+              throws TwitterException,
+                     TwitterException.SuspendedUser
 
-																																							Enables notifications for updates from the specified user who must already be a friend.
+    Returns information of a given user, specified by screen name.
 
-																																							Parameters:
-																																								username - Get notifications from this user, who must already be one of your friends.
-																																								Returns:
-																																									the specified user
+    Parameters:
+        screenName - The screen name of a user.
+    Throws:
+        exception - if the user does not exist
+        TwitterException.SuspendedUser - if the user has been terminated (as happens to spam bots).
+        TwitterException
+    See Also:
+        #show(long)
 
-																																									reportSpammer
+    showById
 
-																																									public User reportSpammer(java.lang.String screenName)
+    public java.util.List<User> showById(java.util.Collection<? extends java.lang.Number> userIds)
 
-																																							searchUsers
+    Lookup user info. Same as #show(List), but works with Twitter user-ID numbers. Done in batches of 100, limited to 1000 an hour.
 
-																																							public java.util.List<User> searchUsers(java.lang.String searchTerm)
+    Parameters:
+        userIds - . Can be empty (in which case we avoid making a wasted API call).
 
-																																							Warning: there is a bug within twitter.com which means that location-based searches are treated as OR. E.g. "John near:Scotland" will happily return "Andrew from Aberdeen" :(
+    stopFollowing
 
-																																									Unlike tweet search, this method does not support any operators. Only the first 1000 matches are available.
+    public User stopFollowing(java.lang.String username)
 
-																																									Does not do paging-to-max-results. But does support using #setPageNumber(Integer), and #setMaxResults(int) for less than the standard 20.
+    Destroy: Discontinues friendship with the user specified in the ID parameter as the authenticating user.
 
-																																									Parameters:
-																																										searchTerm - 
-																																										Returns:
+    Parameters:
+        username - The screen name of the user with whom to discontinue friendship.
+    Returns:
+        the un-friended user (if they were a friend), or null if the method fails because the specified user was not a friend.
 
-																																											show
+    stopFollowing
 
-																																											public java.util.List<User> show(java.util.Collection<java.lang.String> screenNames)
+    public User stopFollowing(User user)
 
-																																											Lookup user info. This is done in batches of 100. Users can look up at most 1000 users in an hour.
+    Convenience for stopFollowing(String)
 
-																																											Parameters:
-																																												screenNames - Can be empty (in which case we avoid wasting an API call). Bogus names & deleted users will be quietly filtered out.
-																																												Returns:
-																																													user objects for screenNames. Warning 1: This may be less than the full set if Twitter returns an error part-way through (e.g. you hit your rate limit). Warning 2: the ordering may be different from the screenNames parameter
-																																													See Also:
-																																														#showById(List)
+    Parameters:
+        user - 
+    Returns:
 
-																																														show
 
-																																														public User show(java.lang.Number userId)
+    userExists
 
-																																												Returns information of a given user, specified by user-id.
+    public boolean userExists(java.lang.String screenName)
 
-																																												Parameters:
-																																													userId - The user-id of a user.
-																																													Throws:
-																																														exception - if the user does not exist - or has been terminated (as happens to spam bots).
+    Does a user with the specified name or id exist?
 
-																																														show
+    Parameters:
+        screenName - The screen name or user id of the suspected user.
+    Returns:
+        False if the user doesn't exist or has been suspended, true otherwise.
 
-																																														public User show(java.lang.String screenName)
-																																																throws TwitterException,
-																																																TwitterException.SuspendedUser
 
-																																																Returns information of a given user, specified by screen name.
-
-																																																Parameters:
-																																																	screenName - The screen name of a user.
-																																																	Throws:
-																																																		exception - if the user does not exist
-																																																		TwitterException.SuspendedUser - if the user has been terminated (as happens to spam bots).
-																																																		TwitterException
-																																																		See Also:
-																																																			#show(long)
-
-																																																			showById
-
-																																																			public java.util.List<User> showById(java.util.Collection<? extends java.lang.Number> userIds)
-
-																																																			Lookup user info. Same as #show(List), but works with Twitter user-ID numbers. Done in batches of 100, limited to 1000 an hour.
-
-																																																			Parameters:
-																																																				userIds - . Can be empty (in which case we avoid making a wasted API call).
-
-																																																				stopFollowing
-
-																																																				public User stopFollowing(java.lang.String username)
-
-																																																		Destroy: Discontinues friendship with the user specified in the ID parameter as the authenticating user.
-
-																																																		Parameters:
-																																																			username - The screen name of the user with whom to discontinue friendship.
-																																																			Returns:
-																																																				the un-friended user (if they were a friend), or null if the method fails because the specified user was not a friend.
-
-																																																				stopFollowing
-
-																																																				public User stopFollowing(User user)
-
-																																																				Convenience for stopFollowing(String)
-
-																																																				Parameters:
-																																																					user - 
-																																																					Returns:
-
-																																																						unblock
-
-																																																						public User unblock(java.lang.String screenName)
-
-																																																				blocks/destroy: Un-blocks screenName for the authenticating user. Returns the un-blocked user when successful. If relationships existed before the block was instated, they will not be restored.
-
-																																																				Parameters:
-																																																					screenName - 
-																																																					Returns:
-																																																						the now un-blocked User
-																																																						See Also:
-																																																							block(String)
-
-																																																							userExists
-
-																																																							public boolean userExists(java.lang.String screenName)
-
-																																																						Does a user with the specified name or id exist?
-
-																																																								Parameters:
-																																																									screenName - The screen name or user id of the suspected user.
-																																																									Returns:
-																																																										False if the user doesn't exist or has been suspended, true otherwise.
-
-	 */
+*/
 }
