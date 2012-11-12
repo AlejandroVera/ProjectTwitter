@@ -19,12 +19,14 @@ import servidor.db.Conexion;
 public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	
 	Twitter twitter;
+	Conexion con;
 	
-	public Twitter_AccountImpl (Twitter jtwit){
+	public Twitter_AccountImpl (Twitter jtwit, Conexion con){
 		twitter=jtwit;
+		this.con=con;
 		
 	}
-	Conexion con=twitter.getConexion();
+	
 	//Nivel de acceso del login, lo pongo como login normal
 	
 	public KAccessLevel getAccesLevel() {
@@ -42,15 +44,13 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		params.add(description);
 		params.add(name);
 		
-		LinkedList<Object> params2 = new LinkedList<Object>();
-		params2.add(name);
 		con.updateQuery("UPDATE usuario SET url= ?, location = ?, descripcion = ? WHERE name = ?", params);
-		ResultSet res = con.query("SELECT Name FROM usuario WHERE name = ? ", (params2));
+		ResultSet res = con.query("SELECT id FROM usuario WHERE name ="+ name);
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				
-				return new UserImpl(name);
+				return new UserImpl(res.getInt(1), this.con);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido actualizar usuario " + name);
