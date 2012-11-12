@@ -76,7 +76,7 @@ public class TwitterImpl implements Twitter {
 
 	public Twitter_Account account() {
 		// TODO Auto-generated method stub
-		return new Twitter_AccountImpl(this);
+		return new Twitter_AccountImpl(this, this.con);
 	}
 
 	public int countCharacters(String statusText) {
