@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import interfacesComunes.AStream;
-import interfacesComunes.ClienteCallback;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
@@ -14,11 +13,9 @@ import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -99,7 +96,7 @@ public class TwitterImpl implements Twitter {
 	
 	public void destroyMessage(Number id) {
 		if(this.user != null && id != null){
-			int userId = this.user.getId();
+			//int userId = this.user.getId();
 			//TODO: borrado de mensaje, si lo borra el emisor se le borra al destinatario??
 			//int res = con.query("DELETE FROM mensaje WHERE id = "+id+" AND owner = "+userId+" LIMIT 1");
 		}
