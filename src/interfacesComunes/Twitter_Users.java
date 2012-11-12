@@ -1,9 +1,9 @@
 package interfacesComunes;
 
-import java.sql.SQLException;
+import java.util.List;
 
 public interface Twitter_Users {
 
-	SQLException getFollowerIDs();
+	List<Integer> getFollowerIDs();
 
 }

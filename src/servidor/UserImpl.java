@@ -111,11 +111,11 @@ public class UserImpl implements User{
 	
 	
 	//Constructor 3
-	public UserImpl(String name){
-		this.name = name;
+	public UserImpl(String screenName){
+		this.screenName = screenName;
 		
 		Conexion con = new Conexion();	
-		ResultSet res = con.query("SELECT * FROM usuario WHERE name="+this.name);
+		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+this.screenName);
 		
 		try {
 			this.id=res.getInt("id");
@@ -126,6 +126,7 @@ public class UserImpl implements User{
 			this.status=new StatusImpl(res.getInt("id_status"));
 			this.createdAt=res.getTimestamp("fecha_registro");
 			this.location=res.getString("Localizacion");
+			this.name=res.getString("name");
 			this.profileBackgroundColor=res.getString("profileBackgroundColor");
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileLinkColor=res.getString("profileLinkColor");
