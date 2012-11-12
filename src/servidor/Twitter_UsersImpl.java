@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import excepcionesComunes.TwitterException;
+
 import servidor.db.Conexion;
 
 import interfacesComunes.Twitter_Users;
@@ -259,77 +261,60 @@ public class Twitter_UsersImpl implements Twitter_Users {
         user objects for screenNames. Warning 1: This may be less than the full set if Twitter returns an error part-way through (e.g. you hit your rate limit). Warning 2: the ordering may be different from the screenNames parameter
     See Also:
         #showById(List)
-
-    show
-
-    public User show(java.lang.Number userId)
-
-    Returns information of a given user, specified by user-id.
-
-    Parameters:
-        userId - The user-id of a user.
-    Throws:
-        exception - if the user does not exist - or has been terminated (as happens to spam bots).
-
-    show
-
-    public User show(java.lang.String screenName)
-              throws TwitterException,
-                     TwitterException.SuspendedUser
-
-    Returns information of a given user, specified by screen name.
-
-    Parameters:
-        screenName - The screen name of a user.
-    Throws:
-        exception - if the user does not exist
-        TwitterException.SuspendedUser - if the user has been terminated (as happens to spam bots).
-        TwitterException
-    See Also:
-        #show(long)
-
-    showById
-
-    public java.util.List<User> showById(java.util.Collection<? extends java.lang.Number> userIds)
-
-    Lookup user info. Same as #show(List), but works with Twitter user-ID numbers. Done in batches of 100, limited to 1000 an hour.
-
-    Parameters:
-        userIds - . Can be empty (in which case we avoid making a wasted API call).
-
-    stopFollowing
-
-    public User stopFollowing(java.lang.String username)
-
-    Destroy: Discontinues friendship with the user specified in the ID parameter as the authenticating user.
-
-    Parameters:
-        username - The screen name of the user with whom to discontinue friendship.
-    Returns:
-        the un-friended user (if they were a friend), or null if the method fails because the specified user was not a friend.
-
-    stopFollowing
-
-    public User stopFollowing(User user)
-
-    Convenience for stopFollowing(String)
-
-    Parameters:
-        user - 
-    Returns:
-
-
-    userExists
-
-    public boolean userExists(java.lang.String screenName)
-
-    Does a user with the specified name or id exist?
-
-    Parameters:
-        screenName - The screen name or user id of the suspected user.
-    Returns:
-        False if the user doesn't exist or has been suspended, true otherwise.
-
-
 */
+
+    public User show(Number userId){
+    	User sol=null;
+    	return sol;
+    }
+ 
+    public User show(String screenName) throws TwitterException{
+    	User sol=null;
+    	
+    	return sol;
+    }
+    
+    public List<User> showById(java.util.Collection<? extends Number> userIds){
+    	List<User> sol= new ArrayList<User>();
+    	
+    	return sol;
+    }
+
+
+    public User stopFollowing(String username){
+    	return stopFollowing(new UserImpl(username));
+    }
+    
+    public User stopFollowing(User user){
+    	User sol=null;
+    	Conexion con = new Conexion();	
+    	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.user.getId()+" AND id_seguido="+user.getId());
+    	try {
+			if(res.next()){
+				sol=user;
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+    	return sol;
+    }
+
+
+
+	
+    public boolean userExists(String screenName){
+    	boolean sol=false;
+		Conexion con = new Conexion();	
+		ResultSet res = con.query("SELECT id FROM usuario WHERE screenName="+screenName);
+		try {
+			if(res.next()){
+				sol=true;
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+    	return sol;
+    }
+
+
 }
