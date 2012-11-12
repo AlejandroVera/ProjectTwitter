@@ -29,16 +29,20 @@ public class TwitterEventImpl implements TwitterEvent{
 	private Conexion con;
 	/** Constructor para actualizacion de cuenta*/
 	public TwitterEventImpl(int id_source,byte type, Conexion con) throws SQLException{
-		TwitterEventImpl(id_source, 0, null, type, con);
+		initTwitterEventImpl(id_source, 0, null, type, con);
 	}
 	
 	/**Constructor para el follow*/
 	public TwitterEventImpl(int id_source, int id_target, byte type, Conexion con) throws SQLException{
-		TwitterEventImpl(id_source, id_target, null, type, con);
+		initTwitterEventImpl(id_source, id_target, null, type, con);
 	}
 	
 	/**Tocho con todo, necesitamos este para favorite/unfavorite*/
-	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con) throws SQLException{
+	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con) throws SQLException {
+		initTwitterEventImpl(id_source, id_target, status, type, con);
+	}
+	
+	private void initTwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con) throws SQLException{
 		
 		int id_status=0;
 		this.con=con;
