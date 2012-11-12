@@ -25,26 +25,26 @@ public class PlaceImpl implements Place {
 		this.id=id;
 		this.con=con;
 		
-		ResultSet res = con.query("SELECT name FROM places WHERE id ="+id + "LIMIT 1");
+		ResultSet res = this.con.query("SELECT name FROM places WHERE id ="+id + "LIMIT 1");
 		this.name=res.getString(1);
 		
-		res = con.query("SELECT pais FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT pais FROM places WHERE id ="+id + "LIMIT 1");
 		this.countryName=res.getString(1);
 		
-		res = con.query("SELECT ciudad FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT ciudad FROM places WHERE id ="+id + "LIMIT 1");
 		this.countryName=res.getString(1);
 		
-		res = con.query("SELECT tipo FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT tipo FROM places WHERE id ="+id + "LIMIT 1");
 		this.type=res.getString(1);
 		
 		//Los bounding boxes
 		double x,y;
 		for (int i=0; i>4;i++){
-			res = con.query("SELECT longitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
-			x=res.getInt(1);
+			res = this.con.query("SELECT longitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
+			x=res.getDouble(1);
 
-			res = con.query("SELECT latitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
-			y=res.getInt(1);
+			res = this.con.query("SELECT latitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
+			y=res.getDouble(1);
 			this.boundingBox[i].setLocation(x, y);
 		}
 		
