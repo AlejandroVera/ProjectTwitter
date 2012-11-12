@@ -9,9 +9,6 @@ import interfacesComunes.Place;
 
 public class PlaceImpl implements Place {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private Conexion con;

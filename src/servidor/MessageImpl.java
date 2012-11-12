@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import servidor.db.Conexion;
 import interfacesComunes.Message;
 import interfacesComunes.Place;
+import interfacesComunes.Twitter_Geo;
 import servidor.TwitterImpl;
 import servidor.TwitterImpl.KEntityType;
 import interfacesComunes.Twitter.TweetEntity;
@@ -96,10 +97,10 @@ public class MessageImpl implements Message{
 	}
 	
 
-	/*Lo dejo para Place*/
+	
 	public Place getPlace() {
-		// TODO Auto-generated method stub
-		return null;
+			Twitter_Geo geo = new Twitter_GeoImpl(this.con);
+		return geo.geoSearchByIP("www.google.com");
 	}
 
 	
