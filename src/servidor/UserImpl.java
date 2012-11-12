@@ -50,11 +50,14 @@ public class UserImpl implements User{
 		this.location=location;
 		Conexion con = new Conexion();	
 		ResultSet res = con.query("SELECT * FROM usuario WHERE screenName="+screeName);
+		
 		try {
-
-
-			this.name=res.getString("name");
 			this.id=res.getInt("id");
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			
+			
+			this.name=res.getString("name");
 			this.status=new StatusImpl(res.getInt("id_status"));
 			this.createdAt=res.getTimestamp("fecha_registro");
 			this.location=res.getString("Localizacion");
