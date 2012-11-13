@@ -12,13 +12,13 @@ import servidor.db.Conexion;
 
 import interfacesComunes.Place;
 import interfacesComunes.Status;
+import interfacesComunes.Twitter_Geo;
 import interfacesComunes.User;
 
 
 public class UserImpl implements User{
-	//TODO: notificaciones del usuario
+	
 	private static final long serialVersionUID = -4749433293227574768L;
-
 	private User loggedUser;
 	private int id; 
 	private java.util.Date 	createdAt;
@@ -47,9 +47,9 @@ public class UserImpl implements User{
 		ResultSet res=null;
 		if(screenName==null){
 			this.id = id;
-			res = con.query("SELECT * FROM usuario WHERE id="+this.id);
+			res = con.query("SELECT * FROM usuario WHERE id="+this.id+"LIMIT 1");
 		}else{
-			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName);
+			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName+"LIMIT 1");
 		}
 		try {
 			if(!res.next()){
@@ -80,7 +80,10 @@ public class UserImpl implements User{
 		}
 	}
 	
-
+	public boolean getFollowRequestSent(){
+		return followRequestSent;
+	}
+	
 	public String getName(){
 		return name;
 	}
@@ -176,7 +179,7 @@ public class UserImpl implements User{
 	}
 
 	public Place getPlace() {
-		// TODO pero pero pero esto que eeees
-		return null;
+		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
+		return geo.geoSearchByIP("www.google.com");
 	}
 }
