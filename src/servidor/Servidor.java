@@ -19,7 +19,7 @@ public class Servidor {
 		
 		LinkedList<AStream.IListen> clientes = new LinkedList<AStream.IListen>();
 		
-		try {
+		try { 
 			Naming.rebind("Conectar", new TwitterInitImpl(clientes));
 		} catch (RemoteException e) {
 			e.printStackTrace();
