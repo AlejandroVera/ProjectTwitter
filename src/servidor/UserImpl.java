@@ -20,30 +20,25 @@ public class UserImpl implements User{
 	private static final long serialVersionUID = -4749433293227574768L;
 
 	private User loggedUser;
+	private int id; 
 	private java.util.Date 	createdAt;
 	private String 	description; 
 	private int favoritesCount;
 	private int followersCount;
 	private boolean followRequestSent;//True if the authenticated user has requested to follow this user.
 	private int friendsCount;	//The number of people this user is following.
-	private int id; 
 	private String 	location;//The location, as reported by the user.
 	private String 	name; //The display name, ejemplo: "Camilo Pereira"
 	private boolean notifications;
-	private String 	profileBackgroundColor;
 	private java.net.URI profileBackgroundImageUrl;
-	private boolean profileBackgroundTile ;
 	private java.net.URI profileImageUrl;//The url for the user's Twitter profile picture.
-	private String profileLinkColor; 
-	private String profileSidebarBorderColor;
-	private String profileSidebarFillColor;
-	private String profileTextColor; 
-	private boolean protectedUser; //true if this user keeps their updates private
 	private String screenName; //The login name, ejemplo: "kmilinho"	
 	private Status 	status; //The user's current status - *if* returned by Twitter.
 	private int statusesCount;
 	private boolean verified;
 	private java.net.URI 	website;
+
+	private Conexion con;
 
 	//Constructor 1
 	public UserImpl(String screeName, String location){
@@ -170,15 +165,11 @@ public class UserImpl implements User{
 			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
 			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
 			this.name=res.getString("name");
-			this.status=new StatusImpl(res.getInt("id_status"));
+			this.status=new StatusImpl(res.getInt("id_status"),this.con);
 			this.createdAt=res.getTimestamp("fecha_registro");
 			this.location=res.getString("Localizacion");
-			this.profileBackgroundColor=res.getString("profileBackgroundColor");
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
-			this.profileLinkColor=res.getString("profileLinkColor");
-			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
-			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
-			this.profileTextColor=res.getString("profileTextColor");
+			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
 			this.website=new URI(res.getString("web_link"));
 			this.description=res.getString("descripcion");
 			this.screenName = res.getString("screenName");
@@ -190,42 +181,7 @@ public class UserImpl implements User{
 			ServerCommon.TwitterWarning(e, "Error al crear la URL");
 		}
 	}
-	//Constructor 5
-	public UserImpl(int id) {
-		this.id = id;
-		Conexion con = new Conexion();	
-		ResultSet res = con.query("SELECT * FROM usuario WHERE id="+this.id);
-		
-		try {
-			if(!res.next()){
-				throw new TwitterException("Usuario no existe");
-			}
-			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
-			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
-			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
-			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
-			this.name=res.getString("name");
-			this.status=new StatusImpl(res.getInt("id_status"));
-			this.createdAt=res.getTimestamp("fecha_registro");
-			this.location=res.getString("Localizacion");
-			this.profileBackgroundColor=res.getString("profileBackgroundColor");
-			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
-			this.profileLinkColor=res.getString("profileLinkColor");
-			this.profileSidebarBorderColor=res.getString("profileSidebarBorderColor");
-			this.profileSidebarFillColor=res.getString("profileSidebarFillColor");
-			this.profileTextColor=res.getString("profileTextColor");
-			this.website=new URI(res.getString("web_link"));
-			this.description=res.getString("descripcion");
-			this.screenName = res.getString("screenName");
-		} 
-		catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
-		}
-		catch (URISyntaxException e) {
-			ServerCommon.TwitterWarning(e, "Error al crear la URL");
-		}
-	}
-
+	
 
 	public String getName(){
 		return name;

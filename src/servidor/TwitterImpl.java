@@ -34,10 +34,35 @@ public class TwitterImpl implements Twitter {
 		private KEntityType type;
 		private int start;
 		private int end;
-		public TweetEntity(KEntityType type, int start, int end){
+		private Conexion con;
+		private int tweet_id;
+		
+		public TweetEntity(int tweet_id, KEntityType type, int start, int end, Conexion con){
+			this.con=con;
 			this.type = type;
 			this.start = start;
 			this.end=end;
+			this.tweet_id=tweet_id;
+		}
+		
+		public String displayVersion(){
+			String sol = null;
+			String textTweet=null;
+			if(this.type==KEntityType.urls){
+				//TODO: pendiente de si se acortan o no las urls
+			}
+			else if(this.type==KEntityType.user_mentions){
+				ResultSet res=con.query("SELECT texto FROM tweet WHERE id="+this.tweet_id);
+				try {
+					if(res.next()){
+						textTweet=res.getString(1);
+					}
+				} catch (SQLException e) {
+					ServerCommon.TwitterWarning(e, "Error al acceder a la bd");
+				}
+				sol=textTweet.substring(this.start+1,this.end);
+			}
+			return sol;
 		}
 		
 	}
@@ -385,7 +410,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese ID");
 			else
-				return new StatusImpl(id.intValue());
+				return new StatusImpl(id.intValue(),this.con);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese ID");
@@ -401,7 +426,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese screenName");
 			else
-				return new StatusImpl(res.getInt(1));
+				return new StatusImpl(res.getInt(1),this.con);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese screenName");

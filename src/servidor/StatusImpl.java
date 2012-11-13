@@ -22,9 +22,9 @@ public class StatusImpl implements Status{
 	private Conexion con;
 	private Place lugar;
 
-	//Constructor1
-	public StatusImpl(int id){
-		con = new Conexion();
+
+	public StatusImpl(int id, Conexion con){
+		this.con = con;
 		this.id=id;
 		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
 		try {
@@ -38,23 +38,7 @@ public class StatusImpl implements Status{
 		}
 
 	}
-	//Constructor2
-	public StatusImpl(int id, Conexion con2) {
-		this.con = con2;
-		this.id=id;
-		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
-		try {
-			this.text=res.getString("texto");
-			this.usuario=new UserImpl(res.getInt("autor"));
-			this.createdAt=res.getTimestamp("fecha");
-			this.lugar=usuario.getPlace();
-		} 
-		catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
-		}
 
-	}
-	
 	public int getId() {
 		return id;
 	}
@@ -112,7 +96,7 @@ public class StatusImpl implements Status{
 			else{
 				inicio=m.start();
 			}
-			entities.add(new TwitterImpl.TweetEntity(type, inicio,m.end()));
+			entities.add(new TwitterImpl.TweetEntity(this.id,type, inicio,m.end(),this.con));
 		}
 		return entities;
 	}
