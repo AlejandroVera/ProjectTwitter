@@ -199,7 +199,16 @@ public class Twitter_UsersImpl implements Twitter_Users {
     public java.util.List<User> searchUsers(String search){
     	List<User> sol = new ArrayList<User>();
     	Conexion con = new Conexion();
-    	
+    	ResultSet res = con.query("SELECT screenName FROM usuario");
+    	try {
+			while(res.next()){
+				if(res.getString(1).matches("*"+search+"*") ){
+					sol.add(new UserImpl(res.getString(1)));
+				}
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
     	return sol;
     }
 
@@ -239,9 +248,6 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	return sol;
     }
 
-
-
-	
     public boolean userExists(String screenName){
     	boolean sol=false;
 		Conexion con = new Conexion();	
