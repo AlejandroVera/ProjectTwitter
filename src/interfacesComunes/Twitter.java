@@ -175,11 +175,20 @@ public interface Twitter extends Serializable{
 	public void setPageNumber(Integer pageNumber);
 	
 	/**
-	 * Actaliza el status del usuario conectado (crea un nuevo tweet).
+	 * Actualiza el status del usuario conectado (crea un nuevo tweet).
 	 * @param statusText Texto del mensaje. No debe tener más de 140 caracteres.
 	 * @return El nuevo tweet, o <b>null</b> en caso de error.
 	 */
 	public Status updateStatus(String statusText);
+	
+	/**
+	 * Actualiza el status del usuario conectado (crea un nuevo tweet) en respuesta a otro.
+	 * @param statusText Texto del tweet. No debe tener más de 140 caracteres.
+	 * @param inReplyToStatusId Id del tweet al cual estamos respondiendo.
+	 * @return Status publicado
+	 * @throws TwitterException Si no se ha podido publicar el status (el id de respuesta no es correcto)
+	 */
+	public Status updateStatus(String statusText, Number inReplyToStatusId) throws TwitterException;
 	
 	
 	public Twitter_Users users();

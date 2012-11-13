@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-11-2012 a las 23:02:36
--- Versión del servidor: 5.5.27
--- Versión de PHP: 5.4.7
+-- Tiempo de generación: 13-11-2012 a las 16:00:24
+-- Versión del servidor: 5.5.16
+-- Versión de PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,12 +27,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `eventos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_autor` int(11) NOT NULL,
-  `id_destinatario` int(11) NOT NULL,
-  `id_tweet` int(11) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id_autor` int(10) unsigned NOT NULL,
+  `id_destinatario` int(10) unsigned NOT NULL,
+  `id_tweet` int(10) unsigned NOT NULL,
   `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha` int(11) NOT NULL,
+  `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
 
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `eventos` (
 --
 
 CREATE TABLE IF NOT EXISTS `favoritos` (
-  `id_usuario` int(11) NOT NULL,
-  `id_tweet` int(11) NOT NULL,
+  `id_usuario` int(10) unsigned NOT NULL,
+  `id_tweet` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_usuario`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `favoritos` (
 --
 
 CREATE TABLE IF NOT EXISTS `hashtag` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `texto` varchar(20) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
@@ -67,8 +67,8 @@ CREATE TABLE IF NOT EXISTS `hashtag` (
 --
 
 CREATE TABLE IF NOT EXISTS `hashtagsTweets` (
-  `id_hashtag` int(10) NOT NULL,
-  `id_tweet` int(10) NOT NULL,
+  `id_hashtag` int(10) unsigned NOT NULL,
+  `id_tweet` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_hashtag`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
 --
 
 CREATE TABLE IF NOT EXISTS `places` (
-  `id` int(10) NOT NULL,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `pais` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `ciudad` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
@@ -132,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `retweet` (
 --
 
 CREATE TABLE IF NOT EXISTS `seguidores` (
-  `id_seguidor` int(10) NOT NULL,
-  `id_seguido` int(10) NOT NULL,
+  `id_seguidor` int(10) unsigned NOT NULL,
+  `id_seguido` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_seguidor`,`id_seguido`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -147,7 +147,8 @@ CREATE TABLE IF NOT EXISTS `tweet` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `texto` varchar(140) COLLATE utf8_spanish2_ci NOT NULL,
   `autor` int(10) unsigned NOT NULL,
-  `fecha` int(11) NOT NULL,
+  `fecha` int(10) unsigned NOT NULL,
+  `inReplyTo` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
@@ -175,7 +176,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `profileSidebarFillColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `profileTextColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `id_status` int(11) NOT NULL,
+  `id_status` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
 

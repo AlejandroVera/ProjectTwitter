@@ -527,12 +527,25 @@ public class TwitterImpl implements Twitter {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public Status updateStatus(String statusText) {
+	public Status updateStatus(String statusText, Number inReplyToStatusId) throws TwitterException {
 		
 		if(this.user == null)
 			return null; //User not logged
+		
+		//Comprobamos la existencia del tweet al que estamos respondiendo
+		int replyId = inReplyToStatusId.intValue();
+		if(replyId > 0){
+			ResultSet res = this.con.query("SELECT id FROM tweet WHERE id = "+replyId+" LIMIT 1");
+			try {
+				if(res == null || !res.next())
+					throw new TwitterException("No existe un tweet con ese id");
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
+				throw new TwitterException("No existe un tweet con ese id");
+			}
+		}
 		
 		//Hay que recortar el mensaje
 		if(this.countCharacters(statusText) > 140) {
@@ -543,9 +556,10 @@ public class TwitterImpl implements Twitter {
 		params.add(statusText);
 		params.add(this.user.getId());
 		params.add(new Date().getTime()/1000);
+		params.add(replyId);
 		
 		//Insertamos el nuevo tweet en la BD
-		this.con.updateQuery("INSERT INTO favoritos (texto, autor, fecha) VALUES (?, ?, ?)", params);
+		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo) VALUES (?, ?, ?, ?)", params);
 		
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
 		int status_id;
@@ -559,7 +573,7 @@ public class TwitterImpl implements Twitter {
 			return null;
 		}
 		
-		Status status = new StatusImpl(status_id, this.con);
+		Status status = new StatusImpl(status_id, this.con);		
 		
 		//Mandamos el tweet a todos los seguidores
 		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();
@@ -589,13 +603,23 @@ public class TwitterImpl implements Twitter {
 			}
 		}
 		return status;
-		
+	}
+
+	@Override
+	public Status updateStatus(String statusText) {
+		try{
+			return updateStatus(statusText, 0);
+		}catch(TwitterException e){
+			ServerCommon.TwitterWarning(e, "Ha fallado la creación del status");
+			return null;
+		}
 	}
 
 	@Override
 	public Twitter_Users users() {
 		return this.twitter_user;
 	}
+
 
 	
 
