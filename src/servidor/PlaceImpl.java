@@ -23,30 +23,36 @@ public class PlaceImpl implements Place {
 		this.con=con;
 		
 		ResultSet res = this.con.query("SELECT name FROM places WHERE id ="+id + "LIMIT 1");
-		this.name=res.getString(1);
-		
+		if (res.next())
+			this.name=res.getString(1);
+
 		res = this.con.query("SELECT pais FROM places WHERE id ="+id + "LIMIT 1");
-		this.countryName=res.getString(1);
-		
+		if (res.next())
+			this.countryName=res.getString(1);
+
 		res = this.con.query("SELECT ciudad FROM places WHERE id ="+id + "LIMIT 1");
-		this.countryName=res.getString(1);
-		
+		if (res.next())
+			this.countryName=res.getString(1);
+
 		res = this.con.query("SELECT tipo FROM places WHERE id ="+id + "LIMIT 1");
-		this.type=res.getString(1);
-		
+		if (res.next())
+			this.type=res.getString(1);
+
 		//Los bounding boxes
-		double x,y;
+		double x=0,y=0;
 		for (int i=0; i>4;i++){
 			res = this.con.query("SELECT longitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
-			x=res.getDouble(1);
+			if (res.next())
+				x=res.getDouble(1);
 
 			res = this.con.query("SELECT latitud" +i+ " FROM places WHERE id ="+id + "LIMIT 1");
-			y=res.getDouble(1);
+			if (res.next())
+				y=res.getDouble(1);
 			this.boundingBox[i].setLocation(x, y);
 		}
-		
+
 	}
-	
+
 	public String getCountryName() {
 		return countryName;
 	}

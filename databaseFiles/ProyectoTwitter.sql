@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-11-2012 a las 16:00:24
--- Versión del servidor: 5.5.16
--- Versión de PHP: 5.3.8
+-- Tiempo de generación: 13-11-2012 a las 19:10:14
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `id_autor` int(10) unsigned NOT NULL,
   `id_destinatario` int(10) unsigned NOT NULL,
   `id_tweet` int(10) unsigned NOT NULL,
-  `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `tipo` tinyint(4) NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_autor` int(10) unsigned NOT NULL,
   `id_destinatario` int(10) unsigned NOT NULL,
+  `inReplyTo` int(10) unsigned NOT NULL,
   `texto` text COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),

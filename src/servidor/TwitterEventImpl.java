@@ -59,9 +59,10 @@ public class TwitterEventImpl implements TwitterEvent{
 		
 		//Lo anadimos a la base de datos
 		this.con.updateQuery("INSERT INTO eventos (id_autor, id_destinatario, id_tweet,tipo, fecha)" +
-				"VALUES ("+id_source+","+id_target+","+id_status+","+type+","+createdAt+")");
+				"VALUES ("+id_source+","+id_target+","+id_status+","+type+","+(createdAt.getTime()/1000)+")");
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
-		this.id=last_id.getInt(1);
+		if (last_id.next())
+			this.id=last_id.getInt(1);
 	}
 	
 	

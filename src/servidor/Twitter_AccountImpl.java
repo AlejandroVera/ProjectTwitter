@@ -40,7 +40,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		params.add(description);
 		params.add(name);
 		
-		con.updateQuery("UPDATE usuario SET url= ?, location = ?, descripcion = ? WHERE name = ?", params);
+		con.updateQuery("UPDATE usuario SET web_link= ?, location = ?, descripcion = ? WHERE name = ? LIMIT=1", params);
 		ResultSet res = con.query("SELECT id FROM usuario WHERE name ="+ name);
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
@@ -56,11 +56,8 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	}
 		
 		
-	/*No se como vamos a meter los colores en la base de datos, hay que usar
-	las constantes de COLOR_XXX y el codigo hexadecimal del color como key
-	para lo que es el mapa, pero no se como actualizar esto en el usuario*/
 	public User setProfileColors(Map<String, String> colorName2hexCode) {
-		
+
 		return null;
 	}
 

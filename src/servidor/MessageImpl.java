@@ -21,14 +21,27 @@ public class MessageImpl implements Message{
 	private int id;
 	private String text;
 	private Conexion con;
+	private int inReplyTo;
 	
+	MessageImpl (int id, Conexion con){
+		this(id, 0, con);
+	}
 	
-	MessageImpl(int id, Conexion con){
+	MessageImpl(int id, int inReplyTo, Conexion con){
 		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + "LIMIT 1");
 		this.id=id;
 		this.con=con;
 		try {
-			this.text=res.getString(1);
+			if (res.next())
+				this.text=res.getString(1);
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
+			e.printStackTrace();
+		}
+		res = con.query("SELECT inReplyTo FROM mensajes WHERE id ="+id + "LIMIT 1");
+		try {
+			if (res.next())
+				this.inReplyTo=res.getInt(1);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
 			e.printStackTrace();
@@ -99,7 +112,7 @@ public class MessageImpl implements Message{
 
 	
 	public Place getPlace() {
-			Twitter_Geo geo = new Twitter_GeoImpl(this.con);
+		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
 		return geo.geoSearchByIP("www.google.com");
 	}
 
@@ -177,6 +190,13 @@ public class MessageImpl implements Message{
 		return null;
 	}
 
+	public Message inReplyTo(){
+		if (inReplyTo!=0)
+			return new MessageImpl(inReplyTo, this.con);
+		else
+			return null;
+	}
+	
 	@Override
 	public User getSender() {
 		User user = getUser();
