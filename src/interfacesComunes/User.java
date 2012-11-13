@@ -17,24 +17,13 @@ public interface User extends Serializable{
 	String getLocation();
 	String getName();
 	Place getPlace();
-	String getProfileBackgroundColor();
 	java.net.URI getProfileBackgroundImageUrl();
 	java.net.URI getProfileImageUrl(); 
-	java.lang.String getProfileLinkColor();
-	java.lang.String getProfileSidebarBorderColor();
-	java.lang.String getProfileSidebarFillColor();
-	java.lang.String getProfileTextColor();
-	boolean 	getProtectedUser();
 	String getScreenName();
 	Status getStatus();
 	int getStatusesCount();
 	java.net.URI getWebsite();
 	boolean isFollowedByYou();
-	java.lang.Boolean isFollowingYou();//TODO: No faltaria un parametro User?
-	boolean isNotifications();
-	boolean isProfileBackgroundTile(); 
-	boolean isProtectedUser();
-	boolean isVerified();
-	java.lang.String toString();
+	java.lang.Boolean isFollowingYou();
 	
 }
