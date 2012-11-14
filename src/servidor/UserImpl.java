@@ -41,6 +41,10 @@ public class UserImpl implements User{
 		this(0,screenName,loggedUser,con);
 	}
 
+	public UserImpl(int id, User loggedUser, Conexion con){
+		this(id,null,loggedUser,con);
+	}
+	
 	public UserImpl(int id, String screenName,User loggedUser, Conexion con) {
 		this.loggedUser=loggedUser;
 		this.con=con;
