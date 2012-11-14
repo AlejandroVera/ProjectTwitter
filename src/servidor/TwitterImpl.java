@@ -75,7 +75,7 @@ public class TwitterImpl implements Twitter {
 	
 	private User user;
 	private Twitter_Users twitter_user;
-	private static HashMap<Integer, LinkedList<AStream.IListen>> clientes;
+	private static HashMap<Integer, LinkedList<AStream.IListen>> clientes = new HashMap<Integer, LinkedList<AStream.IListen>>();
 	private Conexion con;
 	private int maxResults = 20;
 	
@@ -91,10 +91,14 @@ public class TwitterImpl implements Twitter {
 	}
 	
 	public TwitterImpl(int accountId, AStream.IListen callback){
+		this.con = new Conexion();
 		this.user = new UserImpl(accountId, this.con);
 		this.twitter_user = new Twitter_UsersImpl(this.user);
+		
+		//Add the callback
+		if(clientes.get(accountId) == null)
+			clientes.put(accountId, new LinkedList<AStream.IListen>());
 		clientes.get(accountId).add(callback);
-		this.con = new Conexion();
 	}
 
 

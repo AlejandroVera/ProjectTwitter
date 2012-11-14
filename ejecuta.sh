@@ -28,13 +28,13 @@ rmic cliente.Cliente
 check
 
 echo -n "Lanzando servidor";
-java -Djava.rmi.server.codebase=file:///home/xafilox/workspace/ProyectoTwitter/bin/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:./ servidor.Servidor &
+java -Djava.rmi.server.codebase=file:///home/xafilox/workspace/ProyectoTwitter/bin/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ servidor.Servidor &
 PIDSERV="$!";
 check
 
 echo "Lanzando cliente";
 sleep 1;
-java -Djava.rmi.server.codebaseile:///home/xafilox/workspace/ProyectoTwitter/bin/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:./ cliente.Cliente
+java -Djava.rmi.server.codebaseile:///home/xafilox/workspace/ProyectoTwitter/bin/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ cliente.TwitterClient
 PIDCLI="$!";
 check
 

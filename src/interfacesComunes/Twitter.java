@@ -1,6 +1,7 @@
 package interfacesComunes;
 
 import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import servidor.TwitterImpl;
 
 import excepcionesComunes.TwitterException;
 
-public interface Twitter extends Serializable{
+public interface Twitter extends Serializable, Remote{
 
 	public interface ICallback {
 		boolean process(List<Status> statuses);

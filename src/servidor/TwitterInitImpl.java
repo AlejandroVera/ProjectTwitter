@@ -15,8 +15,7 @@ import java.util.LinkedList;
 import servidor.db.Conexion;
 
 
-public class TwitterInitImpl extends UnicastRemoteObject implements
-		TwitterInit {
+public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit {
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
