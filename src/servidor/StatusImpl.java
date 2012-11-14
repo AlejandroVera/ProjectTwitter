@@ -21,15 +21,15 @@ public class StatusImpl implements Status{
 	private java.util.Date 	createdAt;
 	private Conexion con;
 	private Place lugar;
+	private LoggedConection loggedConection;
 
-
-	public StatusImpl(int id, Conexion con){
-		this.con = con;
+	public StatusImpl(int id, LoggedConection loggedConection){
+		this.loggedConection = loggedConection;
 		this.id=id;
 		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
 		try {
 			this.text=res.getString("texto");
-			this.usuario=new UserImpl(res.getInt("autor"));
+			this.usuario=new UserImpl(res.getInt("autor"),loggedConection);
 			this.createdAt=res.getTimestamp("fecha");
 			this.lugar=usuario.getPlace();
 		} 

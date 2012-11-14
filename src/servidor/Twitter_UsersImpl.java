@@ -16,9 +16,10 @@ import interfacesComunes.User;
 public class Twitter_UsersImpl implements Twitter_Users {
 
 	private User user;
+	private LoggedConection loggedConection;
 
-	public Twitter_UsersImpl(User user){
-
+	public Twitter_UsersImpl(User user,LoggedConection loggedConection){
+		this.loggedConection=loggedConection;
 		this.user=user;
 	}
 
@@ -63,7 +64,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
 
 			while(res.next()){
-				seguidores.add(new UserImpl(res.getInt(1)));
+				seguidores.add(new UserImpl(res.getInt(1),loggedConection));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -112,7 +113,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
 			while(res.next()){
-				amigos.add(new UserImpl(res.getInt(1)));
+				amigos.add(new UserImpl(res.getInt(1),loggedConection));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -122,7 +123,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 	public User follow(String screenName){
-		return follow(new UserImpl(screenName));
+		return follow(new UserImpl(screenName,loggedConection));
 	}
 
 	public User follow(User user){
@@ -140,15 +141,15 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
     public boolean isFollower(String userB){
-    	User u=new UserImpl("userB");
+    	User u=new UserImpl(userB,loggedConection);
     	return u.isFollowingYou();
     }
 
     public boolean isFollower(String followerScreenName,String followedScreenName){
     	boolean sol=true;
     	Conexion con=new Conexion();
-    	User u1=new UserImpl("followerScreenName");
-    	User u2=new UserImpl("followedScreenName");
+    	User u1=new UserImpl(followerScreenName,loggedConection);
+    	User u2=new UserImpl(followedScreenName,loggedConection);
 		ResultSet res = con.query("SELECT * FROM seguidores WHERE id_seguidor="+u1.getId()+"AND id_seguido"+u2.getId());
 			try {
 				if(!res.next()){
@@ -162,7 +163,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
    
 
     public boolean isFollowing(java.lang.String userB){
-    	return isFollowing(new UserImpl("userB"));
+    	return isFollowing(new UserImpl(userB,loggedConection));
     }
 
     public boolean isFollowing(User user){
@@ -203,7 +204,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	try {
 			while(res.next()){
 				if(res.getString(1).matches("*"+search+"*") ){
-					sol.add(new UserImpl(res.getString(1)));
+					sol.add(new UserImpl(res.getString(1),loggedConection));
 				}
 			}
 		} catch (SQLException e) {
@@ -213,11 +214,11 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
     public User show(Number userId){
-    	return new UserImpl(userId.intValue());
+    	return new UserImpl(userId.intValue(),loggedConection);
     }
  
     public User show(String screenName) throws TwitterException{
-    	return new UserImpl(screenName);
+    	return new UserImpl(screenName,loggedConection);
     }
     
     public List<User> showById(java.util.Collection<? extends Number> userIds){
@@ -231,7 +232,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 
     public User stopFollowing(String username){
-    	return stopFollowing(new UserImpl(username));
+    	return stopFollowing(new UserImpl(username,loggedConection));
     }
     
     public User stopFollowing(User user){

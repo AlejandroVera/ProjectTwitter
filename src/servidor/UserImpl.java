@@ -19,7 +19,6 @@ import interfacesComunes.User;
 public class UserImpl implements User{
 	
 	private static final long serialVersionUID = -4749433293227574768L;
-	private User loggedUser;
 	private int id; 
 	private java.util.Date 	createdAt;
 	private String 	description; 
@@ -35,36 +34,35 @@ public class UserImpl implements User{
 	private Status 	status; //The user's current status - *if* returned by Twitter.
 	private int statusesCount;
 	private java.net.URI 	website;
-	private Conexion con;
-
-	public UserImpl(String screenName, User loggedUser, Conexion con){
-		this(0,screenName,loggedUser,con);
+	private LoggedConection loggedConection;
+	
+	public UserImpl(String screenName, LoggedConection loggedConection){
+		this(0,screenName,loggedConection);
 	}
 
-	public UserImpl(int id, User loggedUser, Conexion con){
-		this(id,null,loggedUser,con);
+	public UserImpl(int id,LoggedConection loggedConection){
+		this(id,null,loggedConection);
 	}
 	
-	public UserImpl(int id, String screenName,User loggedUser, Conexion con) {
-		this.loggedUser=loggedUser;
-		this.con=con;
+	public UserImpl(int id, String screenName,LoggedConection loggedConection) {
+		this.loggedConection=loggedConection;
 		ResultSet res=null;
 		if(screenName==null){
 			this.id = id;
-			res = con.query("SELECT * FROM usuario WHERE id="+this.id+"LIMIT 1");
+			res = loggedConection.getConexion().query("SELECT * FROM usuario WHERE id="+this.id+"LIMIT 1");
 		}else{
-			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName+"LIMIT 1");
+			res = loggedConection.getConexion().query("SELECT * FROM usuario WHERE screenName="+screenName+"LIMIT 1");
 		}
 		try {
 			if(!res.next()){
 				throw new TwitterException("Usuario no existe");
 			}
-			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
-			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
-			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
-			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			this.favoritesCount=loggedConection.getConexion().query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=loggedConection.getConexion().query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=loggedConection.getConexion().query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=loggedConection.getConexion().query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
 			this.name=res.getString("name");
-			this.status=new StatusImpl(res.getInt("id_status"),this.con);
+			this.status=new StatusImpl(res.getInt("id_status"),this.loggedConection);
 			this.createdAt=res.getTimestamp("fecha_registro");
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
@@ -150,7 +148,7 @@ public class UserImpl implements User{
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
 		try {
 			while(res.next()){
-				if(res.getInt(1)==this.loggedUser.getId()){
+				if(res.getInt(1)==this.loggedConection.getUsuario().getId()){
 					sol=true;
 					break;
 				}
@@ -164,7 +162,7 @@ public class UserImpl implements User{
 	public Boolean isFollowingYou() {
 		boolean sol=false;
 		Conexion con = new Conexion();	
-		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.loggedUser.getId());
+		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.loggedConection.getUsuario().getId());
 		try {
 			while(res.next()){
 				if(res.getInt(1)==this.id){
@@ -183,7 +181,7 @@ public class UserImpl implements User{
 	}
 
 	public Place getPlace() {
-		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
+		Twitter_Geo geo = new Twitter_GeoImpl(loggedConection.getConexion());
 		return geo.geoSearchByIP("www.google.com");
 	}
 }
