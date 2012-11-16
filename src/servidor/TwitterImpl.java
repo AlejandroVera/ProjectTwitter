@@ -92,8 +92,8 @@ public class TwitterImpl implements Twitter {
 	
 	public TwitterImpl(int accountId, AStream.IListen callback){
 		this.con = new Conexion();
-		this.user = new UserImpl(accountId, this.con);
-		this.twitter_user = new Twitter_UsersImpl(this.user);
+		this.user = new UserImpl(accountId, this.con,this.user);
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
 		
 		//Add the callback
 		if(clientes.get(accountId) == null)
@@ -209,7 +209,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new StatusImpl(res.getInt(1), this.con));
+						list.add(new StatusImpl(res.getInt(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
 				}
@@ -234,7 +234,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new StatusImpl(res.getInt(1), this.con));
+						list.add(new StatusImpl(res.getInt(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
 				}
@@ -250,7 +250,7 @@ public class TwitterImpl implements Twitter {
 	
 	@Override
 	public List<Status> getUserTimeline(Number userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId.intValue(), this.con));
+		return this.getTimeline(new UserImpl(userId.intValue(),this.con,this.user ));
 	}
 	
 	@Override
@@ -261,7 +261,7 @@ public class TwitterImpl implements Twitter {
 		try {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe ningún usuario con ese screeName");
-			return this.getTimeline(new UserImpl(res.getInt(1), this.con)); 
+			return this.getTimeline(new UserImpl(res.getInt(1), this.con,this.user)); 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
 			return null;
@@ -283,7 +283,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null)
 			try {
 				while(res.next())
-					list.add(new StatusImpl(res.getInt(1), this.con));
+					list.add(new StatusImpl(res.getInt(1), this.con,this.user));
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
 			}
@@ -338,7 +338,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new UserImpl(res.getInt(1), this.con));
+					list.add(new UserImpl(res.getInt(1), this.con,this.user));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -359,7 +359,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new StatusImpl(res.getInt(1), this.con));
+					list.add(new StatusImpl(res.getInt(1), this.con,this.user));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -380,7 +380,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new StatusImpl(res.getInt(1), this.con));
+					list.add(new StatusImpl(res.getInt(1), this.con,this.user ));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -414,7 +414,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese ID");
 			else
-				return new StatusImpl(id.intValue(),this.con);
+				return new StatusImpl(id.intValue(),this.con,this.user );
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese ID");
@@ -430,7 +430,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese screenName");
 			else
-				return new StatusImpl(res.getInt(1),this.con);
+				return new StatusImpl(res.getInt(1),this.con,this.user );
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese screenName");
@@ -602,7 +602,7 @@ public class TwitterImpl implements Twitter {
 			return null;
 		}
 		
-		Status status = new StatusImpl(status_id, this.con);		
+		Status status = new StatusImpl(status_id, this.con,this.user);		
 		
 		//Mandamos el tweet a todos los seguidores
 		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();

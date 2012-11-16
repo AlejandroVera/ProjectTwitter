@@ -15,19 +15,19 @@ import interfacesComunes.User;
 
 public class Twitter_UsersImpl implements Twitter_Users {
 
-	private User user;
-	private LoggedConection loggedConection;
+	private User loggedUser;
+	private Conexion con;
 
-	public Twitter_UsersImpl(User user,LoggedConection loggedConection){
-		this.loggedConection=loggedConection;
-		this.user=user;
+	public Twitter_UsersImpl(Conexion con,User loggedUser){
+		this.loggedUser=loggedUser;
+		this.con=con;
 	}
 
 
 	public List<Number> getFollowerIDs(){
 		List<Number> seguidores=new ArrayList<Number>();
 		Conexion con = new Conexion();	
-		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+user.getId());
+		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+loggedUser.getId());
 		try {
 			while(res.next()){
 				seguidores.add(res.getInt(1));
@@ -64,7 +64,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
 
 			while(res.next()){
-				seguidores.add(new UserImpl(res.getInt(1),loggedConection));
+				seguidores.add(new UserImpl(res.getInt(1),con,loggedUser));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -75,7 +75,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	public List<Integer> getFriendIDs(){
 		List<Integer> amigos=new ArrayList<Integer>();
 		Conexion con = new Conexion();	
-		ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.user.getId());
+		ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.loggedUser.getId());
 		try {
 			while(res.next()){
 				amigos.add(res.getInt(1));
@@ -113,7 +113,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
 			while(res.next()){
-				amigos.add(new UserImpl(res.getInt(1),loggedConection));
+				amigos.add(new UserImpl(res.getInt(1),con,loggedUser));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -123,12 +123,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 	public User follow(String screenName){
-		return follow(new UserImpl(screenName,loggedConection));
+		return follow(new UserImpl(screenName,con,loggedUser));
 	}
 
 	public User follow(User user){
 		Conexion con = new Conexion();	
-		con.query("INSERT INTO seguidores  VALUES ("+this.user.getId()+", "+user.getId()+")");
+		con.query("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		return user;
 	}
 
@@ -141,15 +141,15 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
     public boolean isFollower(String userB){
-    	User u=new UserImpl(userB,loggedConection);
+    	User u=new UserImpl(userB,con,loggedUser);
     	return u.isFollowingYou();
     }
 
     public boolean isFollower(String followerScreenName,String followedScreenName){
     	boolean sol=true;
     	Conexion con=new Conexion();
-    	User u1=new UserImpl(followerScreenName,loggedConection);
-    	User u2=new UserImpl(followedScreenName,loggedConection);
+    	User u1=new UserImpl(followerScreenName,con,loggedUser);
+    	User u2=new UserImpl(followedScreenName,con,loggedUser);
 		ResultSet res = con.query("SELECT * FROM seguidores WHERE id_seguidor="+u1.getId()+"AND id_seguido"+u2.getId());
 			try {
 				if(!res.next()){
@@ -163,7 +163,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
    
 
     public boolean isFollowing(java.lang.String userB){
-    	return isFollowing(new UserImpl(userB,loggedConection));
+    	return isFollowing(new UserImpl(userB,con,loggedUser));
     }
 
     public boolean isFollowing(User user){
@@ -204,7 +204,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	try {
 			while(res.next()){
 				if(res.getString(1).matches("*"+search+"*") ){
-					sol.add(new UserImpl(res.getString(1),loggedConection));
+					sol.add(new UserImpl(res.getString(1),con,loggedUser));
 				}
 			}
 		} catch (SQLException e) {
@@ -214,11 +214,11 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
     public User show(Number userId){
-    	return new UserImpl(userId.intValue(),loggedConection);
+    	return new UserImpl(userId.intValue(),con,loggedUser);
     }
  
     public User show(String screenName) throws TwitterException{
-    	return new UserImpl(screenName,loggedConection);
+    	return new UserImpl(screenName,con,loggedUser);
     }
     
     public List<User> showById(java.util.Collection<? extends Number> userIds){
@@ -232,13 +232,13 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 
     public User stopFollowing(String username){
-    	return stopFollowing(new UserImpl(username,loggedConection));
+    	return stopFollowing(new UserImpl(username,con,loggedUser));
     }
     
     public User stopFollowing(User user){
     	User sol=null;
     	Conexion con = new Conexion();	
-    	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.user.getId()+" AND id_seguido="+user.getId());
+    	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
     	try {
 			if(res.next()){
 				sol=user;
