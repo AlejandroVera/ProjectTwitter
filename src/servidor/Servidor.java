@@ -31,7 +31,7 @@ public class Servidor {
 			Thread.sleep(3000);
 			Iterator<AStream.IListen> it = clientes.iterator();
 			while(it.hasNext()){
-				AStream.IListen cli = (AStream.IListen) it.next();
+				//AStream.IListen cli = (AStream.IListen) it.next();
 				//cli.notifyMessage("Este es un mensaje desde el servidor");
 			}
 		} catch (InterruptedException e) {

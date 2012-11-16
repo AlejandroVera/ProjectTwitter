@@ -2,14 +2,9 @@ package cliente;
 
 
 import interfacesComunes.AStream;
-import interfacesComunes.Twitter;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
-import interfacesComunes.TwitterInit;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,7 +14,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class Cliente extends UnicastRemoteObject implements AStream.IListen, Remote{
 
-	private Twitter twitter;
 	private static final long serialVersionUID = 6865106167203455251L;
 	
 	protected Cliente() throws RemoteException {
