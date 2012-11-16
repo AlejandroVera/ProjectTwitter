@@ -22,12 +22,14 @@ public class MessageImpl implements Message{
 	private String text;
 	private Conexion con;
 	private int inReplyTo;
+	private User loggedUser;
 	
-	MessageImpl (int id, Conexion con){
-		this(id, 0, con);
+	MessageImpl (int id, Conexion con, User loggedUser){
+		this(id, 0, con, loggedUser);
 	}
 	
-	MessageImpl(int id, int inReplyTo, Conexion con){
+	MessageImpl(int id, int inReplyTo, Conexion con, User loggedUser){
+		this.loggedUser=loggedUser;
 		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + "LIMIT 1");
 		this.id=id;
 		this.con=con;
@@ -145,7 +147,7 @@ public class MessageImpl implements Message{
 			else{
 				inicio=m.start();
 			}
-			entities.add(new TwitterImpl.TweetEntity(type,inicio,m.end()));
+			entities.add(new TwitterImpl.TweetEntity(this.id, type,inicio,m.end(),this.con));
 		}
 		return entities;
 	}
@@ -158,7 +160,7 @@ public class MessageImpl implements Message{
 		try{
 			if (res.next()){
 				int id_autor = res.getInt(1);
-				UserImpl user= new UserImpl(id_autor);
+				UserImpl user= new UserImpl(id_autor,this.con,this.loggedUser);
 				return user;
 			}
 		} catch (SQLException e) {
@@ -179,7 +181,7 @@ public class MessageImpl implements Message{
 		try{
 			if (res.next()){
 				int id_receptor = res.getInt(1);
-				UserImpl user= new UserImpl(id_receptor);
+				UserImpl user= new UserImpl(id_receptor,this.con,this.loggedUser);
 				return user;
 			}
 		} catch (SQLException e) {
@@ -192,7 +194,7 @@ public class MessageImpl implements Message{
 
 	public Message inReplyTo(){
 		if (inReplyTo!=0)
-			return new MessageImpl(inReplyTo, this.con);
+			return new MessageImpl(inReplyTo, this.con, this.loggedUser);
 		else
 			return null;
 	}

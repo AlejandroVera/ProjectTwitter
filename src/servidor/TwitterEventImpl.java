@@ -27,29 +27,31 @@ public class TwitterEventImpl implements TwitterEvent{
 	private Date createdAt;
 	private byte type;
 	private Conexion con;
+	private User loggedUser;
 	/** Constructor para actualizacion de cuenta*/
-	public TwitterEventImpl(int id_source,byte type, Conexion con) throws SQLException{
-		this(id_source, 0, null, type, con);
+	public TwitterEventImpl(int id_source,byte type, Conexion con, User loggedUser) throws SQLException{
+		this(id_source, 0, null, type, con,loggedUser);
 	}
 	
 	/**Constructor para el follow*/
-	public TwitterEventImpl(int id_source, int id_target, byte type, Conexion con) throws SQLException{
-		this(id_source, id_target, null, type, con);
+	public TwitterEventImpl(int id_source, int id_target, byte type, Conexion con,User loggedUser) throws SQLException{
+		this(id_source, id_target, null, type, con,loggedUser);
 	}
 	
 	/**Tocho con todo, necesitamos este para favorite/unfavorite*/
-	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con) throws SQLException{
+	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con,User loggedUser) throws SQLException{
 		
+		this.loggedUser=loggedUser;
 		int id_status=0;
 		this.con=con;
 		this.createdAt=new Date();
 		this.type=type;
-		this.source= new UserImpl(id_source, this.con);
+		this.source= new UserImpl(id_source, this.con, this.loggedUser);
 		
 		if (id_target==0)
 			this.target=null;
 		else	
-			this.target= new UserImpl(id_target, this.con);
+			this.target= new UserImpl(id_target, this.con,this.loggedUser);
 		
 		this.status=status;
 		

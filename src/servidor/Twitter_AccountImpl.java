@@ -16,10 +16,12 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	
 	Twitter twitter;
 	Conexion con;
+	User loggedUser;
 	
-	public Twitter_AccountImpl (Twitter jtwit, Conexion con){
+	public Twitter_AccountImpl (Twitter jtwit, Conexion con, User loggedUser){
 		twitter=jtwit;
 		this.con=con;
+		this.loggedUser=loggedUser;
 		
 	}
 	
@@ -46,7 +48,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				
-				return new UserImpl(res.getInt(1), this.con);
+				return new UserImpl(res.getInt(1), this.con, this.loggedUser);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido actualizar usuario " + name);

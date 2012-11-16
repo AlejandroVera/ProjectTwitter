@@ -104,7 +104,7 @@ public class TwitterImpl implements Twitter {
 
 	public Twitter_Account account() {
 		// TODO Auto-generated method stub
-		return new Twitter_AccountImpl(this, this.con);
+		return new Twitter_AccountImpl(this, this.con,this.user);
 	}
 
 	public int countCharacters(String statusText) {
@@ -169,7 +169,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getInt(1), this.con));
+						list.add(new MessageImpl(res.getInt(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessages");
 				}
@@ -188,7 +188,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getInt(1), this.con));
+						list.add(new MessageImpl(res.getInt(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessagesSent");
 				}
@@ -480,7 +480,7 @@ public class TwitterImpl implements Twitter {
 			throw new TwitterException("No se ha podido obtener el mensaje, pero sí se ha mandado");
 		}
 		
-		Message mes = new MessageImpl(message_id, this.con);
+		Message mes = new MessageImpl(message_id, this.con,this.user);
 		
 		List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(id_dest);
 		if(user_callbacks != null){
@@ -526,7 +526,7 @@ public class TwitterImpl implements Twitter {
 		
 		if(event_type != 0){
 			try{
-				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con);
+				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 				List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(status_owner);
 				if(user_callbacks != null){
 					Iterator<AStream.IListen> it = user_callbacks.iterator();
