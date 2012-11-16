@@ -19,17 +19,18 @@ public class StatusImpl implements Status{
 	private String text;
 	private User usuario;
 	private java.util.Date 	createdAt;
-	private Conexion con;
 	private Place lugar;
-	private LoggedConection loggedConection;
+	private Conexion con;
+	private User loggedUser;
 
-	public StatusImpl(int id, LoggedConection loggedConection){
-		this.loggedConection = loggedConection;
+	public StatusImpl(int id, Conexion con, User loggedUser){
+		this.con = con;
 		this.id=id;
 		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
 		try {
+			this.loggedUser=loggedUser;
 			this.text=res.getString("texto");
-			this.usuario=new UserImpl(res.getInt("autor"),loggedConection);
+			this.usuario=new UserImpl(res.getInt("autor"), this.con,this.loggedUser);
 			this.createdAt=res.getTimestamp("fecha");
 			this.lugar=usuario.getPlace();
 		} 
