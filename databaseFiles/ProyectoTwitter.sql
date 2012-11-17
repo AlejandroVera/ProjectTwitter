@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-11-2012 a las 20:25:01
--- Versión del servidor: 5.5.27
--- Versión de PHP: 5.4.7
+-- Tiempo de generación: 17-11-2012 a las 13:24:45
+-- Versión del servidor: 5.5.16
+-- Versión de PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `id_autor` int(10) unsigned NOT NULL,
   `id_destinatario` int(10) unsigned NOT NULL,
   `id_tweet` int(10) unsigned NOT NULL,
-  `tipo` tinyint(4) NOT NULL,
+  `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
@@ -82,7 +82,6 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_autor` int(10) unsigned NOT NULL,
   `id_destinatario` int(10) unsigned NOT NULL,
-  `inReplyTo` int(10) unsigned NOT NULL,
   `texto` text COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -168,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `password` char(40) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha_registro` int(10) unsigned NOT NULL,
   `descripcion` varchar(60) COLLATE utf8_spanish2_ci NOT NULL,
-  `Localizacion` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+  `location` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `profileBackgroundColor` varchar(12) COLLATE utf8_spanish2_ci NOT NULL,
   `profileBackgroundImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -180,6 +179,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `id_status` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundColor`, `profileBackgroundImageUrl`, `profileImageUrl`, `profileLinkColor`, `profileSidebarBorderColor`, `profileSidebarFillColor`, `profileTextColor`, `web_link`, `id_status`) VALUES
+(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', '', '', '', '', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
