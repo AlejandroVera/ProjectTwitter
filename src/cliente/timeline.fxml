@@ -25,7 +25,7 @@
                   <children>
                     <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                        <Image url="@../../../../Documentos/casita.png" preserveRatio="true" smooth="true" />
+                        <Image url="@casita.png" preserveRatio="true" smooth="true" />
                       </image>
                     </ImageView>
                     <Label id="fancyText" text="Timeline" />
@@ -35,7 +35,7 @@
                   <children>
                     <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                        <Image url="@../../../../Documentos/conecta.png" preserveRatio="true" smooth="true" />
+                        <Image url="@conecta.png" preserveRatio="true" smooth="true" />
                       </image>
                     </ImageView>
                     <Label text="Conecta" />
@@ -45,7 +45,7 @@
                   <children>
                     <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                        <Image url="@../../../../Documentos/cuenta.png" preserveRatio="true" smooth="true" />
+                        <Image url="@cuenta.png" preserveRatio="true" smooth="true" />
                       </image>
                     </ImageView>
                     <Label text="Cuenta" />
@@ -58,7 +58,7 @@
                       <graphic>
                         <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                            <Image url="@../../../../Documentos/tweet.png" preserveRatio="true" smooth="true" />
+                            <Image url="@tweet.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                       </graphic>
