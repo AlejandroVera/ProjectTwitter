@@ -18,6 +18,8 @@ import interfacesComunes.User;
 
 public class MessageImpl implements Message{
 
+	private static final long serialVersionUID = 5010896843053361786L;
+	
 	private int id;
 	private String text;
 	private Conexion con;

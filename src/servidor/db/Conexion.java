@@ -4,20 +4,23 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import servidor.ServerCommon;
 
-public class Conexion {
+public class Conexion implements Serializable{
 
+
+	private static final long serialVersionUID = -6834351832065831226L;
+	
 	private static final String CONFIG_FILE = "../dbconfig.cnf";
 	private static String dbName;
 	private static String dbUser;
@@ -25,7 +28,6 @@ public class Conexion {
 	private static String dbPort;
 
 	private Connection con;
-	private Statement est;
 
 	public Conexion() {
 
@@ -59,7 +61,6 @@ public class Conexion {
 		try {
 			//this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/"+dbName+"?useUnicode=true&characterEncoding=utf8", "root", "opelcorsa");
 			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + dbPort + "/"+ dbName , connectionProps);
-			this.est = this.con.createStatement();
 		} catch (SQLException e) {
 			ServerCommon.TwitterError(e, "Error durante la conexión a la base de datos", 3);
 		}
@@ -74,7 +75,6 @@ public class Conexion {
 
 		try {
 			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + port + "/"+ name, connectionProps);
-			this.est = this.con.createStatement();
 		} catch (SQLException e) {
 			ServerCommon.TwitterError("Error durante la conexión a la base de datos", 3);
 		}
@@ -88,7 +88,7 @@ public class Conexion {
 	 */
 	public ResultSet query(String query) {
 		try {
-			return est.executeQuery(query);
+			return this.con.createStatement().executeQuery(query);
 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
@@ -103,7 +103,7 @@ public class Conexion {
 	 */
 	public Integer updateQuery(String query) {
 		try {
-			return est.executeUpdate(query);
+			return this.con.createStatement().executeUpdate(query);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;

@@ -4,6 +4,7 @@ import interfacesComunes.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,11 +15,13 @@ import servidor.db.Conexion;
 
 public class StatusImpl implements Status{
 
+	private static final long serialVersionUID = 4967335867172572534L;
+	
 	private int id;
 	private int retweetCount;
 	private String text;
 	private User usuario;
-	private java.util.Date 	createdAt;
+	private Date createdAt;
 	private Place lugar;
 	private Conexion con;
 	private User loggedUser;
@@ -26,13 +29,15 @@ public class StatusImpl implements Status{
 	public StatusImpl(int id, Conexion con, User loggedUser){
 		this.con = con;
 		this.id=id;
-		ResultSet res = con.query("SELECT s.texto, s.autor, s.fecha FROM tweet s WHERE s.id="+id);
+		ResultSet res = con.query("SELECT texto, autor, fecha FROM tweet WHERE id=" + id + " LIMIT 1");
 		try {
-			this.loggedUser=loggedUser;
-			this.text=res.getString("texto");
-			this.usuario=new UserImpl(res.getInt("autor"), this.con,this.loggedUser);
-			this.createdAt=res.getTimestamp("fecha");
-			this.lugar=usuario.getPlace();
+			if(res.next()){
+				this.loggedUser=loggedUser;
+				this.text=res.getString("texto");
+				this.usuario=new UserImpl(res.getInt("autor"), this.con,this.loggedUser);
+				this.createdAt=new Date(res.getInt("fecha")*1000);
+				this.lugar=usuario.getPlace();
+			}
 		} 
 		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");

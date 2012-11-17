@@ -51,30 +51,30 @@ public class UserImpl implements User{
 		ResultSet res=null;
 		if(screenName==null){
 			this.id = id;
-			res = con.query("SELECT * FROM usuario WHERE id="+this.id+"LIMIT 1");
+			res = con.query("SELECT * FROM usuario WHERE id="+this.id+" LIMIT 1");
 		}else{
-			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName+"LIMIT 1");
+			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName+" LIMIT 1");
 		}
 		try {
 			if(!res.next()){
 				throw new TwitterException("Usuario no existe");
 			}
-			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
-			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
-			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
-			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
 			this.name=res.getString("name");
-			this.status=new StatusImpl(res.getInt("id_status"),this.con,this.loggedUser);
-			this.createdAt=res.getTimestamp("fecha_registro");
+			this.createdAt=new Date(res.getInt("fecha_registro")*1000);
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
 			this.website=new URI(res.getString("web_link"));
 			this.description=res.getString("descripcion");
 			this.screenName = res.getString("screenName");
 			this.location = res.getString("location");
-			if(screenName!=null){
-					this.id = res.getInt("id");
-			}
+			if(screenName!=null)
+				this.id = res.getInt("id");
+			this.status=new StatusImpl(res.getInt("id_status"),this.con,this.loggedUser);
+			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
+			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
+			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
+			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
+			
 		} 
 		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");

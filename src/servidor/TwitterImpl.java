@@ -13,6 +13,7 @@ import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,13 +25,16 @@ import servidor.db.Conexion;
 
 public class TwitterImpl implements Twitter {
 
-	public enum KEntityType {
+	public enum KEntityType{
 		hashtags, 
 		urls,
 		user_mentions;
 	}
 	
 	public static class TweetEntity implements Twitter.TweetEntity{
+
+		private static final long serialVersionUID = -4096887025640652171L;
+		
 		private KEntityType type;
 		private int start;
 		private int end;
@@ -52,7 +56,7 @@ public class TwitterImpl implements Twitter {
 				//TODO: pendiente de si se acortan o no las urls
 			}
 			else if(this.type==KEntityType.user_mentions){
-				ResultSet res=con.query("SELECT texto FROM tweet WHERE id="+this.tweet_id);
+				ResultSet res=con.query("SELECT texto FROM tweet WHERE id="+this.tweet_id + " LIMIT 1");
 				try {
 					if(res.next()){
 						textTweet=res.getString(1);
@@ -75,7 +79,7 @@ public class TwitterImpl implements Twitter {
 	
 	private User user;
 	private Twitter_Users twitter_user;
-	private static HashMap<Integer, LinkedList<AStream.IListen>> clientes = new HashMap<Integer, LinkedList<AStream.IListen>>();
+	private static TwitterHashMap<Integer, TwitterLinkedList<AStream.IListen>> clientes = new TwitterHashMap<Integer, TwitterLinkedList<AStream.IListen>>();
 	private Conexion con;
 	private int maxResults = 20;
 	
@@ -97,7 +101,7 @@ public class TwitterImpl implements Twitter {
 		
 		//Add the callback
 		if(clientes.get(accountId) == null)
-			clientes.put(accountId, new LinkedList<AStream.IListen>());
+			clientes.put(accountId, new TwitterLinkedList<AStream.IListen>());
 		clientes.get(accountId).add(callback);
 	}
 

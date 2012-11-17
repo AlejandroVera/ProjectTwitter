@@ -11,15 +11,15 @@ import excepcionesComunes.TwitterException;
 
 public interface Twitter extends Serializable, Remote{
 
-	public interface ICallback {
+	public interface ICallback extends Serializable{
 		boolean process(List<Status> statuses);
 	}
 
-	public static interface TweetEntity {
+	public static interface TweetEntity extends Serializable{
 		
 	}
 
-	public interface ITweet {
+	public interface ITweet extends Serializable{
 		Date getCreatedAt();
 		int getId();
 		String 	getLocation();

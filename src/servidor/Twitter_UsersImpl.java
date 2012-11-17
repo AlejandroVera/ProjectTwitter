@@ -15,6 +15,8 @@ import interfacesComunes.User;
 
 public class Twitter_UsersImpl implements Twitter_Users {
 
+	private static final long serialVersionUID = -8500527458187084020L;
+	
 	private User loggedUser;
 	private Conexion con;
 
