@@ -10,18 +10,18 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml">
   <children>
-    <VBox id="VBox" alignment="CENTER" prefHeight="212.0" spacing="5.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="-37.0">
+    <VBox id="VBox" alignment="CENTER" layoutX="11.0" layoutY="-37.0" prefHeight="212.0" prefWidth="872.0" spacing="5.0">
       <children>
         <HBox id="barraArriba" alignment="CENTER" pickOnBounds="true" prefHeight="34.0" prefWidth="771.0" spacing="5.0">
           <children>
-            <GridPane prefHeight="32.0" prefWidth="823.0">
+            <GridPane prefHeight="32.0" prefWidth="833.0">
               <children>
                 <ImageView fitHeight="129.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true" translateY="50.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                   <image>
                     <Image url="@corporate-ir-twitter-strategy-graphic.png" />
                   </image>
                 </ImageView>
-                <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <HBox fx:id="cajaSeleccion" alignment="CENTER" prefWidth="106.0" spacing="5.0" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="0">
                   <children>
                     <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                       <image>
@@ -65,14 +65,29 @@
                     </Button>
                   </children>
                 </HBox>
+                <HBox fx:id="ajustes" alignment="CENTER" spacing="5.0" GridPane.columnIndex="6" GridPane.rowIndex="0">
+                  <children>
+                    <ImageView id="engranaje" fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@engranaje.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                    <ImageView id="flecha" fitHeight="10.324232546837326" fitWidth="15.732162952423096" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@flecha.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                  </children>
+                </HBox>
               </children>
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="73.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="97.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="86.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="268.0" minWidth="10.0" prefWidth="155.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="178.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="136.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="110.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="123.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="95.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="268.0" minWidth="10.0" prefWidth="147.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="177.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="121.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="60.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
@@ -82,6 +97,81 @@
         </HBox>
       </children>
     </VBox>
+    <HBox id="HBox" alignment="CENTER" layoutY="153.0" spacing="5.0" AnchorPane.leftAnchor="20.0">
+      <children>
+        <GridPane prefHeight="129.0" prefWidth="276.0">
+          <children>
+            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <children>
+                <ImageView fx:id="profileImage" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <Label fx:id="screenName" text="" />
+              </children>
+            </HBox>
+            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+              <children>
+                <GridPane>
+                  <children>
+                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nTweets" text="" />
+                        <Label text="TWEETS" />
+                      </children>
+                    </VBox>
+                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nSiguiendo" text="" />
+                        <Label text="SIGUIENDO" />
+                      </children>
+                    </VBox>
+                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nSeguidores" text="" />
+                        <Label text="SEGUIDORES" />
+                      </children>
+                    </VBox>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </HBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </HBox>
+    <GridPane layoutX="353.0" layoutY="154.0" prefHeight="461.0" prefWidth="516.0">
+      <children>
+        <HBox fx:id="cajita" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="40.5" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+          <children>
+            <Label text="Tweets" />
+          </children>
+        </HBox>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
   </children>
   <stylesheets>
     <URL value="@timeline.css" />

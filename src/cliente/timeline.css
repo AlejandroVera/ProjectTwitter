@@ -5,17 +5,32 @@
 	-fx-base: rgba(250, 250, 250, 0.55);
 }
 
-#barraArriba{
+#barraArriba, #cajita{
 	-fx-border-style: solid;
 	-fx-border-color: rgba(250, 250, 250, 0.4);
-	
-	-fx-border-radius: 60px;
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.35);
 	-fx-font-family: "Ubuntu";
 	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
 }
 
+#cajaSeleccion{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(250, 250, 250, 0.4);
+	-fx-background-color: rgba(256, 256, 256, 0.6);
+	-fx-font-family: "Ubuntu";
+}
+
+#cajaIz{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(250, 250, 250, 0.4);
+	-fx-margin-top: 25px;
+	-fx-background-color: rgba(256, 256, 256, 0.85);
+	-fx-font-family: "Ubuntu";
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
+
+
+}
 
 .button{
 	-fx-font-weight: bold;
