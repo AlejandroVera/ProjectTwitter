@@ -14,6 +14,8 @@ import interfacesComunes.Twitter_Geo;
 
 public class Twitter_GeoImpl implements Twitter_Geo{
 	
+	private static final long serialVersionUID = 1861803125097847414L;
+	
 	private Conexion con;
 	/*Te devuelve la place donde estas*/
 	Twitter_GeoImpl (Conexion con){

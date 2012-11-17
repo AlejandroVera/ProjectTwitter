@@ -1,6 +1,8 @@
 package interfacesComunes;
 
-public interface Twitter_Account {
+import java.io.Serializable;
+
+public interface Twitter_Account extends Serializable{
 
 	static java.lang.String 	COLOR_BG= "0000"; 
 	static java.lang.String 	COLOR_LINK= "0001"; 

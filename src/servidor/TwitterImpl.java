@@ -13,7 +13,6 @@ import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -20,6 +20,8 @@ import interfacesComunes.User;
 
 public class TwitterEventImpl implements TwitterEvent{
 
+	private static final long serialVersionUID = -6687615946432278756L;
+	
 	private int id;
 	private User source;
 	private User target;

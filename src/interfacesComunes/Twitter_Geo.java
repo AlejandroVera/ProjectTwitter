@@ -1,8 +1,10 @@
 package interfacesComunes;
 
+import java.io.Serializable;
 
 
-public interface Twitter_Geo {
+
+public interface Twitter_Geo extends Serializable{
 	
     //public Place geoSearch(double latitude,double longitude);
     public Place geoSearchByIP(java.lang.String ipAddress);

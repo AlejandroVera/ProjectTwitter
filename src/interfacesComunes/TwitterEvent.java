@@ -1,8 +1,9 @@
 package interfacesComunes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public interface TwitterEvent {
+public interface TwitterEvent extends Serializable{
 	
 	public int getId();
 	

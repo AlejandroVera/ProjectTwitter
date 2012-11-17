@@ -14,6 +14,8 @@ import servidor.db.Conexion;
 
 public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	
+	private static final long serialVersionUID = 1062348327090738818L;
+	
 	Twitter twitter;
 	Conexion con;
 	User loggedUser;
