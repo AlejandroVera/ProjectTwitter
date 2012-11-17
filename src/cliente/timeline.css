@@ -1,0 +1,47 @@
+#worldContainer{
+	-fx-background-image: url("beach36.jpg");
+	-fx-background-position: center center;
+	-fx-background-repeat: stretch;
+	-fx-base: rgba(250, 250, 250, 0.55);
+}
+
+#barraArriba{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(250, 250, 250, 0.4);
+	
+	-fx-border-radius: 60px;
+	-fx-margin-top: 25px;
+	-fx-background-color: rgba(256, 256, 256, 0.35);
+	-fx-font-family: "Ubuntu";
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
+}
+
+
+.button{
+	-fx-font-weight: bold;
+	-fx-text-fill: rgba(80, 80, 80, 0.85);
+	-fx-background-color: rgba(0, 200, 255, 0.7);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,170,255,0.9) , 0, 0.0 , 0 , 0 );
+}
+
+
+
+.choice-box, .label{
+	-fx-font-weight: bold;
+	-fx-text-fill: rgba(0, 0, 0, 0.9);
+	-fx-text-stroke: rgba(0,0,0,1);
+	-fx-text-stroke-width:1;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+
+}
+
+.text-field:focused, .password-field:focused, .button:focused, .choice-box:focused{
+	-fx-border-color: rgba(1,247, 256, 0.28);
+	-fx-focus-color: rgba(1,247, 256, 0.28);
+}
+
+#fancytext {
+   
+    -fx-stroke: rgba(0,0,0,1);
+    -fx-stroke-width: 1;
+}
