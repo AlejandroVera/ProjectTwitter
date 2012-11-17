@@ -26,7 +26,7 @@ public class Cliente extends UnicastRemoteObject implements AStream.IListen, Rem
 	
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		System.out.println(event.getType());
+		System.out.println("Se ha recibido un evento:" + event.getType());
 		return true;
 	}
 
@@ -38,7 +38,7 @@ public class Cliente extends UnicastRemoteObject implements AStream.IListen, Rem
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		System.out.println(tweet.getText());
+		System.out.println("Se ha recibido un tweet:" + tweet.getText());
 		return true;
 	}
 

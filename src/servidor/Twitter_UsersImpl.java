@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import servidor.db.ConexionImpl;
+
 import excepcionesComunes.TwitterException;
 
-import servidor.db.Conexion;
 
+import interfacesComunes.Conexion;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 
@@ -28,7 +30,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public List<Number> getFollowerIDs(){
 		List<Number> seguidores=new ArrayList<Number>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+loggedUser.getId());
 		try {
 			while(res.next()){
@@ -41,7 +43,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 	public List<Integer> getFollowerIDs(String screenName){
 		List<Integer> seguidores=new ArrayList<Integer>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
 
@@ -59,7 +61,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public List<User> getFollowers(String screenName){
 		List<User> seguidores=new ArrayList<User>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
 
@@ -76,7 +78,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public List<Integer> getFriendIDs(){
 		List<Integer> amigos=new ArrayList<Integer>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.loggedUser.getId());
 		try {
 			while(res.next()){
@@ -90,7 +92,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public List<Integer> getFriendIDs(String screenName){
 		List<Integer> amigos=new ArrayList<Integer>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
 
@@ -108,7 +110,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public List<User> getFriends(String screenName){
 		List<User> amigos=new ArrayList<User>();
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
 
@@ -129,7 +131,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 	public User follow(User user){
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		con.query("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		return user;
 	}
@@ -149,7 +151,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
     public boolean isFollower(String followerScreenName,String followedScreenName){
     	boolean sol=true;
-    	Conexion con=new Conexion();
+    	Conexion con=new ConexionImpl();
     	User u1=new UserImpl(followerScreenName,con,loggedUser);
     	User u2=new UserImpl(followedScreenName,con,loggedUser);
 		ResultSet res = con.query("SELECT * FROM seguidores WHERE id_seguidor="+u1.getId()+"AND id_seguido"+u2.getId());
@@ -201,7 +203,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     //Busqueda por screenName, devuelve una lista con usuarios cuyos screenNames contengan el string pasado
     public java.util.List<User> searchUsers(String search){
     	List<User> sol = new ArrayList<User>();
-    	Conexion con = new Conexion();
+    	Conexion con = new ConexionImpl();
     	ResultSet res = con.query("SELECT screenName FROM usuario");
     	try {
 			while(res.next()){
@@ -239,7 +241,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     
     public User stopFollowing(User user){
     	User sol=null;
-    	Conexion con = new Conexion();	
+    	Conexion con = new ConexionImpl();	
     	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
     	try {
 			if(res.next()){
@@ -253,7 +255,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
     public boolean userExists(String screenName){
     	boolean sol=false;
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id FROM usuario WHERE screenName="+screenName);
 		try {
 			if(res.next()){

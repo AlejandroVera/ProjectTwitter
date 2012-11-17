@@ -7,7 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import servidor.db.Conexion;
+
+import interfacesComunes.Conexion;
 import interfacesComunes.Message;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter_Geo;

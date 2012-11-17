@@ -1,5 +1,6 @@
 package servidor;
 
+import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.User;
 
@@ -10,7 +11,6 @@ import java.util.Map;
 
 import excepcionesComunes.TwitterException;
 
-import servidor.db.Conexion;
 
 public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	

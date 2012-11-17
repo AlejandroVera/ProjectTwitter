@@ -25,7 +25,7 @@
               <children>
                 <VBox id="VBox" alignment="CENTER" spacing="5.0">
                   <children>
-                    <GridPane alignment="CENTER" hgap="5.0" minHeight="-1.0" minWidth="-1.0" padding="$x1" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true" vgap="5.0">
+                    <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" minHeight="-1.0" minWidth="-1.0" padding="$x1" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true" vgap="5.0">
                       <children>
                         <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
@@ -79,7 +79,12 @@
                     </GridPane>
                   </children>
                 </VBox>
-                <Button fx:id="loginButton" alignment="CENTER" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" VBox.vgrow="NEVER" />
+                <AnchorPane id="AnchorPane" minHeight="26.0" prefHeight="30.0" prefWidth="348.0">
+                  <children>
+                    <Button fx:id="loginButton" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="5.0" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" />
+                    <Label fx:id="createAccountLabel" alignment="BOTTOM_RIGHT" graphicTextGap="4.0" layoutX="232.0" layoutY="14.0" onMouseClicked="#showcreateAccount" text="Crear cuenta" underline="false" />
+                  </children>
+                </AnchorPane>
               </children>
             </VBox>
           </children>

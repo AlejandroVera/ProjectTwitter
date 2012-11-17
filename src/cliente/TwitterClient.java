@@ -1,5 +1,6 @@
 package cliente;
 
+import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -75,10 +76,19 @@ public class TwitterClient extends Application {
 			stub = (TwitterInit) Naming.lookup(rmiUrl);
 			this.cliente = new Cliente();
 			Twitter twitter = stub.login(user, pass, cliente);
-			if(twitter ==  null)
+			if(twitter ==  null){
 				System.out.println("Login invalido");
-			else
+				return;
+			}else
 				System.out.println((twitter.isValidLogin() ? "Logueado" : "No logueado"));
+			
+			Status tweet = twitter.updateStatus("Esto es la primera prueba!!");
+			if(tweet == null){
+				System.out.println("No se ha creado el tweet");
+				return;
+			}else
+				System.out.println("El tweet se ha enviado y dice: \""+ tweet.getText()+"\".");
+			
 		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 			e1.printStackTrace();
 			return;

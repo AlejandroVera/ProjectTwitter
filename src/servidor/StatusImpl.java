@@ -1,6 +1,7 @@
 package servidor;
 
 import interfacesComunes.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import servidor.TwitterImpl.KEntityType;
-import servidor.db.Conexion;
 
 
 public class StatusImpl implements Status{

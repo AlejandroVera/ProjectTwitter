@@ -1,6 +1,7 @@
 package servidor;
 
 import interfacesComunes.AStream;
+import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -12,7 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import servidor.db.Conexion;
+import servidor.db.ConexionImpl;
+
 
 
 public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit {
@@ -23,7 +25,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	
 	public TwitterInitImpl(LinkedList<AStream.IListen> clientes) throws RemoteException {
 		super();
-		this.con = new Conexion();
+		this.con = new ConexionImpl();
 	}
 	
 	@Override

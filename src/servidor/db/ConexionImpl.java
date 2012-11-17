@@ -1,11 +1,12 @@
 package servidor.db;
 
+import interfacesComunes.Conexion;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,20 +17,18 @@ import java.util.Properties;
 
 import servidor.ServerCommon;
 
-public class Conexion implements Serializable{
+public class ConexionImpl implements Serializable, Conexion{
 
 
 	private static final long serialVersionUID = -6834351832065831226L;
 	
-	private static final String CONFIG_FILE = "../dbconfig.cnf";
-	private static String dbName;
-	private static String dbUser;
-	private static String dbPassword;
-	private static String dbPort;
+	private  final String CONFIG_FILE = "../dbconfig.cnf";
+	private  String dbName;
+	private  String dbUser;
+	private  String dbPassword;
+	private  String dbPort;
 
-	private Connection con;
-
-	public Conexion() {
+	public ConexionImpl() {
 
 		if (dbName == null || dbUser == null || dbPassword == null) {
 			BufferedReader buffer = null;
@@ -54,41 +53,78 @@ public class Conexion implements Serializable{
 				dbPort = "3306";
 		}
 
-		Properties connectionProps = new Properties();
-		connectionProps.put("user", dbUser);
-		connectionProps.put("password", dbPassword);
-
-		try {
-			//this.con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/"+dbName+"?useUnicode=true&characterEncoding=utf8", "root", "opelcorsa");
-			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + dbPort + "/"+ dbName , connectionProps);
-		} catch (SQLException e) {
-			ServerCommon.TwitterError(e, "Error durante la conexión a la base de datos", 3);
-		}
+		testConnectionAndSolve();
 
 	}
 
-	public Conexion(String name, String user, String pass, String port) {
+	public ConexionImpl(String name, String user, String pass, String port) {
 
+		if(ConnectionContainer.getCon() == null){
+			 connect(name, user, pass, port);
+		}else{
+			try {
+				if(ConnectionContainer.getCon().isClosed()) { //Reconectar
+					connect(name, user, pass, port);
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterError(e, "Error durante la conexión a la base de datos", 3);
+				connect(name, user, pass, port); //Reconectar
+			}
+		}
+
+	}
+	
+	/**
+	 * Método auxiliar para conectar con la BD.
+	 * @param name Nombre de la BD con la que conectar.
+	 * @param user Usuario con el que acceder.
+	 * @param pass Contraseña de ese usuario.
+	 * @param port Puerto en el que está corriendo la BD.
+	 */
+	private void connect(String name, String user, String pass, String port){
+		
+		ConnectionContainer.setCon(null);
+		
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", user);
 		connectionProps.put("password", pass);
 
 		try {
-			this.con = DriverManager.getConnection("jdbc:mysql://localhost:" + port + "/"+ name, connectionProps);
+			ConnectionContainer.setCon(DriverManager.getConnection("jdbc:mysql://localhost:" + port + "/"+ name, connectionProps));
 		} catch (SQLException e) {
 			ServerCommon.TwitterError("Error durante la conexión a la base de datos", 3);
-		}
-
+		}		
 	}
-
+	
 	/**
-	 * Ejecuta una query de consulta (inseguro si no se ha filtrado la query previamente).
-	 * @param query Texto de la query a ejecutar (debe ser un SELECT).
-	 * @return Un ResultSet si la query se ha ejecutado correctamente; null en caso de error.
+	 * 	Comprueba si es necesario reconectar con la BD y, en caso de serlo, realiza la reconexión.
 	 */
+	private void testConnectionAndSolve(){
+		if(ConnectionContainer.getCon() == null){
+			 connect(dbName, dbUser, dbPassword, dbPort);
+		}else{
+			try {
+				if(ConnectionContainer.getCon().isClosed()) { //Reconectar
+					 connect(dbName, dbUser, dbPassword, dbPort);
+				}
+			} catch (SQLException e) {
+				ServerCommon.TwitterError(e, "Error durante la conexión a la base de datos", 3);
+				 connect(dbName, dbUser, dbPassword, dbPort); //Reconectar
+			}
+		}
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see servidor.db.Conexion#query(java.lang.String)
+	 */
+	@Override
 	public ResultSet query(String query) {
+		
+		testConnectionAndSolve();
+		
 		try {
-			return this.con.createStatement().executeQuery(query);
+			return ConnectionContainer.getCon().createStatement().executeQuery(query);
 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
@@ -96,29 +132,32 @@ public class Conexion implements Serializable{
 		}
 	}
 
-	/**
-	 * Ejecuta una query de actualización (inseguro si no se ha filtrado la query previamente).
-	 * @param query Texto de la query de actualización a ejecutar (UPDATE, INSERT, DELETE...).
-	 * @return Un entero con el número de filas afectadas o 0 en caso de que esa consulta no devuelva nada. Null en caso de error.
+	/* (non-Javadoc)
+	 * @see servidor.db.Conexion#updateQuery(java.lang.String)
 	 */
+	@Override
 	public Integer updateQuery(String query) {
+		
+		testConnectionAndSolve();
+		
 		try {
-			return this.con.createStatement().executeUpdate(query);
+			return ConnectionContainer.getCon().createStatement().executeUpdate(query);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
 			return null;
 		}
 	}
 	
-	/**
-	 * Ejecuta una query de consulta de manera segura (filtrando parámetros).
-	 * @param query Texto de la query a ejecutar  conteniendo '?' en donde van los parámetros.
-	 * @param params Parámetros de la query (debe haber el mismo número que '?' hay en la query).
-	 * @return Un ResultSet si la query se ha ejecutado correctamente; null en caso de error.
+	/* (non-Javadoc)
+	 * @see servidor.db.Conexion#query(java.lang.String, java.util.List)
 	 */
+	@Override
 	public ResultSet query(String query, List<Object> params) {
+		
+		testConnectionAndSolve();
+		
 		try {
-			PreparedStatement est = con.prepareStatement(query);
+			PreparedStatement est = ConnectionContainer.getCon().prepareStatement(query);
 			fillPreparedStatementCall(est,  params);
 			return est.executeQuery();
 
@@ -128,15 +167,16 @@ public class Conexion implements Serializable{
 		}
 	}
 
-	/**
-	 * Ejecuta una query de actualización de manera segura (filtrando parámetros).
-	 * @param query Texto de la query a ejecutar  conteniendo '?' en donde van los parámetros.
-	 * @param params Parámetros de la query (debe haber el mismo número que '?' hay en la query).
-	 * @return Un entero con el número de filas afectadas o 0 en caso de que esa consulta no devuelva nada. Null en caso de error.
+	/* (non-Javadoc)
+	 * @see servidor.db.Conexion#updateQuery(java.lang.String, java.util.List)
 	 */
+	@Override
 	public Integer updateQuery(String query, List<Object> params) {
+		
+		testConnectionAndSolve();
+		
 		try {
-			PreparedStatement est = con.prepareStatement(query);
+			PreparedStatement est = ConnectionContainer.getCon().prepareStatement(query);
 			fillPreparedStatementCall(est,  params);
 			return est.executeUpdate();
 		} catch (SQLException e) {
@@ -172,15 +212,14 @@ public class Conexion implements Serializable{
 	}
 	
 	public static void main(String[] args){
-		Conexion con = new Conexion();
-		int val = con.updateQuery("INSERT INTO usuario (screenName, name, email, password) VALUES ('Camilo', 'Camilo', 'c.perei@gmail.com', 'cuba88')");
+		Conexion con = new ConexionImpl();
+		int val = con.updateQuery("INSERT INTO usuario (screenName, name, email, password) VALUES ('Alex', 'Alex', 'xafilox@gmail.com', 'cacahuete')");
 		System.out.println("Devolvió el valor "+ val);
 		ResultSet res = con.query("SELECT name FROM usuario");
 		try {
 			res.next();
 			System.out.println("Se ha encontrado un usuario: " + res.getString(1));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

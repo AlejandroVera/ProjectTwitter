@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import servidor.db.Conexion;
+import interfacesComunes.Conexion;
 import interfacesComunes.Place;
 
 public class PlaceImpl implements Place {

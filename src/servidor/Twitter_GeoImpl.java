@@ -6,9 +6,9 @@ import java.net.UnknownHostException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import servidor.db.Conexion;
 
 import javaQuery.j2ee.GeoLocation;
+import interfacesComunes.Conexion;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter_Geo;
 
@@ -42,7 +42,7 @@ public class Twitter_GeoImpl implements Twitter_Geo{
         double Longitude = Double.valueOf(_gl.Longitude);//x
         Point2D punto = new Point2D.Double(Longitude, Latitude);
         
-        ResultSet res = con.query("SELECT id FROM places WHERE pais="+Country+"AND ciudad="+City);
+        ResultSet res = con.query("SELECT id FROM places WHERE pais='"+Country+"' AND ciudad='"+City+"'");
         
         try {
 			while (res.next() && !encontrado){

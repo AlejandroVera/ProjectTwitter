@@ -2,8 +2,8 @@ package servidor;
 
 import java.io.Serializable;
 
+import interfacesComunes.Conexion;
 import interfacesComunes.User;
-import servidor.db.Conexion;
 
 public class LoggedConection implements Serializable{
 

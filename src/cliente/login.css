@@ -32,3 +32,7 @@
 	-fx-border-color: rgba(1,247, 256, 0.28);
 	-fx-focus-color: rgba(1,247, 256, 0.28);
 }
+
+#createAccountLabel:hover {
+	-fx-cursor: hand;
+}

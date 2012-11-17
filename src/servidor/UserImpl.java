@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import servidor.db.ConexionImpl;
+
 import excepcionesComunes.TwitterException;
 
-import servidor.db.Conexion;
 
+import interfacesComunes.Conexion;
 import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter_Geo;
@@ -146,7 +148,7 @@ public class UserImpl implements User{
 
 	public boolean isFollowedByYou() {
 		boolean sol=false;
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
 		try {
 			while(res.next()){
@@ -163,7 +165,7 @@ public class UserImpl implements User{
 
 	public Boolean isFollowingYou() {
 		boolean sol=false;
-		Conexion con = new Conexion();	
+		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.loggedUser.getId());
 		try {
 			while(res.next()){
