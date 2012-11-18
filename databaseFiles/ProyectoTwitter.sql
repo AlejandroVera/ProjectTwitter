@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 17-11-2012 a las 13:24:45
+-- Tiempo de generación: 18-11-2012 a las 17:46:49
 -- Versión del servidor: 5.5.16
 -- Versión de PHP: 5.3.8
 
@@ -151,7 +151,18 @@ CREATE TABLE IF NOT EXISTS `tweet` (
   `inReplyTo` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `tweet`
+--
+
+INSERT INTO `tweet` (`id`, `texto`, `autor`, `fecha`, `inReplyTo`) VALUES
+(1, 'Esto es la primera prueba!!', 1, 1353178742, 0),
+(2, 'Esto es la primera prueba!!', 1, 1353178975, 0),
+(3, 'Esto es la primera prueba!!', 1, 1353179910, 0),
+(4, 'Esto es la primera prueba!!', 1, 1353180767, 0),
+(5, 'Esto es la primera prueba!!', 1, 1353180839, 0);
 
 -- --------------------------------------------------------
 
@@ -162,30 +173,32 @@ CREATE TABLE IF NOT EXISTS `tweet` (
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `screenName` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `email` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   `password` char(40) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha_registro` int(10) unsigned NOT NULL,
-  `descripcion` varchar(60) COLLATE utf8_spanish2_ci NOT NULL,
-  `location` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileBackgroundColor` varchar(12) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileBackgroundImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileLinkColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileSidebarBorderColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileSidebarFillColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `profileTextColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
-  `id_status` int(11) unsigned NOT NULL,
+  `descripcion` varchar(60) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `location` varchar(30) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileBackgroundColor` varchar(12) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileBackgroundImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileLinkColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileSidebarBorderColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileSidebarFillColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `profileTextColor` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `id_status` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundColor`, `profileBackgroundImageUrl`, `profileImageUrl`, `profileLinkColor`, `profileSidebarBorderColor`, `profileSidebarFillColor`, `profileTextColor`, `web_link`, `id_status`) VALUES
-(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', '', '', '', '', '', 0);
+(1, 'Antonio', 'Antonio Fernandez', 'antonio@correofalso.net', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', '', '', '', '', '', 0),
+(2, 'prueba', '', 'prueba@p.com', '711383a59fda05336fd2ccf70c8059d1523eb41a', 1353255993, '', '', '', '', '', '', '', '', '', '', 0),
+(3, 'xafilox', '', 'xafilox@gmail.com', '1b19a5dfea5827cccfb1d4d58498175b13347dea', 1353256128, '', '', '', '', '', '', '', '', '', '', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
