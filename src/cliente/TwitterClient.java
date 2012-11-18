@@ -19,6 +19,7 @@ public class TwitterClient extends Application {
 	
 	private TwitterInit stub;
 	private Cliente cliente;
+	private Stage primaryStage;
 	
     public static void main(String[] args) {
         launch(args);
@@ -28,6 +29,9 @@ public class TwitterClient extends Application {
     public void start(Stage primaryStage) {
     	
 		try {
+			
+			this.primaryStage = primaryStage;
+			
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("login.fxml"));
 			Parent root = (Parent) loader.load(getClass().getResource("login.fxml").openStream());
@@ -37,9 +41,9 @@ public class TwitterClient extends Application {
 			logControl.setLoginListener(this);
 			
 			Scene scene = new Scene(root, 900, 600);
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Cliente multitwitter");
-			primaryStage.show();
+			this.primaryStage.setScene(scene);
+			this.primaryStage.setTitle("Cliente multitwitter");
+			this.primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,8 +67,23 @@ public class TwitterClient extends Application {
 				System.out.println((twitter.isValidLogin() ? "Logueado" : "No logueado"));
 			
 			//TODO: lanzar la visión principal (pasandole al controlador el objeto Twitter)
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("timeline.fxml"));
+			Parent root = (Parent) loader.load(getClass().getResource("timeline.fxml").openStream());
 			
-		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			//Obtenemos el objeto controlador
+			//TimelineController timeControl = loader.getController();
+			//timeControl.setLoginListener(this);
+			
+			//Mostramos la nueva vista
+			Scene scene = new Scene(root, 900, 600);
+			this.primaryStage.setScene(scene);
+			this.primaryStage.show();
+			
+			
+			
+			
+		} catch (NotBoundException | IOException e1) {
 			e1.printStackTrace();
 			return;
 		}
