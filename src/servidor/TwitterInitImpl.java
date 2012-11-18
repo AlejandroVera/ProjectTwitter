@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
@@ -66,7 +67,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			pass = sha1String(pass);
 		} catch (Exception e) {
 			ServerCommon.TwitterWarning("Imposible obtener hash MD5 de la contraseña.");
-			return -1;
+			return TwitterInit.REG_WRONG_UNKNOWN;
 		}
 		
 		//Preparamos los parámetros a pasarle a la query
@@ -80,23 +81,24 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			//Si existe ya un usuario con esos datos, no se puede registrar
 			if(res.next()){
 				if(res.getString("name").equals(screenName))
-					return 1; // Ya existe un usuario con ese nombre
+					return TwitterInit.REG_WRONG_USER; // Ya existe un usuario con ese nombre
 				else
-					return 2; //Ya existe un usuario con ese email
+					return TwitterInit.REG_WRONG_EMAIL; //Ya existe un usuario con ese email
 			}else{
 				params.clear();
 				params.add(screenName);
 				params.add(email);
 				params.add(pass);
-				int ins = con.updateQuery("INSERT INTO usuario (screenName, email, password) VALUES (?, ?, ?)", params);
-				if(ins > 1)
-					return 0; //Usuario registrado correctamente
+				params.add((int)(new Date().getTime()/1000));
+				int ins = con.updateQuery("INSERT INTO usuario (screenName, email, password, fecha_registro) VALUES (?, ?, ?, ?)", params);
+				if(ins > 0)
+					return TwitterInit.REG_OK; //Usuario registrado correctamente
 				else
-					return -1; //Error desconocido
+					return TwitterInit.REG_WRONG_UNKNOWN; //Error desconocido
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
-			return -1; //Error desconocido
+			return TwitterInit.REG_WRONG_UNKNOWN; //Error desconocido
 		}
 		
 	}

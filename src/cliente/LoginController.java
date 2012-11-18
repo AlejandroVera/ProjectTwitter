@@ -5,13 +5,23 @@
 
 package cliente;
 
+import interfacesComunes.TwitterInit;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.sun.javafx.beans.annotations.Default;
+
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -20,6 +30,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBoxBuilder;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class LoginController implements Initializable {
@@ -32,6 +47,9 @@ public class LoginController implements Initializable {
     
     @FXML //  fx:id="loginButton"
     private Button loginButton; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="loginGridPane"
+    private GridPane loginGridPane; // Value injected by FXMLLoader
 
     @FXML //  fx:id="password"
     private PasswordField password; // Value injected by FXMLLoader
@@ -46,6 +64,7 @@ public class LoginController implements Initializable {
     private AnchorPane worldContainer; // Value injected by FXMLLoader
     
     private TwitterClient loginListener;
+    private TextField emailField;
 
 
     // Handler for Button[fx:id="loginButton"] onAction
@@ -58,11 +77,62 @@ public class LoginController implements Initializable {
     
     // Handler for Label[fx:id="createAccountLabel"] onMouseClicked
     public void showcreateAccount(MouseEvent event) {
-    	AnchorPane loginButtonParent =  (AnchorPane) loginButton.getParent();
-        loginButton.setVisible(false);
-        Button regButton = new Button("Registrase");
-        //loginButtonParent.get
         
+        HBox emailHBox = new HBox();
+        Label emailLabel = new Label("Email");
+        emailHBox.getChildren().add(emailLabel);
+        emailLabel.setAlignment(Pos.CENTER_RIGHT);
+        
+        //Crea el campo de texto para el email
+        this.emailField = new TextField();
+        this.emailField.setMaxWidth(password.getMaxWidth());
+        this.emailField.setMinWidth(password.getMinWidth());
+
+        //Añade el botón de registro y de volver
+        Button regButton = new Button("Registrarse");
+        regButton.setId("regButton");
+        regButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	 
+            @Override
+            public void handle(MouseEvent e) {
+            	switch(loginListener.notifyRegistry(username.getText(), password.getText(), emailField.getText())){
+	            	case TwitterInit.REG_OK:
+	        			showDialog("El registro se ha realizado correctamente");
+	        			restoreLoginFromRegistry();
+	        			break;	
+	            	case TwitterInit.REG_WRONG_EMAIL:
+            			showDialog("Ese email ya está siendo usado.");
+            			break;
+            		case TwitterInit.REG_WRONG_USER:
+            			showDialog("Ya existe un usuario con ese nombre.");
+            			break;
+            		case TwitterInit.REG_WRONG_UNKNOWN:
+            		default:
+            			showDialog("Se ha producido un error desconocido");
+            			break;
+            		
+            	}
+            }
+   
+        });
+        
+        Label returnLabel = new Label("Volver");
+        returnLabel.setId("returnLabel");
+        returnLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	 
+            @Override
+            public void handle(MouseEvent e) {
+            	restoreLoginFromRegistry();
+            }
+   
+        });
+        
+        loginGridPane.getChildren().clear();
+        loginGridPane.addRow(0, regButton, returnLabel);
+        
+        //Añade una nueva fila para introducir el email
+        gridContainer.addRow(3, emailHBox, this.emailField);
+             
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -70,6 +140,7 @@ public class LoginController implements Initializable {
         assert createAccountLabel != null : "fx:id=\"createAccountLabel\" was not injected: check your FXML file 'login.fxml'.";
         assert gridContainer != null : "fx:id=\"gridContainer\" was not injected: check your FXML file 'login.fxml'.";
         assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'login.fxml'.";
+        assert loginGridPane != null : "fx:id=\"loginGridPane\" was not injected: check your FXML file 'login.fxml'.";
         assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'login.fxml'.";
         assert serverSelector != null : "fx:id=\"serverSelector\" was not injected: check your FXML file 'login.fxml'.";
         assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'login.fxml'.";
@@ -82,6 +153,31 @@ public class LoginController implements Initializable {
     
     public void setLoginListener(TwitterClient tc){
     	this.loginListener = tc;
+    }
+    
+    /**
+     * Realiza las acciones necesarias para volver al login desde el registro
+     */
+    private void restoreLoginFromRegistry(){
+    	loginGridPane.getChildren().clear();
+    	loginGridPane.addRow(0, loginButton, createAccountLabel);
+        gridContainer.getChildren().remove(6, 8);
+    }
+    
+    private void showDialog(String text){
+		final Stage dialogStage = new Stage();
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		Button boton = new Button("Ok");
+		boton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent e) {
+            	dialogStage.close();
+            }
+        });
+		dialogStage.setScene(new Scene(VBoxBuilder.create().
+				children(new Text(text), boton).
+				alignment(Pos.CENTER).padding(new Insets(5)).build()));
+		dialogStage.show();
     }
 
 }

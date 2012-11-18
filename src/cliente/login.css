@@ -33,6 +33,20 @@
 	-fx-focus-color: rgba(1,247, 256, 0.28);
 }
 
-#createAccountLabel:hover {
+.text-field, .password-field, .choice-box{
+	-fx-max-width: 150px;
+	-fx-min-width: 150px;
+}
+
+#loginButton:hover, #regButton:hover {
 	-fx-cursor: hand;
+}
+
+#createAccountLabel, #returnLabel {
+	-fx-underline: false;
+}
+
+#createAccountLabel:hover, #returnLabel:hover {
+	-fx-cursor: hand;
+	-fx-underline: true;
 }

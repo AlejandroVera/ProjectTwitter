@@ -10,6 +10,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import servidor.TwitterImpl;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,25 +30,6 @@ public class TwitterClient extends Application {
     @Override
     public void start(Stage primaryStage) {
     	
-    	
-		/*try {
-			stub = (TwitterInit) Naming.lookup(rmiUrl);
-		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
-			e1.printStackTrace();
-			return;
-		}*/
-		//this.twitter = stub.login(user, pass, this);
-    	
-    	/*Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("login.fxml"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}*/
-
-		
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("login.fxml"));
@@ -58,22 +41,22 @@ public class TwitterClient extends Application {
 			
 			Scene scene = new Scene(root, 900, 600);
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Cliente multitwitter");
 			primaryStage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
     
     }
     
-    public void notifyLogin(String user, String pass, String server){
-    	if(server.equals("Twitter real")) return;
+    protected void notifyLogin(String user, String pass, String server){
+    	if(server.equals("Twitter real")) return; //TODO: no soportado todavía
     	
     	String rmiUrl = "rmi://localhost/Conectar";
     	
     	try {
-			stub = (TwitterInit) Naming.lookup(rmiUrl);
+			this.stub = (TwitterInit) Naming.lookup(rmiUrl);
 			this.cliente = new Cliente();
 			Twitter twitter = stub.login(user, pass, cliente);
 			if(twitter ==  null){
@@ -82,17 +65,24 @@ public class TwitterClient extends Application {
 			}else
 				System.out.println((twitter.isValidLogin() ? "Logueado" : "No logueado"));
 			
-			Status tweet = twitter.updateStatus("Esto es la primera prueba!!");
-			if(tweet == null){
-				System.out.println("No se ha creado el tweet");
-				return;
-			}else
-				System.out.println("El tweet se ha enviado y dice: \""+ tweet.getText()+"\".");
+			//TODO: lanzar la visión principal (pasandole al controlador el objeto Twitter)
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 			e1.printStackTrace();
 			return;
 		}
-	//this.twitter = stub.login(user, pass, this);
 	}
+    
+    protected int notifyRegistry(String user, String pass, String email){
+    	String rmiUrl = "rmi://localhost/Conectar";
+    	
+    	try {
+			this.stub = (TwitterInit) Naming.lookup(rmiUrl);
+			return stub.register(user, pass, email);
+			
+		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
+			e1.printStackTrace();
+			return TwitterInit.REG_WRONG_UNKNOWN;
+		}
+    }
 }

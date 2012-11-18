@@ -57,7 +57,7 @@
                             <Insets right="7.0" fx:id="x3" />
                           </GridPane.margin>
                         </TextField>
-                        <PasswordField fx:id="password" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="password" maxWidth="150.0" minWidth="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="1" />
                         <ChoiceBox fx:id="serverSelector" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="2">
                           <items>
                             <FXCollections fx:factory="observableArrayList">
@@ -79,12 +79,26 @@
                     </GridPane>
                   </children>
                 </VBox>
-                <AnchorPane id="AnchorPane" minHeight="26.0" prefHeight="30.0" prefWidth="348.0">
+                <GridPane id="GridPane" fx:id="loginGridPane">
                   <children>
-                    <Button fx:id="loginButton" alignment="CENTER_RIGHT" layoutX="140.0" layoutY="5.0" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" />
-                    <Label fx:id="createAccountLabel" alignment="BOTTOM_RIGHT" graphicTextGap="4.0" layoutX="232.0" layoutY="14.0" onMouseClicked="#showcreateAccount" text="Crear cuenta" underline="false" />
+                    <Button fx:id="loginButton" alignment="CENTER_RIGHT" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <Label fx:id="createAccountLabel" alignment="BOTTOM_RIGHT" graphicTextGap="4.0" onMouseClicked="#showcreateAccount" text="Crear cuenta" underline="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <GridPane.margin>
+                        <Insets right="15.0" />
+                      </GridPane.margin>
+                    </Label>
                   </children>
-                </AnchorPane>
+                  <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" />
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <VBox.margin>
+                    <Insets left="5.0" right="5.0" top="5.0" />
+                  </VBox.margin>
+                </GridPane>
               </children>
             </VBox>
           </children>
