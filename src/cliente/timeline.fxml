@@ -69,7 +69,7 @@
                     </Button>
                   </children>
                 </HBox>
-                <HBox fx:id="ajustes" alignment="CENTER" spacing="5.0" GridPane.columnIndex="6" GridPane.rowIndex="0">
+                <HBox id="ajustes" alignment="CENTER" spacing="5.0" GridPane.columnIndex="6" GridPane.rowIndex="0">
                   <children>
                     <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" pickOnBounds="true" preserveRatio="true">
                       <image>
@@ -169,13 +169,100 @@
           </children>
         </HBox>
         <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+          <children>
+            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <children>
+                <GridPane prefHeight="128.99990000000253" prefWidth="516.0">
+                  <children>
+                    <ImageView id="profileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <image>
+                        <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                    <GridPane prefHeight="99.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <children>
+                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                          <children>
+                            <GridPane alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="493.0">
+                              <children>
+                                <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label text="17h" />
+                                  </children>
+                                </HBox>
+                                <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label id="screenName" text="TweetPrueba" />
+                                    <Label id="name" text="\@prueba" />
+                                  </children>
+                                </HBox>
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="369.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="84.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </HBox>
+                        <TextArea editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="Este es un tweet de prueba que estoy escribiendo para llegar al límite de los 140 carácteres, el cual es un límite bastante pequeño, ya ves." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <children>
+                        <Label id="abrir" text="Abrir" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <HBox id="HBox" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                          <children>
+                            <Label id="responder" prefWidth="110.00009999999747" text="Responder" />
+                          </children>
+                        </HBox>
+                        <Label text="Retwittear" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label text="Favorito" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <ImageView id="retweet" fitHeight="24.5" fitWidth="30.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <image>
+                            <Image url="@retweet.png" preserveRatio="true" smooth="true" />
+                          </image>
+                        </ImageView>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="96.0" minWidth="1.0" prefWidth="96.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="130.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="112.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="124.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="61.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="0.0" prefWidth="453.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="132.0" minHeight="0.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </HBox>
+          </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           </columnConstraints>
           <rowConstraints>
-            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="130.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="247.0" minHeight="10.0" prefHeight="174.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
       </children>
