@@ -10,17 +10,14 @@ import interfacesComunes.TwitterInit;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.sun.javafx.beans.annotations.Default;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -55,7 +52,7 @@ public class LoginController implements Initializable {
     private PasswordField password; // Value injected by FXMLLoader
 
     @FXML //  fx:id="serverSelector"
-    private ChoiceBox<?> serverSelector; // Value injected by FXMLLoader
+    private ChoiceBox<String> serverSelector; // Value injected by FXMLLoader
 
     @FXML //  fx:id="username"
     private TextField username; // Value injected by FXMLLoader
@@ -83,10 +80,11 @@ public class LoginController implements Initializable {
         emailHBox.getChildren().add(emailLabel);
         emailLabel.setAlignment(Pos.CENTER_RIGHT);
         
-        //Crea el campo de texto para el email
+        //Crea el campo de texto para el email y lo añadimos al formulario
         this.emailField = new TextField();
         this.emailField.setMaxWidth(password.getMaxWidth());
         this.emailField.setMinWidth(password.getMinWidth());
+        gridContainer.addRow(3, emailHBox, this.emailField);
 
         //Añade el botón de registro y de volver
         Button regButton = new Button("Registrarse");
@@ -129,9 +127,8 @@ public class LoginController implements Initializable {
         
         loginGridPane.getChildren().clear();
         loginGridPane.addRow(0, regButton, returnLabel);
+        GridPane.setMargin(returnLabel, new Insets(0, 15, 0, 0));
         
-        //Añade una nueva fila para introducir el email
-        gridContainer.addRow(3, emailHBox, this.emailField);
              
     }
 
@@ -148,6 +145,17 @@ public class LoginController implements Initializable {
 
         // initialize your logic here: all @FXML variables will have been injected
         serverSelector.getSelectionModel().selectFirst();
+        
+        //Si se elige el servidor real de twitter, no permitimos el registro      
+        serverSelector.valueProperty().addListener(new ChangeListener<String>() {
+            @Override 
+            public void changed(ObservableValue<? extends String> ov, String t, String t1) {                
+            	if(serverSelector.getSelectionModel().getSelectedIndex() == 1)
+        			createAccountLabel.setVisible(false);
+        		else
+        			createAccountLabel.setVisible(true);
+            }    
+        });
 
     }
     

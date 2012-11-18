@@ -1,6 +1,5 @@
 package cliente;
 
-import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -9,8 +8,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
-import servidor.TwitterImpl;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
