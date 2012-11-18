@@ -11,7 +11,7 @@
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.35);
 	-fx-font-family: "Ubuntu";
-	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
 }
 
 #cajaSeleccion{
@@ -27,20 +27,35 @@
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.85);
 	-fx-font-family: "Ubuntu";
-	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
-
-
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
 }
 
-.button{
+#tweetButton{
 	-fx-font-weight: bold;
-	-fx-text-fill: rgba(80, 80, 80, 0.85);
+	-text-fill: rgba(80, 80, 80, 0.85);
 	-fx-background-color: rgba(0, 200, 255, 0.7);
-	-fx-effect: dropshadow( three-pass-box , rgba(0,170,255,0.9) , 0, 0.0 , 0 , 0 );
+	-fx-effect: dropshadow(three-pass-box , rgba(0,100,120,0.7) , 10, 0.0 , 0 , 5 );	
+	
+}
+#tweetButton:hover, #opcion:hover, #cajita:hover, #menuAjustes:hover{
+	-fx-cursor: hand;
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 20, 0.0 , -1 , -1 );
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.9) , 20, 0.0 , 1 , 1 );
 }
 
+#tweetButton:pressed, #opcion:pressed, #cajita:pressed, #menuAjustes:pressed{ 
+	-fx-cursor: hand;
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
+	
+}
 
+#tweetButton:focused, #opcion:focused, #cajita:focused, #menuAjustes:focused{}
 
+#textoRelieve{
+	-fx-text-fill: rgba(80, 80, 80, 0.85);
+	-fx-effect: dropshadow(three-pass-box,rgba(255,255,255,0.5), 0, 0.3,-1,-1);
+	-fx-effect: dropshadow(three-pass-box,rgba(255,255,255,0.5), 0, 0.3,1,1);
+}
 .choice-box, .label{
 	-fx-font-weight: bold;
 	-fx-text-fill: rgba(0, 0, 0, 0.9);
@@ -50,13 +65,11 @@
 
 }
 
+
+
 .text-field:focused, .password-field:focused, .button:focused, .choice-box:focused{
 	-fx-border-color: rgba(1,247, 256, 0.28);
 	-fx-focus-color: rgba(1,247, 256, 0.28);
 }
 
-#fancytext {
-   
-    -fx-stroke: rgba(0,0,0,1);
-    -fx-stroke-width: 1;
-}
+
