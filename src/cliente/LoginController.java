@@ -42,6 +42,9 @@ public class LoginController implements Initializable {
     @FXML //  fx:id="gridContainer"
     private GridPane gridContainer; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="HBoxServer"
+    private HBox HBoxServer; // Value injected by FXMLLoader
+    
     @FXML //  fx:id="loginButton"
     private Button loginButton; // Value injected by FXMLLoader
 
@@ -61,7 +64,10 @@ public class LoginController implements Initializable {
     private AnchorPane worldContainer; // Value injected by FXMLLoader
     
     private TwitterClient loginListener;
+    private HBox emailHBox;
     private TextField emailField;
+    private int serverIndex1;
+    private int serverIndex2;
 
 
     // Handler for Button[fx:id="loginButton"] onAction
@@ -74,21 +80,12 @@ public class LoginController implements Initializable {
     
     // Handler for Label[fx:id="createAccountLabel"] onMouseClicked
     public void showcreateAccount(MouseEvent event) {
-        
-        HBox emailHBox = new HBox();
-        Label emailLabel = new Label("Email");
-        emailHBox.getChildren().add(emailLabel);
-        emailLabel.setAlignment(Pos.CENTER_RIGHT);
-        
-        //Crea el campo de texto para el email y lo añadimos al formulario
-        this.emailField = new TextField();
-        this.emailField.setMaxWidth(password.getMaxWidth());
-        this.emailField.setMinWidth(password.getMinWidth());
-        gridContainer.addRow(3, emailHBox, this.emailField);
 
-        //Añade el botón de registro y de volver
+        //Añade el botón de registro
         Button regButton = new Button("Registrarse");
         regButton.setId("regButton");
+        regButton.setMinHeight(loginButton.getMinHeight());
+        regButton.setMaxHeight(loginButton.getMaxHeight());
         regButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	 
             @Override
@@ -114,7 +111,23 @@ public class LoginController implements Initializable {
    
         });
         
-        Label returnLabel = new Label("Volver");
+        //Crea el campo de texto para el email y lo añadimos al formulario donde antes estaba el selector de servidor
+    	emailHBox = new HBox();
+        Label emailLabel = new Label("Email");
+        emailLabel.setAlignment(Pos.CENTER_RIGHT);
+        emailHBox.getChildren().add(emailLabel);
+        emailHBox.setAlignment(Pos.CENTER_RIGHT);
+        emailField = new TextField();
+        emailField.setMaxWidth(password.getMaxWidth());
+        emailField.setMinWidth(password.getMinWidth());
+
+        gridContainer.getChildren().remove(HBoxServer);
+        gridContainer.getChildren().remove(serverSelector);
+        gridContainer.add(emailHBox, 0, 2);
+        gridContainer.add(emailField, 1, 2);
+        
+        //Añade el texto de volver
+        Label returnLabel = new Label("Volver atrás");
         returnLabel.setId("returnLabel");
         returnLabel.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	 
@@ -136,12 +149,14 @@ public class LoginController implements Initializable {
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert createAccountLabel != null : "fx:id=\"createAccountLabel\" was not injected: check your FXML file 'login.fxml'.";
         assert gridContainer != null : "fx:id=\"gridContainer\" was not injected: check your FXML file 'login.fxml'.";
+        assert HBoxServer != null : "fx:id=\"HBoxServer\" was not injected: check your FXML file 'login.fxml'.";
         assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'login.fxml'.";
         assert loginGridPane != null : "fx:id=\"loginGridPane\" was not injected: check your FXML file 'login.fxml'.";
         assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'login.fxml'.";
         assert serverSelector != null : "fx:id=\"serverSelector\" was not injected: check your FXML file 'login.fxml'.";
         assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'login.fxml'.";
         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'login.fxml'.";
+        
 
         // initialize your logic here: all @FXML variables will have been injected
         serverSelector.getSelectionModel().selectFirst();
@@ -155,7 +170,10 @@ public class LoginController implements Initializable {
         		else
         			createAccountLabel.setVisible(true);
             }    
-        });
+        });       
+       serverIndex1 = gridContainer.getChildren().indexOf(HBoxServer);
+       serverIndex2 = gridContainer.getChildren().indexOf(serverSelector);
+       System.out.println(serverIndex1+" "+serverIndex2);
 
     }
     
@@ -169,7 +187,10 @@ public class LoginController implements Initializable {
     private void restoreLoginFromRegistry(){
     	loginGridPane.getChildren().clear();
     	loginGridPane.addRow(0, loginButton, createAccountLabel);
-        gridContainer.getChildren().remove(6, 8);
+    	gridContainer.getChildren().remove(emailHBox);
+        gridContainer.getChildren().remove(emailField);
+        gridContainer.add(HBoxServer, 0, 2);
+        gridContainer.add(serverSelector, 1, 2);
     }
     
     private void showDialog(String text){

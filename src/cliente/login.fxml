@@ -43,7 +43,7 @@
                             <Label minHeight="-Infinity" minWidth="-Infinity" text="Contraseña" />
                           </children>
                         </HBox>
-                        <HBox id="HBox" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2">
+                        <HBox id="" fx:id="HBoxServer" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2">
                           <children>
                             <Label minHeight="-Infinity" minWidth="-Infinity" text="Servidor">
                               <HBox.margin>
