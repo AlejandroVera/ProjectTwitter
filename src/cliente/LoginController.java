@@ -66,8 +66,6 @@ public class LoginController implements Initializable {
     private TwitterClient loginListener;
     private HBox emailHBox;
     private TextField emailField;
-    private int serverIndex1;
-    private int serverIndex2;
 
 
     // Handler for Button[fx:id="loginButton"] onAction
@@ -92,20 +90,19 @@ public class LoginController implements Initializable {
             public void handle(MouseEvent e) {
             	switch(loginListener.notifyRegistry(username.getText(), password.getText(), emailField.getText())){
 	            	case TwitterInit.REG_OK:
-	        			showDialog("El registro se ha realizado correctamente");
+	        			ClientTools.showDialog("El registro se ha realizado correctamente");
 	        			restoreLoginFromRegistry();
 	        			break;	
 	            	case TwitterInit.REG_WRONG_EMAIL:
-            			showDialog("Ese email ya está siendo usado.");
+	            		ClientTools.showDialog("Ese email ya está siendo usado.");
             			break;
             		case TwitterInit.REG_WRONG_USER:
-            			showDialog("Ya existe un usuario con ese nombre.");
+            			ClientTools.showDialog("Ya existe un usuario con ese nombre.");
             			break;
             		case TwitterInit.REG_WRONG_UNKNOWN:
             		default:
-            			showDialog("Se ha producido un error desconocido");
+            			ClientTools.showDialog("Se ha producido un error desconocido");
             			break;
-            		
             	}
             }
    
@@ -171,8 +168,6 @@ public class LoginController implements Initializable {
         			createAccountLabel.setVisible(true);
             }    
         });       
-       serverIndex1 = gridContainer.getChildren().indexOf(HBoxServer);
-       serverIndex2 = gridContainer.getChildren().indexOf(serverSelector);
 
     }
     

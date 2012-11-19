@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class TwitterClient extends Application {
@@ -41,6 +42,15 @@ public class TwitterClient extends Application {
 			logControl.setLoginListener(this);
 			
 			Scene scene = new Scene(root, 900, 600);
+			this.primaryStage.getIcons().addAll(
+					new Image(getClass().getResource("Imagenes/Twitter-icon-16.png").openStream()),
+					new Image(getClass().getResource("Imagenes/Twitter-icon-24.png").openStream()),
+					new Image(getClass().getResource("Imagenes/Twitter-icon-32.png").openStream()), 
+					new Image(getClass().getResource("Imagenes/Twitter-icon-48.png").openStream()),
+					new Image(getClass().getResource("Imagenes/Twitter-icon-128.png").openStream()),
+					new Image(getClass().getResource("Imagenes/Twitter-icon-256.png").openStream())
+				);
+			
 			this.primaryStage.setScene(scene);
 			this.primaryStage.setTitle("Cliente multitwitter");
 			this.primaryStage.show();
@@ -51,8 +61,8 @@ public class TwitterClient extends Application {
     
     }
     
-    protected void notifyLogin(String user, String pass, String server){
-    	if(server.equals("Twitter real")) return; //TODO: no soportado todavía
+    protected boolean notifyLogin(String user, String pass, String server){
+    	if(server.equals("Twitter real")) return false; //TODO: no soportado todavía
     	
     	String rmiUrl = "rmi://localhost/Conectar";
     	
@@ -61,8 +71,8 @@ public class TwitterClient extends Application {
 			this.cliente = new Cliente();
 			Twitter twitter = stub.login(user, pass, cliente);
 			if(twitter ==  null){
-				System.out.println("Login invalido");
-				return;
+				ClientTools.showDialog("Login invalido.");
+				return false;
 			}else
 				System.out.println((twitter.isValidLogin() ? "Logueado" : "No logueado"));
 			
@@ -80,12 +90,13 @@ public class TwitterClient extends Application {
 			this.primaryStage.setScene(scene);
 			this.primaryStage.show();
 			
-			
+			return true;
 			
 			
 		} catch (NotBoundException | IOException e1) {
 			e1.printStackTrace();
-			return;
+			ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
+			return false;
 		}
 	}
     
