@@ -8,198 +8,90 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TimelineController">
   <children>
-    <VBox id="VBox" alignment="CENTER" layoutX="12.0" layoutY="-40.0" prefHeight="212.0" prefWidth="872.0" spacing="5.0">
-      <children>
-        <HBox id="barraArriba" alignment="CENTER" pickOnBounds="true" prefHeight="34.0" prefWidth="771.0" spacing="5.0">
-          <children>
-            <GridPane prefHeight="32.0" prefWidth="833.0">
+    <HBox id="barraArriba" layoutX="-3.0" layoutY="28.0" opacity="1.0" prefHeight="50.0" prefWidth="900.0" />
+    <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+      <tabs>
+        <Tab id="tab" text="">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="516.0">
               <children>
-                <ImageView fitHeight="129.0" fitWidth="129.0" pickOnBounds="true" preserveRatio="true" translateY="50.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                  <image>
-                    <Image url="@corporate-ir-twitter-strategy-graphic.png" />
-                  </image>
-                </ImageView>
-                <HBox fx:id="cajaSeleccion" alignment="CENTER" prefWidth="106.0" spacing="5.0" styleClass="label" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+                <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0">
                   <children>
-                    <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@casita.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                    <Label id="fancyText" text="Timeline" />
-                  </children>
-                </HBox>
-                <HBox id="opcion" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                  <children>
-                    <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@conecta.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                    <Label text="Conecta" />
-                  </children>
-                </HBox>
-                <HBox id="opcion" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                  <children>
-                    <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@cuenta.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                    <Label text="Cuenta" />
-                  </children>
-                </HBox>
-                <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="4" GridPane.rowIndex="0">
-                  <children>
-                    <TextField id="" fx:id="busquedaLabel" editable="true" focusTraversable="false" prefWidth="150.0" promptText="Busqueda..." />
-                  </children>
-                </HBox>
-                <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="5" GridPane.rowIndex="0">
-                  <children>
-                    <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="106.0" text="Tweet!">
-                      <graphic>
-                        <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@tweet.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </graphic>
-                    </Button>
-                  </children>
-                </HBox>
-                <HBox id="ajustes" alignment="CENTER" spacing="5.0" GridPane.columnIndex="6" GridPane.rowIndex="0">
-                  <children>
-                    <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                        <Image url="@engranaje.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                    <MenuButton id="menuAjustes" minWidth="14.0" mnemonicParsing="false" prefWidth="19.6900634765625" text="MenuButton">
-                      <items>
-                        <MenuItem id="ajustes" mnemonicParsing="false" text="Ajustes" fx:id="ajustes" />
-                        <MenuItem id="cerrarSesion" mnemonicParsing="false" text="Cerrar Sesion" fx:id="cerrarSesion" />
-                      </items>
-                    </MenuButton>
-                  </children>
-                </HBox>
-              </children>
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="110.0" />
-                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="123.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="95.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="268.0" minWidth="10.0" prefWidth="147.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="268.0" minWidth="10.0" prefWidth="177.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="121.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="10.0" prefWidth="60.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-          </children>
-        </HBox>
-      </children>
-    </VBox>
-    <HBox id="HBox" alignment="CENTER" layoutY="153.0" spacing="5.0" AnchorPane.leftAnchor="20.0">
-      <children>
-        <GridPane prefHeight="129.0" prefWidth="276.0">
-          <children>
-            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-              <children>
-                <ImageView fx:id="profileImage" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-                <Label fx:id="screenName" text="" />
-              </children>
-            </HBox>
-            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-              <children>
-                <GridPane>
-                  <children>
-                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <GridPane prefHeight="461.0" prefWidth="516.0">
                       <children>
-                        <Label fx:id="nTweets" text="" />
-                        <Label text="TWEETS" />
-                      </children>
-                    </VBox>
-                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                      <children>
-                        <Label fx:id="nSiguiendo" text="" />
-                        <Label text="SIGUIENDO" />
-                      </children>
-                    </VBox>
-                    <VBox id="cajita" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                      <children>
-                        <Label fx:id="nSeguidores" text="" />
-                        <Label text="SEGUIDORES" />
-                      </children>
-                    </VBox>
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
-              </children>
-            </HBox>
-          </children>
-          <columnConstraints>
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          </columnConstraints>
-          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          </rowConstraints>
-        </GridPane>
-      </children>
-    </HBox>
-    <GridPane layoutY="154.0" prefHeight="461.0" prefWidth="516.0" AnchorPane.leftAnchor="353.0" AnchorPane.rightAnchor="31.0">
-      <children>
-        <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="40.5" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
-          <children>
-            <Label text="Tweets" />
-          </children>
-        </HBox>
-        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
-          <children>
-            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-              <children>
-                <GridPane prefHeight="128.99990000000253" prefWidth="516.0">
-                  <children>
-                    <ImageView id="profileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                      <image>
-                        <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
-                    <GridPane prefHeight="99.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                      <children>
-                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="40.5" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
                           <children>
-                            <GridPane alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="493.0">
+                            <Label text="Tweets" />
+                          </children>
+                        </HBox>
+                        <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <children>
+                            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </HBox>
+                <HBox id="HBox" alignment="CENTER" layoutY="31.0" spacing="5.0" AnchorPane.leftAnchor="35.0">
+                  <children>
+                    <GridPane prefHeight="129.0" prefWidth="276.0">
+                      <children>
+                        <HBox id="cajaIz" alignment="CENTER" onKeyPressed="#irCuenta" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="TOP">
+                          <children>
+                            <ImageView fx:id="profileImage" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                              </image>
+                            </ImageView>
+                            <Label fx:id="screenName" onMouseClicked="irCuenta" text="" />
+                          </children>
+                        </HBox>
+                        <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <children>
+                            <GridPane>
                               <children>
-                                <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarTweetsUsuario" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
-                                    <Label text="17h" />
+                                    <Label fx:id="nTweets" text="" />
+                                    <Label text="TWEETS" />
                                   </children>
-                                </HBox>
-                                <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                </VBox>
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFriends" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
-                                    <Label id="screenName" text="TweetPrueba" />
-                                    <Label id="name" text="\@prueba" />
+                                    <Label fx:id="nSiguiendo" text="" />
+                                    <Label text="SIGUIENDO" />
                                   </children>
-                                </HBox>
+                                </VBox>
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFollowers" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label fx:id="nSeguidores" text="" />
+                                    <Label id="texto" text="SEGUIDORES" />
+                                  </children>
+                                </VBox>
                               </children>
                               <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="369.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="84.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                               </columnConstraints>
                               <rowConstraints>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -207,73 +99,124 @@
                             </GridPane>
                           </children>
                         </HBox>
-                        <TextArea editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="Este es un tweet de prueba que estoy escribiendo para llegar al límite de los 140 carácteres, el cual es un límite bastante pequeño, ya ves." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       </columnConstraints>
                       <rowConstraints>
-                        <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
-                      </rowConstraints>
-                    </GridPane>
-                    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                      <children>
-                        <Label id="abrir" text="Abrir" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <HBox id="HBox" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                          <children>
-                            <Label id="responder" prefWidth="110.00009999999747" text="Responder" />
-                          </children>
-                        </HBox>
-                        <Label text="Retwittear" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label text="Favorito" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                        <ImageView id="retweet" fitHeight="24.5" fitWidth="30.0" pickOnBounds="true" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                          <image>
-                            <Image url="@retweet.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                      </children>
-                      <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="96.0" minWidth="1.0" prefWidth="96.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="130.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="112.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="124.0" />
-                      </columnConstraints>
-                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                     </GridPane>
                   </children>
-                  <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="61.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="462.0" minWidth="0.0" prefWidth="453.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints maxHeight="132.0" minHeight="0.0" prefHeight="104.0" vgrow="SOMETIMES" />
-                    <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                </GridPane>
+                </HBox>
+              </children>
+            </AnchorPane>
+          </content>
+          <graphic>
+            <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="107.0" spacing="5.0" styleClass="label">
+              <children>
+                <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@casita.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <Label id="textoPestana" text="Timeline" />
+              </children>
+            </HBox>
+          </graphic>
+        </Tab>
+        <Tab text="">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+          <graphic>
+            <HBox id="texto" alignment="CENTER" prefWidth="105.0" spacing="5.0">
+              <children>
+                <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@conecta.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <Label id="textoPestana" text="Conecta" />
+              </children>
+            </HBox>
+          </graphic>
+        </Tab>
+        <Tab text="">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+          <graphic>
+            <HBox id="" alignment="CENTER" prefWidth="104.0" spacing="5.0">
+              <children>
+                <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@cuenta.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <Label id="textoPestana" text="Cuenta" />
+              </children>
+            </HBox>
+          </graphic>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <HBox id="HBox" alignment="CENTER" layoutX="376.0" layoutY="32.0" prefWidth="505.0" spacing="5.0">
+      <children>
+        <GridPane prefHeight="31.999900000002526" prefWidth="524.0">
+          <children>
+            <ImageView fitHeight="129.00009999999747" fitWidth="129.00009999999747" pickOnBounds="true" preserveRatio="true" translateY="50.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <image>
+                <Image url="@corporate-ir-twitter-strategy-graphic.png" />
+              </image>
+            </ImageView>
+            <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <children>
+                <TextField id="" fx:id="busquedaLabel" editable="true" focusTraversable="false" onKeyPressed="#busca" prefWidth="150.0" promptText="Busqueda..." />
+              </children>
+            </HBox>
+            <HBox id="HBox" alignment="CENTER" prefWidth="149.9998779296875" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+              <children>
+                <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" onMouseClicked="twittear" prefHeight="34.0" prefWidth="111.0" text="Tweet!">
+                  <graphic>
+                    <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@tweet.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Button>
+              </children>
+            </HBox>
+            <HBox id="ajustes" alignment="CENTER" prefHeight="31.999900000002526" prefWidth="56.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+              <children>
+                <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@engranaje.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <MenuButton id="menuAjustes" minWidth="14.0" mnemonicParsing="false" prefWidth="31.619873046875" text="MenuButton">
+                  <items>
+                    <MenuItem id="ajustes" mnemonicParsing="false" onAction="#irAjustes" text="Ajustes" fx:id="ajustes" />
+                    <MenuItem id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" fx:id="cerrarSesion" />
+                  </items>
+                </MenuButton>
               </children>
             </HBox>
           </children>
           <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="574.0" minWidth="10.0" prefWidth="141.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="278.0" minWidth="0.0" prefWidth="166.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="141.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="0.0" prefWidth="57.0" />
           </columnConstraints>
           <rowConstraints>
-            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
       </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
+    </HBox>
   </children>
   <stylesheets>
     <URL value="@timeline.css" />
