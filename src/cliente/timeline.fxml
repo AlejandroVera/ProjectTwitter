@@ -114,7 +114,7 @@
             </AnchorPane>
           </content>
           <graphic>
-            <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="107.0" spacing="5.0" styleClass="label">
+            <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="103.0" spacing="5.0" styleClass="label">
               <children>
                 <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                   <image>
@@ -131,14 +131,14 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
           <graphic>
-            <HBox id="texto" alignment="CENTER" prefWidth="105.0" spacing="5.0">
+            <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
               <children>
                 <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                     <Image url="@conecta.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
-                <Label id="textoPestana" text="Conecta" />
+                <Label id="textoPestana" prefHeight="20.000091552734375" text="Conecta" />
               </children>
             </HBox>
           </graphic>
@@ -148,7 +148,7 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
           <graphic>
-            <HBox id="" alignment="CENTER" prefWidth="104.0" spacing="5.0">
+            <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
               <children>
                 <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                   <image>
