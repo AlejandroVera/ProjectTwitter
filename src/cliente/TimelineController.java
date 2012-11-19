@@ -1,13 +1,14 @@
-package cliente;
-
 /**
  * Sample Skeleton for "timeline.fxml" Controller Class
  * You can copy and paste this code into your favorite IDE
  **/
 
+package cliente;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -73,6 +75,12 @@ public class TimelineController
         // handle the event here
     }
 
+    // Handler for HBox[id="cajaIz"] onKeyPressed
+    // Handler for Label[fx:id="screenName"] onMouseClicked
+    public void irCuenta(InputEvent event) {
+        // handle the event here
+    }
+
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarFollowers(MouseEvent event) {
         // handle the event here
@@ -89,7 +97,8 @@ public class TimelineController
     }
 
     // Handler for Button[fx:id="tweetButton"] onAction
-    public void twittear(ActionEvent event) {
+    // Handler for Button[fx:id="tweetButton"] onMouseClicked
+    public void twittear(Event event) {
         // handle the event here
     }
 
@@ -112,3 +121,4 @@ public class TimelineController
     }
 
 }
+

@@ -62,7 +62,7 @@
                                 <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                               </image>
                             </ImageView>
-                            <Label fx:id="screenName" onMouseClicked="irCuenta" text="" />
+                            <Label fx:id="screenName" onMouseClicked="#irCuenta" text="" />
                           </children>
                         </HBox>
                         <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -178,7 +178,7 @@
             </HBox>
             <HBox id="HBox" alignment="CENTER" prefWidth="149.9998779296875" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
               <children>
-                <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" onMouseClicked="twittear" prefHeight="34.0" prefWidth="111.0" text="Tweet!">
+                <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" onMouseClicked="#twittear" prefHeight="34.0" prefWidth="111.0" text="Tweet!">
                   <graphic>
                     <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                       <image>
