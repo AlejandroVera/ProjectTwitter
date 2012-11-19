@@ -173,7 +173,6 @@ public class LoginController implements Initializable {
         });       
        serverIndex1 = gridContainer.getChildren().indexOf(HBoxServer);
        serverIndex2 = gridContainer.getChildren().indexOf(serverSelector);
-       System.out.println(serverIndex1+" "+serverIndex2);
 
     }
     
