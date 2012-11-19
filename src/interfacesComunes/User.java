@@ -2,9 +2,10 @@ package interfacesComunes;
 
 
 import java.io.Serializable;
+import java.rmi.Remote;
 
 
-public interface User extends Serializable{
+public interface User extends Serializable,Remote{
 	
 	boolean equals(java.lang.Object other);
 	java.util.Date 	getCreatedAt();

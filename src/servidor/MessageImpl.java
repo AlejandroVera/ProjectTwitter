@@ -33,7 +33,7 @@ public class MessageImpl implements Message{
 	
 	MessageImpl(int id, int inReplyTo, Conexion con, User loggedUser){
 		this.loggedUser=loggedUser;
-		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + "LIMIT 1");
+		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + " LIMIT 1");
 		this.id=id;
 		this.con=con;
 		try {
@@ -43,7 +43,7 @@ public class MessageImpl implements Message{
 			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
 			e.printStackTrace();
 		}
-		res = con.query("SELECT inReplyTo FROM mensajes WHERE id ="+id + "LIMIT 1");
+		res = con.query("SELECT inReplyTo FROM mensajes WHERE id ="+id + " LIMIT 1");
 		try {
 			if (res.next())
 				this.inReplyTo=res.getInt(1);
@@ -55,7 +55,7 @@ public class MessageImpl implements Message{
 		
 	
 	public Date getCreatedAt(){
-		ResultSet res = con.query("SELECT fecha FROM mensajes WHERE id ="+id + "LIMIT 1");
+		ResultSet res = con.query("SELECT fecha FROM mensajes WHERE id ="+id + " LIMIT 1");
 		try {
 			if (res.next()){
 				Date date= new Date(res.getInt(1)*1000);
@@ -78,7 +78,7 @@ public class MessageImpl implements Message{
 	
 	public String getLocation() {
 		int id_user=getSender().getId();
-		ResultSet res = con.query("SELECT location FROM users WHERE id ="+id_user +"LIMIT 1");
+		ResultSet res = con.query("SELECT location FROM users WHERE id ="+id_user +" LIMIT 1");
 		try {
 			if (res.next()){
 				String location = res.getString(1);
@@ -159,7 +159,7 @@ public class MessageImpl implements Message{
 
 	
 	public User getUser() {
-		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id+"LIMIT 1");
+		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
 			if (res.next()){
 				int id_autor = res.getInt(1);
@@ -180,7 +180,7 @@ public class MessageImpl implements Message{
 
 	@Override
 	public User getRecipient() {
-		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id+"LIMIT 1");
+		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
 			if (res.next()){
 				int id_receptor = res.getInt(1);

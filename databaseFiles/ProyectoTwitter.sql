@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `id_status` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=1 ;
 
 --
 -- Volcado de datos para la tabla `usuario`

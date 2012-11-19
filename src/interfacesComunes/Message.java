@@ -1,7 +1,10 @@
 package interfacesComunes;
 
+import java.io.Serializable;
+import java.rmi.Remote;
 
-public interface Message extends Twitter.ITweet{
+
+public interface Message extends Twitter.ITweet, Serializable, Remote {
 	
     public java.lang.String getDisplayText();
 
