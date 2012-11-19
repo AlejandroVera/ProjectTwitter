@@ -24,6 +24,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -66,14 +68,12 @@ public class LoginController implements Initializable {
     private TwitterClient loginListener;
     private HBox emailHBox;
     private TextField emailField;
+    private EventHandler<MouseEvent> registerEvent;
 
 
     // Handler for Button[fx:id="loginButton"] onAction
     public void sendLoginForm(ActionEvent event) {
-        String user = username.getText();
-        String pass = password.getText();
-        String server = (String) serverSelector.getSelectionModel().getSelectedItem();
-        this.loginListener.notifyLogin(user, pass, server);
+    	login();
     }
     
     // Handler for Label[fx:id="createAccountLabel"] onMouseClicked
@@ -85,28 +85,21 @@ public class LoginController implements Initializable {
         regButton.setMinHeight(loginButton.getMinHeight());
         regButton.setMaxHeight(loginButton.getMaxHeight());
         regButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
-        	 
             @Override
             public void handle(MouseEvent e) {
-            	switch(loginListener.notifyRegistry(username.getText(), password.getText(), emailField.getText())){
-	            	case TwitterInit.REG_OK:
-	        			ClientTools.showDialog("El registro se ha realizado correctamente");
-	        			restoreLoginFromRegistry();
-	        			break;	
-	            	case TwitterInit.REG_WRONG_EMAIL:
-	            		ClientTools.showDialog("Ese email ya está siendo usado.");
-            			break;
-            		case TwitterInit.REG_WRONG_USER:
-            			ClientTools.showDialog("Ya existe un usuario con ese nombre.");
-            			break;
-            		case TwitterInit.REG_WRONG_UNKNOWN:
-            		default:
-            			ClientTools.showDialog("Se ha producido un error desconocido");
-            			break;
-            	}
+            	register();
             }
-   
         });
+        
+        username.setOnKeyPressed(new EventHandler<KeyEvent>(){
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode() == KeyCode.ENTER)
+					register();
+			}
+        });
+        password.setOnKeyPressed(username.getOnKeyPressed());
+        regButton.setOnKeyPressed(username.getOnKeyPressed());
         
         //Crea el campo de texto para el email y lo añadimos al formulario donde antes estaba el selector de servidor
     	emailHBox = new HBox();
@@ -117,6 +110,7 @@ public class LoginController implements Initializable {
         emailField = new TextField();
         emailField.setMaxWidth(password.getMaxWidth());
         emailField.setMinWidth(password.getMinWidth());
+        emailField.setOnKeyPressed(username.getOnKeyPressed());
 
         gridContainer.getChildren().remove(HBoxServer);
         gridContainer.getChildren().remove(serverSelector);
@@ -168,6 +162,18 @@ public class LoginController implements Initializable {
         			createAccountLabel.setVisible(true);
             }    
         });       
+        
+        loginButton.setOnKeyPressed(new EventHandler<KeyEvent>(){
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode() == KeyCode.ENTER)
+					login();
+			}
+        });
+        username.setOnKeyPressed(loginButton.getOnKeyPressed());
+        password.setOnKeyPressed(loginButton.getOnKeyPressed());
+        serverSelector.setOnKeyPressed(loginButton.getOnKeyPressed());
+        
 
     }
     
@@ -179,28 +185,43 @@ public class LoginController implements Initializable {
      * Realiza las acciones necesarias para volver al login desde el registro
      */
     private void restoreLoginFromRegistry(){
+    	
+    	//Restauramos la apariencia
     	loginGridPane.getChildren().clear();
     	loginGridPane.addRow(0, loginButton, createAccountLabel);
     	gridContainer.getChildren().remove(emailHBox);
         gridContainer.getChildren().remove(emailField);
         gridContainer.add(HBoxServer, 0, 2);
         gridContainer.add(serverSelector, 1, 2);
+        
+        //Restauramos los eventos
+        username.setOnKeyPressed(loginButton.getOnKeyPressed());
+        password.setOnKeyPressed(loginButton.getOnKeyPressed());
+    }
+       
+    private void register(){
+    	switch(loginListener.notifyRegistry(username.getText(), password.getText(), emailField.getText())){
+    	case TwitterInit.REG_OK:
+			ClientTools.showDialog("El registro se ha realizado correctamente");
+			restoreLoginFromRegistry();
+			break;	
+    	case TwitterInit.REG_WRONG_EMAIL:
+    		ClientTools.showDialog("Ese email ya está siendo usado.");
+			break;
+		case TwitterInit.REG_WRONG_USER:
+			ClientTools.showDialog("Ya existe un usuario con ese nombre.");
+			break;
+		case TwitterInit.REG_WRONG_UNKNOWN:
+		default:
+			ClientTools.showDialog("Se ha producido un error desconocido");
+			break;
+    	}
     }
     
-    private void showDialog(String text){
-		final Stage dialogStage = new Stage();
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		Button boton = new Button("Ok");
-		boton.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent e) {
-            	dialogStage.close();
-            }
-        });
-		dialogStage.setScene(new Scene(VBoxBuilder.create().
-				children(new Text(text), boton).
-				alignment(Pos.CENTER).padding(new Insets(5)).build()));
-		dialogStage.show();
+    private void login(){
+    	String user = username.getText();
+        String pass = password.getText();
+        String server = (String) serverSelector.getSelectionModel().getSelectedItem();
+        this.loginListener.notifyLogin(user, pass, server);
     }
-
 }
