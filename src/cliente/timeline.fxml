@@ -59,7 +59,7 @@
                           <children>
                             <ImageView fx:id="profileImage" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                <Image url="@default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                                <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                               </image>
                             </ImageView>
                             <Label fx:id="screenName" onMouseClicked="#irCuenta" text="" />
@@ -118,7 +118,7 @@
               <children>
                 <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@casita.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/casita.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <Label id="textoPestana" text="Timeline" />
@@ -135,7 +135,7 @@
               <children>
                 <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@conecta.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/conecta.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <Label id="textoPestana" prefHeight="20.000091552734375" text="Conecta" />
@@ -152,7 +152,7 @@
               <children>
                 <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@cuenta.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/cuenta.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <Label id="textoPestana" text="Cuenta" />
@@ -182,7 +182,7 @@
                   <graphic>
                     <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                        <Image url="@tweet.png" preserveRatio="true" smooth="true" />
+                        <Image url="@Imagenes/tweet.png" preserveRatio="true" smooth="true" />
                       </image>
                     </ImageView>
                   </graphic>
@@ -193,7 +193,7 @@
               <children>
                 <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@engranaje.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/engranaje.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <MenuButton id="menuAjustes" minWidth="14.0" mnemonicParsing="false" prefWidth="31.619873046875" text="MenuButton">
