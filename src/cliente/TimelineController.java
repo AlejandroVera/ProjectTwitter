@@ -24,7 +24,6 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -60,9 +59,6 @@ public class TimelineController extends Controller {
 
     @FXML //  fx:id="tweetButton"
     private Button tweetButton; // Value injected by FXMLLoader
-
-    @FXML //  fx:id="tweetContainer"
-    private GridPane tweetContainer; // Value injected by FXMLLoader
     
     @FXML //  fx:id="tweetsMenciones"
     private VBox tweetsMenciones; // Value injected by FXMLLoader
@@ -152,11 +148,10 @@ public class TimelineController extends Controller {
         //TODO: añadir esqueleto del controlador
 		try {
 			Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
-			tweetContainer.getChildren().clear();
-			int row = 0;
+			tweetsTimeline.getChildren().clear();
 			while(timeline.hasNext()){
 				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader(getTwitter(), timeline.next());
-				tweetContainer.addRow(row++, tweet.getRoot());
+				tweetsTimeline.getChildren().add(tweet.getRoot());
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

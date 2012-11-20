@@ -126,7 +126,7 @@ public class TwitterClient extends Application {
 		control.postInitialize();
 		
 		//Mostramos la nueva vista
-		Scene scene = new Scene(root, 900, 600);
+		Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
 		this.primaryStage.setScene(scene);
 		this.primaryStage.show();
 		
