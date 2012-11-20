@@ -20,8 +20,8 @@ public class TweetController extends Controller{
 	@FXML //  fx:id="tweetTextArea"
 	private TextArea tweetTextArea; // Value injected by FXMLLoader
 	
-    @FXML //  fx:id="worldContainer"
-    private AnchorPane worldContainer; // Value injected by FXMLLoader
+    @FXML //  fx:id="worldTweetContainer"
+    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
     
     private Status status;
 
@@ -55,7 +55,7 @@ public class TweetController extends Controller{
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
-    	assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'tweet.fxml'.";
+    	assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
         
         // initialize your logic here: all @FXML variables will have been injected
 

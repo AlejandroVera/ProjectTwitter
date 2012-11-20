@@ -62,8 +62,8 @@ public class TimelineController extends Controller {
     @FXML //  fx:id="tweetContainer"
     private GridPane tweetContainer; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="worldTweetContainer"
-    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+    @FXML //  fx:id="worldContainer"
+    private AnchorPane worldContainer; // Value injected by FXMLLoader
 
 
     // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
@@ -121,7 +121,7 @@ public class TimelineController extends Controller {
         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
         assert tweetContainer != null : "fx:id=\"tweetContainer\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'timeline.fxml'.";
+        assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
         
         // initialize your logic here: all @FXML variables will have been injected
         
@@ -138,6 +138,7 @@ public class TimelineController extends Controller {
         //TODO: añadir esqueleto del controlador
 		try {
 			Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
+			tweetContainer.getChildren().clear();
 			while(timeline.hasNext()){
 				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader("tweet.fxml", getTwitter(), timeline.next());
 				tweetContainer.addRow(tweetContainer.getChildrenUnmodifiable().size(), tweet.getRoot());
