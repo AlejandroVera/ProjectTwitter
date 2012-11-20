@@ -4,6 +4,7 @@ import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +13,16 @@ public class FXMLTweetAutoLoader {
 
 	private Parent root;
 	private TweetController controller;
+	private final static String FXML_URL = "tweet.fxml";
+	private static URL resource;
 	
-	protected FXMLTweetAutoLoader (String fxml, Twitter twitter, Status status) throws IOException{
+	protected FXMLTweetAutoLoader (Twitter twitter, Status status) throws IOException{
+    	if(resource == null)
+    		resource = getClass().getResource(FXML_URL);
+    	
     	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource(fxml));
-		this.root = (Parent) loader.load(getClass().getResource(fxml).openStream());
+    	loader.setLocation(resource);
+		this.root = (Parent) loader.load(resource.openStream());
 		
 		//Obtenemos el objeto controlador
 		this.controller = loader.getController();

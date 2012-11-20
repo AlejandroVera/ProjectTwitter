@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 class ClientTools {
 
-	protected static void showDialog(String text){
+	protected static Stage showDialog(String text){
 		final Stage dialogStage = new Stage();
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		Button boton = new Button("Ok");
@@ -27,6 +27,8 @@ class ClientTools {
 				children(new Text(text), boton).
 				alignment(Pos.CENTER).padding(new Insets(5)).build()));
 		dialogStage.show();
+		
+		return dialogStage;
     }
 	
 }

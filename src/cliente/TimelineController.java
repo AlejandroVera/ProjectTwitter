@@ -6,6 +6,7 @@
 package cliente;
 
 import interfacesComunes.Status;
+import interfacesComunes.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -130,9 +131,10 @@ public class TimelineController extends Controller {
 	@Override
 	public void postInitialize() {
 		screenName.setText(super.getTwitter().getScreenName());
-        nTweets.setText(""+super.getTwitter().getSelf().getStatusesCount());
-        nSeguidores.setText(""+super.getTwitter().getSelf().getFollowersCount());
-        nSiguiendo.setText(""+super.getTwitter().getSelf().getFriendsCount());
+		User user = getTwitter().getSelf();
+        nTweets.setText(""+user.getStatusesCount());
+        nSeguidores.setText(""+user.getFollowersCount());
+        nSiguiendo.setText(""+user.getFriendsCount());
         
         //Inicializar tweets
         //TODO: añadir esqueleto del controlador
@@ -141,7 +143,7 @@ public class TimelineController extends Controller {
 			tweetContainer.getChildren().clear();
 			int row = 0;
 			while(timeline.hasNext()){
-				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader("tweet.fxml", getTwitter(), timeline.next());
+				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader(getTwitter(), timeline.next());
 				tweetContainer.addRow(row++, tweet.getRoot());
 			}
 		} catch (IOException e) {
