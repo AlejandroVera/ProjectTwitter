@@ -1,19 +1,19 @@
 package cliente;
 
+import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 
-public class FXMLAutoLoader {
+public class FXMLTweetAutoLoader {
 
 	private Parent root;
-	private Controller controller;
+	private TweetController controller;
 	
-	protected FXMLAutoLoader (String fxml, Twitter twitter) throws IOException{
+	protected FXMLTweetAutoLoader (String fxml, Twitter twitter, Status status) throws IOException{
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(fxml));
 		this.root = (Parent) loader.load(getClass().getResource(fxml).openStream());
@@ -22,6 +22,7 @@ public class FXMLAutoLoader {
 		this.controller = loader.getController();
 		//this.controller.setClientListener(this); TODO
 		this.controller.setTwitter(twitter);
+		this.controller.setStatus(status);
 		this.controller.postInitialize();
     }
 
@@ -29,7 +30,7 @@ public class FXMLAutoLoader {
 		return root;
 	}
 
-	public Controller getController() {
+	public TweetController getController() {
 		return controller;
 	}
 	

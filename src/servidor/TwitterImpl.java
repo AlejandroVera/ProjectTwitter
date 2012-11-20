@@ -274,11 +274,12 @@ public class TwitterImpl implements Twitter {
 		if(user == null)
 			throw new TwitterException("Usuario no logueado");
 		
-		ResultSet res = this.con.query("SELECT DISTINCT tw.id FROM tweet tw, retweet re, seguidores se WHERE " +
-				"tw.autor = " + user.getId() + " OR ( se.id_seguidor = "+user.getId()+" AND " +
-					"((tw.autor = se.id_seguido) OR ( se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) ) ) " +
-					"ORDER BY tw.fecha DESC " +
-					"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
+		ResultSet res = this.con.query("SELECT DISTINCT id FROM (SELECT id, fecha FROM tweet WHERE autor = "+user.getId()+
+				" UNION SELECT id, fecha FROM  tweet tw, seguidores se WHERE se.id_seguidor = "+user.getId()+
+				" AND tw.autor = se.id_seguido UNION SELECT id, fecha FROM tweet tw, retweet re, seguidores se WHERE " +
+				"se.id_seguidor = "+user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
+				"ORDER BY fecha DESC " +
+				"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 		
 		if(res != null)
 			try {

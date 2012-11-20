@@ -6,12 +6,11 @@ package cliente;
 
 import interfacesComunes.Status;
 
-import java.awt.TextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -65,7 +64,6 @@ public class TweetController extends Controller{
 	@Override
 	public void postInitialize() {
 		this.tweetTextArea.setText(this.status.getText());
-		
 	}
 	
 	protected void setStatus(Status status){
