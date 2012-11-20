@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -30,10 +29,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 
 public class LoginController implements Initializable {
@@ -68,7 +63,6 @@ public class LoginController implements Initializable {
     private TwitterClient loginListener;
     private HBox emailHBox;
     private TextField emailField;
-    private EventHandler<MouseEvent> registerEvent;
 
 
     // Handler for Button[fx:id="loginButton"] onAction

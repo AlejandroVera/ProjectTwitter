@@ -12,11 +12,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import servidor.ServerCommon;
-import servidor.UserImpl;
 import servidor.db.ConexionImpl;
 
 

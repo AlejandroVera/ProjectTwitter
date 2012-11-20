@@ -29,5 +29,6 @@ public interface TwitterInit extends Remote, Serializable{
 	final int REG_WRONG_UNKNOWN = 3;
 	
 	public Twitter login(String user, String pass, AStream.IListen client) throws RemoteException;
+	public void logout(int userId, AStream.IListen client) throws RemoteException;
 	public int register(String user, String pass, String email) throws RemoteException;
 }

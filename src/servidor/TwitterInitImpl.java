@@ -1,6 +1,6 @@
 package servidor;
 
-import interfacesComunes.AStream;
+import interfacesComunes.AStream.IListen;
 import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
@@ -21,15 +22,17 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
-	Conexion con;
+	private Conexion con;
+	private HashMap<Integer, LinkedList<IListen>> callbackArray;
 	
-	public TwitterInitImpl(LinkedList<AStream.IListen> clientes) throws RemoteException {
+	public TwitterInitImpl(LinkedList<IListen> clientes) throws RemoteException {
 		super();
 		this.con = new ConexionImpl();
+		this.callbackArray = new HashMap<Integer, LinkedList<IListen>>();
 	}
 	
 	@Override
-	public Twitter login(String screenName, String pass, AStream.IListen cliente) throws RemoteException {
+	public Twitter login(String screenName, String pass, IListen cliente) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
 		try {
@@ -48,7 +51,11 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
-				return new TwitterImpl(res.getInt(1), cliente);
+				int accountId = res.getInt(1);
+				if(this.callbackArray.get(accountId) == null)
+					this.callbackArray.put(accountId, new LinkedList<IListen>());
+				this.callbackArray.get(accountId).add(cliente);
+				return new TwitterImpl(accountId, this.callbackArray);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
@@ -69,6 +76,11 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			return TwitterInit.REG_WRONG_UNKNOWN;
 		}
 		
+		if(screenName.isEmpty())
+			return TwitterInit.REG_WRONG_USER;
+		else if(email.isEmpty())
+			return TwitterInit.REG_WRONG_EMAIL;
+			
 		//Preparamos los parámetros a pasarle a la query
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(screenName);
@@ -102,6 +114,16 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		
 	}
 	
+		@Override
+	public void logout(int userId, IListen client) throws RemoteException {
+			LinkedList<IListen> userRow = this.callbackArray.get(userId);
+			if(userRow != null){
+				userRow.remove(client);
+				if(userRow.size() == 0) //Liberamos memoria
+					this.callbackArray.remove(userRow);
+			}
+	}
+		
 	/**
 	 * Calcula el hash de un String dado.
 	 * @param str Cadena de la cual calcular el hash SHA-1
@@ -122,5 +144,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
         
         return sb.toString();
 	}
+
+
 
 }

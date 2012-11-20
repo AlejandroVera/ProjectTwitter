@@ -80,7 +80,7 @@ public class TwitterImpl implements Twitter {
 	
 	private User user;
 	private Twitter_Users twitter_user;
-	private static HashMap<Integer, LinkedList<AStream.IListen>> clientes = new HashMap<Integer, LinkedList<AStream.IListen>>();
+	private HashMap<Integer, LinkedList<AStream.IListen>> callbackArray;
 	private Conexion con;
 	private int maxResults = 20;
 	
@@ -95,20 +95,15 @@ public class TwitterImpl implements Twitter {
 		this.con = new ConexionImpl();
 	}
 	
-	public TwitterImpl(int accountId, AStream.IListen callback){
+	public TwitterImpl(int accountId, HashMap<Integer, LinkedList<AStream.IListen>> callbackArray){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
 		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
-		
-		//Add the callback
-		if(clientes.get(accountId) == null)
-			clientes.put(accountId, new LinkedList<AStream.IListen>());
-		clientes.get(accountId).add(callback);
+		this.callbackArray = callbackArray;
 	}
 
 
 	public Twitter_Account account() {
-		// TODO Auto-generated method stub
 		return new Twitter_AccountImpl(this, this.con,this.user);
 	}
 
@@ -487,7 +482,7 @@ public class TwitterImpl implements Twitter {
 		
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 		
-		List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(id_dest);
+		List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
 		if(user_callbacks != null){
 			Iterator<AStream.IListen> it = user_callbacks.iterator();
 			while(it.hasNext()){
@@ -499,7 +494,7 @@ public class TwitterImpl implements Twitter {
 					//Puede que el user se haya desconectado, así que lo sacamos del array.
 					user_callbacks.remove(call);
 					if(user_callbacks.isEmpty())
-						TwitterImpl.clientes.remove(id_dest);
+						this.callbackArray.remove(id_dest);
 					ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
 				}
 			}
@@ -532,7 +527,7 @@ public class TwitterImpl implements Twitter {
 		if(event_type != 0){
 			try{
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
-				List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(status_owner);
+				List<AStream.IListen> user_callbacks = this.callbackArray.get(status_owner);
 				if(user_callbacks != null){
 					Iterator<AStream.IListen> it = user_callbacks.iterator();
 					while(it.hasNext()){
@@ -544,7 +539,7 @@ public class TwitterImpl implements Twitter {
 							//Puede que el user se haya desconectado, así que lo sacamos del array.
 							user_callbacks.remove(call);
 							if(user_callbacks.isEmpty())
-								TwitterImpl.clientes.remove(status_owner);
+								this.callbackArray.remove(status_owner);
 							ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
 						}
 					}
@@ -615,7 +610,7 @@ public class TwitterImpl implements Twitter {
 			
 			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
 			int id_dest = seguidores.next().intValue();
-			List<AStream.IListen> user_callbacks = TwitterImpl.clientes.get(id_dest);
+			List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
 			
 			if(user_callbacks != null){
 				Iterator<AStream.IListen> it = user_callbacks.iterator();
@@ -630,7 +625,7 @@ public class TwitterImpl implements Twitter {
 						//Puede que el user se haya desconectado, así que lo sacamos del array.
 						user_callbacks.remove(call);
 						if(user_callbacks.isEmpty())
-							TwitterImpl.clientes.remove(id_dest);
+							this.callbackArray.remove(id_dest);
 						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
 					}
 				}
