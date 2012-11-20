@@ -168,7 +168,7 @@
           <children>
             <ImageView fitHeight="129.00009999999747" fitWidth="129.00009999999747" pickOnBounds="true" preserveRatio="true" translateY="50.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <image>
-                <Image url="@corporate-ir-twitter-strategy-graphic.png" />
+                <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" />
               </image>
             </ImageView>
             <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">

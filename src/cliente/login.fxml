@@ -16,7 +16,7 @@
       <children>
         <ImageView fitHeight="199.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true" translateY="50.0">
           <image>
-            <Image url="@corporate-ir-twitter-strategy-graphic.png" preserveRatio="false" smooth="false" />
+            <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" preserveRatio="false" smooth="false" />
           </image>
         </ImageView>
         <VBox id="loginFormContainer1" alignment="CENTER" focusTraversable="false" maxWidth="350.0" spacing="5.0" style="&#10;" visible="true">
