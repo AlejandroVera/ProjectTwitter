@@ -118,5 +118,13 @@ public class TimelineController extends Controller {
 
     }
 
+	@Override
+	public void postInitialize() {
+		screenName.setText(super.getTwitter().getScreenName());
+        nTweets.setText(""+super.getTwitter().getSelf().getStatusesCount());
+        nSeguidores.setText(""+super.getTwitter().getSelf().getFollowersCount());
+        nSiguiendo.setText(""+super.getTwitter().getSelf().getFriendsCount());
+	}
+
 }
 

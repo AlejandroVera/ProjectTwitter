@@ -212,4 +212,9 @@ public class LoginController extends Controller{
         String server = (String) serverSelector.getSelectionModel().getSelectedItem();
         this.getClientListener().notifyLogin(user, pass, server);
     }
+
+	@Override
+	public void postInitialize() {
+		//Vacio, no se hace nada
+	}
 }

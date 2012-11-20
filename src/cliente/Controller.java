@@ -31,4 +31,9 @@ public abstract class Controller implements Initializable {
 		this.twitter = twitter;
 	}
 
+	/**
+	 * Este método se ejecuta después de haber cargado en el controlador los valores de Twitter y TwitterClient
+	 */
+	public abstract void postInitialize();
+
 }

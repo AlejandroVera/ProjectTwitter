@@ -123,6 +123,7 @@ public class TwitterClient extends Application {
 		Controller control = loader.getController();
 		control.setClientListener(this);
 		control.setTwitter(this.twitter);
+		control.postInitialize();
 		
 		//Mostramos la nueva vista
 		Scene scene = new Scene(root, 900, 600);
