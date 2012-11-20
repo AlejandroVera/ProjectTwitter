@@ -10,11 +10,13 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class TwitterClient extends Application {
 	
@@ -43,6 +45,16 @@ public class TwitterClient extends Application {
 					new Image(getClass().getResource("Imagenes/Twitter-icon-128.png").openStream()),
 					new Image(getClass().getResource("Imagenes/Twitter-icon-256.png").openStream())
 				);
+			
+			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
+				@Override
+				public void handle(WindowEvent event) {
+					if(twitter != null)
+						notifyLogout();
+					System.exit(0);
+				}
+			});
 			
 			this.loadFXML("login.fxml");
 			
