@@ -56,7 +56,7 @@ public class TwitterClient extends Application {
 				}
 			});
 			
-			this.loadFXML("login.fxml");
+			this.loadFXMLAndShow("login.fxml");
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -77,7 +77,7 @@ public class TwitterClient extends Application {
 				return false;
 			}			
 			//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-			this.loadFXML("timeline.fxml");
+			this.loadFXMLAndShow("timeline.fxml");
 			
 			return true;
 			
@@ -94,7 +94,7 @@ public class TwitterClient extends Application {
     		TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
     		stub.logout(this.twitter.getSelf().getId(), cliente);
     		this.twitter = null;
-    		this.loadFXML("login.fxml");
+    		this.loadFXMLAndShow("login.fxml");
     		
     	} catch (NotBoundException | IOException e1) {
 			e1.printStackTrace();
@@ -114,7 +114,7 @@ public class TwitterClient extends Application {
 		}
     }
     
-    private Controller loadFXML(String fxml) throws IOException{
+    private Controller loadFXMLAndShow(String fxml) throws IOException{
     	FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(fxml));
 		Parent root = (Parent) loader.load(getClass().getResource(fxml).openStream());

@@ -5,7 +5,12 @@
 
 package cliente;
 
+import interfacesComunes.Status;
+
+import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -19,6 +24,7 @@ import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 
@@ -53,6 +59,9 @@ public class TimelineController extends Controller {
 
     @FXML //  fx:id="tweetButton"
     private Button tweetButton; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="tweetContainer"
+    private GridPane tweetContainer; // Value injected by FXMLLoader
 
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
@@ -112,10 +121,11 @@ public class TimelineController extends Controller {
         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'timeline.fxml'.";
         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
+        assert tweetContainer != null : "fx:id=\"tweetContainer\" was not injected: check your FXML file 'timeline.fxml'.";
         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
-
+        
         // initialize your logic here: all @FXML variables will have been injected
-
+        
     }
 
 	@Override
@@ -124,6 +134,19 @@ public class TimelineController extends Controller {
         nTweets.setText(""+super.getTwitter().getSelf().getStatusesCount());
         nSeguidores.setText(""+super.getTwitter().getSelf().getFollowersCount());
         nSiguiendo.setText(""+super.getTwitter().getSelf().getFriendsCount());
+        
+        //Inicializar tweets
+        //TODO: añadir esqueleto del controlador
+		try {
+			Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
+			while(timeline.hasNext()){
+				FXMLAutoLoader tweet = new FXMLAutoLoader("tweet.fxml", getTwitter());
+				tweetContainer.getChildren().add(tweet.getRoot());
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

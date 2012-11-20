@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="516.0" xmlns:fx="http://javafx.com/fxml">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="516.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
   <children>
     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -55,7 +55,7 @@
                             </GridPane>
                           </children>
                         </HBox>
-                        <TextArea id="cajaTexto" editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="Este es un tweet de prueba que estoy escribiendo para llegar al límite de los 140 carácteres, el cual es un límite bastante pequeño, ya ves." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextArea id="cajaTexto" fx:id="tweetTextArea" editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="435.0" />
