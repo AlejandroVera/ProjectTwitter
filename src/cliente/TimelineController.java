@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 public class TimelineController extends Controller {
@@ -62,6 +63,15 @@ public class TimelineController extends Controller {
 
     @FXML //  fx:id="tweetContainer"
     private GridPane tweetContainer; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="tweetsMenciones"
+    private VBox tweetsMenciones; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="tweetsTimeline"
+    private VBox tweetsTimeline; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="cajaInteracciones"
+    private VBox cajaInteracciones; // Value injected by FXMLLoader
 
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
@@ -111,20 +121,22 @@ public class TimelineController extends Controller {
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert tweetContainer != null : "fx:id=\"tweetContainer\" was not injected: check your FXML file 'timeline.fxml'.";
-        assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
-        
-        // initialize your logic here: all @FXML variables will have been injected
+    	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert cajaInteracciones != null : "fx:id=\"cajaInteracciones\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert tweetsMenciones != null : "fx:id=\"tweetsMenciones\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert tweetsTimeline != null : "fx:id=\"tweetsTimeline\" was not injected: check your FXML file 'timeline.fxml'.";
+         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
+
+         // initialize your logic here: all @FXML variables will have been injected
         
     }
 

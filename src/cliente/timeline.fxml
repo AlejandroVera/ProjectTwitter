@@ -10,7 +10,7 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TimelineController">
   <children>
-    <HBox id="barraArriba" layoutX="-3.0" layoutY="28.0" opacity="1.0" prefHeight="50.0" prefWidth="900.0" />
+    <HBox id="barraArriba" layoutX="8.0" layoutY="28.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0" />
     <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
       <tabs>
         <Tab id="tab" text="">
@@ -18,40 +18,8 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="516.0">
               <children>
                 <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
-                <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0">
-                  <children>
-                    <GridPane prefHeight="461.0" prefWidth="516.0">
-                      <children>
-                        <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="40.5" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
-                          <children>
-                            <Label text="Tweets" />
-                          </children>
-                        </HBox>
-                        <GridPane fx:id="tweetContainer" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                          <children>
-                            <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                          </children>
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="171.0" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="142.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                      </children>
-                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      </columnConstraints>
-                      <rowConstraints>
-                        <RowConstraints maxHeight="153.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="426.0" minHeight="10.0" prefHeight="426.0" vgrow="SOMETIMES" />
-                      </rowConstraints>
-                    </GridPane>
-                  </children>
-                </HBox>
-                <HBox id="HBox" alignment="CENTER" layoutY="31.0" spacing="5.0" AnchorPane.leftAnchor="35.0">
+                <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0" />
+                <HBox id="HBox" alignment="CENTER" layoutY="31.0" spacing="5.0" AnchorPane.leftAnchor="24.0">
                   <children>
                     <GridPane prefHeight="129.0" prefWidth="276.0">
                       <children>
@@ -110,6 +78,35 @@
                     </GridPane>
                   </children>
                 </HBox>
+                <HBox id="HBox" alignment="CENTER" layoutX="343.0" layoutY="31.0" spacing="5.0">
+                  <children>
+                    <GridPane prefHeight="553.0" prefWidth="517.0">
+                      <children>
+                        <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="505.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                          <children>
+                            <Label text="Interacciones" />
+                          </children>
+                        </HBox>
+                        <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <content>
+                            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                              <children>
+                                <VBox fx:id="tweetsTimeline" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              </children>
+                            </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </HBox>
               </children>
             </AnchorPane>
           </content>
@@ -128,7 +125,140 @@
         </Tab>
         <Tab text="">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+                <TabPane layoutX="305.0" layoutY="31.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab text="Interacciones">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane prefHeight="553.0" prefWidth="517.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label text="Interacciones" />
+                                  </children>
+                                </HBox>
+                                <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                  <content>
+                                    <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                                      <children>
+                                        <VBox fx:id="cajaInteracciones" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                      </children>
+                                    </AnchorPane>
+                                  </content>
+                                </ScrollPane>
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                    <Tab text="Menciones">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <children>
+                            <GridPane layoutX="0.0" layoutY="0.0" prefHeight="553.0" prefWidth="517.0">
+                              <children>
+                                <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label text="Menciones" />
+                                  </children>
+                                </HBox>
+                                <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                  <content>
+                                    <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                                      <children>
+                                        <VBox prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                      </children>
+                                    </AnchorPane>
+                                  </content>
+                                </ScrollPane>
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+                <HBox id="HBox" alignment="CENTER" layoutX="24.0" layoutY="31.0" spacing="5.0">
+                  <children>
+                    <GridPane prefHeight="129.0" prefWidth="276.0">
+                      <children>
+                        <HBox id="cajaIz" alignment="CENTER" onKeyPressed="#irCuenta" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="TOP">
+                          <children>
+                            <ImageView id="profileImage" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                              </image>
+                            </ImageView>
+                            <Label id="screenName" onMouseClicked="#irCuenta" text="" />
+                          </children>
+                        </HBox>
+                        <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                          <children>
+                            <GridPane>
+                              <children>
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarTweetsUsuario" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label id="nTweets" text="" />
+                                    <Label text="TWEETS" />
+                                  </children>
+                                </VBox>
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFriends" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label id="nSiguiendo" text="" />
+                                    <Label text="SIGUIENDO" />
+                                  </children>
+                                </VBox>
+                                <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFollowers" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label id="nSeguidores" text="" />
+                                    <Label id="texto" text="SEGUIDORES" />
+                                  </children>
+                                </VBox>
+                              </children>
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                            </GridPane>
+                          </children>
+                        </HBox>
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                  </children>
+                </HBox>
+              </children>
+            </AnchorPane>
           </content>
           <graphic>
             <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
@@ -145,7 +275,11 @@
         </Tab>
         <Tab text="">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
           </content>
           <graphic>
             <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
@@ -168,7 +302,7 @@
           <children>
             <ImageView fitHeight="129.00009999999747" fitWidth="129.00009999999747" pickOnBounds="true" preserveRatio="true" translateY="50.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <image>
-                <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" preserveRatio="false" smooth="false" />
+                <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" />
               </image>
             </ImageView>
             <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
