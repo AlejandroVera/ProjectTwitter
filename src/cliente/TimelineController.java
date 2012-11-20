@@ -139,9 +139,10 @@ public class TimelineController extends Controller {
 		try {
 			Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
 			tweetContainer.getChildren().clear();
+			int row = 0;
 			while(timeline.hasNext()){
 				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader("tweet.fxml", getTwitter(), timeline.next());
-				tweetContainer.addRow(tweetContainer.getChildrenUnmodifiable().size(), tweet.getRoot());
+				tweetContainer.addRow(row++, tweet.getRoot());
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
