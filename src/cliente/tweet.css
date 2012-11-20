@@ -26,3 +26,15 @@
 
 }
 
+#opcion:hover{
+	-fx-cursor: hand;
+	-fx-underline: true;
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.8) , 10, 0.0 , -1 , -1 );
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.8) , 10, 0.0 , 1 , 1 );
+}
+
+#opcion:pressed{
+	-fx-cursor: hand;
+	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
+}
+

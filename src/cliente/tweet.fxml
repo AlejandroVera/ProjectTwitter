@@ -18,11 +18,15 @@
               <children>
                 <GridPane prefHeight="128.99990000000253" prefWidth="516.0">
                   <children>
-                    <ImageView id="profileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                      <image>
-                        <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
-                      </image>
-                    </ImageView>
+                    <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <ImageView id="profileImage" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToPerfilUsuario" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                          </image>
+                        </ImageView>
+                      </children>
+                    </VBox>
                     <GridPane prefHeight="99.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                       <children>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -36,7 +40,7 @@
                                 </HBox>
                                 <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
-                                    <Label id="screenName" text="TweetPrueba" />
+                                    <Hyperlink id="screenName" focusTraversable="false" onAction="#goToPerfilUsuario" text="Tweet Prueba" />
                                     <Label id="name" text="\@prueba" />
                                   </children>
                                 </HBox>
@@ -66,12 +70,12 @@
                       <children>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
-                            <Label id="abrir" text="Abrir" />
+                            <Label id="opcion" onMouseClicked="#abrirTweet" text="Abrir" />
                           </children>
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                           <children>
-                            <Label id="responder" prefWidth="90.0" text="Responder">
+                            <Label id="opcion" onMouseClicked="#responderTweet" prefWidth="90.0" text="Responder">
                               <graphic>
                                 <ImageView id="responder" fitHeight="14.360000023696001" fitWidth="21.75757598876953" pickOnBounds="true" preserveRatio="true">
                                   <image>
@@ -84,7 +88,7 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                           <children>
-                            <Label text="Retwittear">
+                            <Label id="opcion" onMouseClicked="#retwittearTweet" text="Retwittear">
                               <graphic>
                                 <ImageView id="retweet" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
@@ -97,7 +101,7 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                           <children>
-                            <Label text="Favorito">
+                            <Label id="opcion" onMouseClicked="#anadirFavorito" text="Favorito">
                               <graphic>
                                 <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
                                   <image>
