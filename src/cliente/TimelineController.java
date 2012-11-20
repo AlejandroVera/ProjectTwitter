@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -23,8 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 
-public class TimelineController
-    implements Initializable {
+public class TimelineController extends Controller {
 
     @FXML //  fx:id="ajustes"
     private MenuItem ajustes; // Value injected by FXMLLoader
@@ -67,7 +65,7 @@ public class TimelineController
 
     // Handler for MenuItem[fx:id="cerrarSesion"] onAction
     public void cerrarSesion(ActionEvent event) {
-        // handle the event here
+        getClientListener().notifyLogout();
     }
 
     // Handler for MenuItem[fx:id="ajustes"] onAction

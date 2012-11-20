@@ -15,7 +15,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -31,7 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 
-public class LoginController implements Initializable {
+public class LoginController extends Controller{
 
     @FXML //  fx:id="createAccountLabel"
     private Label createAccountLabel; // Value injected by FXMLLoader
@@ -60,7 +59,6 @@ public class LoginController implements Initializable {
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
     
-    private TwitterClient loginListener;
     private HBox emailHBox;
     private TextField emailField;
 
@@ -170,11 +168,7 @@ public class LoginController implements Initializable {
         
 
     }
-    
-    public void setLoginListener(TwitterClient tc){
-    	this.loginListener = tc;
-    }
-    
+        
     /**
      * Realiza las acciones necesarias para volver al login desde el registro
      */
@@ -194,7 +188,7 @@ public class LoginController implements Initializable {
     }
        
     private void register(){
-    	switch(loginListener.notifyRegistry(username.getText(), password.getText(), emailField.getText())){
+    	switch(this.getClientListener().notifyRegistry(username.getText(), password.getText(), emailField.getText())){
     	case TwitterInit.REG_OK:
 			ClientTools.showDialog("El registro se ha realizado correctamente");
 			restoreLoginFromRegistry();
@@ -216,6 +210,6 @@ public class LoginController implements Initializable {
     	String user = username.getText();
         String pass = password.getText();
         String server = (String) serverSelector.getSelectionModel().getSelectedItem();
-        this.loginListener.notifyLogin(user, pass, server);
+        this.getClientListener().notifyLogin(user, pass, server);
     }
 }

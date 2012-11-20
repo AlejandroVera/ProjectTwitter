@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 
 public class TwitterClient extends Application {
 	
-	private TwitterInit stub;
+	private static final String SERVER_URL = "rmi://localhost/Conectar";
+	
+	private Twitter twitter;
 	private Cliente cliente;
 	private Stage primaryStage;
 	
@@ -32,16 +34,7 @@ public class TwitterClient extends Application {
 		try {
 			
 			this.primaryStage = primaryStage;
-			
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("login.fxml"));
-			Parent root = (Parent) loader.load(getClass().getResource("login.fxml").openStream());
-			
-			//Obtenemos el objeto controlador
-			LoginController logControl = loader.getController();
-			logControl.setLoginListener(this);
-			
-			Scene scene = new Scene(root, 900, 600);
+			this.primaryStage.setTitle("Cliente multitwitter");
 			this.primaryStage.getIcons().addAll(
 					new Image(getClass().getResource("Imagenes/Twitter-icon-16.png").openStream()),
 					new Image(getClass().getResource("Imagenes/Twitter-icon-24.png").openStream()),
@@ -51,9 +44,8 @@ public class TwitterClient extends Application {
 					new Image(getClass().getResource("Imagenes/Twitter-icon-256.png").openStream())
 				);
 			
-			this.primaryStage.setScene(scene);
-			this.primaryStage.setTitle("Cliente multitwitter");
-			this.primaryStage.show();
+			this.loadFXML("login.fxml");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,31 +56,16 @@ public class TwitterClient extends Application {
     protected boolean notifyLogin(String user, String pass, String server){
     	if(server.equals("Twitter real")) return false; //TODO: no soportado todavía
     	
-    	String rmiUrl = "rmi://localhost/Conectar";
-    	
     	try {
-			this.stub = (TwitterInit) Naming.lookup(rmiUrl);
+    		TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
 			this.cliente = new Cliente();
-			Twitter twitter = stub.login(user, pass, cliente);
-			if(twitter ==  null){
+			this.twitter = stub.login(user, pass, cliente);
+			if(this.twitter ==  null){
 				ClientTools.showDialog("Login invalido.");
 				return false;
-			}else
-				System.out.println((twitter.isValidLogin() ? "Logueado" : "No logueado"));
-			
-			//TODO: lanzar la visión principal (pasandole al controlador el objeto Twitter)
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("timeline.fxml"));
-			Parent root = (Parent) loader.load(getClass().getResource("timeline.fxml").openStream());
-			
-			//Obtenemos el objeto controlador
-			//TimelineController timeControl = loader.getController();
-			//timeControl.setLoginListener(this);
-			
-			//Mostramos la nueva vista
-			Scene scene = new Scene(root, 900, 600);
-			this.primaryStage.setScene(scene);
-			this.primaryStage.show();
+			}			
+			//lanzar la visión principal (pasandole al controlador el objeto Twitter)
+			this.loadFXML("timeline.fxml");
 			
 			return true;
 			
@@ -100,16 +77,46 @@ public class TwitterClient extends Application {
 		}
 	}
     
+    protected void notifyLogout(){
+    	try {
+    		TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
+    		stub.logout(this.twitter.getSelf().getId(), cliente);
+    		this.twitter = null;
+    		this.loadFXML("login.fxml");
+    		
+    	} catch (NotBoundException | IOException e1) {
+			e1.printStackTrace();
+			ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
+		}
+    }
+    
     protected int notifyRegistry(String user, String pass, String email){
-    	String rmiUrl = "rmi://localhost/Conectar";
     	
     	try {
-			this.stub = (TwitterInit) Naming.lookup(rmiUrl);
+    		TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
 			return stub.register(user, pass, email);
 			
 		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 			e1.printStackTrace();
 			return TwitterInit.REG_WRONG_UNKNOWN;
 		}
+    }
+    
+    private Controller loadFXML(String fxml) throws IOException{
+    	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(fxml));
+		Parent root = (Parent) loader.load(getClass().getResource(fxml).openStream());
+		
+		//Obtenemos el objeto controlador
+		Controller control = loader.getController();
+		control.setClientListener(this);
+		control.setTwitter(this.twitter);
+		
+		//Mostramos la nueva vista
+		Scene scene = new Scene(root, 900, 600);
+		this.primaryStage.setScene(scene);
+		this.primaryStage.show();
+		
+		return control;
     }
 }
