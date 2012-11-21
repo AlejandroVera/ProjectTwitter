@@ -7,7 +7,7 @@
 
 #cajaIz{
 	-fx-border-style: solid;
-	-fx-border-color: rgba(0, 0, 0, 1);
+	-fx-border-color: rgba(0, 0, 0, 0.3);
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.85);
 	-fx-font-family: "Bitstream Charter";
