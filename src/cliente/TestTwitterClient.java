@@ -78,8 +78,9 @@ public class TestTwitterClient {
 			
 			//5
 			twitter.updateStatus("blablabla 1234 mi tweet");
-			
-			
+			System.out.println("tweets del usuario: "+twitter.getSelf().getStatusesCount());
+			twitter.updateStatus("otro mas buaaag");
+			System.out.println("tweets del usuario: "+twitter.getSelf().getStatusesCount());
 
 /*******************************FIN PRUEBAS***********************************************/			
 		} 

@@ -72,11 +72,31 @@ public class UserImpl implements User{
 			if(screenName!=null)
 				this.id = res.getInt("id");
 			this.status=new StatusImpl(res.getInt("id_status"),this.con,this.loggedUser);
-			this.favoritesCount=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id).getFetchSize();
-			this.followersCount=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id).getFetchSize();
-			this.friendsCount=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id).getFetchSize();
-			this.statusesCount=con.query("SELECT id FROM tweet WHERE autor="+this.id).getFetchSize();
 			
+			int c=0;
+			res=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id);
+			while (res.next()) {
+			    c++;
+			}
+			this.favoritesCount = c;
+			c=0;
+			res=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
+			while (res.next()) {
+			    c++;
+			}
+			this.followersCount=c;
+			c=0;
+			res=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id);
+			while (res.next()) {
+			    c++;
+			}
+			this.friendsCount=c;
+			c=0;
+			res=con.query("SELECT id FROM tweet WHERE autor="+this.id);
+			while (res.next()) {
+			    c++;
+			}
+			this.statusesCount=c;
 		} 
 		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al buscar info en BD");
