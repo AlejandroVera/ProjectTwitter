@@ -35,7 +35,7 @@ public class StatusImpl implements Status{
 				this.loggedUser=loggedUser;
 				this.text=res.getString("texto");
 				this.usuario=new UserImpl(res.getInt("autor"), this.con,this.loggedUser);
-				this.createdAt=new Date(res.getInt("fecha")*1000);
+				this.createdAt=new Date((long)res.getInt("fecha")*1000);
 				this.lugar=usuario.getPlace();
 			}
 		} 

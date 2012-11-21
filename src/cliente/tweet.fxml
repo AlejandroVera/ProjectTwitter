@@ -20,7 +20,7 @@
                   <children>
                     <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <children>
-                        <ImageView id="profileImage" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToPerfilUsuario" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="profileImage" fx:id="userImage" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToPerfilUsuario" pickOnBounds="true" preserveRatio="true">
                           <image>
                             <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                           </image>
@@ -35,13 +35,13 @@
                               <children>
                                 <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
-                                    <Label opacity="0.7" text="17h" />
+                                    <Label fx:id="timeAgo" opacity="0.7" text="17h" />
                                   </children>
                                 </HBox>
                                 <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
-                                    <Hyperlink id="screenName" focusTraversable="false" onAction="#goToPerfilUsuario" text="Tweet Prueba" />
-                                    <Label id="name" opacity="0.68" text="\@prueba" />
+                                    <Hyperlink id="screenName" fx:id="username" focusTraversable="false" onAction="#goToPerfilUsuario" text="Tweet Prueba" />
+                                    <Label id="name" fx:id="screename" opacity="0.68" text="\@prueba" />
                                   </children>
                                 </HBox>
                               </children>
