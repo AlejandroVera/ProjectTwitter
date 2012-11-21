@@ -152,6 +152,7 @@ public class TimelineController extends Controller {
 			while(timeline.hasNext()){
 				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader(getTwitter(), timeline.next());
 				tweetsTimeline.getChildren().add(tweet.getRoot());
+				((AnchorPane)tweetsTimeline.getParent()).setMinHeight(((AnchorPane)tweetsTimeline.getParent()).getMinHeight()+126);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
