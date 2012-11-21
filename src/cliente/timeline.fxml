@@ -15,9 +15,9 @@
       <tabs>
         <Tab id="tab" text="">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="516.0">
+            <AnchorPane id="Content" blendMode="SRC_OVER" minHeight="0.0" minWidth="0.0" mouseTransparent="false" opacity="1.0" prefHeight="612.0" prefWidth="516.0" visible="true">
               <children>
-                <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+                <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="-2.0" />
                 <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0" />
                 <HBox id="HBox" alignment="CENTER" layoutY="31.0" spacing="5.0" AnchorPane.leftAnchor="24.0">
                   <children>
@@ -40,19 +40,19 @@
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarTweetsUsuario" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
                                     <Label fx:id="nTweets" text="" />
-                                    <Label text="TWEETS" />
+                                    <Label id="numeroDe" text="TWEETS" />
                                   </children>
                                 </VBox>
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFriends" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
                                     <Label fx:id="nSiguiendo" text="" />
-                                    <Label text="SIGUIENDO" />
+                                    <Label id="numeroDe" text="SIGUIENDO" />
                                   </children>
                                 </VBox>
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFollowers" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                                   <children>
                                     <Label fx:id="nSeguidores" text="" />
-                                    <Label id="texto" text="SEGUIDORES" />
+                                    <Label id="numeroDe" text="SEGUIDORES" />
                                   </children>
                                 </VBox>
                               </children>
@@ -89,7 +89,7 @@
                         </HBox>
                         <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                           <content>
-                            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                            <AnchorPane id="Content2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
                               <children>
                                 <VBox fx:id="tweetsTimeline" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                               </children>
@@ -219,19 +219,19 @@
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarTweetsUsuario" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
                                     <Label id="nTweets" text="" />
-                                    <Label text="TWEETS" />
+                                    <Label id="numeroDe" text="TWEETS" />
                                   </children>
                                 </VBox>
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFriends" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
                                     <Label id="nSiguiendo" text="" />
-                                    <Label text="SIGUIENDO" />
+                                    <Label id="numeroDe" text="SIGUIENDO" />
                                   </children>
                                 </VBox>
                                 <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFollowers" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                                   <children>
                                     <Label id="nSeguidores" text="" />
-                                    <Label id="texto" text="SEGUIDORES" />
+                                    <Label id="numeroDe" text="SEGUIDORES" />
                                   </children>
                                 </VBox>
                               </children>
@@ -275,7 +275,7 @@
         </Tab>
         <Tab text="">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="true">
               <children>
                 <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
               </children>
@@ -351,6 +351,45 @@
         </GridPane>
       </children>
     </HBox>
+    <StackPane fx:id="creadorTweets" layoutX="360.0" layoutY="65.0" prefHeight="164.0" prefWidth="500.0">
+      <children>
+        <VBox fx:id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
+          <children>
+            <GridPane prefHeight="164.0" prefWidth="498.0">
+              <children>
+                <TextArea fx:id="textoNuevoTweet" prefHeight="85.0" prefWidth="426.0" promptText="Escribe aqui que esta pasando..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label id="numeroDe" prefHeight="20.000091552734375" text="Nuevo Tweet!" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <children>
+                    <Button fx:id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <Label fx:id="cerrarNuevoTweet" onMouseClicked="#cerrarNuevoTweet" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="36.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="446.0" minWidth="10.0" prefWidth="426.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="36.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </VBox>
+      </children>
+    </StackPane>
   </children>
   <stylesheets>
     <URL value="@timeline.css" />

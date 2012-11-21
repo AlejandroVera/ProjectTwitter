@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
   <children>
     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>

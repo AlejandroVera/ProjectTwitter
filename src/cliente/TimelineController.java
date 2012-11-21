@@ -8,6 +8,7 @@ package cliente;
 import interfacesComunes.Status;
 import interfacesComunes.User;
 
+import java.awt.TextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -25,10 +26,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
 public class TimelineController extends Controller {
+
 
     @FXML //  fx:id="ajustes"
     private MenuItem ajustes; // Value injected by FXMLLoader
@@ -36,11 +39,23 @@ public class TimelineController extends Controller {
     @FXML //  fx:id="busquedaLabel"
     private TextField busquedaLabel; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="cajaInteracciones"
+    private VBox cajaInteracciones; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="cajaNuevoTweet"
+    private VBox cajaNuevoTweet; // Value injected by FXMLLoader
+
     @FXML //  fx:id="cajaSeleccion"
     private HBox cajaSeleccion; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="cerrarNuevoTweet"
+    private Label cerrarNuevoTweet; // Value injected by FXMLLoader
+
     @FXML //  fx:id="cerrarSesion"
     private MenuItem cerrarSesion; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="creadorTweets"
+    private StackPane creadorTweets; // Value injected by FXMLLoader
 
     @FXML //  fx:id="nSeguidores"
     private Label nSeguidores; // Value injected by FXMLLoader
@@ -57,17 +72,20 @@ public class TimelineController extends Controller {
     @FXML //  fx:id="screenName"
     private Label screenName; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="textoNuevoTweet"
+    private TextArea textoNuevoTweet; // Value injected by FXMLLoader
+
     @FXML //  fx:id="tweetButton"
     private Button tweetButton; // Value injected by FXMLLoader
-    
+
     @FXML //  fx:id="tweetsMenciones"
     private VBox tweetsMenciones; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tweetsTimeline"
     private VBox tweetsTimeline; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="cajaInteracciones"
-    private VBox cajaInteracciones; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="twittear"
+    private Button twittear; // Value injected by FXMLLoader
 
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
@@ -112,6 +130,16 @@ public class TimelineController extends Controller {
     // Handler for Button[fx:id="tweetButton"] onAction
     // Handler for Button[fx:id="tweetButton"] onMouseClicked
     public void twittear(Event event) {
+        // handle the event here
+    }
+    
+ // Handler for Button[fx:id="twittear"] onMouseClicked (publicar ya el tweet como tal)
+    public void publicarTweet(MouseEvent event) {
+        // handle the event here
+    }
+    
+    // Handler for Label[fx:id="cerrarNuevoTweet"] onMouseClicked (cierra el menu del nuevo tweet)
+    public void cerrarNuevoTweet(MouseEvent event) {
         // handle the event here
     }
 
