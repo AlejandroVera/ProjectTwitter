@@ -35,13 +35,13 @@
                               <children>
                                 <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
-                                    <Label text="17h" />
+                                    <Label opacity="0.7" text="17h" />
                                   </children>
                                 </HBox>
                                 <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
                                     <Hyperlink id="screenName" focusTraversable="false" onAction="#goToPerfilUsuario" text="Tweet Prueba" />
-                                    <Label id="name" text="\@prueba" />
+                                    <Label id="name" opacity="0.68" text="\@prueba" />
                                   </children>
                                 </HBox>
                               </children>
@@ -70,12 +70,12 @@
                       <children>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#abrirTweet" text="Abrir" />
+                            <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" text="Abrir" />
                           </children>
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#responderTweet" prefWidth="90.0" text="Responder">
+                            <Label id="opcion" onMouseClicked="#responderTweet" opacity="1.0" prefWidth="101.0" text="Responder">
                               <graphic>
                                 <ImageView id="responder" fitHeight="14.360000023696001" fitWidth="21.75757598876953" pickOnBounds="true" preserveRatio="true">
                                   <image>
@@ -88,7 +88,7 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#retwittearTweet" text="Retwittear">
+                            <Label id="opcion" onMouseClicked="#retwittearTweet" opacity="1.0" text="Retwittear">
                               <graphic>
                                 <ImageView id="retweet" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                   <image>
@@ -101,7 +101,7 @@
                         </HBox>
                         <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#anadirFavorito" text="Favorito">
+                            <Label id="opcion" onMouseClicked="#anadirFavorito" opacity="1.0" text="Favorito">
                               <graphic>
                                 <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
                                   <image>
