@@ -8,7 +8,6 @@ package cliente;
 import interfacesComunes.Status;
 import interfacesComunes.User;
 
-import java.awt.TextArea;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
@@ -19,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
@@ -130,17 +130,23 @@ public class TimelineController extends Controller {
     // Handler for Button[fx:id="tweetButton"] onAction
     // Handler for Button[fx:id="tweetButton"] onMouseClicked
     public void twittear(Event event) {
-        // handle the event here
+    	creadorTweets.setVisible(!creadorTweets.isVisible());
     }
     
  // Handler for Button[fx:id="twittear"] onMouseClicked (publicar ya el tweet como tal)
     public void publicarTweet(MouseEvent event) {
-        // handle the event here
+    	String texto = textoNuevoTweet.getText();
+        if(getTwitter().updateStatus(texto) == null){ //Error?
+        	ClientTools.showDialog("No se ha podido mandar el tweet");
+        	return;
+        }
+        creadorTweets.setVisible(false);
+        textoNuevoTweet.clear();
     }
     
     // Handler for Label[fx:id="cerrarNuevoTweet"] onMouseClicked (cierra el menu del nuevo tweet)
     public void cerrarNuevoTweet(MouseEvent event) {
-        // handle the event here
+    	creadorTweets.setVisible(false);
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -161,6 +167,7 @@ public class TimelineController extends Controller {
          assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
 
          // initialize your logic here: all @FXML variables will have been injected
+         creadorTweets.setVisible(false);
         
     }
 
