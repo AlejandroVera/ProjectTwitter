@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.UniverseController">
+  <children>
+    <StackPane fx:id="universeContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <AnchorPane fx:id="universeWorldContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" visible="true" />
+        <AnchorPane fx:id="errorContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" style="" visible="true">
+          <children>
+            <TitledPane fx:id="errorPane" animated="true" blendMode="SRC_ATOP" cache="false" collapsible="false" contentDisplay="CENTER" expanded="true" maxHeight="-Infinity" maxWidth="450.0" minHeight="-Infinity" minWidth="350.0" pickOnBounds="false" prefHeight="114.0" prefWidth="-1.0" text="Mensaje" textAlignment="LEFT" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="212.0" AnchorPane.topAnchor="266.0">
+              <content>
+                <AnchorPane id="Content" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="88.0" prefWidth="200.0" visible="true">
+                  <children>
+                    <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="88.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <TextArea fx:id="errorText" disable="true" editable="false" maxHeight="-Infinity" minHeight="-Infinity" opacity="1.0" prefHeight="64.0" prefWidth="200.0" text="" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeError" text="Continuar">
+                          <VBox.margin>
+                            <Insets bottom="3.0" />
+                          </VBox.margin>
+                        </Button>
+                      </children>
+                    </VBox>
+                  </children>
+                </AnchorPane>
+              </content>
+            </TitledPane>
+          </children>
+        </AnchorPane>
+      </children>
+    </StackPane>
+  </children>
+  <stylesheets>
+    <URL value="@universe.css" />
+  </stylesheets>
+</AnchorPane>

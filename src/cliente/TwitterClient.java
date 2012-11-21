@@ -5,6 +5,7 @@ import interfacesComunes.TwitterInit;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -25,6 +27,7 @@ public class TwitterClient extends Application {
 	private Twitter twitter;
 	private Cliente cliente;
 	private Stage primaryStage;
+	private UniverseController universeController;
 	
     public static void main(String[] args) {
         launch(args);
@@ -55,6 +58,20 @@ public class TwitterClient extends Application {
 					System.exit(0);
 				}
 			});
+			
+	    	FXMLLoader loader = new FXMLLoader();
+	    	URL resource = getClass().getResource("universe.fxml");
+			loader.setLocation(resource);
+			Parent root = (Parent) loader.load(resource.openStream());
+			
+			//Obtenemos el objeto controlador
+			this.universeController = loader.getController();
+			ClientTools.setErrorController(this.universeController);
+			
+			//Mostramos la nueva vista
+			Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
+			this.primaryStage.setScene(scene);
+			this.primaryStage.show();		
 			
 			this.loadFXMLAndShow("login.fxml");
 			
@@ -126,9 +143,7 @@ public class TwitterClient extends Application {
 		control.postInitialize();
 		
 		//Mostramos la nueva vista
-		Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
-		this.primaryStage.setScene(scene);
-		this.primaryStage.show();
+		this.universeController.setWorldContainer((AnchorPane)root);
 		
 		return control;
     }

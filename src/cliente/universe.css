@@ -1,0 +1,26 @@
+#universeContainer{
+	-fx-background-image: url("beach36.jpg");
+	-fx-background-position: center center;
+	-fx-background-repeat: stretch;
+	-fx-font-family: "Arial Narrow";
+}
+
+#errorPane{
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0 , 2 , 5 );
+}
+
+.button{
+	-fx-font-weight: bold;
+	-fx-text-fill: rgba(80, 80, 80, 0.85);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+}
+
+.textArea, #errorText{
+	-fx-background-color: rgba(256, 256, 256, 0.0);
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0) , 0, 0.0 , 0 , 0 );
+	-fx-text-fill: black;
+}
+
+.button:hover{
+	-fx-cursor: hand;
+}

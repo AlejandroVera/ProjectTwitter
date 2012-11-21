@@ -1,34 +1,25 @@
 package cliente;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBoxBuilder;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
 class ClientTools {
+	
+	static UniverseController errorController;
 
-	protected static Stage showDialog(String text){
-		final Stage dialogStage = new Stage();
-		dialogStage.initModality(Modality.WINDOW_MODAL);
-		Button boton = new Button("Ok");
-		boton.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent e) {
-            	dialogStage.close();
-            }
-        });
-		dialogStage.setScene(new Scene(VBoxBuilder.create().
-				children(new Text(text), boton).
-				alignment(Pos.CENTER).padding(new Insets(5)).build()));
-		dialogStage.show();
-		
-		return dialogStage;
+	protected static void showDialog(String text){
+		showDialog(text, "Error");
     }
+	
+	protected static void showDialog(String text, String topText){
+		if(errorController != null){
+			errorController.showError(text, topText);
+		}
+    }
+	
+	protected static UniverseController getErrorController(){
+		return errorController;
+	}
+	
+	protected static void setErrorController(UniverseController controller){
+		errorController = controller;
+	}
 	
 }
