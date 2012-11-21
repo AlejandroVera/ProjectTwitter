@@ -62,7 +62,7 @@ public class TestTwitterClient {
 			//3
 			twitter.sendMessage("kmilinho","esto es un mensaje para kmilinho");
 			
-			if(!buscaMensaje("esto es un mensaje para kmilinho")){
+			if(buscaMensaje("esto es un mensaje para kmilinho")){
 				System.out.println("prueba3-> enviar mensaje: OK");
 			}
 			else{
@@ -71,6 +71,13 @@ public class TestTwitterClient {
 			
 			//4
 			List<Message> lm=twitter.getDirectMessagesSent();
+			System.out.println("Imprimiendo mensaje");
+			for(int i=0;i<lm.size();i++){
+				System.out.println(lm.get(i).getDisplayText());
+			}
+			
+			//5
+			twitter.updateStatus("blablabla 1234 mi tweet");
 			
 			
 

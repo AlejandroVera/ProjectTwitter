@@ -188,4 +188,8 @@ public class UserImpl implements User{
 		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
 		return geo.geoSearchByIP("www.google.com");
 	}
+	
+	public void aumentarContador(){
+		this.statusesCount++;
+	}
 }

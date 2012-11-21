@@ -632,6 +632,7 @@ public class TwitterImpl implements Twitter {
 				}
 			}
 		}
+		this.user.aumentarContador();
 		return status;
 	}
 
