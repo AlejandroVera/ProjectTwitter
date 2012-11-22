@@ -4,7 +4,7 @@
  **/
 package cliente;
 
-import interfacesComunes.Status;
+import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.User;
 
 import java.net.URL;
@@ -41,7 +41,7 @@ public class TweetController extends Controller{
     @FXML //  fx:id="worldTweetContainer"
     private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
     
-    private Status status;
+    private ITweet tweet;
 
 
     // Handler for Label[id="opcion"] onMouseClicked
@@ -85,13 +85,13 @@ public class TweetController extends Controller{
 
 	@Override
 	public void postInitialize() {
-		tweetTextArea.setText(this.status.getText());
-		User user = this.status.getUser();
+		tweetTextArea.setText(this.tweet.getText());
+		User user = this.tweet.getUser();
 		screename.setText("@"+user.getScreenName());
 		username.setText(user.getName());
 		
 		//Parse the time
-		Date createdAt = this.status.getCreatedAt();
+		Date createdAt = this.tweet.getCreatedAt();
 		Date now = new Date();
 		int timedif = (int)((now.getTime() - createdAt.getTime())/1000);
 		String timeago;
@@ -126,8 +126,8 @@ public class TweetController extends Controller{
 		
 	}
 	
-	protected void setStatus(Status status){
-		this.status = status;
+	protected void setTweet(ITweet tweet){
+		this.tweet = tweet;
 	}
 
 }

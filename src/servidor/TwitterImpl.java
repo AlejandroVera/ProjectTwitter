@@ -607,31 +607,16 @@ public class TwitterImpl implements Twitter {
 		
 		//Mandamos el tweet a todos los seguidores
 		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();
+
 		while(seguidores.hasNext()){
-			
 			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
 			int id_dest = seguidores.next().intValue();
-			List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
-			
-			if(user_callbacks != null){
-				Iterator<AStream.IListen> it = user_callbacks.iterator();
-				
-				//Iteramos por cada uno de los callbacks notificando el nuevo tweet
-				while(it.hasNext()){
-					AStream.IListen call = it.next();
-					try {
-						call.processTweet(status);
-					} catch (RemoteException e) {
-						//Suponemos que ha sido por un error de conexión.
-						//Puede que el user se haya desconectado, así que lo sacamos del array.
-						user_callbacks.remove(call);
-						if(user_callbacks.isEmpty())
-							this.callbackArray.remove(id_dest);
-						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-					}
-				}
-			}
+			sendTweetToUserThroughCallback(status,id_dest);
 		}
+		
+		//Nos notificamos a nosotros mismos sobre el tweet
+		sendTweetToUserThroughCallback(status,this.user.getId());
+		
 		this.user.aumentarContador();
 		return status;
 	}
@@ -651,6 +636,30 @@ public class TwitterImpl implements Twitter {
 		return this.twitter_user;
 	}
 
+	
+	private void sendTweetToUserThroughCallback(ITweet tweet, int id_dest){
+		List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
+		
+		if(user_callbacks != null){
+			Iterator<AStream.IListen> it = user_callbacks.iterator();
+
+			//Iteramos por cada uno de los callbacks notificando el nuevo tweet
+			while(it.hasNext()){
+
+				AStream.IListen call = it.next();
+				try {
+					call.processTweet(tweet);
+				} catch (RemoteException e) {
+					//Suponemos que ha sido por un error de conexión.
+					//Puede que el user se haya desconectado, así que lo sacamos del array.
+					user_callbacks.remove(call);
+					if(user_callbacks.isEmpty())
+						this.callbackArray.remove(id_dest);
+					ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+				}
+			}
+		}
+	}
 
 	
 

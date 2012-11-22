@@ -5,16 +5,22 @@
 
 package cliente;
 
+import interfacesComunes.AStream;
 import interfacesComunes.Status;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -30,10 +36,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class TimelineController extends Controller {
+public class TimelineController extends Controller implements AStream.IListen {
 
+	private static final long serialVersionUID = 6319965686022119977L;
 
-    @FXML //  fx:id="ajustes"
+	@FXML //  fx:id="ajustes"
     private MenuItem ajustes; // Value injected by FXMLLoader
 
     @FXML //  fx:id="busquedaLabel"
@@ -174,23 +181,64 @@ public class TimelineController extends Controller {
 	@Override
 	public void postInitialize() {
 		screenName.setText(super.getTwitter().getScreenName());
-		User user = getTwitter().getSelf();
+		User user = super.getTwitter().getSelf();
         nTweets.setText(""+user.getStatusesCount());
         nSeguidores.setText(""+user.getFollowersCount());
         nSiguiendo.setText(""+user.getFriendsCount());
         
         //Inicializar tweets
-        //TODO: añadir esqueleto del controlador
+		Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
+		tweetsTimeline.getChildren().clear();
+		while(timeline.hasNext()){
+			this.addTweet(timeline.next());
+		}
+	}
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		this.addTweet(tweet, true);
+		nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1)); //Inc numero tweets
+		return true;
+	}
+	
+	/**
+	 * Añade un tweet al final de la lista.
+	 * @param tweet Tweet a añadir.
+	 */
+	private void addTweet(ITweet tweet){
+		addTweet(tweet, false);
+	}
+	
+	/**
+	 * Añade un tweet.
+	 * @param tweet Tweet a añadir.
+	 * @param onTop True si el tweet se tiene que añadir al principio de la lista.
+	 */
+	private void addTweet(ITweet tweet, boolean onTop){
 		try {
-			Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
-			tweetsTimeline.getChildren().clear();
-			while(timeline.hasNext()){
-				FXMLTweetAutoLoader tweet = new FXMLTweetAutoLoader(getTwitter(), timeline.next());
-				tweetsTimeline.getChildren().add(tweet.getRoot());
-				((AnchorPane)tweetsTimeline.getParent()).setMinHeight(((AnchorPane)tweetsTimeline.getParent()).getMinHeight()+126);
+			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), tweet);
+			if(!onTop)
+				tweetsTimeline.getChildren().add(tweetUI.getRoot());
+			else{
+				LinkedList<Node> list = new LinkedList<Node>(tweetsTimeline.getChildren());
+				list.addFirst(tweetUI.getRoot());
+				tweetsTimeline.getChildren().clear();
+				tweetsTimeline.getChildren().addAll(list);
 			}
+			((AnchorPane)tweetsTimeline.getParent()).setMinHeight(((AnchorPane)tweetsTimeline.getParent()).getMinHeight()+126);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

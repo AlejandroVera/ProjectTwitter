@@ -27,11 +27,11 @@ public class TestTwitterClient {
 		
 		con=new ConexionImpl();
 		TwitterInit stub;
-		Cliente cliente;
+		ClientCallbackListener cliente;
 		String rmiUrl = "rmi://localhost/Conectar";
 		try {
 			stub = (TwitterInit) Naming.lookup(rmiUrl);
-			cliente = new Cliente();
+			cliente = new ClientCallbackListener();
 			Twitter twitter = stub.login("Antonio", "pajarito", cliente);
 			if(twitter ==  null){
 				System.out.println("Login invalido");

@@ -1,5 +1,6 @@
 package cliente;
 
+import interfacesComunes.AStream;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -25,7 +26,7 @@ public class TwitterClient extends Application {
 	private static final String SERVER_URL = "rmi://localhost/Conectar";
 	
 	private Twitter twitter;
-	private Cliente cliente;
+	private ClientCallbackListener cliente;
 	private Stage primaryStage;
 	private UniverseController universeController;
 	
@@ -87,14 +88,17 @@ public class TwitterClient extends Application {
     	
     	try {
     		TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-			this.cliente = new Cliente();
+			this.cliente = new ClientCallbackListener();
 			this.twitter = stub.login(user, pass, cliente);
 			if(this.twitter ==  null){
 				ClientTools.showDialog("Login invalido.");
 				return false;
 			}			
 			//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-			this.loadFXMLAndShow("timeline.fxml");
+			Controller control = this.loadFXMLAndShow("timeline.fxml");
+			
+			//Ponemos al controlador a la escucha de los eventos de twitter
+			this.cliente.setListener((AStream.IListen) control);
 			
 			return true;
 			

@@ -1,7 +1,7 @@
 package cliente;
 
-import interfacesComunes.Status;
 import interfacesComunes.Twitter;
+import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +16,7 @@ public class FXMLTweetAutoLoader {
 	private final static String FXML_URL = "tweet.fxml";
 	private static URL resource;
 	
-	protected FXMLTweetAutoLoader (Twitter twitter, Status status) throws IOException{
+	protected FXMLTweetAutoLoader (Twitter twitter, ITweet tweet) throws IOException{
     	if(resource == null)
     		resource = getClass().getResource(FXML_URL);
     	
@@ -28,7 +28,7 @@ public class FXMLTweetAutoLoader {
 		this.controller = loader.getController();
 		//this.controller.setClientListener(this); TODO
 		this.controller.setTwitter(twitter);
-		this.controller.setStatus(status);
+		this.controller.setTweet(tweet);
 		this.controller.postInitialize();
     }
 

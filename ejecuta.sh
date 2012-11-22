@@ -25,7 +25,7 @@ rmic servidor.TwitterInitImpl
 check
 
 echo -n "Generando el stub del cliente"
-rmic cliente.Cliente
+rmic cliente.ClientCallbackListener
 check
 
 echo -n "Lanzando servidor";
