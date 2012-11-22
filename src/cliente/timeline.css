@@ -1,6 +1,10 @@
 #worldContainer{
 	-fx-background-repeat: stretch;
 	-fx-base: rgba(250, 250, 250, 0.55);
+	
+	-fx-background-image: url("beach36.jpg");
+	-fx-background-position: center center;
+	
 }
 
 #barraArriba, #cajita{
@@ -12,7 +16,7 @@
 	
 }
 
-#cajaIz, #cajaNuevoTweet{
+#cajaIz, #cajaNuevoTweet, #contenedorMensaje{
 	-fx-border-style: solid;
 	-fx-border-color: rgba(250, 250, 250, 0.4);
 	-fx-margin-top: 25px;
@@ -53,13 +57,13 @@
 	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.9) , 20, 0.0 , 1 , 1 );
 }
 
-#cajita:hover, #menuAjustes:hover, .tab:hover,  #cerrarNuevoTweet:hover{
+#cajita:hover, #menuAjustes:hover, .tab:hover,  #cerrarNuevoTweet:hover, #contenedorMensaje:hover{
 	-fx-cursor: hand;
 	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , -1 , -1 );
 	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , 1 , 1 );
 }
 
-#tweetButton:pressed, #opcion:pressed, #cajita:pressed, #menuAjustes:pressed, #twittear:pressed,  #cerrarNuevoTweet:pressed{ 
+#tweetButton:pressed, #opcion:pressed, #cajita:pressed, #menuAjustes:pressed, #twittear:pressed,  #cerrarNuevoTweet:pressed, #contenedorMensaje:pressed{ 
 	-fx-cursor: hand;
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
 	
@@ -73,7 +77,7 @@
 	-fx-text-fill:rgba(0, 0, 0, 1);		
 }
 
-#numeroDe, #cerrarNuevoTweet{
+#numeroDe, #cerrarNuevoTweet, #misMensajesPrivados{
 	-fx-font-weight: bold;
 	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.75) , 10, 0.0 , 0 , 0 );
 }
@@ -101,10 +105,9 @@
 }
 
 #Content{
-
 	-fx-background-image: url("beach36.jpg");
-	-fx-background-position: center bottom;
-	-fx-background-repeat: stretch;
+	-fx-background-position: center center;
+	
 }
 
 #fondoPestana{
@@ -117,5 +120,12 @@
 	
 	-fx-background-color: rgba(0, 230, 255, 0.95);
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
+}
+
+#nSiguiendo, #nTweets, #nSeguidores{
+	-fx-font-weight: bold;
+	-fx-font-size: 14;
+	-fx-font-family: "Ubuntu";
+	-fx-text-fill:rgba(0, 0, 0, 1);
 }
 
