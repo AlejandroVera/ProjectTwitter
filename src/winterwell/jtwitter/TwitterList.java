@@ -169,7 +169,7 @@ public class TwitterList extends AbstractList<User> {
 			JSONObject jobj = new JSONObject(json);
 			init2(jobj);
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -194,7 +194,7 @@ public class TwitterList extends AbstractList<User> {
 			users.add(user);
 			return true;
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -217,7 +217,7 @@ public class TwitterList extends AbstractList<User> {
 				JSONObject jobj = new JSONObject(json);
 				memberCount = jobj.getInt("member_count");
 			} catch (JSONException e) {
-				throw new TwitterException("Could not parse response: " + e);
+				throw new TwitterExceptionImpl("Could not parse response: " + e);
 			}
 		}
 		// error messages?
@@ -236,7 +236,7 @@ public class TwitterList extends AbstractList<User> {
 					+ URLEncoder.encode(slug, "utf-8") + ".json?_method=DELETE";
 			http.post(URL, null, http.canAuthenticate());
 		} catch (UnsupportedEncodingException e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 
@@ -255,7 +255,7 @@ public class TwitterList extends AbstractList<User> {
 				users.addAll(users1page);
 				cursor = new Long(jobj.getString("next_cursor"));
 			} catch (JSONException e) {
-				throw new TwitterException("Could not parse user list" + e);
+				throw new TwitterExceptionImpl("Could not parse user list" + e);
 			}
 		}
 		return users.get(index);
@@ -304,7 +304,7 @@ public class TwitterList extends AbstractList<User> {
 			List<Status> msgs = Status.getStatuses(jsonListStatuses);
 			return msgs;
 		} catch (UnsupportedEncodingException e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 
@@ -326,7 +326,7 @@ public class TwitterList extends AbstractList<User> {
 			JSONArray jsonUsers = jobj.getJSONArray("users");
 			return User.getUsers2(jsonUsers);
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -348,7 +348,7 @@ public class TwitterList extends AbstractList<User> {
 			JSONObject jobj = new JSONObject(json);
 			init2(jobj);
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -390,7 +390,7 @@ public class TwitterList extends AbstractList<User> {
 			users.remove(user);
 			return true;
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -403,7 +403,7 @@ public class TwitterList extends AbstractList<User> {
 			JSONObject jobj = new JSONObject(json);
 			init2(jobj);
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 
@@ -416,7 +416,7 @@ public class TwitterList extends AbstractList<User> {
 			JSONObject jobj = new JSONObject(json);
 			init2(jobj);
 		} catch (JSONException e) {
-			throw new TwitterException("Could not parse response: " + e);
+			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
 	}
 

@@ -834,7 +834,7 @@ public class TwitterImpl implements Serializable {
 	 * API methods relating to your account.
 	 */
 	public Twitter_Account account() {
-		return new Twitter_Account(this);
+		return new Twitter_AccountImpl(this);
 	}
 	
 	/**
@@ -1053,7 +1053,7 @@ public class TwitterImpl implements Serializable {
 	 * Doesn't require a logged in user.
 	 */
 	public Twitter_Geo geo() {
-		return new Twitter_Geo(this);
+		return new Twitter_GeoImpl(this);
 	}
 
 	/**
@@ -1654,7 +1654,7 @@ public class TwitterImpl implements Serializable {
 		String json = http.getPage(TWITTER_URL + "/statuses/show/" + id
 				+ ".json", vars, auth);
 		try {
-			return new Status(new JSONObject(json), null);
+			return new StatusImpl(new JSONObject(json), null);
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(json, e);
 		}
@@ -2031,7 +2031,7 @@ public class TwitterImpl implements Serializable {
 		if (!http.canAuthenticate())
 			return false;
 		try {
-			Twitter_Account ta = new Twitter_Account(this);
+			Twitter_Account ta = new Twitter_AccountImpl(this);
 			User u = ta.verifyCredentials();
 			return true;
 		} catch (TwitterException.E403 e) {
@@ -2076,7 +2076,7 @@ public class TwitterImpl implements Serializable {
 			String result = post(
 					TWITTER_URL + "/statuses/retweet/" + tweet.getId()
 							+ ".json", null, true);
-			return new Status(new JSONObject(result), null);
+			return new StatusImpl(new JSONObject(result), null);
 
 			// error handling
 		} catch (E403 e) {
@@ -2264,7 +2264,7 @@ public class TwitterImpl implements Serializable {
 			// post it
 			result = post(TWITTER_URL + "/direct_messages/new.json", vars, true);
 			// sadly the response doesn't include rate-limit info
-			return new Message(new JSONObject(result));
+			return new MessageImpl(new JSONObject(result));
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(result, e);
 		} catch (TwitterException.E404 e) {
@@ -2803,7 +2803,7 @@ public class TwitterImpl implements Serializable {
 		String result = http.post(TWITTER_URL + "/statuses/update.json", vars,
 					true);
 		try {
-			Status s = new Status(new JSONObject(result), null);
+			Status s = new StatusImpl(new JSONObject(result), null);
 			s = updateStatus2_safetyCheck(statusText, s);
 			return s;
 		} catch (JSONException e) {
@@ -2941,7 +2941,7 @@ public class TwitterImpl implements Serializable {
 					.postMultipartForm(
 					"https://upload.twitter.com/1/statuses/update_with_media.json",
 							vars);
-			Status s = new Status(new JSONObject(result), null);
+			Status s = new StatusImpl(new JSONObject(result), null);
 			return s;
 		} catch (E403 e) {
 			// test for repetition (which gets a 403)
@@ -2958,7 +2958,7 @@ public class TwitterImpl implements Serializable {
 	 * User and social-network related API methods.
 	 */
 	public Twitter_Users users() {
-		return new Twitter_Users(this);
+		return new Twitter_UsersImpl(this);
 	}
 
 }

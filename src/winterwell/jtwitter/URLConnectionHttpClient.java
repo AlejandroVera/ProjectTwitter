@@ -260,7 +260,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 		if (ex instanceof IOException) {
 			return new TwitterException.IO((IOException) ex);
 		}
-		return new TwitterException(ex);
+		return new TwitterExceptionImpl(ex);
 	}
 	/**
 	 * Does the actual work for {@link #getPage(String, Map, boolean)}
@@ -438,11 +438,11 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			// redirect??
 			if (code>299 && code<400) {
 				String locn = connection.getHeaderField("Location");
-				throw new TwitterException(code + " " + error + " " + url+" -> "+locn);
+				throw new TwitterExceptionImpl(code + " " + error + " " + url+" -> "+locn);
 			}
 			
 			// just report it as a vanilla exception
-			throw new TwitterException(code + " " + error + " " + url);
+			throw new TwitterExceptionImpl(code + " " + error + " " + url);
 
 		} catch (SocketTimeoutException e) {
 			URL url = connection.getURL();
@@ -457,7 +457,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			// (yes, it could also be an error at your end)
 			throw new TwitterException.E50X(e.toString());
 		} catch (IOException e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 

@@ -46,6 +46,11 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	// reconnects MAX_RECONNECTS_PER_HOUR
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4124051823441049572L;
+
+	/**
 	 * Use these for push-notification of incoming tweets and stream activity.
 	 * 
 	 * WARNING: listeners should be fast. They run in the gobbler thread, which
@@ -134,14 +139,14 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		}
 		// DMs
 		if (jo.has("direct_message")) {
-			Message dm = new Message(jo.getJSONObject("direct_message"));
+			Message dm = new MessageImpl(jo.getJSONObject("direct_message"));
 			return dm;
 		}
 
 		// Events
 		String eventType = jo.optString("event");
 		if (eventType != "") {
-			TwitterEvent event = new TwitterEvent(jo, jtwitr);
+			TwitterEvent event = new TwitterEventImpl(jo, jtwitr);
 			return event;
 		}
 		// Deletes and other system events, like limits
@@ -338,7 +343,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 				return;
 			Thread.sleep(10);
 			if ( ! isConnected()) {
-				throw new TwitterException(readThread.ex);
+				throw new TwitterExceptionImpl(readThread.ex);
 			}
 		} catch (Exception e) {
 			if (e instanceof TwitterException)
@@ -346,7 +351,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 //			Doesn't catch anything: if (con!=null && client instanceof URLConnectionHttpClient) {
 //				((URLConnectionHttpClient) client).processError(con);
 //			}			
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 
@@ -559,7 +564,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		// The connection is down!
 		if ( ! autoReconnect) {
 			if (ex instanceof TwitterException) throw (TwitterException)ex;
-			throw new TwitterException(ex);
+			throw new TwitterExceptionImpl(ex);
 		}
 		// reconnect using a different thread
 		reconnect();
@@ -644,11 +649,11 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		friends2.removeAll(oldFriends);
 		if (friends2.size() == 0)
 			return;
-		Twitter_Users tu = new Twitter_Users(jtwit);
+		Twitter_Users tu = new Twitter_UsersImpl(jtwit);
 		List<User> newFriends = tu.showById(friends2);
 		User you = jtwit.getSelf();
 		for (User nf : newFriends) {
-			TwitterEvent e = new TwitterEvent(new Date(), you,
+			TwitterEvent e = new TwitterEventImpl(new Date(), you,
 					TwitterEvent.Type.FOLLOW, nf, null);
 			events.add(e);
 		}

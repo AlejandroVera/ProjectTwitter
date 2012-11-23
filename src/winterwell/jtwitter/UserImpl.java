@@ -239,14 +239,14 @@ public final class UserImpl implements Serializable {
 			// status
 			if (status == null) {
 				JSONObject s = obj.optJSONObject("status");
-				this.status = s == null ? null : new Status(s, this);
+				this.status = s == null ? null : new StatusImpl(s, this);
 			} else {
 				this.status = status;
 			}
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(String.valueOf(obj), e);
 		} catch (NullPointerException e) {
-			throw new TwitterException(e + " from <" + obj + ">, <" + status
+			throw new TwitterExceptionImpl(e + " from <" + obj + ">, <" + status
 					+ ">\n\t" + e.getStackTrace()[0] + "\n\t"
 					+ e.getStackTrace()[1]);
 		}

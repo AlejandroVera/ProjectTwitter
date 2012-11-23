@@ -443,7 +443,7 @@ public class InternalUtils {
 			User u = new User(obj, null);
 			return u;
 		} catch (JSONException e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 

@@ -150,7 +150,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 		} catch (TwitterException e) {
 			throw e;
 		} catch (Exception e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 	
@@ -305,7 +305,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 			return new URI(url);
 		} catch (Exception e) {
 			// Why does this happen?
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 
@@ -404,7 +404,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 			// sign the request
 			consumer.sign(connection);
 		} catch (OAuthException e) {
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 
@@ -428,7 +428,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 			if (e.getMessage().contains("401")) {
 				throw new TwitterException.E401(e.getMessage());
 			}
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 

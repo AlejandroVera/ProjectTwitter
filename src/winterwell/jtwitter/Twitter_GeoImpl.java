@@ -70,7 +70,7 @@ public class Twitter_GeoImpl implements IGeoCode {
 				JSONObject _place = arr.getJSONObject(i);
 				// interpret it - maybe pinch code from jGeoPlanet?
 				// https://dev.twitter.com/docs/api/1/get/geo/id/%3Aplace_id
-				Place place = new Place(_place);
+				Place place = new PlaceImpl(_place);
 				places.add(place);
 			}
 			return places;
@@ -96,7 +96,7 @@ public class Twitter_GeoImpl implements IGeoCode {
 			List<Place> trends = new ArrayList();
 			for (int i = 0; i < json2.length(); i++) {
 				JSONObject ti = json2.getJSONObject(i);
-				Place place = new Place(ti);
+				Place place = new PlaceImpl(ti);
 				trends.add(place);
 			}
 			return trends;

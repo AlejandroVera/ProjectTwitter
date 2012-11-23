@@ -66,7 +66,7 @@ public final class RateLimit {
 			Thread.sleep(wait);
 		} catch (InterruptedException e) {
 			// wrap this for convenience??
-			throw new TwitterException(e);
+			throw new TwitterExceptionImpl(e);
 		}
 	}
 }

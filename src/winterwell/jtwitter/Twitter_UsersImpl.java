@@ -513,7 +513,7 @@ public class Twitter_UsersImpl {
 			if (e.getMessage() != null
 					&& e.getMessage().contains(
 							"Two user ids or screen_names must be supplied"))
-				throw new TwitterException("WTF? inputs: follower="
+				throw new TwitterExceptionImpl("WTF? inputs: follower="
 						+ followerScreenName + ", followed="
 						+ followedScreenName + ", call-by="
 						+ jtwit.getScreenName() + "; " + e.getMessage());

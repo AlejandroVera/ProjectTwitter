@@ -44,7 +44,7 @@ public final class MessageImpl implements ITweet, Message {
 			JSONArray arr = new JSONArray(json);
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject obj = arr.getJSONObject(i);
-				Message u = new Message(obj);
+				Message u = new MessageImpl(obj);
 				msgs.add(u);
 			}
 			return msgs;

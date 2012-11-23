@@ -53,7 +53,7 @@ public final class StatusImpl implements ITweet {
 					continue;
 				}
 				JSONObject obj = (JSONObject) ai;
-				Status tweet = new Status(obj, null);
+				Status tweet = new StatusImpl(obj, null);
 				tweets.add(tweet);
 			}
 			return tweets;
@@ -83,7 +83,7 @@ public final class StatusImpl implements ITweet {
 				String profileImgUrl = obj.getString("profile_image_url");
 				User user = new User(userScreenName);
 				user.profileImageUrl = InternalUtils.URI(profileImgUrl);
-				Status s = new Status(obj, user);
+				Status s = new StatusImpl(obj, user);
 				users.add(s);
 			}
 			return users;
@@ -115,7 +115,7 @@ public final class StatusImpl implements ITweet {
 		}
 		// Twitter place
 		if (_place != null) {
-			Place place = new Place(_place);
+			Place place = new PlaceImpl(_place);
 			return place;
 		}
 		JSONObject geo = object.optJSONObject("geo");
@@ -211,7 +211,7 @@ public final class StatusImpl implements ITweet {
 			// retweet?
 			JSONObject retweeted = object.optJSONObject("retweeted_status");
 			if (retweeted != null) {
-				original = new Status(retweeted, null);
+				original = new StatusImpl(retweeted, null);
 			}
 			
 			// text!
