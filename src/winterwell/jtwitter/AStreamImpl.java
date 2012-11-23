@@ -22,6 +22,7 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
+import winterwell.jtwitter.AStreamImpl.IListen;
 import winterwell.jtwitter.TwitterImpl.IHttpClient;
 
 import interfacesComunes.*;
@@ -821,9 +822,9 @@ final class StreamGobbler extends Thread {
 
 	final AStreamImpl stream;
 
-	public StreamGobbler(AStreamImpl stream) {
+	public StreamGobbler(AStream stream) {
 		setDaemon(true);
-		this.stream = stream;
+		this.stream = (AStreamImpl) stream;
 	}
 
 	@Override
