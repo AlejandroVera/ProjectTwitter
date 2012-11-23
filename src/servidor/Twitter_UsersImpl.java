@@ -68,7 +68,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
 
 			while(res.next()){
-				seguidores.add(new UserImpl(res.getInt(1),con,loggedUser));
+				seguidores.add(new UserImpl(res.getLong(1),con,loggedUser));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -117,7 +117,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
 			while(res.next()){
-				amigos.add(new UserImpl(res.getInt(1),con,loggedUser));
+				amigos.add(new UserImpl(res.getLong(1),con,loggedUser));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -218,7 +218,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
     public User show(Number userId){
-    	return new UserImpl(userId.intValue(),con,loggedUser);
+    	return new UserImpl(userId.longValue(),con,loggedUser);
     }
  
     public User show(String screenName) throws TwitterException{

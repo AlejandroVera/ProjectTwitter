@@ -23,12 +23,12 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
 	private Conexion con;
-	private HashMap<Integer, LinkedList<IListen>> callbackArray;
+	private HashMap<Long, LinkedList<IListen>> callbackArray;
 	
 	public TwitterInitImpl(LinkedList<IListen> clientes) throws RemoteException {
 		super();
 		this.con = new ConexionImpl();
-		this.callbackArray = new HashMap<Integer, LinkedList<IListen>>();
+		this.callbackArray = new HashMap<Long, LinkedList<IListen>>();
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		try {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
-				int accountId = res.getInt(1);
+				Long accountId = res.getLong(1);
 				if(this.callbackArray.get(accountId) == null)
 					this.callbackArray.put(accountId, new LinkedList<IListen>());
 				this.callbackArray.get(accountId).add(cliente);
@@ -115,7 +115,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	}
 	
 		@Override
-	public void logout(int userId, IListen client) throws RemoteException {
+	public void logout(Long userId, IListen client) throws RemoteException {
 			LinkedList<IListen> userRow = this.callbackArray.get(userId);
 			if(userRow != null){
 				userRow.remove(client);

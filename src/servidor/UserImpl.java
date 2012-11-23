@@ -21,7 +21,7 @@ import interfacesComunes.User;
 public class UserImpl implements User{
 	
 	private static final long serialVersionUID = -4749433293227574768L;
-	private int id; 
+	private Long id; 
 	private java.util.Date 	createdAt;
 	private String 	description; 
 	private int favoritesCount;
@@ -40,14 +40,14 @@ public class UserImpl implements User{
 	private User loggedUser;
 	
 	public UserImpl(String screenName, Conexion con, User loggedUser){
-		this(0,screenName,con,loggedUser);
+		this(Long.parseLong("0"),screenName,con,loggedUser);
 	}
 
-	public UserImpl(int id,Conexion con, User loggedUser){
+	public UserImpl(Long id,Conexion con, User loggedUser){
 		this(id,null,con, loggedUser);
 	}
 	
-	public UserImpl(int id, String screenName,Conexion con, User loggedUser) {
+	public UserImpl(Long id, String screenName,Conexion con, User loggedUser) {
 		this.con=con;
 		this.loggedUser=loggedUser;
 		ResultSet res=null;
@@ -70,7 +70,7 @@ public class UserImpl implements User{
 			this.screenName = res.getString("screenName");
 			this.location = res.getString("location");
 			if(screenName!=null)
-				this.id = res.getInt("id");
+				this.id = res.getLong("id");
 			this.status=new StatusImpl(res.getInt("id_status"),this.con,this.loggedUser);
 			
 			int c=0;
@@ -114,7 +114,7 @@ public class UserImpl implements User{
 		return name;
 	}
 
-	public int getId(){
+	public Long getId(){
 		return id;
 	}
 

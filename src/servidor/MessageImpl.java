@@ -162,7 +162,7 @@ public class MessageImpl implements Message{
 		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
 			if (res.next()){
-				int id_autor = res.getInt(1);
+				Long id_autor = res.getLong(1);
 				UserImpl user= new UserImpl(id_autor,this.con,this.loggedUser);
 				return user;
 			}
@@ -183,7 +183,7 @@ public class MessageImpl implements Message{
 		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
 			if (res.next()){
-				int id_receptor = res.getInt(1);
+				Long id_receptor = res.getLong(1);
 				UserImpl user= new UserImpl(id_receptor,this.con,this.loggedUser);
 				return user;
 			}

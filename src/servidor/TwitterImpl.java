@@ -80,7 +80,7 @@ public class TwitterImpl implements Twitter {
 	
 	private User user;
 	private Twitter_Users twitter_user;
-	private HashMap<Integer, LinkedList<AStream.IListen>> callbackArray;
+	private HashMap<Long, LinkedList<AStream.IListen>> callbackArray;
 	private Conexion con;
 	private int maxResults = 20;
 	
@@ -95,7 +95,7 @@ public class TwitterImpl implements Twitter {
 		this.con = new ConexionImpl();
 	}
 	
-	public TwitterImpl(int accountId, HashMap<Integer, LinkedList<AStream.IListen>> callbackArray){
+	public TwitterImpl(Long accountId, HashMap<Long, LinkedList<AStream.IListen>> callbackArray){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
 		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
@@ -134,7 +134,7 @@ public class TwitterImpl implements Twitter {
 	
 	public void destroyStatus(Number id) throws TwitterException {
 		if(this.user != null && id != null){
-			int userId = this.user.getId();
+			Long userId = this.user.getId();
 			ResultSet res = con.query("SELECT id FROM tweet WHERE id = "+id+" AND autor = "+userId+" LIMIT 1");
 			try {
 				if(res != null && res.next()){
@@ -250,7 +250,7 @@ public class TwitterImpl implements Twitter {
 	
 	@Override
 	public List<Status> getUserTimeline(Number userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId.intValue(),this.con,this.user ));
+		return this.getTimeline(new UserImpl(userId.longValue(),this.con,this.user ));
 	}
 	
 	@Override
@@ -261,7 +261,7 @@ public class TwitterImpl implements Twitter {
 		try {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe ningún usuario con ese screeName");
-			return this.getTimeline(new UserImpl(res.getInt(1), this.con,this.user)); 
+			return this.getTimeline(new UserImpl(res.getLong(1), this.con,this.user)); 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
 			return null;
@@ -339,7 +339,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new UserImpl(res.getInt(1), this.con,this.user));
+					list.add(new UserImpl(res.getLong(1), this.con,this.user));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -523,7 +523,7 @@ public class TwitterImpl implements Twitter {
 				event_type = TwitterEvent.Type.FAVORITE;
 		}
 		
-		int status_owner = status.getUser().getId();
+		Long status_owner = status.getUser().getId();
 		
 		if(event_type != 0){
 			try{
@@ -610,7 +610,7 @@ public class TwitterImpl implements Twitter {
 
 		while(seguidores.hasNext()){
 			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
-			int id_dest = seguidores.next().intValue();
+			Long id_dest = seguidores.next().longValue();
 			sendTweetToUserThroughCallback(status,id_dest);
 		}
 		
@@ -637,7 +637,7 @@ public class TwitterImpl implements Twitter {
 	}
 
 	
-	private void sendTweetToUserThroughCallback(ITweet tweet, int id_dest){
+	private void sendTweetToUserThroughCallback(ITweet tweet, Long id_dest){
 		List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
 		
 		if(user_callbacks != null){

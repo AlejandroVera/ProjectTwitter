@@ -50,7 +50,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				
-				return new UserImpl(res.getInt(1), this.con, this.loggedUser);
+				return new UserImpl(res.getLong(1), this.con, this.loggedUser);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido actualizar usuario " + name);

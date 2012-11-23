@@ -34,7 +34,7 @@ public class StatusImpl implements Status{
 			if(res.next()){
 				this.loggedUser=loggedUser;
 				this.text=res.getString("texto");
-				this.usuario=new UserImpl(res.getInt("autor"), this.con,this.loggedUser);
+				this.usuario=new UserImpl(res.getLong("autor"), this.con,this.loggedUser);
 				this.createdAt=new Date((long)res.getInt("fecha")*1000);
 				this.lugar=usuario.getPlace();
 			}

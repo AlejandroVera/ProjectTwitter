@@ -31,17 +31,17 @@ public class TwitterEventImpl implements TwitterEvent{
 	private Conexion con;
 	private User loggedUser;
 	/** Constructor para actualizacion de cuenta*/
-	public TwitterEventImpl(int id_source,byte type, Conexion con, User loggedUser) throws SQLException{
-		this(id_source, 0, null, type, con,loggedUser);
+	public TwitterEventImpl(Long id_source,byte type, Conexion con, User loggedUser) throws SQLException{
+		this(id_source,Long.parseLong("0"), null, type, con,loggedUser);
 	}
 	
 	/**Constructor para el follow*/
-	public TwitterEventImpl(int id_source, int id_target, byte type, Conexion con,User loggedUser) throws SQLException{
+	public TwitterEventImpl(Long id_source, Long id_target, byte type, Conexion con,User loggedUser) throws SQLException{
 		this(id_source, id_target, null, type, con,loggedUser);
 	}
 	
 	/**Tocho con todo, necesitamos este para favorite/unfavorite*/
-	public TwitterEventImpl(int id_source, int id_target,Status status, byte type, Conexion con,User loggedUser) throws SQLException{
+	public TwitterEventImpl(Long id_source, Long id_target,Status status, byte type, Conexion con,User loggedUser) throws SQLException{
 		
 		this.loggedUser=loggedUser;
 		int id_status=0;
