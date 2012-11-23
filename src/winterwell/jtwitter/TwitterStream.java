@@ -73,7 +73,7 @@ public class TwitterStream extends AStreamImpl {
 	/**
 	 * Used to help avoid breaking api limits.
 	 */
-	static Map<String, AStreamImpl> user2stream = new ConcurrentHashMap();
+	static Map<String, AStream> user2stream = new ConcurrentHashMap();
 
 	private List<Long> follow;
 
@@ -124,7 +124,7 @@ public class TwitterStream extends AStreamImpl {
 		if (jtwit.getScreenName() == null)
 			return; // dunno
 		AStream s = user2stream.get(jtwit.getScreenName());
-		if (s != null && s.isConnected())
+		if (s != null && ((AStreamImpl) s).isConnected())
 			throw new TwitterExceptionImpl.TooManyLogins(
 					"One account, one stream (running: "
 							+ s

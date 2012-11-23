@@ -5,8 +5,6 @@ import java.rmi.Remote;
 import java.util.Date;
 import java.util.List;
 
-import servidor.TwitterImpl;
-import winterwell.json.JSONObject;
 import excepcionesComunes.TwitterException;
 
 public interface Twitter extends Serializable, Remote{

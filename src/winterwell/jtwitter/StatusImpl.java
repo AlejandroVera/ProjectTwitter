@@ -19,8 +19,8 @@ import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.Twitter.ITweet;
-import winterwell.jtwitter.TwitterImpl.KEntityType;
-import winterwell.jtwitter.TwitterImpl.TweetEntity;
+import interfacesComunes.Twitter.KEntityType;
+import interfacesComunes.Twitter.TweetEntity;
 import interfacesComunes.User;
 
 /**
@@ -30,7 +30,7 @@ import interfacesComunes.User;
  * access. If you want to change your status, use
  * {@link Twitter#setStatus(String)} and {@link Twitter#destroyStatus(Status)}.
  */
-public final class StatusImpl implements ITweet, Status {
+public final class StatusImpl implements Status {
 	/**
 	 * regex for @you mentions
 	 */
@@ -210,7 +210,7 @@ public final class StatusImpl implements ITweet, Status {
 	 * @throws TwitterException
 	 */
 	@SuppressWarnings("deprecation")
-	StatusImpl(JSONObject object, UserImpl user) throws TwitterException {
+	StatusImpl(JSONObject object, User user) throws TwitterException {
 		try {
 			String _id = object.optString("id_str");
 			id = new BigInteger(_id == "" ? object.get("id").toString() : _id);
@@ -254,7 +254,7 @@ public final class StatusImpl implements ITweet, Status {
 
 			// set user
 			if (user != null) {
-				this.user = user;
+				this.user = (UserImpl) user;
 			} else {
 				JSONObject jsonUser = object.optJSONObject("user");
 				// null user happens in very rare circumstances, which I
@@ -273,7 +273,7 @@ public final class StatusImpl implements ITweet, Status {
 					} catch (Exception e) {
 						// ignore
 					}
-					this.user = user;
+					this.user = (UserImpl) user;
 				} else {
 					// normal JSON case
 					this.user = new UserImpl(jsonUser, this);

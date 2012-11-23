@@ -4,6 +4,7 @@ import interfacesComunes.Message;
 import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
+import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.Twitter_Geo;
 import interfacesComunes.Twitter_Users;
@@ -301,87 +302,6 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	}
 
-	/**
-	 * This gives common access to features that are common to both
-	 * {@link Message}s and {@link Status}es.
-	 * 
-	 * @author daniel
-	 * 
-	 */
-	public static interface ITweet extends Serializable {
-
-		Date getCreatedAt();
-
-		/**
-		 * Twitter IDs are numbers - but they can exceed the range of Java's
-		 * signed long.
-		 * 
-		 * @return The Twitter id for this post. This is used by some API
-		 *         methods. This may be a Long or a BigInteger.
-		 */
-		Number getId();
-
-		/**
-		 * @return the location of this tweet. Can be null, never blank. This
-		 *         can come from geo-tagging or the user's location. This may be
-		 *         a place name, or in the form "latitude,longitude" if it came
-		 *         from a geo-tagged source.
-		 *         <p>
-		 *         Note: This will be set if Twitter supply any geo-information.
-		 *         We extract a location from geo and place objects.
-		 */
-		String getLocation();
-
-		/**
-		 * @return list of screen-names this message is to. May be empty, never
-		 *         null. For Statuses, this is anyone mentioned in the message.
-		 *         For DMs, this is a wrapper round
-		 *         {@link Message#getRecipient()}.
-		 *         <p>
-		 *         Notes: This method is in ITweet as a convenience to allow the
-		 *         same code to process both Statuses and Messages where
-		 *         possible. It would be better named "getRecipients()", but for
-		 *         historical reasons it isn't.
-		 */
-		List<String> getMentions();
-
-		/**
-		 * @return more information on the location of this tweet. This is
-		 *         usually null!
-		 */
-		Place getPlace();
-
-		/** The actual status text. This is also returned by {@link #toString()} */
-		String getText();
-
-		/**
-		 * Twitter wrap urls with their own url-shortener (as a defence against
-		 * malicious tweets). You are recommended to direct people to the
-		 * Twitter-url, but use the original url for display.
-		 * <p>
-		 * Entity support is off by default. Request entity support by setting
-		 * {@link Twitter#setIncludeTweetEntities(boolean)}. Twitter do NOT
-		 * support entities for search :(
-		 * 
-		 * @param type
-		 *            urls, user_mentions, or hashtags
-		 * @return the text entities in this tweet, or null if the info was not
-		 *         supplied.
-		 */
-		List<TweetEntity> getTweetEntities(KEntityType type);
-
-		/** The User who made the tweet */
-		User getUser();
-
-		/**
-		 * @return text, with the t.co urls replaced.
-		 * Use-case: for filtering based on text contents, when we want to
-		 * match against the full url.
-		 * Note: this does NOT resolve short urls from bit.ly etc. 
-		 */
-		String getDisplayText();
-
-	}
 
 	/**
 	 * The different types of API request. These can have different rate limits.
@@ -436,7 +356,7 @@ public class TwitterImpl implements Serializable, Twitter {
 						arr.length());
 				for (int i = 0; i < arr.length(); i++) {
 					JSONObject obj = arr.getJSONObject(i);
-					TweetEntity te = new TweetEntityImpl(tweet, rawText, type, obj, list);
+					TweetEntity te = new TweetEntity(tweet, rawText, type, obj, list);
 					list.add(te);
 				}
 				return list;
@@ -1214,9 +1134,9 @@ public class TwitterImpl implements Serializable, Twitter {
 		assert user!=null || http.canAuthenticate() : "No authenticating user";
 		try {
 			String url = TWITTER_URL + "/lists/all.json";
-			Map<String, String> vars = user.screenName==null?
-					InternalUtils.asMap("user_id", user.id)
-					: InternalUtils.asMap("screen_name", user.screenName);
+			Map<String, String> vars = ((UserImpl)user).screenName==null?
+					InternalUtils.asMap("user_id", ((UserImpl)user).id)
+					: InternalUtils.asMap("screen_name", ((UserImpl)user).screenName);
 			String listsJson = http.getPage(url, vars, http.canAuthenticate());
 			JSONObject wrapper = new JSONObject(listsJson);
 			JSONArray jarr = (JSONArray) wrapper.get("lists");
@@ -1308,10 +1228,10 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	public String getLongStatus(Status truncatedStatus) {
 		// regex for http://tl.gd/ID
-		int i = truncatedStatusImpl.text.indexOf("http://tl.gd/");
+		int i = ((StatusImpl)truncatedStatus).text.indexOf("http://tl.gd/");
 		if (i == -1)
-			return truncatedStatusImpl.text;
-		String id = truncatedStatusImpl.text.substring(i + 13).trim();
+			return ((StatusImpl)truncatedStatus).text;
+		String id = ((StatusImpl)truncatedStatus).text.substring(i + 13).trim();
 		String response = http.getPage("http://www.twitlonger.com/api_read/"
 				+ id, null, false);
 		Matcher m = contentTag.matcher(response);
@@ -1747,7 +1667,7 @@ public class TwitterImpl implements Serializable, Twitter {
 				break;
 			}
 			// Next page must start strictly before this one
-			maxId = nextpage.get(nextpage.size() - 1).id
+			maxId = ((StatusImpl)nextpage.get(nextpage.size() - 1)).id
 					.subtract(BigInteger.ONE);
 			// System.out.println(maxId + " -> " + nextpage.get(0).id);
 
@@ -2087,7 +2007,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		} catch (E403 e) {
 			List<Status> rts = getRetweetsByMe();
 			for (Status rt : rts) {
-				if (tweet.equals(rt.getOriginal()))
+				if (tweet.equals(((StatusImpl)rt).getOriginal()))
 					throw new TwitterExceptionImpl.Repetition(rt.getText());
 			}
 			throw e;
@@ -2588,12 +2508,12 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	public List<String> splitMessage(String longStatus) {
 		// Is it really long?
-		if (longStatusImpl.length() <= 140)
+		if (longStatus.length() <= 140)
 			return Collections.singletonList(longStatus);
 		// Multiple tweets for a longer post
 		List<String> sections = new ArrayList<String>(4);
 		StringBuilder tweet = new StringBuilder(140);
-		String[] words = longStatusImpl.split("\\s+");
+		String[] words = longStatus.split("\\s+");
 		for (String w : words) {
 			// messages have a max length of 140
 			// plus the last bit of a long tweet tends to be hidden on
@@ -2648,7 +2568,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public User stopFollowing(User user) {
-		return stopFollowing(user.screenName);
+		return stopFollowing(((UserImpl)user).screenName);
 	}
 
 	/**
@@ -2909,7 +2829,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		} catch (InterruptedException e) {
 			// igore the interruption
 		}
-		Status s2 = getStatus();			
+		StatusImpl s2 = (StatusImpl) getStatus();			
 		if (s2 != null) {
 			returnedStatusText = InternalUtils.stripUrls(s2.text.trim());
 			if (targetText.equals(returnedStatusText)) {			

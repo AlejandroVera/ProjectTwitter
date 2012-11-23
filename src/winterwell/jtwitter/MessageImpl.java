@@ -24,7 +24,7 @@ import interfacesComunes.User;
  * 
  * TODO are there more fields now? check the raw json
  */
-public final class MessageImpl implements ITweet, Message {
+public final class MessageImpl implements Message {
 
 	private static final long serialVersionUID = 1L;
 

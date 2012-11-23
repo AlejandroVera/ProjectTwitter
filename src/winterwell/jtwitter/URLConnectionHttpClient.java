@@ -29,7 +29,6 @@ import winterwell.json.JSONObject;
 import winterwell.jtwitter.TwitterImpl.KRequestType;
 import winterwell.jtwitter.guts.Base64Encoder;
 import winterwell.jtwitter.guts.ClientHttpRequest;
-import winterwell.utils.containers.ArrayMap;
 
 /**
  * A simple http client that uses the built in URLConnection class.
@@ -257,7 +256,7 @@ public class URLConnectionHttpClient implements TwitterImpl.IHttpClient,
 	 * Called on error. What to throw? 
 	 */
 	private TwitterException getPage2_ex(Exception ex, String url) {
-		if (ex instanceof TwitterExceptionImpl) return (TwitterExceptionImpl) ex;
+		if (ex instanceof TwitterExceptionImpl) return (TwitterException) ex;
 		if (ex instanceof SocketTimeoutException) {
 			return new TwitterExceptionImpl.Timeout(url);
 		}
