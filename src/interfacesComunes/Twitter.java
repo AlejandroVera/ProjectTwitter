@@ -6,28 +6,98 @@ import java.util.Date;
 import java.util.List;
 
 import servidor.TwitterImpl;
-
+import winterwell.json.JSONObject;
 import excepcionesComunes.TwitterException;
 
 public interface Twitter extends Serializable, Remote{
+	
+	
+
+	public static enum KEntityType {
+		hashtags, urls, user_mentions
+	}
+	
 
 	public interface ICallback extends Serializable{
 		boolean process(List<Status> statuses);
 	}
 
 	public static interface TweetEntity extends Serializable{
-		
 	}
 
-	public interface ITweet extends Serializable{
+	public static interface ITweet extends Serializable {
+
 		Date getCreatedAt();
-		int getId();
-		String 	getLocation();
+
+		/**
+		 * Twitter IDs are numbers - but they can exceed the range of Java's
+		 * signed long.
+		 * 
+		 * @return The Twitter id for this post. This is used by some API
+		 *         methods. This may be a Long or a BigInteger.
+		 */
+		Number getId();
+
+		/**
+		 * @return the location of this tweet. Can be null, never blank. This
+		 *         can come from geo-tagging or the user's location. This may be
+		 *         a place name, or in the form "latitude,longitude" if it came
+		 *         from a geo-tagged source.
+		 *         <p>
+		 *         Note: This will be set if Twitter supply any geo-information.
+		 *         We extract a location from geo and place objects.
+		 */
+		String getLocation();
+
+		/**
+		 * @return list of screen-names this message is to. May be empty, never
+		 *         null. For Statuses, this is anyone mentioned in the message.
+		 *         For DMs, this is a wrapper round
+		 *         {@link Message#getRecipient()}.
+		 *         <p>
+		 *         Notes: This method is in ITweet as a convenience to allow the
+		 *         same code to process both Statuses and Messages where
+		 *         possible. It would be better named "getRecipients()", but for
+		 *         historical reasons it isn't.
+		 */
 		List<String> getMentions();
+
+		/**
+		 * @return more information on the location of this tweet. This is
+		 *         usually null!
+		 */
 		Place getPlace();
-		String 	getText();
-		List<Twitter.TweetEntity> getTweetEntities(TwitterImpl.KEntityType type);
+
+		/** The actual status text. This is also returned by {@link #toString()} */
+		String getText();
+
+		/**
+		 * Twitter wrap urls with their own url-shortener (as a defence against
+		 * malicious tweets). You are recommended to direct people to the
+		 * Twitter-url, but use the original url for display.
+		 * <p>
+		 * Entity support is off by default. Request entity support by setting
+		 * {@link Twitter#setIncludeTweetEntities(boolean)}. Twitter do NOT
+		 * support entities for search :(
+		 * 
+		 * @param type
+		 *            urls, user_mentions, or hashtags
+		 * @return the text entities in this tweet, or null if the info was not
+		 *         supplied.
+		 */
+		List<TweetEntity> getTweetEntities(KEntityType type);
+
+		/** The User who made the tweet */
 		User getUser();
+
+		/**
+		 * @return text, with the t.co urls replaced.
+		 * Use-case: for filtering based on text contents, when we want to
+		 * match against the full url.
+		 * Note: this does NOT resolve short urls from bit.ly etc. 
+		 */
+		String getDisplayText();
+
 	}
 
 	public Twitter_Account account();

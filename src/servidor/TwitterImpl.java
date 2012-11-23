@@ -26,12 +26,6 @@ import servidor.db.ConexionImpl;
 
 public class TwitterImpl implements Twitter {
 
-	public enum KEntityType{
-		hashtags, 
-		urls,
-		user_mentions;
-	}
-	
 	public static class TweetEntity implements Twitter.TweetEntity{
 
 		private static final long serialVersionUID = -4096887025640652171L;

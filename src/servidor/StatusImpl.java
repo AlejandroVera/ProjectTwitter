@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import servidor.TwitterImpl.KEntityType;
+import interfacesComunes.Twitter.KEntityType;
 
 
 public class StatusImpl implements Status{
@@ -116,6 +116,12 @@ public class StatusImpl implements Status{
 			mencionados.add(this.text.substring(m.start(),m.end()).replaceAll(" ",""));
 		}
 		return mencionados;
+	}
+
+	@Override
+	public String getDisplayText() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

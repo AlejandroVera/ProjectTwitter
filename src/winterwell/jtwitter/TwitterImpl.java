@@ -383,10 +383,6 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	}
 
-	public static enum KEntityType {
-		hashtags, urls, user_mentions
-	}
-
 	/**
 	 * The different types of API request. These can have different rate limits.
 	 */

@@ -12,7 +12,8 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.TwitterImpl.KEntityType;
+import interfacesComunes.Twitter;
+import interfacesComunes.Twitter.KEntityType;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter.TweetEntity;
@@ -129,7 +130,7 @@ public final class MessageImpl implements ITweet, Message {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Message other = (Message) obj;
+		MessageImpl other = (MessageImpl) obj;
 		return id.equals(other.id);
 	}
 

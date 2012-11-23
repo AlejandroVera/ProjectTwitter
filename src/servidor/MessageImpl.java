@@ -13,7 +13,6 @@ import interfacesComunes.Message;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter_Geo;
 import servidor.TwitterImpl;
-import servidor.TwitterImpl.KEntityType;
 import interfacesComunes.Twitter.TweetEntity;
 import interfacesComunes.User;
 
@@ -71,7 +70,7 @@ public class MessageImpl implements Message{
 	}
 
 	
-	public int getId() {
+	public Number getId() {
 		return id;
 	}
 
@@ -127,19 +126,19 @@ public class MessageImpl implements Message{
 	}
 
 	
-	public List<TweetEntity> getTweetEntities(KEntityType type) {
+	public List<TweetEntity> getTweetEntities(interfacesComunes.Twitter.KEntityType type) {
 		
 		List<TweetEntity> entities=new ArrayList<interfacesComunes.Twitter.TweetEntity>();
 		int inicio;
 		Pattern p=null;
 		Matcher m=null;
-		if(type==KEntityType.urls){
+		if(type==interfacesComunes.Twitter.KEntityType.urls){
 			p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
 		}
-		else if(type==KEntityType.hashtags){
+		else if(type==interfacesComunes.Twitter.KEntityType.hashtags){
 			p=Pattern.compile("(^|\\s)#[a-zA-Z0-9]+");
 		}
-		else if(type==KEntityType.user_mentions){
+		else if(type==interfacesComunes.Twitter.KEntityType.user_mentions){
 			p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
 		}
 		m= p.matcher(this.text);
@@ -207,6 +206,5 @@ public class MessageImpl implements Message{
 		User user = getUser();
 		return user;
 	}
-
 }
 
