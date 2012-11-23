@@ -6,6 +6,7 @@ import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.Twitter_Geo;
+import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 
 import java.io.File;
@@ -684,7 +685,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	public static void main(String[] args) {
 		// Post a tweet if we are handed a name, password and tweet
 		if (args.length == 3) {
-			Twitter tw = new TwitterImpl(args[0], args[1]);
+			TwitterImpl tw = new TwitterImpl(args[0], args[1]);
 			// int s = 0;
 			// List<Long> fids = tw.getFollowerIDs();
 			// for (Long fid : fids) {
@@ -914,14 +915,14 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @deprecated Use {@link Twitter_Users#show(List)} instead
 	 */
 	public List<User> bulkShow(List<String> screenNames) {
-		return users().show(screenNames);
+		return ((Twitter_UsersImpl)users()).show(screenNames);
 	}
 
 	/**
 	 * @deprecated Use {@link #showById(List)} instead
 	 */
 	public List<User> bulkShowById(List<? extends Number> userIds) {
-		return users().showById(userIds);
+		return ((Twitter_UsersImpl)users()).showById(userIds);
 	}
 
 	/**
@@ -1042,7 +1043,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public User follow(String username) throws TwitterException {
-		return users().follow(username);
+		return ((Twitter_UsersImpl)users()).follow(username);
 	}
 	
 	@Override
@@ -1063,7 +1064,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * Doesn't require a logged in user.
 	 */
 	public Twitter_Geo geo() {
-		return new Twitter_GeoImpl(this);
+		return (Twitter_Geo) new Twitter_GeoImpl(this);
 	}
 
 	/**
@@ -1112,7 +1113,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<Number> getFollowerIDs() throws TwitterException {
-		return users().getFollowerIDs();
+		return ((Twitter_UsersImpl)users()).getFollowerIDs();
 	}
 
 	/**
@@ -1121,7 +1122,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	@Deprecated
 	public List<Number> getFollowerIDs(String screenName)
 			throws TwitterException {
-		return users().getFollowerIDs(screenName);
+		return ((Twitter_UsersImpl)users()).getFollowerIDs(screenName);
 	}
 
 	/**
@@ -1129,7 +1130,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<User> getFollowers() throws TwitterException {
-		return users().getFollowers();
+		return ((Twitter_UsersImpl)users()).getFollowers();
 	}
 
 	/**
@@ -1137,7 +1138,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<User> getFollowers(String username) throws TwitterException {
-		return users().getFollowers(username);
+		return ((Twitter_UsersImpl)users()).getFollowers(username);
 	}
 
 	/**
@@ -1145,7 +1146,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<Number> getFriendIDs() throws TwitterException {
-		return users().getFriendIDs();
+		return ((Twitter_UsersImpl)users()).getFriendIDs();
 	}
 
 	/**
@@ -1153,7 +1154,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<Number> getFriendIDs(String screenName) throws TwitterException {
-		return users().getFriendIDs(screenName);
+		return ((Twitter_UsersImpl)users()).getFriendIDs(screenName);
 	}
 
 	/**
@@ -1161,7 +1162,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<User> getFriends() throws TwitterException {
-		return users().getFriends();
+		return ((Twitter_UsersImpl)users()).getFriends();
 	}
 
 	/**
@@ -1169,7 +1170,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<User> getFriends(String username) throws TwitterException {
-		return users().getFriends(username);
+		return ((Twitter_UsersImpl)users()).getFriends(username);
 	}
 
 	/**
@@ -1365,7 +1366,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	private List<Message> getMessages(String url, Map<String, String> var) {
 		// Default: 1 page
 		if (maxResults < 1) {
-			List<Message> msgs = Message.getMessages(http.getPage(url, var,
+			List<Message> msgs = MessageImpl.getMessages(http.getPage(url, var,
 					true));
 			msgs = dateFilter(msgs);
 			return msgs;
@@ -1376,7 +1377,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		List<Message> msgs = new ArrayList<Message>();
 		while (msgs.size() <= maxResults) {
 			String p = http.getPage(url, var, true);
-			List<Message> nextpage = Message.getMessages(p);
+			List<Message> nextpage = MessageImpl.getMessages(p);
 			nextpage = dateFilter(nextpage);
 			msgs.addAll(nextpage);
 			if (nextpage.size() < 20) {
@@ -1486,11 +1487,11 @@ public class TwitterImpl implements Serializable, Twitter {
 	 *            the id number.
 	 */
 	public List<User> getRetweeters(Status tweet) {
-		String url = TWITTER_URL + "/statuses/" + tweet.id
+		String url = TWITTER_URL + "/statuses/" + ((StatusImpl)tweet).id
 				+ "/retweeted_by.json";
 		Map<String, String> vars = addStandardishParameters(new HashMap<String, String>());
 		String json = http.getPage(url, vars, http.canAuthenticate());
-		List<User> users = User.getUsers(json);
+		List<User> users = UserImpl.getUsers(json);
 		return users;
 	}
 
@@ -1500,7 +1501,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 *         and a search call. It will miss edited retweets though.
 	 */
 	public List<Status> getRetweets(Status tweet) {
-		String url = TWITTER_URL + "/statuses/retweets/" + tweet.id + ".json";
+		String url = TWITTER_URL + "/statuses/retweets/" + ((StatusImpl)tweet).id + ".json";
 		Map<String, String> vars = addStandardishParameters(new HashMap<String, String>());
 		String json = http.getPage(url, vars, true);
 		List<Status> newStyle = StatusImpl.getStatuses(json);
@@ -1508,12 +1509,12 @@ public class TwitterImpl implements Serializable, Twitter {
 			// // Should we also do by search and merge the two lists?
 			StringBuilder sq = new StringBuilder();
 			sq.append("\"RT @" + tweet.getUser().getScreenName() + ": ");
-			if (sq.length() + tweet.text.length() + 1 > 140) {
-				int i = tweet.text.lastIndexOf(' ', 140 - sq.length() - 1);
-				String words = tweet.text.substring(0, i);
+			if (sq.length() + ((StatusImpl)tweet).text.length() + 1 > 140) {
+				int i = ((StatusImpl)tweet).text.lastIndexOf(' ', 140 - sq.length() - 1);
+				String words = ((StatusImpl)tweet).text.substring(0, i);
 				sq.append(words);
 			} else {
-				sq.append(tweet.text);
+				sq.append(((StatusImpl)tweet).text);
 			}
 			sq.append('"');
 			List<Status> oldStyle = search(sq.toString());
@@ -1952,7 +1953,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	@Deprecated
 	public boolean isFollower(String followerScreenName,
 			String followedScreenName) {
-		return users().isFollower(followerScreenName, followedScreenName);
+		return ((Twitter_UsersImpl)users()).isFollower(followerScreenName, followedScreenName);
 	}
 
 	/**
@@ -2241,7 +2242,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public List<User> searchUsers(String searchTerm) {
-		return users().searchUsers(searchTerm);
+		return ((Twitter_UsersImpl)users()).searchUsers(searchTerm);
 	}
 
 	/**
@@ -2572,7 +2573,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public User show(Number userId) {
-		return users().show(userId);
+		return ((Twitter_UsersImpl)users()).show(userId);
 	}
 
 	/**
@@ -2581,7 +2582,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	@Deprecated
 	public User show(String screenName) throws TwitterException,
 			TwitterExceptionImpl.SuspendedUser {
-		return users().show(screenName);
+		return ((Twitter_UsersImpl)users()).show(screenName);
 	}
 
 	/**
@@ -2645,7 +2646,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	@Deprecated
 	public User stopFollowing(String username) {
-		return users().stopFollowing(username);
+		return ((Twitter_UsersImpl)users()).stopFollowing(username);
 	}
 
 	/**
@@ -2898,7 +2899,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		// + other earlier sightings
 		// Sanity check...
 		String targetText = statusText.trim();
-		String returnedStatusText = s.text.trim();
+		String returnedStatusText = ((StatusImpl)s).text.trim();
 		// strip the urls to remove the effects of the t.co shortener
 		// (obviously this weakens the safety test, but failure would be
 		// a corner case of a corner case).
@@ -2968,7 +2969,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * User and social-network related API methods.
 	 */
 	public Twitter_Users users() {
-		return new Twitter_UsersImpl(this);
+		return (Twitter_Users) new Twitter_UsersImpl(this);
 	}
 
 }
