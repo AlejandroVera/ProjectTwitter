@@ -2,6 +2,7 @@ package winterwell.jtwitter;
 
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
+import interfacesComunes.User;
 
 import java.util.Date;
 
@@ -52,7 +53,7 @@ public class TwitterEventImpl implements TwitterEvent{
 	 */
 	public final String type;
 
-	TwitterEventImpl(Date createdAt, UserImpl source, String type, UserImpl target,
+	TwitterEventImpl(Date createdAt, User source, String type, User target,
 			Object targetObject) {
 		this.createdAt = createdAt;
 		this.source = source;

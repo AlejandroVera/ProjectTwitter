@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+import excepcionesComunes.TwitterException;
+
 
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
@@ -197,7 +199,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	/**
 	 * Needed for constructing some objects.
 	 */
-	final Twitter jtwit;
+	final TwitterImpl jtwit;
 
 	private BigInteger lastId = BigInteger.ZERO;
 
@@ -223,8 +225,8 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	boolean listenersOnly;
 
 	public AStreamImpl(Twitter jtwit2) {
-		this.client = jtwit2.getHttpClient();
-		this.jtwit = jtwit2;
+		this.client = ((TwitterImpl) jtwit2).getHttpClient();
+		this.jtwit = ((TwitterImpl) jtwit2);
 		// Twitter send 30 second keep-alive pulses, but ask that
 		// you wait 3 cycles before disconnecting
 		client.setTimeout(91 * 1000);
@@ -388,9 +390,9 @@ public abstract class AStreamImpl implements Closeable, AStream {
 			boolean ok = outages.remove(outage);
 			if ( ! ok) continue; // already done or dropped
 			try {						
-				jtwit2.setSinceId(outage.sinceId);
-				jtwit2.setUntilDate(new Date(outage.untilTime));
-				jtwit2.setMaxResults(100000); // hopefully not needed!
+				((TwitterImpl) jtwit2).setSinceId(outage.sinceId);
+				((TwitterImpl) jtwit2).setUntilDate(new Date(outage.untilTime));
+				((TwitterImpl) jtwit2).setMaxResults(100000); // hopefully not needed!
 				// fetch
 				fillInOutages2(jtwit2, outage);
 				// success
@@ -594,8 +596,8 @@ public abstract class AStreamImpl implements Closeable, AStream {
 			tweets.add(tweet);
 			// track the last Status id for tracking outages 
 			// (NB: Message ids are different & less generally useful)
-			if (tweet instanceof Status) {
-				BigInteger id = ((Status) tweet).id;
+			if (tweet instanceof StatusImpl) {
+				BigInteger id = ((StatusImpl) tweet).id;
 				if (id.compareTo(lastId) > 0) {
 					lastId = id;
 				}
@@ -650,7 +652,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		friends2.removeAll(oldFriends);
 		if (friends2.size() == 0)
 			return;
-		Twitter_Users tu = new Twitter_UsersImpl(jtwit);
+		Twitter_UsersImpl tu = new Twitter_UsersImpl(jtwit);
 		List<User> newFriends = tu.showById(friends2);
 		User you = jtwit.getSelf();
 		for (User nf : newFriends) {

@@ -43,7 +43,7 @@ import winterwell.utils.containers.ArrayMap;
  * Includes code by vlad@myjavatools.com under Apache license version 2.0
  * 
  */
-public class URLConnectionHttpClient implements Twitter.IHttpClient,
+public class URLConnectionHttpClient implements TwitterImpl.IHttpClient,
 		Serializable {
 	private static final int dfltTimeOutMilliSecs = 10 * 1000;
 
@@ -157,7 +157,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 		// To keep the search API happy - which wants either a referrer or a
 		// user agent
 		connection.setRequestProperty("User-Agent", "JTwitter/"
-				+ Twitter.version);
+				+ TwitterImpl.version);
 		connection.setDoInput(true);
 		connection.setConnectTimeout(timeout);
 		connection.setReadTimeout(timeout);

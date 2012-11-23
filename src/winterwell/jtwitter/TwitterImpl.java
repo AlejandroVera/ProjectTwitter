@@ -113,7 +113,7 @@ import winterwell.utils.reporting.Log;
  * 
  * @author Daniel Winterstein
  */
-public class TwitterImpl implements Serializable {
+public class TwitterImpl implements Serializable, Twitter {
 	/**
 	 * Use to register per-page callbacks for long-running searches. To stop the
 	 * search, return true.
