@@ -1,12 +1,16 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.AStream;
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+
 import java.net.HttpURLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import winterwell.utils.reporting.Log;
+//import winterwell.utils.reporting.Log;
 
 
 /**
@@ -16,7 +20,7 @@ import winterwell.utils.reporting.Log;
  * 
  * @author Daniel
  */
-public class TwitterStream extends AStream {
+public class TwitterStream extends AStreamImpl {
 
 	public static enum KMethod {
 		/**
@@ -69,7 +73,7 @@ public class TwitterStream extends AStream {
 	/**
 	 * Used to help avoid breaking api limits.
 	 */
-	static Map<String, AStream> user2stream = new ConcurrentHashMap();
+	static Map<String, AStreamImpl> user2stream = new ConcurrentHashMap();
 
 	private List<Long> follow;
 
@@ -85,7 +89,7 @@ public class TwitterStream extends AStream {
 	 *            This will have it's timeout set to 90 seconds. So you probably
 	 *            don't want to reuse the object with the REST api.
 	 */
-	public TwitterStream(Twitter jtwit) {
+	public TwitterStream(TwitterImpl jtwit) {
 		super(jtwit);
 	}
 
@@ -121,7 +125,7 @@ public class TwitterStream extends AStream {
 			return; // dunno
 		AStream s = user2stream.get(jtwit.getScreenName());
 		if (s != null && s.isConnected())
-			throw new TwitterException.TooManyLogins(
+			throw new TwitterExceptionImpl.TooManyLogins(
 					"One account, one stream (running: "
 							+ s
 							+ "; trying to run"

@@ -426,7 +426,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 			accessTokenSecret = consumer.getTokenSecret();
 		} catch (Exception e) {
 			if (e.getMessage().contains("401")) {
-				throw new TwitterException.E401(e.getMessage());
+				throw new TwitterExceptionImpl.E401(e.getMessage());
 			}
 			throw new TwitterExceptionImpl(e);
 		}

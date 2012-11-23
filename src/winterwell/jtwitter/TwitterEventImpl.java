@@ -30,11 +30,11 @@ public class TwitterEventImpl {
 	/**
 	 * The user who initiated the event
 	 */
-	public final User source;
+	public final UserImpl source;
 	/**
 	 * The user who was affected, or who owns the affected object.
 	 */
-	public final User target;
+	public final UserImpl target;
 	private Object targetObject;
 	/**
 	 * What type of event this is. Known values:
@@ -49,7 +49,7 @@ public class TwitterEventImpl {
 	 */
 	public final String type;
 
-	TwitterEventImpl(Date createdAt, User source, String type, User target,
+	TwitterEventImpl(Date createdAt, UserImpl source, String type, UserImpl target,
 			Object targetObject) {
 		this.createdAt = createdAt;
 		this.source = source;
@@ -58,7 +58,7 @@ public class TwitterEventImpl {
 		this.targetObject = targetObject;
 	}
 
-	public TwitterEventImpl(JSONObject jo, Twitter jtwit) throws JSONException {
+	public TwitterEventImpl(JSONObject jo, TwitterImpl jtwit) throws JSONException {
 		type = jo.getString("event");
 		target = new UserImpl(jo.getJSONObject("target"), null);
 		source = new UserImpl(jo.getJSONObject("source"), null);
@@ -81,14 +81,14 @@ public class TwitterEventImpl {
 	/**
 	 * The user who initiated the event
 	 */
-	public User getSource() {
+	public UserImpl getSource() {
 		return source;
 	}
 
 	/**
 	 * The user who was affected, or who owns the affected object.
 	 */
-	public User getTarget() {
+	public UserImpl getTarget() {
 		return target;
 	}
 

@@ -122,7 +122,7 @@ public class Twitter_AccountImpl implements Twitter_Account{
 		try {
 			verifyCredentials();
 			return accessLevel;
-		} catch (TwitterException.E401 e) {
+		} catch (TwitterExceptionImpl.E401 e) {
 			return KAccessLevel.NONE;
 		}
 	}
@@ -220,12 +220,12 @@ public class Twitter_AccountImpl implements Twitter_Account{
 	 * 
 	 * @return a representation of the requesting user if authentication was
 	 *         successful
-	 * @throws TwitterException.E401
+	 * @throws TwitterExceptionImpl.E401
 	 *             thrown if the authorisation credentials fail.
 	 * 
 	 * @see Twitter#isValidLogin()
 	 */
-	public User verifyCredentials() throws TwitterException.E401 {
+	public User verifyCredentials() throws TwitterExceptionImpl.E401 {
 		String url = jtwit.TWITTER_URL + "/account/verify_credentials.json";
 		String json = jtwit.getHttpClient().getPage(url, null, true);
 		// store the access level info

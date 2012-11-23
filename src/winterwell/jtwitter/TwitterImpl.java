@@ -19,10 +19,10 @@ import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
 import winterwell.jtwitter.Twitter.KEntityType;
-import winterwell.jtwitter.TwitterException.E401;
-import winterwell.jtwitter.TwitterException.E403;
-import winterwell.jtwitter.TwitterException.E404;
-import winterwell.jtwitter.TwitterException.SuspendedUser;
+import winterwell.jtwitter.TwitterExceptionImpl.E401;
+import winterwell.jtwitter.TwitterExceptionImpl.E403;
+import winterwell.jtwitter.TwitterExceptionImpl.E404;
+import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
 import winterwell.utils.reporting.Log;
 
 /**
@@ -229,7 +229,7 @@ public class TwitterImpl implements Serializable {
 		 * 
 		 * @throws TwitterException
 		 *             for a variety of reasons
-		 * @throws TwitterException.E404
+		 * @throws TwitterExceptionImpl.E404
 		 *             for resource-does-not-exist errors
 		 */
 		String getPage(String uri, Map<String, String> vars,
@@ -255,7 +255,7 @@ public class TwitterImpl implements Serializable {
 		 * 
 		 * @throws TwitterException
 		 *             for a variety of reasons
-		 * @throws TwitterException.E404
+		 * @throws TwitterExceptionImpl.E404
 		 *             for resource-does-not-exist errors
 		 */
 		String post(String uri, Map<String, String> vars, boolean authenticate)
@@ -1312,7 +1312,7 @@ public class TwitterImpl implements Serializable {
 		Matcher m = contentTag.matcher(response);
 		boolean ok = m.find();
 		if (!ok)
-			throw new TwitterException.TwitLongerException(
+			throw new TwitterExceptionImpl.TwitLongerException(
 					"TwitLonger call failed", response);
 		String longMsg = m.group(1).trim();
 		return longMsg;
@@ -1697,7 +1697,7 @@ public class TwitterImpl implements Serializable {
 			try {
 				msgs = Status.getStatuses(http.getPage(url, var,
 						authenticate));
-			} catch (TwitterException.Parsing pex) {
+			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
 				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
@@ -1723,7 +1723,7 @@ public class TwitterImpl implements Serializable {
 			try {
 				String json = http.getPage(url, var, authenticate);
 				nextpage = Status.getStatuses(json);
-			} catch (TwitterException.Parsing pex) {
+			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
 				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
@@ -1862,10 +1862,10 @@ public class TwitterImpl implements Serializable {
 	 * @param screenName
 	 *            Can be null. Specifies the screen name of the user for whom to
 	 *            return the user_timeline.
-	 * @throws TwitterException.E401
+	 * @throws TwitterExceptionImpl.E401
 	 *             if the user has protected their tweets, and you do not have
 	 *             access.
-	 * @throws TwitterException.SuspendedUser
+	 * @throws TwitterExceptionImpl.SuspendedUser
 	 *             if the user has been suspended
 	 */
 	public List<Status> getUserTimeline(String screenName)
@@ -1879,7 +1879,7 @@ public class TwitterImpl implements Serializable {
 			return getStatuses(TWITTER_URL + "/statuses/user_timeline.json",
 					vars, authenticate);
 		} catch (E404 e){
-			throw new TwitterException.E404("Twitter does not return any information for " + screenName + 
+			throw new TwitterExceptionImpl.E404("Twitter does not return any information for " + screenName + 
 					". They may have been deleted long ago.");
 		}
 		catch (E401 e) {
@@ -2034,9 +2034,9 @@ public class TwitterImpl implements Serializable {
 			Twitter_Account ta = new Twitter_AccountImpl(this);
 			User u = ta.verifyCredentials();
 			return true;
-		} catch (TwitterException.E403 e) {
+		} catch (TwitterExceptionImpl.E403 e) {
 			return false;
-		} catch (TwitterException.E401 e) {
+		} catch (TwitterExceptionImpl.E401 e) {
 			return false;
 		} catch (TwitterException e) {
 			throw e;
@@ -2083,7 +2083,7 @@ public class TwitterImpl implements Serializable {
 			List<Status> rts = getRetweetsByMe();
 			for (Status rt : rts) {
 				if (tweet.equals(rt.getOriginal()))
-					throw new TwitterException.Repetition(rt.getText());
+					throw new TwitterExceptionImpl.Repetition(rt.getText());
 			}
 			throw e;
 		} catch (JSONException e) {
@@ -2160,7 +2160,7 @@ public class TwitterImpl implements Serializable {
 			try {
 				String json = http.getPage(url, vars, false);
 				stati = Status.getStatusesFromSearch(this, json);
-			} catch (TwitterException.Parsing pex) {
+			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
 				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
@@ -2244,7 +2244,7 @@ public class TwitterImpl implements Serializable {
 	 *            Required. The text of your direct message. Keep it under 140
 	 *            characters! This should *not* include the "d username" portion
 	 * @return the sent message
-	 * @throws TwitterException.E403
+	 * @throws TwitterExceptionImpl.E403
 	 *             if the recipient is not following you. (you can \@mention
 	 *             anyone but you can only dm people who follow you).
 	 */
@@ -2267,9 +2267,9 @@ public class TwitterImpl implements Serializable {
 			return new MessageImpl(new JSONObject(result));
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl.Parsing(result, e);
-		} catch (TwitterException.E404 e) {
+		} catch (TwitterExceptionImpl.E404 e) {
 			// suspended user?? TODO investigate
-			throw new TwitterException.E404(e.getMessage() + " with recipient="
+			throw new TwitterExceptionImpl.E404(e.getMessage() + " with recipient="
 					+ recipient + ", text=" + text);
 		}
 	}
@@ -2312,7 +2312,7 @@ public class TwitterImpl implements Serializable {
 			// already a favorite?
 			if (e.getMessage() != null
 					&& e.getMessage().contains("already favorited"))
-				throw new TwitterException.Repetition(
+				throw new TwitterExceptionImpl.Repetition(
 						"You have already favorited this status.");
 			// just a normal 403
 			throw e;
@@ -2570,7 +2570,7 @@ public class TwitterImpl implements Serializable {
 	 */
 	@Deprecated
 	public User show(String screenName) throws TwitterException,
-			TwitterException.SuspendedUser {
+			TwitterExceptionImpl.SuspendedUser {
 		return users().show(screenName);
 	}
 
@@ -2701,7 +2701,7 @@ public class TwitterImpl implements Serializable {
 		Matcher m = contentTag.matcher(response);
 		boolean ok = m.find();
 		if (!ok)
-			throw new TwitterException.TwitLongerException(
+			throw new TwitterExceptionImpl.TwitLongerException(
 					"TwitLonger call failed", response);
 		String shortMsg = m.group(1).trim();
 
@@ -2863,7 +2863,7 @@ public class TwitterImpl implements Serializable {
 	}
 
 	/**
-	 * Test that the updateState worked -- throw TwitterException.Unexplained
+	 * Test that the updateState worked -- throw TwitterExceptionImpl.Unexplained
 	 * if it didn't.<br>
 	 * By default, this only filters DMs.<br>
 	 * Serious checking is switched on via the {@link #WORRIED_ABOUT_TWITTER} flag.
@@ -2911,7 +2911,7 @@ public class TwitterImpl implements Serializable {
 				return s2;
 			}
 		}
-		throw new TwitterException.Unexplained(
+		throw new TwitterExceptionImpl.Unexplained(
 				"Unexplained failure for tweet: expected \"" + statusText
 						+ "\" but got " + s2);
 	}
@@ -2947,7 +2947,7 @@ public class TwitterImpl implements Serializable {
 			// test for repetition (which gets a 403)
 			Status s = getStatus();
 			if (s != null && s.getText().equals(statusText))
-				throw new TwitterException.Repetition(s.getText());
+				throw new TwitterExceptionImpl.Repetition(s.getText());
 			throw e;
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl.Parsing(result, e);

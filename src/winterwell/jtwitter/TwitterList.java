@@ -13,7 +13,7 @@ import java.util.Map;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.IHttpClient;
+import winterwell.jtwitter.TwitterImpl.IHttpClient;
 
 /**
  * A Twitter list, which uses lazy-fetching of its members.
@@ -35,7 +35,7 @@ import winterwell.jtwitter.Twitter.IHttpClient;
  * @author daniel
  * 
  */
-public class TwitterList extends AbstractList<User> {
+public class TwitterList extends AbstractList<UserImpl> {
 
 	/**
 	 * A lazy-loading list viewer. This will fetch details from Twitter when you
@@ -55,7 +55,7 @@ public class TwitterList extends AbstractList<User> {
 	 *             if the list does not exist
 	 */
 	public static TwitterList get(String ownerScreenName, String slug,
-			Twitter jtwit) {
+			TwitterImpl jtwit) {
 		return new TwitterList(ownerScreenName, slug, jtwit);
 	}
 
@@ -75,7 +75,7 @@ public class TwitterList extends AbstractList<User> {
 
 	private Number id;
 
-	private final Twitter jtwit;
+	private final TwitterImpl jtwit;
 
 	private int memberCount = -1;
 
@@ -84,13 +84,13 @@ public class TwitterList extends AbstractList<User> {
 	/**
 	 * never null (but may be a dummy object)
 	 */
-	private User owner;
+	private UserImpl owner;
 
 	private String slug;
 
 	private int subscriberCount;
 
-	private final List<User> users = new ArrayList<User>();
+	private final List<UserImpl> users = new ArrayList<UserImpl>();
 
 	/**
 	 * Used by {@link Twitter#getLists(String)}
@@ -99,7 +99,7 @@ public class TwitterList extends AbstractList<User> {
 	 * @param jtwit
 	 * @throws JSONException
 	 */
-	TwitterList(JSONObject json, Twitter jtwit) throws JSONException {
+	TwitterList(JSONObject json, TwitterImpl jtwit) throws JSONException {
 		this.jtwit = jtwit;
 		this.http = jtwit.getHttpClient();
 		init2(json);
@@ -128,7 +128,7 @@ public class TwitterList extends AbstractList<User> {
 	 *             {@link #get(String, String, Twitter)} instead.
 	 */
 	@Deprecated
-	public TwitterList(String ownerScreenName, String slug, Twitter jtwit) {
+	public TwitterList(String ownerScreenName, String slug, TwitterImpl jtwit) {
 		assert ownerScreenName != null && slug != null && jtwit != null;
 		this.jtwit = jtwit;
 		this.owner = new UserImpl(ownerScreenName); // use a dummy here
@@ -150,7 +150,7 @@ public class TwitterList extends AbstractList<User> {
 	 * @param description
 	 *            A description for this list. Can be null.
 	 */
-	public TwitterList(String listName, Twitter jtwit, boolean isPublic,
+	public TwitterList(String listName, TwitterImpl jtwit, boolean isPublic,
 			String description) {
 		assert listName != null && jtwit != null;
 		this.jtwit = jtwit;
@@ -179,7 +179,7 @@ public class TwitterList extends AbstractList<User> {
 	 * @return testing for membership could be slow, so this is usually true.
 	 */
 	@Override
-	public boolean add(User user) {
+	public boolean add(UserImpl user) {
 		if (users.contains(user))
 			return false;
 		String url = jtwit.TWITTER_URL + "/lists/members/create.json";
@@ -199,7 +199,7 @@ public class TwitterList extends AbstractList<User> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends User> newUsers) {
+	public boolean addAll(Collection<? extends UserImpl> newUsers) {
 		List newUsersList = new ArrayList(newUsers);
 		newUsersList.removeAll(users);
 		if (newUsersList.size() == 0)
@@ -241,7 +241,7 @@ public class TwitterList extends AbstractList<User> {
 	}
 
 	@Override
-	public User get(int index) {
+	public UserImpl get(int index) {
 		// pull from Twitter as needed
 		String url = jtwit.TWITTER_URL + "/lists/members.json";
 		Map<String, String> vars = getListVars();
@@ -251,7 +251,7 @@ public class TwitterList extends AbstractList<User> {
 			try {
 				JSONObject jobj = new JSONObject(json);
 				JSONArray jarr = (JSONArray) jobj.get("users");
-				List<User> users1page = User.getUsers(jarr.toString());
+				List<UserImpl> users1page = UserImpl.getUsers(jarr.toString());
 				users.addAll(users1page);
 				cursor = new Long(jobj.getString("next_cursor"));
 			} catch (JSONException e) {
@@ -284,7 +284,7 @@ public class TwitterList extends AbstractList<User> {
 		return name;
 	}
 
-	public User getOwner() {
+	public UserImpl getOwner() {
 		return owner;
 	}
 
@@ -295,13 +295,13 @@ public class TwitterList extends AbstractList<User> {
 	 * @throws TwitterException
 	 */
 	// Added TG 3/31/10
-	public List<Status> getStatuses() throws TwitterException {
+	public List<StatusImpl> getStatuses() throws TwitterExceptionImpl {
 		try {
 			String jsonListStatuses = http.getPage(
 					jtwit.TWITTER_URL + "/" + owner.screenName + "/lists/"
 							+ URLEncoder.encode(slug, "UTF-8")
 							+ "/statuses.json", null, http.canAuthenticate());
-			List<Status> msgs = Status.getStatuses(jsonListStatuses);
+			List<StatusImpl> msgs = StatusImpl.getStatuses(jsonListStatuses);
 			return msgs;
 		} catch (UnsupportedEncodingException e) {
 			throw new TwitterExceptionImpl(e);
@@ -317,14 +317,14 @@ public class TwitterList extends AbstractList<User> {
 	 * @return users who follow this list. Currently this is just the first 20
 	 *         users. TODO cursor support for more than 20 users.
 	 */
-	public List<User> getSubscribers() {
+	public List<UserImpl> getSubscribers() {
 		String url = jtwit.TWITTER_URL + "/lists/subscribers.json";
 		Map<String, String> vars = getListVars();
 		String json = http.getPage(url, vars, true);
 		try {
 			JSONObject jobj = new JSONObject(json);
 			JSONArray jsonUsers = jobj.getJSONArray("users");
-			return User.getUsers2(jsonUsers);
+			return UserImpl.getUsers2(jsonUsers);
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl("Could not parse response: " + e);
 		}
@@ -378,7 +378,7 @@ public class TwitterList extends AbstractList<User> {
 	@Override
 	public boolean remove(Object o) {
 		try {
-			User user = (User) o;
+			UserImpl user = (UserImpl) o;
 			String url = jtwit.TWITTER_URL + "/lists/members/destroy.json";
 			Map map = getListVars();
 			map.put("screen_name", user.screenName);

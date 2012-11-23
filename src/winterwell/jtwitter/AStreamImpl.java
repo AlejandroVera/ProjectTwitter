@@ -221,9 +221,9 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	 */
 	boolean listenersOnly;
 
-	public AStreamImpl(Twitter jtwit) {
-		this.client = jtwit.getHttpClient();
-		this.jtwit = jtwit;
+	public AStreamImpl(TwitterImpl jtwit2) {
+		this.client = jtwit2.getHttpClient();
+		this.jtwit = jtwit2;
 		// Twitter send 30 second keep-alive pulses, but ask that
 		// you wait 3 cycles before disconnecting
 		client.setTimeout(91 * 1000);
@@ -718,7 +718,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		try {
 			connect();
 			return;
-		} catch (TwitterException.E40X e) {
+		} catch (TwitterExceptionImpl.E40X e) {
 			// User error (e.g. TooManyLogins) -- don't keep trying
 			throw e;
 		} catch (Exception e) {
@@ -742,14 +742,14 @@ public abstract class AStreamImpl implements Closeable, AStream {
 				connect();
 				// success :)
 				return;
-			} catch (TwitterException.E40X e) {
+			} catch (TwitterExceptionImpl.E40X e) {
 				throw e;
 			} catch (Exception e) {
 				// oh well
 				System.out.println(e);
 			}
 		}
-		throw new TwitterException.E50X("Could not connect to streaming server");
+		throw new TwitterExceptionImpl.E50X("Could not connect to streaming server");
 	}
 
 	synchronized void reconnectFromGobblerThread() {

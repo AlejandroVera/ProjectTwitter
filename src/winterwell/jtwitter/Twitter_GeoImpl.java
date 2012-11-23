@@ -54,7 +54,7 @@ public class Twitter_GeoImpl implements IGeoCode {
 	public List<Place> geoSearch(String query) {
 		// quick-fail if we know we're rate limited??
 //		if (jtwit.isRateLimited(KRequestType.NORMAL, 1)) {
-//			throw new TwitterException.RateLimit("enhance your calm");
+//			throw new TwitterExceptionImpl.RateLimit("enhance your calm");
 //		}		
 		String url = jtwit.TWITTER_URL + "/geo/search.json";
 		Map vars = InternalUtils.asMap("query", query);

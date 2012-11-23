@@ -114,7 +114,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	 * This indicates an error in you request. You should catch E40X and deal
 	 * with the cause. Don't just re-try -- it won't work.
 	 */
-	public static class E40X extends TwitterException {
+	public static class E40X extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public E40X(String string) {
@@ -162,7 +162,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	 * they probably are - but could conceivably be caused by an error in your
 	 * internet connection.
 	 */
-	public static class E50X extends TwitterException {
+	public static class E50X extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public E50X(String string) {
@@ -198,7 +198,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	 * original IOException
 	 */
 	// ?? Should this extend E50X?
-	public static class IO extends TwitterException {
+	public static class IO extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public IO(IOException e) {
@@ -216,7 +216,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	 * occur! This indicates either a change in the API, a Twitter server glitch, 
 	 * or a bug in JTwitter.
 	 */
-	public static class Parsing extends TwitterException {
+	public static class Parsing extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -255,7 +255,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	/**
 	 * Indicates a rate limit error (i.e. you've over-used Twitter)
 	 */
-	public static class RateLimit extends TwitterException {
+	public static class RateLimit extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public RateLimit(String string) {
@@ -294,7 +294,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	/**
 	 * A timeout exception - probably caused by Twitter being overloaded.
 	 */
-	public static class Timeout extends TwitterException.E50X {
+	public static class Timeout extends TwitterExceptionImpl.E50X {
 		private static final long serialVersionUID = 1L;
 
 		public Timeout(String string) {
@@ -337,7 +337,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	 * Exception thrown if something goes wrong with twilonger.com integration
 	 * for long tweets.
 	 */
-	public static class TwitLongerException extends TwitterException {
+	public static class TwitLongerException extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public TwitLongerException(String string, String details) {
@@ -348,7 +348,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	/**
 	 * Something has gone wrong. Occasionally Twitter behaves strangely.
 	 */
-	public static class Unexplained extends TwitterException {
+	public static class Unexplained extends TwitterExceptionImpl {
 		private static final long serialVersionUID = 1L;
 
 		public Unexplained(String msg) {
@@ -373,12 +373,12 @@ public class TwitterExceptionImpl extends RuntimeException {
 	private String additionalInfo = "";
 
 	/**
-	 * Wrap an exception as a TwitterException.
+	 * Wrap an exception as a TwitterExceptionImpl.
 	 */
 	TwitterExceptionImpl(Exception e) {
 		super(e);
 		// avoid gratuitous nesting of exceptions
-		assert !(e instanceof TwitterException) : e;
+		assert !(e instanceof TwitterExceptionImpl) : e;
 	}
 
 	/**
@@ -391,7 +391,7 @@ public class TwitterExceptionImpl extends RuntimeException {
 	TwitterExceptionImpl(String msg, Exception e) {
 		super(msg, e);
 		// avoid gratuitous nesting of exceptions
-		assert !(e instanceof TwitterException) : e;
+		assert !(e instanceof TwitterExceptionImpl) : e;
 	}
 
 	public TwitterExceptionImpl(String string, String additionalInfo) {

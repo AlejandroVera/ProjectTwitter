@@ -135,7 +135,7 @@ public class Twitter_UsersImpl {
 			return new UserImpl(new JSONObject(page), null);
 		} catch (SuspendedUser e) {
 			throw e;
-		} catch (TwitterException.Repetition e) {
+		} catch (TwitterExceptionImpl.Repetition e) {
 			return null;
 		} catch (E403 e) {
 			// check if we've tried to follow someone we're already following
@@ -454,7 +454,7 @@ public class Twitter_UsersImpl {
 			String json = http.getPage(jtwit.TWITTER_URL
 					+ "/blocks/exists.json", vars, true);
 			return true;
-		} catch (TwitterException.E404 e) {
+		} catch (TwitterExceptionImpl.E404 e) {
 			return false;
 		}
 	}
@@ -473,13 +473,13 @@ public class Twitter_UsersImpl {
 	/**
 	 * @return true if followerScreenName <i>is</i> following followedScreenName
 	 * 
-	 * @throws TwitterException.E403
+	 * @throws TwitterExceptionImpl.E403
 	 *             if one of the users has protected their updates and you don't
 	 *             have access. This can be counter-intuitive (and annoying) at
 	 *             times! Also throws E403 if one of the users has been
 	 *             suspended (we use the {@link SuspendedUser} exception
 	 *             sub-class for this).
-	 * @throws TwitterException.E404
+	 * @throws TwitterExceptionImpl.E404
 	 *             if one of the users does not exist
 	 */
 	public boolean isFollower(String followerScreenName,
@@ -491,7 +491,7 @@ public class Twitter_UsersImpl {
 			String page = http.getPage(jtwit.TWITTER_URL
 					+ "/friendships/exists.json", vars, http.canAuthenticate());
 			return Boolean.valueOf(page);
-		} catch (TwitterException.E403 e) {
+		} catch (TwitterExceptionImpl.E403 e) {
 			if (e instanceof SuspendedUser)
 				throw e;
 			// Should this be a suspended user exception instead?
@@ -692,12 +692,12 @@ public class Twitter_UsersImpl {
 		}
 		catch (Exception e){
 			//we get here?
-			throw new TwitterException.E404("User " + screenName
+			throw new TwitterExceptionImpl.E404("User " + screenName
 					+ " does not seem to exist, their user account may have been removed from the service");
 		}
 		//Debuggers no longer at work
 		if (json.length() == 0)
-			throw new TwitterException.E404(screenName
+			throw new TwitterExceptionImpl.E404(screenName
 					+ " does not seem to exist");
 		try {
 			User user = new UserImpl(new JSONObject(json), null);
@@ -802,9 +802,9 @@ public class Twitter_UsersImpl {
 			// ?? possibly we should bypass the API:
 			// request their twitter.com page & check for a 404
 			show(screenName);
-		} catch (TwitterException.SuspendedUser e) {
+		} catch (TwitterExceptionImpl.SuspendedUser e) {
 			return false;
-		} catch (TwitterException.E404 e) {
+		} catch (TwitterExceptionImpl.E404 e) {
 			return false;
 		}
 		return true;

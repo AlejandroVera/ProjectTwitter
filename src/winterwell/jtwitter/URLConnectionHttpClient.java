@@ -1,5 +1,7 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Twitter;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -21,8 +23,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import excepcionesComunes.TwitterException;
+
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.KRequestType;
+import winterwell.jtwitter.TwitterImpl.KRequestType;
 import winterwell.jtwitter.guts.Base64Encoder;
 import winterwell.jtwitter.guts.ClientHttpRequest;
 import winterwell.utils.containers.ArrayMap;
@@ -31,7 +35,7 @@ import winterwell.utils.containers.ArrayMap;
  * A simple http client that uses the built in URLConnection class.
  * <p>
  * Provides Twitter-focused error-handling, generating the right
- * TwitterException. Also has a retry-on-error mode which can help smooth out
+ * TwitterExceptionImpl. Also has a retry-on-error mode which can help smooth out
  * Twitter's sometimes intermittent service. See
  * {@link #setRetryOnError(boolean)}.
  * 
@@ -100,7 +104,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 	
 	/**
 	 * @param htmlImpliesError default is true. If true, an html response will
-	 * be treated as a server error & generate a TwitterException.E50X 
+	 * be treated as a server error & generate a TwitterExceptionImpl.E50X 
 	 */
 	public void setHtmlImpliesError(boolean htmlImpliesError) {
 		this.htmlImpliesError = htmlImpliesError;
@@ -165,7 +169,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 	}
 
 	@Override
-	public Twitter.IHttpClient copy() {
+	public TwitterImpl.IHttpClient copy() {
 		URLConnectionHttpClient c = new URLConnectionHttpClient(name, password);
 		c.setTimeout(timeout);
 		c.setRetryOnError(retryOnError);
@@ -222,7 +226,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 					// OK
 				} else {
 					String meat = InternalUtils.stripTags(json);
-					throw new TwitterException.E50X(meat);
+					throw new TwitterExceptionImpl.E50X(meat);
 				}
 			}
 			return json;			
@@ -235,7 +239,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			} catch (Exception e2) {
 				throw getPage2_ex(e, url);
 			}
-		} catch (TwitterException.E50X e) {
+		} catch (TwitterExceptionImpl.E50X e) {
 			if ( ! retryOnError) throw getPage2_ex(e, url);
 			try {
 				// wait half a second before retrying
@@ -245,7 +249,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 				throw getPage2_ex(e, url);
 			}
 		} catch (IOException e) {
-			throw new TwitterException.IO(e);
+			throw new TwitterExceptionImpl.IO(e);
 		} 
 	}
 
@@ -253,12 +257,12 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 	 * Called on error. What to throw? 
 	 */
 	private TwitterException getPage2_ex(Exception ex, String url) {
-		if (ex instanceof TwitterException) return (TwitterException) ex;
+		if (ex instanceof TwitterExceptionImpl) return (TwitterExceptionImpl) ex;
 		if (ex instanceof SocketTimeoutException) {
-			return new TwitterException.Timeout(url);
+			return new TwitterExceptionImpl.Timeout(url);
 		}
 		if (ex instanceof IOException) {
-			return new TwitterException.IO((IOException) ex);
+			return new TwitterExceptionImpl.IO((IOException) ex);
 		}
 		return new TwitterExceptionImpl(ex);
 	}
@@ -304,7 +308,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			String json = post2(uri, vars, authenticate);
 			// ?? Test for and treat html as an error??
 			return json;
-		} catch (TwitterException.E50X e) {
+		} catch (TwitterExceptionImpl.E50X e) {
 			if ( ! retryOnError) throw getPage2_ex(e, uri);
 			try {
 				// wait half a second before retrying
@@ -401,13 +405,13 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			// which error?
 			if (code == 401) {
 				if (error.contains("Basic authentication is not supported"))
-					throw new TwitterException.UpdateToOAuth();
-				throw new TwitterException.E401(error + "\n" + url + " ("
+					throw new TwitterExceptionImpl.UpdateToOAuth();
+				throw new TwitterExceptionImpl.E401(error + "\n" + url + " ("
 						+ (name == null ? "anonymous" : name) + ")");
 			}
 			if (code == 400 && error.contains("215")) {
 				// Twitter-error-code 215 "Bad Authentication data" uses http-code 400, though 401 makes more sense.
-				throw new TwitterException.E401(error);
+				throw new TwitterExceptionImpl.E401(error);
 			}
 			if (code == 403) {
 				// separate out the 403 cases
@@ -417,20 +421,20 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 				// user deleted?
 				if (error != null && error.contains("deleted"))
 					// Note: This is a 403 exception
-					throw new TwitterException.SuspendedUser(error+ "\n"+ url);
-				throw new TwitterException.E404(error + "\n" + url);
+					throw new TwitterExceptionImpl.SuspendedUser(error+ "\n"+ url);
+				throw new TwitterExceptionImpl.E404(error + "\n" + url);
 			}
 			if (code == 406)
 				// Hm: It might be nice to have info on post variables here 
-				throw new TwitterException.E406(error + "\n" + url);
+				throw new TwitterExceptionImpl.E406(error + "\n" + url);
 			if (code == 413)
-				throw new TwitterException.E413(error + "\n" + url);
+				throw new TwitterExceptionImpl.E413(error + "\n" + url);
 			if (code == 416)
-				throw new TwitterException.E416(error + "\n" + url);
+				throw new TwitterExceptionImpl.E416(error + "\n" + url);
 			if (code == 420)
-				throw new TwitterException.TooManyLogins(error + "\n" + url);
+				throw new TwitterExceptionImpl.TooManyLogins(error + "\n" + url);
 			if (code >= 500 && code < 600)
-				throw new TwitterException.E50X(error + "\n" + url);
+				throw new TwitterExceptionImpl.E50X(error + "\n" + url);
 
 			// Over the rate limit?
 			processError2_rateLimit(connection, code, error);
@@ -446,16 +450,16 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 
 		} catch (SocketTimeoutException e) {
 			URL url = connection.getURL();
-			throw new TwitterException.Timeout(timeout + "milli-secs for "
+			throw new TwitterExceptionImpl.Timeout(timeout + "milli-secs for "
 					+ url);
 		} catch (ConnectException e) {
 			// probably also a time out
 			URL url = connection.getURL();
-			throw new TwitterException.Timeout(url.toString());
+			throw new TwitterExceptionImpl.Timeout(url.toString());
 		} catch (SocketException e) {
 			// treat as a server error - because it probably is
 			// (yes, it could also be an error at your end)
-			throw new TwitterException.E50X(e.toString());
+			throw new TwitterExceptionImpl.E50X(e.toString());
 		} catch (IOException e) {
 			throw new TwitterExceptionImpl(e);
 		}
@@ -495,28 +499,28 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 		// is this a "too old" exception?
 		String _name = name==null? "anon" : name;
 		if (errorPage == null) {
-			throw new TwitterException.E403(url + " (" + _name+ ")");
+			throw new TwitterExceptionImpl.E403(url + " (" + _name+ ")");
 		}
 		if (errorPage.contains("too old"))
-			throw new TwitterException.BadParameter(errorPage + "\n" + url);
+			throw new TwitterExceptionImpl.BadParameter(errorPage + "\n" + url);
 		// is this a suspended user exception?
 		if (errorPage.contains("suspended"))
-			throw new TwitterException.SuspendedUser(errorPage + "\n" + url);
+			throw new TwitterExceptionImpl.SuspendedUser(errorPage + "\n" + url);
 		// this can be caused by looking up is-follower wrt a suspended
 		// account
 		if (errorPage.contains("Could not find"))
-			throw new TwitterException.SuspendedUser(errorPage + "\n" + url);
+			throw new TwitterExceptionImpl.SuspendedUser(errorPage + "\n" + url);
 		if (errorPage.contains("too recent"))
-			throw new TwitterException.TooRecent(errorPage + "\n" + url);
+			throw new TwitterExceptionImpl.TooRecent(errorPage + "\n" + url);
 		if (errorPage.contains("already requested to follow"))
-			throw new TwitterException.Repetition(errorPage + "\n" + url);
+			throw new TwitterExceptionImpl.Repetition(errorPage + "\n" + url);
 		if (errorPage.contains("duplicate"))
-			throw new TwitterException.Repetition(errorPage);
+			throw new TwitterExceptionImpl.Repetition(errorPage);
 		if (errorPage.contains("unable to follow more people"))
-			throw new TwitterException.FollowerLimit(name + " " + errorPage);
+			throw new TwitterExceptionImpl.FollowerLimit(name + " " + errorPage);
 		if (errorPage.contains("application is not allowed to access"))
-			throw new TwitterException.AccessLevel(name + " " + errorPage);
-		throw new TwitterException.E403(errorPage + "\n" + url + " (" + _name+ ")");
+			throw new TwitterExceptionImpl.AccessLevel(name + " " + errorPage);
+		throw new TwitterExceptionImpl.E403(errorPage + "\n" + url + " (" + _name+ ")");
 	}
 
 	private void processError2_rateLimit(HttpURLConnection connection,
@@ -525,7 +529,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 		if (rateLimitExceeded) {
 			// store the rate limit info
 			processHeaders(connection);
-			throw new TwitterException.RateLimit(getName() + ": " + error);
+			throw new TwitterExceptionImpl.RateLimit(getName() + ": " + error);
 		}
 		// The Rate limiter can sometimes cause a 400 Bad Request
 		if (code == 400) {
@@ -536,7 +540,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 				JSONObject obj = new JSONObject(json);
 				int hits = obj.getInt("remaining_hits");
 				if (hits < 1)
-					throw new TwitterException.RateLimit(error);
+					throw new TwitterExceptionImpl.RateLimit(error);
 			} catch (Exception e) {
 				// oh well
 			}
@@ -581,7 +585,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			String password) {
 		if (name==null || password==null) {
 			// You probably want to use OAuthSignpostClient!
-			throw new TwitterException.E401("Authentication requested but no authorisation details are set!");
+			throw new TwitterExceptionImpl.E401("Authentication requested but no authorisation details are set!");
 		}
 		String token = name + ":" + password;
 		String encoding = Base64Encoder.encode(token);
@@ -635,7 +639,7 @@ public class URLConnectionHttpClient implements Twitter.IHttpClient,
 			// Stop early to protect limits?
 			// TODO move this code into Twitter so we can do it before a request
 			if (minRateLimit > 0 && Integer.valueOf(limit) <= minRateLimit)
-				throw new TwitterException.RateLimit(
+				throw new TwitterExceptionImpl.RateLimit(
 						"Pre-emptive rate-limit block.");
 		}
 	}
