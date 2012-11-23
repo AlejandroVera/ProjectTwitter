@@ -1,5 +1,6 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
 
 import java.util.Date;
@@ -60,7 +61,7 @@ public class TwitterEventImpl implements TwitterEvent{
 		this.targetObject = targetObject;
 	}
 
-	public TwitterEventImpl(JSONObject jo, TwitterImpl jtwit) throws JSONException {
+	public TwitterEventImpl(JSONObject jo, Twitter jtwitr) throws JSONException {
 		type = jo.getString("event");
 		target = new UserImpl(jo.getJSONObject("target"), null);
 		source = new UserImpl(jo.getJSONObject("source"), null);
@@ -70,7 +71,7 @@ public class TwitterEventImpl implements TwitterEvent{
 		if (to == null)
 			return;
 		if (to.has("member_count")) {
-			targetObject = new TwitterList(to, jtwit);
+			targetObject = new TwitterList(to, jtwitr);
 		} else {
 			targetObject = to;
 		}

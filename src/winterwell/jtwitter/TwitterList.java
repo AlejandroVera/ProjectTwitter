@@ -1,5 +1,9 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+import interfacesComunes.User;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.AbstractList;
@@ -55,7 +59,7 @@ public class TwitterList extends AbstractList<UserImpl> {
 	 *             if the list does not exist
 	 */
 	public static TwitterList get(String ownerScreenName, String slug,
-			TwitterImpl jtwit) {
+			Twitter jtwit) {
 		return new TwitterList(ownerScreenName, slug, jtwit);
 	}
 
@@ -90,18 +94,18 @@ public class TwitterList extends AbstractList<UserImpl> {
 
 	private int subscriberCount;
 
-	private final List<UserImpl> users = new ArrayList<UserImpl>();
+	private final List<User> users = new ArrayList<User>();
 
 	/**
 	 * Used by {@link Twitter#getLists(String)}
 	 * 
 	 * @param json
-	 * @param jtwit
+	 * @param (jtwitr)
 	 * @throws JSONException
 	 */
-	TwitterList(JSONObject json, TwitterImpl jtwit) throws JSONException {
-		this.jtwit = jtwit;
-		this.http = jtwit.getHttpClient();
+	TwitterList(JSONObject json, Twitter jtwitr) throws JSONException {
+		this.jtwit = (TwitterImpl) jtwitr;
+		this.http = ((TwitterImpl)jtwitr).getHttpClient();
 		init2(json);
 	}
 
@@ -128,13 +132,13 @@ public class TwitterList extends AbstractList<UserImpl> {
 	 *             {@link #get(String, String, Twitter)} instead.
 	 */
 	@Deprecated
-	public TwitterList(String ownerScreenName, String slug, TwitterImpl jtwit) {
+	public TwitterList(String ownerScreenName, String slug, Twitter jtwit) {
 		assert ownerScreenName != null && slug != null && jtwit != null;
-		this.jtwit = jtwit;
+		this.jtwit = (TwitterImpl) jtwit;
 		this.owner = new UserImpl(ownerScreenName); // use a dummy here
 		this.name = slug;
 		this.slug = slug;
-		this.http = jtwit.getHttpClient();
+		this.http = ((TwitterImpl)jtwit).getHttpClient();
 		init();
 	}
 
@@ -241,7 +245,7 @@ public class TwitterList extends AbstractList<UserImpl> {
 	}
 
 	@Override
-	public UserImpl get(int index) {
+	public User get(int index) {
 		// pull from Twitter as needed
 		String url = jtwit.TWITTER_URL + "/lists/members.json";
 		Map<String, String> vars = getListVars();
@@ -251,7 +255,7 @@ public class TwitterList extends AbstractList<UserImpl> {
 			try {
 				JSONObject jobj = new JSONObject(json);
 				JSONArray jarr = (JSONArray) jobj.get("users");
-				List<UserImpl> users1page = UserImpl.getUsers(jarr.toString());
+				List<User> users1page = UserImpl.getUsers(jarr.toString());
 				users.addAll(users1page);
 				cursor = new Long(jobj.getString("next_cursor"));
 			} catch (JSONException e) {
@@ -295,13 +299,13 @@ public class TwitterList extends AbstractList<UserImpl> {
 	 * @throws TwitterException
 	 */
 	// Added TG 3/31/10
-	public List<StatusImpl> getStatuses() throws TwitterExceptionImpl {
+	public List<Status> getStatuses() throws TwitterExceptionImpl {
 		try {
 			String jsonListStatuses = http.getPage(
 					jtwit.TWITTER_URL + "/" + owner.screenName + "/lists/"
 							+ URLEncoder.encode(slug, "UTF-8")
 							+ "/statuses.json", null, http.canAuthenticate());
-			List<StatusImpl> msgs = StatusImpl.getStatuses(jsonListStatuses);
+			List<Status> msgs = StatusImpl.getStatuses(jsonListStatuses);
 			return msgs;
 		} catch (UnsupportedEncodingException e) {
 			throw new TwitterExceptionImpl(e);

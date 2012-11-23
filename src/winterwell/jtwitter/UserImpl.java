@@ -504,7 +504,7 @@ public final class UserImpl implements Serializable, User {
 	 * @return true if you are following this user. 
 	 * null if unset -- though this is quite rare.
 	 */
-	public boolean isFollowedByYou() {
+	public Boolean isFollowedByYou() {
 		return followedByYou;
 	}
 
