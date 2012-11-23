@@ -17,7 +17,7 @@ public class StatusImpl implements Status{
 
 	private static final long serialVersionUID = 4967335867172572534L;
 	
-	private int id;
+	private Long id;
 	private int retweetCount;
 	private String text;
 	private User usuario;
@@ -26,7 +26,7 @@ public class StatusImpl implements Status{
 	private Conexion con;
 	private User loggedUser;
 
-	public StatusImpl(int id, Conexion con, User loggedUser){
+	public StatusImpl(Long id, Conexion con, User loggedUser){
 		this.con = con;
 		this.id=id;
 		ResultSet res = con.query("SELECT texto, autor, fecha FROM tweet WHERE id=" + id + " LIMIT 1");
@@ -45,7 +45,7 @@ public class StatusImpl implements Status{
 
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 

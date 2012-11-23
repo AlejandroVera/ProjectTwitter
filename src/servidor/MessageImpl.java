@@ -20,17 +20,17 @@ public class MessageImpl implements Message{
 
 	private static final long serialVersionUID = 5010896843053361786L;
 	
-	private int id;
+	private Long id;
 	private String text;
 	private Conexion con;
-	private int inReplyTo;
+	private Long inReplyTo;
 	private User loggedUser;
 	
-	MessageImpl (int id, Conexion con, User loggedUser){
+	MessageImpl (Long id, Conexion con, User loggedUser){
 		this(id, 0, con, loggedUser);
 	}
 	
-	MessageImpl(int id, int inReplyTo, Conexion con, User loggedUser){
+	MessageImpl(Long id, int inReplyTo, Conexion con, User loggedUser){
 		this.loggedUser=loggedUser;
 		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + " LIMIT 1");
 		this.id=id;
@@ -45,7 +45,7 @@ public class MessageImpl implements Message{
 		res = con.query("SELECT inReplyTo FROM mensajes WHERE id ="+id + " LIMIT 1");
 		try {
 			if (res.next())
-				this.inReplyTo=res.getInt(1);
+				this.inReplyTo=res.getLong(1);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
 			e.printStackTrace();
