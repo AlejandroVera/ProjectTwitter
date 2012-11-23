@@ -10,7 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.Map;
+
+import excepcionesComunes.TwitterException;
 
 import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.OAuthConsumer;
@@ -20,9 +23,8 @@ import oauth.signpost.exception.OAuthException;
 import oauth.signpost.http.HttpRequest;
 import oauth.signpost.signature.AuthorizationHeaderSigningStrategy;
 import oauth.signpost.signature.SigningStrategy;
-import winterwell.jtwitter.Twitter.IHttpClient;
+import winterwell.jtwitter.TwitterImpl.IHttpClient;
 import winterwell.jtwitter.guts.ClientHttpRequest;
-import winterwell.utils.containers.ArrayMap;
 
 /**
  * OAuth based login using Signpost (http://code.google.com/p/oauth-signpost/).
@@ -119,7 +121,7 @@ public class OAuthSignpostClient extends URLConnectionHttpClient implements
 			connection.setReadTimeout(timeout);
 			connection.setConnectTimeout(timeout);
 			
-			Map<String, String> vars2 = new ArrayMap();
+			Map<String, String> vars2 = new HashMap<String, String>();
 			// TODO copy in the oauth suff??
 			final String payload = post2_getPayload(vars2);
 			
