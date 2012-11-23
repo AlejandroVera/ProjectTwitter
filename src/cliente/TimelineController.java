@@ -231,7 +231,7 @@ public class TimelineController extends Controller implements AStream.IListen {
 	public void postInitialize() {
 		screenName.setText(super.getTwitter().getScreenName());
 		User user = super.getTwitter().getSelf();
-        nTweets.setText(""+user.getStatusesCount());
+		nTweets.setText(""+user.getStatusesCount());
         nSeguidores.setText(""+user.getFollowersCount());
         nSiguiendo.setText(""+user.getFriendsCount());
         

@@ -1,11 +1,17 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Place;
+import interfacesComunes.Status;
+import interfacesComunes.User;
+
 import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import excepcionesComunes.TwitterException;
 
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
@@ -16,7 +22,7 @@ import winterwell.json.JSONObject;
  * 
  * @author daniel
  */
-public final class UserImpl implements Serializable {
+public final class UserImpl implements Serializable, User {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -163,10 +169,10 @@ public final class UserImpl implements Serializable {
 			id = obj.getLong("id");
 			name = InternalUtils.unencode(InternalUtils.jsonGet("name", obj));
 			String sn = InternalUtils.jsonGet("screen_name", obj);
-			screenName = Twitter.CASE_SENSITIVE_SCREENNAMES ? sn : sn
+			screenName = TwitterImpl.CASE_SENSITIVE_SCREENNAMES ? sn : sn
 					.toLowerCase();						
 			// location - normalise a bit
-			Object _locn = Status.jsonGetLocn(obj);
+			Object _locn = StatusImpl.jsonGetLocn(obj);
 			location = _locn == null ? null : _locn.toString();
 			if (_locn instanceof Place) {
 				place = (Place) _locn;
@@ -272,7 +278,7 @@ public final class UserImpl implements Serializable {
 	private UserImpl(String screenName, Long id) {
 		this.id = id;
 		name = null;
-		if (screenName != null && !Twitter.CASE_SENSITIVE_SCREENNAMES) {
+		if (screenName != null && !TwitterImpl.CASE_SENSITIVE_SCREENNAMES) {
 			screenName = screenName.toLowerCase();
 		}
 		this.screenName = screenName;
@@ -310,7 +316,7 @@ public final class UserImpl implements Serializable {
 			return true;
 		if (other.getClass() != User.class)
 			return false;
-		User ou = (User) other;
+		UserImpl ou = (UserImpl) other;
 		// normal case
 		if (screenName != null && ou.screenName != null)
 			return screenName.equals(ou.screenName);
@@ -498,7 +504,7 @@ public final class UserImpl implements Serializable {
 	 * @return true if you are following this user. 
 	 * null if unset -- though this is quite rare.
 	 */
-	public Boolean isFollowedByYou() {
+	public boolean isFollowedByYou() {
 		return followedByYou;
 	}
 
@@ -541,5 +547,11 @@ public final class UserImpl implements Serializable {
 	@Override
 	public String toString() {
 		return screenName;
+	}
+
+	@Override
+	public void aumentarContador() {
+		// TODO Auto-generated method stub
+		
 	}
 }

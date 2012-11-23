@@ -13,7 +13,7 @@ public interface User extends Serializable,Remote{
 	int getFavoritesCount();
 	int getFollowersCount();
 	int getFriendsCount();
-	int getId();
+	Long getId();
 	String getLang();
 	String getLocation();
 	String getName();
