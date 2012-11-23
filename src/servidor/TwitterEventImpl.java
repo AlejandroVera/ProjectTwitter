@@ -27,21 +27,21 @@ public class TwitterEventImpl implements TwitterEvent{
 	private User target;
 	private Status status;
 	private Date createdAt;
-	private byte type;
+	private String type;
 	private Conexion con;
 	private User loggedUser;
 	/** Constructor para actualizacion de cuenta*/
-	public TwitterEventImpl(Long id_source,byte type, Conexion con, User loggedUser) throws SQLException{
+	public TwitterEventImpl(Long id_source,String type, Conexion con, User loggedUser) throws SQLException{
 		this(id_source,Long.parseLong("0"), null, type, con,loggedUser);
 	}
 	
 	/**Constructor para el follow*/
-	public TwitterEventImpl(Long id_source, Long id_target, byte type, Conexion con,User loggedUser) throws SQLException{
+	public TwitterEventImpl(Long id_source, Long id_target, String type, Conexion con,User loggedUser) throws SQLException{
 		this(id_source, id_target, null, type, con,loggedUser);
 	}
 	
 	/**Tocho con todo, necesitamos este para favorite/unfavorite*/
-	public TwitterEventImpl(Long id_source, Long id_target,Status status, byte type, Conexion con,User loggedUser) throws SQLException{
+	public TwitterEventImpl(Long id_source, Long id_target,Status status, String type, Conexion con,User loggedUser) throws SQLException{
 		
 		this.loggedUser=loggedUser;
 		int id_status=0;
@@ -94,11 +94,11 @@ public class TwitterEventImpl implements TwitterEvent{
 	}
 
 	
-	public byte getType() {
+	public String getType() {
 		return type;
 	}
 
-	public boolean is(byte type) {
+	public boolean is(String type) {
 		if (this.type==type)
 			return true;
 		else

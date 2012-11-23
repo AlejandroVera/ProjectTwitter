@@ -39,7 +39,7 @@ import winterwell.jtwitter.TwitterImpl.IHttpClient;
  * @author daniel
  * 
  */
-public class TwitterList extends AbstractList<UserImpl> {
+public class TwitterList extends AbstractList<User> {
 
 	/**
 	 * A lazy-loading list viewer. This will fetch details from Twitter when you
@@ -183,12 +183,12 @@ public class TwitterList extends AbstractList<UserImpl> {
 	 * @return testing for membership could be slow, so this is usually true.
 	 */
 	@Override
-	public boolean add(UserImpl user) {
+	public boolean add(User user) {
 		if (users.contains(user))
 			return false;
 		String url = jtwit.TWITTER_URL + "/lists/members/create.json";
 		Map map = getListVars();
-		map.put("screen_name", user.screenName);
+		map.put("screen_name", user.getScreenName());
 		String json = http.post(url, map, true);
 		// adjust size
 		try {
@@ -203,7 +203,7 @@ public class TwitterList extends AbstractList<UserImpl> {
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends UserImpl> newUsers) {
+	public boolean addAll(Collection<? extends User> newUsers) {
 		List newUsersList = new ArrayList(newUsers);
 		newUsersList.removeAll(users);
 		if (newUsersList.size() == 0)
@@ -321,7 +321,7 @@ public class TwitterList extends AbstractList<UserImpl> {
 	 * @return users who follow this list. Currently this is just the first 20
 	 *         users. TODO cursor support for more than 20 users.
 	 */
-	public List<UserImpl> getSubscribers() {
+	public List<User> getSubscribers() {
 		String url = jtwit.TWITTER_URL + "/lists/subscribers.json";
 		Map<String, String> vars = getListVars();
 		String json = http.getPage(url, vars, true);

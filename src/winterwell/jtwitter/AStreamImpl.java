@@ -819,9 +819,9 @@ final class StreamGobbler extends Thread {
 
 	volatile boolean stopFlag;
 
-	final AStream stream;
+	final AStreamImpl stream;
 
-	public StreamGobbler(AStream stream) {
+	public StreamGobbler(AStreamImpl stream) {
 		setDaemon(true);
 		this.stream = stream;
 	}
@@ -875,7 +875,7 @@ final class StreamGobbler extends Thread {
 			synchronized (this) {
 				jsons.add(json);
 				// forget a batch?
-				forgotten += AStream.forgetIfFull(jsons);
+				forgotten += AStreamImpl.forgetIfFull(jsons);
 			}
 		}
 
@@ -889,7 +889,7 @@ final class StreamGobbler extends Thread {
 		synchronized (stream.listeners) {
 			try {
 				JSONObject jo = new JSONObject(json);
-				Object obj = AStream.read3_parse(jo, stream.jtwit);
+				Object obj = AStreamImpl.read3_parse(jo, stream.jtwit);
 				for (IListen listener : stream.listeners) {
 					boolean carryOn;
 					if (obj instanceof ITweet) {

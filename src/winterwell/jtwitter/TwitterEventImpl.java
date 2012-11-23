@@ -34,11 +34,11 @@ public class TwitterEventImpl implements TwitterEvent{
 	/**
 	 * The user who initiated the event
 	 */
-	public final UserImpl source;
+	public final User source;
 	/**
 	 * The user who was affected, or who owns the affected object.
 	 */
-	public final UserImpl target;
+	public final User target;
 	private Object targetObject;
 	/**
 	 * What type of event this is. Known values:
@@ -85,14 +85,14 @@ public class TwitterEventImpl implements TwitterEvent{
 	/**
 	 * The user who initiated the event
 	 */
-	public UserImpl getSource() {
+	public User getSource() {
 		return source;
 	}
 
 	/**
 	 * The user who was affected, or who owns the affected object.
 	 */
-	public UserImpl getTarget() {
+	public User getTarget() {
 		return target;
 	}
 
@@ -126,4 +126,5 @@ public class TwitterEventImpl implements TwitterEvent{
 	public String toString() {
 		return source + " " + type + " " + target + " " + getTargetObject();
 	}
+
 }

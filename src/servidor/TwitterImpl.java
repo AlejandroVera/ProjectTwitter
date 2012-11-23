@@ -510,7 +510,7 @@ public class TwitterImpl implements Twitter {
 		if(this.user == null)
 			return; //User not logged
 		
-		byte event_type = 0;
+		String event_type = "0";
 		
 		if(!isFavorite){
 			int res = this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
@@ -525,7 +525,7 @@ public class TwitterImpl implements Twitter {
 		
 		Long status_owner = status.getUser().getId();
 		
-		if(event_type != 0){
+		if(event_type != "0"){
 			try{
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 				List<AStream.IListen> user_callbacks = this.callbackArray.get(status_owner);

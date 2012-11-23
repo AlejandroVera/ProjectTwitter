@@ -12,8 +12,8 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import interfacesComunes.Twitter.ITweet;
 import winterwell.jtwitter.TwitterImpl.KEntityType;
+import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter.TweetEntity;
 import interfacesComunes.Message;
@@ -105,7 +105,7 @@ public final class MessageImpl implements ITweet, Message {
 			entities = new EnumMap<TwitterImpl.KEntityType, List<TweetEntity>>(
 					TwitterImpl.KEntityType.class);
 			for (KEntityType type : KEntityType.values()) {
-				List<TweetEntity> es = TweetEntity.parse(this, _text, type,
+				List<TweetEntity> es = TwitterImpl.TweetEntity.parse(this, _text, type,
 						jsonEntities);
 				entities.put(type, es);
 			}
@@ -204,5 +204,4 @@ public final class MessageImpl implements ITweet, Message {
 	public String toString() {
 		return text;
 	}
-
 }

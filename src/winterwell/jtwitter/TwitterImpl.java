@@ -29,12 +29,10 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.KEntityType;
 import winterwell.jtwitter.TwitterExceptionImpl.E401;
 import winterwell.jtwitter.TwitterExceptionImpl.E403;
 import winterwell.jtwitter.TwitterExceptionImpl.E404;
 import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
-import winterwell.utils.reporting.Log;
 
 /**
  * Java wrapper for the Twitter API version {@value #version}
