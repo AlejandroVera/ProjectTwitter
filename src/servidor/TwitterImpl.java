@@ -163,7 +163,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getInt(1), this.con,this.user));
+						list.add(new MessageImpl(res.getLong(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessages");
 				}
@@ -182,7 +182,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getInt(1), this.con,this.user));
+						list.add(new MessageImpl(res.getLong(1), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessagesSent");
 				}
@@ -464,12 +464,12 @@ public class TwitterImpl implements Twitter {
 			throw new TwitterException("No se ha podido enviar el mensaje");
 		
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
-		int message_id;
+		Long message_id;
 		try {
 			if(last_id == null || !last_id.next())
 				throw new TwitterException("Upss, esto no debería ocurrir nunca");
 			else
-				message_id = last_id.getInt(1);
+				message_id = last_id.getLong(1);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
 			throw new TwitterException("No se ha podido obtener el mensaje, pero sí se ha mandado");

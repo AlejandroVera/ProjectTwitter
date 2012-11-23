@@ -44,7 +44,7 @@ public class TwitterEventImpl implements TwitterEvent{
 	public TwitterEventImpl(Long id_source, Long id_target,Status status, String type, Conexion con,User loggedUser) throws SQLException{
 		
 		this.loggedUser=loggedUser;
-		int id_status=0;
+		Long id_status=Long.parseLong("0");
 		this.con=con;
 		this.createdAt=new Date();
 		this.type=type;
@@ -58,7 +58,7 @@ public class TwitterEventImpl implements TwitterEvent{
 		this.status=status;
 		
 		if (this.status==null) //Si el id_status se guarda como 0 es que el Event no afecta a un tweet sino a un User
-			id_status=0;
+			id_status=Long.parseLong("0");
 		else id_status=this.status.getId();
 		
 		//Lo anadimos a la base de datos
