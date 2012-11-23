@@ -71,7 +71,7 @@ public class UserImpl implements User{
 			this.location = res.getString("location");
 			if(screenName!=null)
 				this.id = res.getLong("id");
-			this.status=new StatusImpl(res.getInt("id_status"),this.con,this.loggedUser);
+			this.status=new StatusImpl(res.getLong("id_status"),this.con,this.loggedUser);
 			
 			int c=0;
 			res=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id);
