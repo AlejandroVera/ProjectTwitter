@@ -160,7 +160,7 @@ public class Twitter_UsersImpl {
 	 *         requested to follow them.
 	 */
 	public User follow(User user) {
-		return follow(user.screenName);
+		return follow(((UserImpl)user).screenName);
 	}
 
 	/**
@@ -542,7 +542,7 @@ public class Twitter_UsersImpl {
 	 * @param user
 	 */
 	public boolean isFollowing(User user) {
-		return isFollowing(user.screenName);
+		return isFollowing(((UserImpl)user).screenName);
 	}
 
 	/**
@@ -625,7 +625,7 @@ public class Twitter_UsersImpl {
 		// yes, it requires authentication
 		String json = http.getPage(jtwit.TWITTER_URL + "/users/search.json",
 				vars, true);
-		List<User> users = User.getUsers(json);
+		List<User> users = UserImpl.getUsers(json);
 		return users;
 	}
 
@@ -765,7 +765,7 @@ public class Twitter_UsersImpl {
 	 * @return
 	 */
 	public User stopFollowing(User user) {
-		return stopFollowing(user.screenName);
+		return stopFollowing(((UserImpl)user).screenName);
 	}
 
 	/**
