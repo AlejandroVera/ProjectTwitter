@@ -131,7 +131,7 @@ public class TwitterList extends AbstractList<User> {
 	public TwitterList(String ownerScreenName, String slug, Twitter jtwit) {
 		assert ownerScreenName != null && slug != null && jtwit != null;
 		this.jtwit = jtwit;
-		this.owner = new User(ownerScreenName); // use a dummy here
+		this.owner = new UserImpl(ownerScreenName); // use a dummy here
 		this.name = slug;
 		this.slug = slug;
 		this.http = jtwit.getHttpClient();
@@ -362,7 +362,7 @@ public class TwitterList extends AbstractList<User> {
 		_private = "private".equals(jobj.optString("mode"));
 		description = jobj.optString("description");
 		JSONObject user = jobj.getJSONObject("user");
-		owner = new User(user, null);
+		owner = new UserImpl(user, null);
 	}
 
 	public boolean isPrivate() {

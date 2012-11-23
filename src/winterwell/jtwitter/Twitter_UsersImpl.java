@@ -128,7 +128,7 @@ public class Twitter_UsersImpl {
 					vars, true);
 			// is this needed? doesn't seem to fix things
 			// http.getPage(jtwit.TWITTER_URL+"/friends", null, true);
-			return new User(new JSONObject(page), null);
+			return new UserImpl(new JSONObject(page), null);
 		} catch (SuspendedUser e) {
 			throw e;
 		} catch (TwitterException.Repetition e) {
@@ -556,7 +556,7 @@ public class Twitter_UsersImpl {
 		String page = http.getPage(jtwit.TWITTER_URL
 				+ "/notifications/leave.json", vars, true);
 		try {
-			return new User(new JSONObject(page), null);
+			return new UserImpl(new JSONObject(page), null);
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(page, e);
 		}
@@ -576,7 +576,7 @@ public class Twitter_UsersImpl {
 		String page = http.getPage(jtwit.TWITTER_URL
 				+ "/notifications/follow.json", vars, true);
 		try {
-			return new User(new JSONObject(page), null);
+			return new UserImpl(new JSONObject(page), null);
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(page, e);
 		}
@@ -659,7 +659,7 @@ public class Twitter_UsersImpl {
 		String json = http.getPage(jtwit.TWITTER_URL + "/users/show.json",
 				vars, http.canAuthenticate());
 		try {
-			User user = new User(new JSONObject(json), null);
+			User user = new UserImpl(new JSONObject(json), null);
 			return user;
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(json, e);
@@ -696,7 +696,7 @@ public class Twitter_UsersImpl {
 			throw new TwitterException.E404(screenName
 					+ " does not seem to exist");
 		try {
-			User user = new User(new JSONObject(json), null);
+			User user = new UserImpl(new JSONObject(json), null);
 			return user;
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(json, e);
@@ -747,7 +747,7 @@ public class Twitter_UsersImpl {
 		}
 		// outside the try-catch block in case there is a json exception
 		try {
-			User user = new User(new JSONObject(page), null);
+			User user = new UserImpl(new JSONObject(page), null);
 			return user;
 		} catch (JSONException e) {
 			throw new TwitterException.Parsing(page, e);

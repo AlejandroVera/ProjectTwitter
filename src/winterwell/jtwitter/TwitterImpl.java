@@ -53,7 +53,7 @@ import winterwell.utils.reporting.Log;
  * 
  * Now we can access Twitter: <code><pre>
 	// Make a Twitter object
-	Twitter twitter = new Twitter("my-name", oauthClient);
+	Twitter twitter = new TwitterImpl("my-name", oauthClient);
 	// Print Winterstein's status
 	System.out.println(twitter.getStatus("winterstein"));
 	// Set my status
@@ -674,7 +674,7 @@ public class TwitterImpl implements Serializable {
 	public static void main(String[] args) {
 		// Post a tweet if we are handed a name, password and tweet
 		if (args.length == 3) {
-			Twitter tw = new Twitter(args[0], args[1]);
+			Twitter tw = new TwitterImpl(args[0], args[1]);
 			// int s = 0;
 			// List<Long> fids = tw.getFollowerIDs();
 			// for (Long fid : fids) {
@@ -1610,7 +1610,7 @@ public class TwitterImpl implements Serializable {
 		if (!http.canAuthenticate()) {
 			if (name != null) {
 				// not sure this case makes sense, but we may as well handle it
-				self = new User(name);
+				self = new UserImpl(name);
 				return self;
 			}
 			return null;

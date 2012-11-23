@@ -87,12 +87,12 @@ public final class MessageImpl implements ITweet, Message {
 		text = InternalUtils.unencode(_text);
 		String c = InternalUtils.jsonGet("created_at", obj);
 		createdAt = InternalUtils.parseDate(c);
-		sender = new User(obj.getJSONObject("sender"), null);				
+		sender = new UserImpl(obj.getJSONObject("sender"), null);				
 		// recipient - for messages you sent
 		Object recip = obj.opt("recipient");
 		if (recip instanceof JSONObject) { // Note JSONObject.has is dangerously
 											// misleading
-			recipient = new User((JSONObject) recip, null);
+			recipient = new UserImpl((JSONObject) recip, null);
 		} else {
 			recipient = null;
 		}

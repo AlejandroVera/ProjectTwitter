@@ -81,7 +81,7 @@ public final class StatusImpl implements ITweet {
 				JSONObject obj = arr.getJSONObject(i);
 				String userScreenName = obj.getString("from_user");
 				String profileImgUrl = obj.getString("profile_image_url");
-				User user = new User(userScreenName);
+				User user = new UserImpl(userScreenName);
 				user.profileImageUrl = InternalUtils.URI(profileImgUrl);
 				Status s = new StatusImpl(obj, user);
 				users.add(s);
@@ -263,14 +263,14 @@ public final class StatusImpl implements ITweet {
 					BigInteger userId = new BigInteger(_uid == "" ? object.get(
 							"id").toString() : _uid);
 					try {
-						user = new Twitter().show(userId);
+						user = new TwitterImpl().show(userId);
 					} catch (Exception e) {
 						// ignore
 					}
 					this.user = user;
 				} else {
 					// normal JSON case
-					this.user = new User(jsonUser, this);
+					this.user = new UserImpl(jsonUser, this);
 				}
 
 			}

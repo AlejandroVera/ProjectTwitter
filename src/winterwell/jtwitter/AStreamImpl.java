@@ -378,7 +378,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 			return;
 		Outage[] outs = outages.toArray(new Outage[0]);
 		// protect our original object from edits and threading-issues
-		Twitter jtwit2 = new Twitter(jtwit);
+		Twitter jtwit2 = new TwitterImpl(jtwit);
 		for (Outage outage : outs) {
 			// too recent? wait at least 1 minute
 			if (System.currentTimeMillis() - outage.untilTime < 60000) {

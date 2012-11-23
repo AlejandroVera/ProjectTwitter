@@ -40,7 +40,7 @@ public final class UserImpl implements Serializable {
 		List<User> users = new ArrayList<User>();
 		for (int i = 0; i < arr.length(); i++) {
 			JSONObject obj = arr.getJSONObject(i);
-			User u = new User(obj, null);
+			User u = new UserImpl(obj, null);
 			users.add(u);
 		}
 		return users;
@@ -257,7 +257,7 @@ public final class UserImpl implements Serializable {
 	 * equals() to an actual User object, so it can be used to query
 	 * collections. E.g. <code><pre>
 	 * // Test whether jtwit is a friend
-	 * twitter.getFriends().contains(new User("jtwit"));
+	 * twitter.getFriends().contains(new UserImpl("jtwit"));
 	 * </pre></code>
 	 * 
 	 * @param screenName

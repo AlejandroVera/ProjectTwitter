@@ -440,7 +440,7 @@ public class InternalUtils {
 	static User user(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
-			User u = new User(obj, null);
+			User u = new UserImpl(obj, null);
 			return u;
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl(e);

@@ -36,7 +36,7 @@ import winterwell.utils.containers.ArrayMap;
  * <pre>
  * <code>
  * 	OAuthSignpostClient client = new OAuthSignpostClient(JTWITTER_OAUTH_KEY, JTWITTER_OAUTH_SECRET, "oob");
- * 	Twitter jtwit = new Twitter("yourtwittername", client);
+ * 	Twitter jtwit = new TwitterImpl("yourtwittername", client);
  * 	// open the authorisation page in the user's browser
  * 	// This is a convenience method for directing the user to client.authorizeUrl()
  * 	client.authorizeDesktop();
@@ -66,7 +66,7 @@ import winterwell.utils.containers.ArrayMap;
  * <pre>
  * <code>
  * 	OAuthSignpostClient client = new OAuthSignpostClient(JTWITTER_OAUTH_KEY, JTWITTER_OAUTH_SECRET, myCallbackUrl);
- * 	Twitter jtwit = new Twitter("yourtwittername", client);
+ * 	Twitter jtwit = new TwitterImpl("yourtwittername", client);
  * 	URI url = client.authorizeUrl();
  * 	// Direct the user to this url!
  * 	</code>

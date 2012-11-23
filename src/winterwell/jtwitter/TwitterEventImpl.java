@@ -60,8 +60,8 @@ public class TwitterEventImpl {
 
 	public TwitterEventImpl(JSONObject jo, Twitter jtwit) throws JSONException {
 		type = jo.getString("event");
-		target = new User(jo.getJSONObject("target"), null);
-		source = new User(jo.getJSONObject("source"), null);
+		target = new UserImpl(jo.getJSONObject("target"), null);
+		source = new UserImpl(jo.getJSONObject("source"), null);
 		createdAt = InternalUtils.parseDate(jo.getString("created_at"));
 		// TODO how can we tell what this is??
 		JSONObject to = jo.optJSONObject("target_object");
