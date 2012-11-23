@@ -77,7 +77,7 @@ public class MessageImpl implements Message{
 
 	
 	public String getLocation() {
-		int id_user=getSender().getId();
+		Long id_user=getSender().getId();
 		ResultSet res = con.query("SELECT location FROM users WHERE id ="+id_user +" LIMIT 1");
 		try {
 			if (res.next()){
