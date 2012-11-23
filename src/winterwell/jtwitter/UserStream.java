@@ -3,13 +3,20 @@
  */
 package winterwell.jtwitter;
 
+import interfacesComunes.Message;
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import winterwell.jtwitter.Twitter.ITweet;
+import excepcionesComunes.TwitterException;
+
+import winterwell.jtwitter.AStreamImpl.Outage;
+import interfacesComunes.Twitter.ITweet;
 
 /**
  * @deprecated There are bugs on Twitter's end -- the messages returned by this
@@ -48,7 +55,7 @@ import winterwell.jtwitter.Twitter.ITweet;
  * @testedby {@link UserStreamTest}
  */
 @Deprecated
-public class UserStream extends AStream {
+public class UserStream extends AStreamImpl {
 
 	boolean withFollowings;
 

@@ -154,7 +154,7 @@ public final class StatusImpl implements ITweet, Status {
 
 	/**
 	 * null, except for official retweets when this is the original retweeted
-	 * Status.
+	 * StatusImpl.
 	 */
 	private StatusImpl original;
 
@@ -206,7 +206,7 @@ public final class StatusImpl implements ITweet, Status {
 	 * @param object
 	 * @param user
 	 *            Set when parsing the json returned for a User. null when
-	 *            parsing the json returned for a Status.
+	 *            parsing the json returned for a StatusImpl.
 	 * @throws TwitterException
 	 */
 	@SuppressWarnings("deprecation")
@@ -434,7 +434,7 @@ public final class StatusImpl implements ITweet, Status {
 
 	/**
 	 * Only set for official new-style retweets. This is the original retweeted
-	 * Status. null otherwise.
+	 * StatusImpl. null otherwise.
 	 */
 	public Status getOriginal() {
 		return original;

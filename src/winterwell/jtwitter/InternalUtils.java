@@ -1,5 +1,9 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+import interfacesComunes.User;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
@@ -93,7 +97,7 @@ public class InternalUtils {
 
 	/**
 	 * The date format used by Marko from Marakana. This is needed for *some*
-	 * installs of Status.Net, though not for Identi.ca.
+	 * installs of StatusImpl.Net, though not for Identi.ca.
 	 */
 	static final DateFormat dfMarko = new SimpleDateFormat(
 			"EEE MMM dd HH:mm:ss ZZZZZ yyyy");
@@ -112,7 +116,7 @@ public class InternalUtils {
 	static final Comparator<Status> NEWEST_FIRST = new Comparator<Status>() {
 		@Override
 		public int compare(Status o1, Status o2) {
-			return -o1.id.compareTo(o2.id);
+			return -((StatusImpl)o1).id.compareTo(((StatusImpl)o2).id);
 		}
 	};
 
@@ -331,7 +335,7 @@ public class InternalUtils {
 			Date _createdAt = new Date(c);
 			return _createdAt;
 		} catch (Exception e) { // Bug reported by Marakana with *some*
-								// Status.Net sites
+								// StatusImpl.Net sites
 			try {
 				Date _createdAt = InternalUtils.dfMarko.parse(c);
 				return _createdAt;
@@ -502,8 +506,8 @@ public class InternalUtils {
 	 * @return true if jtwit can authorise, or if the API v is 1.1
 	 */
 	static boolean authoriseIn11(Twitter jtwit) {
-		return jtwit.getHttpClient().canAuthenticate() 
-				|| jtwit.TWITTER_URL.endsWith("1.1");
+		return ((TwitterImpl)jtwit).getHttpClient().canAuthenticate() 
+				|| ((TwitterImpl)jtwit).TWITTER_URL.endsWith("1.1");
 	}
 
 }

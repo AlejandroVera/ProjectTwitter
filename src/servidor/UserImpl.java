@@ -166,7 +166,7 @@ public class UserImpl implements User{
 		return website;
 	}
 
-	public boolean isFollowedByYou() {
+	public Boolean isFollowedByYou() {
 		boolean sol=false;
 		Conexion con = new ConexionImpl();
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);

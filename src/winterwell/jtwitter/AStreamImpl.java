@@ -20,6 +20,7 @@ import java.util.Random;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
+import winterwell.jtwitter.TwitterImpl.IHttpClient;
 
 import interfacesComunes.*;
 import interfacesComunes.Twitter.ITweet;
@@ -221,7 +222,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	 */
 	boolean listenersOnly;
 
-	public AStreamImpl(TwitterImpl jtwit2) {
+	public AStreamImpl(Twitter jtwit2) {
 		this.client = jtwit2.getHttpClient();
 		this.jtwit = jtwit2;
 		// Twitter send 30 second keep-alive pulses, but ask that

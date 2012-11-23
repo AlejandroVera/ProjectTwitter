@@ -27,8 +27,10 @@ public interface Twitter_Account extends Serializable{
 	public User setProfileColors(java.util.Map<java.lang.String,java.lang.String> colorName2hexCode);
 	
 	public java.lang.String toString();
+
+	//public User verifyCredentials();
 	
-	/*public User verifyCredentials() throws Exception;*/
+	public User verifyCredentials() throws Exception;
 	
 	
 		

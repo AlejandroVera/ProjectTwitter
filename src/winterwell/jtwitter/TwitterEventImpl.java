@@ -1,5 +1,7 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.TwitterEvent;
+
 import java.util.Date;
 
 import winterwell.json.JSONException;
@@ -10,7 +12,7 @@ import winterwell.json.JSONObject;
  * @author daniel
  *
  */
-public class TwitterEventImpl {
+public class TwitterEventImpl implements TwitterEvent{
 
 	public static interface Type {
 		public static final String ADDED_TO_LIST = "list_member_added";

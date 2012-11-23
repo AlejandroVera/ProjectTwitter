@@ -1,5 +1,13 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Message;
+import interfacesComunes.Place;
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+import interfacesComunes.Twitter_Account;
+import interfacesComunes.Twitter_Geo;
+import interfacesComunes.User;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import excepcionesComunes.TwitterException;
 
 
 import winterwell.json.JSONArray;
@@ -657,7 +667,7 @@ public class TwitterImpl implements Serializable {
 	public static User getUser(String screenName, List<User> users) {
 		assert screenName != null && users != null;
 		for (User user : users) {
-			if (screenName.equals(user.screenName))
+			if (screenName.equals(((UserImpl)user).screenName))
 				return user;
 		}
 		return null;
@@ -827,7 +837,7 @@ public class TwitterImpl implements Serializable {
 	 * @param jtwit
 	 */
 	public TwitterImpl(Twitter jtwit) {
-		this(jtwit.getScreenName(), jtwit.http.copy());
+		this(jtwit.getScreenName(), ((TwitterImpl)jtwit).http.copy());
 	}
 
 	/**
@@ -964,7 +974,7 @@ public class TwitterImpl implements Serializable {
 	 * @param dm
 	 */
 	private void destroyMessage(Message dm) {
-		String page = post(TWITTER_URL + "/direct_messages/destroy/" + dm.id
+		String page = post(TWITTER_URL + "/direct_messages/destroy/" + ((MessageImpl)dm).id
 				+ ".json", null, true);
 		assert page != null;
 	}
@@ -1045,7 +1055,7 @@ public class TwitterImpl implements Serializable {
 	 */
 	@Deprecated
 	public User follow(User user) {
-		return follow(user.screenName);
+		return follow(((UserImpl)user).screenName);
 	}
 
 	/**
@@ -1303,10 +1313,10 @@ public class TwitterImpl implements Serializable {
 	 */
 	public String getLongStatus(Status truncatedStatus) {
 		// regex for http://tl.gd/ID
-		int i = truncatedStatus.text.indexOf("http://tl.gd/");
+		int i = truncatedStatusImpl.text.indexOf("http://tl.gd/");
 		if (i == -1)
-			return truncatedStatus.text;
-		String id = truncatedStatus.text.substring(i + 13).trim();
+			return truncatedStatusImpl.text;
+		String id = truncatedStatusImpl.text.substring(i + 13).trim();
 		String response = http.getPage("http://www.twitlonger.com/api_read/"
 				+ id, null, false);
 		Matcher m = contentTag.matcher(response);
@@ -1493,7 +1503,7 @@ public class TwitterImpl implements Serializable {
 		String url = TWITTER_URL + "/statuses/retweets/" + tweet.id + ".json";
 		Map<String, String> vars = addStandardishParameters(new HashMap<String, String>());
 		String json = http.getPage(url, vars, true);
-		List<Status> newStyle = Status.getStatuses(json);
+		List<Status> newStyle = StatusImpl.getStatuses(json);
 		try {
 			// // Should we also do by search and merge the two lists?
 			StringBuilder sq = new StringBuilder();
@@ -1527,7 +1537,7 @@ public class TwitterImpl implements Serializable {
 		String url = TWITTER_URL + "/statuses/retweeted_by_me.json";
 		Map<String, String> vars = addStandardishParameters(new HashMap<String, String>());
 		String json = http.getPage(url, vars, true);
-		return Status.getStatuses(json);
+		return StatusImpl.getStatuses(json);
 	}
 
 	/**
@@ -1538,7 +1548,7 @@ public class TwitterImpl implements Serializable {
 		String url = TWITTER_URL + "/statuses/retweets_of_me.json";
 		Map<String, String> vars = addStandardishParameters(new HashMap<String, String>());
 		String json = http.getPage(url, vars, true);
-		return Status.getStatuses(json);
+		return StatusImpl.getStatuses(json);
 	}
 
 	/**
@@ -1634,7 +1644,7 @@ public class TwitterImpl implements Serializable {
 		Map<String, String> vars = InternalUtils.asMap("count", 6);
 		String json = http.getPage(
 				TWITTER_URL + "/statuses/user_timeline.json", vars, true);
-		List<Status> statuses = Status.getStatuses(json);
+		List<Status> statuses = StatusImpl.getStatuses(json);
 		if (statuses.size() == 0)
 			return null;
 		return statuses.get(0);
@@ -1675,7 +1685,7 @@ public class TwitterImpl implements Serializable {
 				6);
 		String json = http.getPage(
 				TWITTER_URL + "/statuses/user_timeline.json", vars, false);
-		List<Status> statuses = Status.getStatuses(json);
+		List<Status> statuses = StatusImpl.getStatuses(json);
 		if (statuses.size() == 0)
 			return null;
 		return statuses.get(0);
@@ -1695,7 +1705,7 @@ public class TwitterImpl implements Serializable {
 		if (maxResults < 1) {
 			List<Status> msgs ;
 			try {
-				msgs = Status.getStatuses(http.getPage(url, var,
+				msgs = StatusImpl.getStatuses(http.getPage(url, var,
 						authenticate));
 			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
@@ -1703,7 +1713,7 @@ public class TwitterImpl implements Serializable {
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, var, authenticate);
-					msgs = Status.getStatuses(json);
+					msgs = StatusImpl.getStatuses(json);
 				} else {
 					throw pex;
 				}
@@ -1722,14 +1732,14 @@ public class TwitterImpl implements Serializable {
 			List<Status> nextpage; 
 			try {
 				String json = http.getPage(url, var, authenticate);
-				nextpage = Status.getStatuses(json);
+				nextpage = StatusImpl.getStatuses(json);
 			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
 				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, var, authenticate);
-					nextpage = Status.getStatuses(json);
+					nextpage = StatusImpl.getStatuses(json);
 				} else {
 					throw pex;
 				}
@@ -1958,7 +1968,7 @@ public class TwitterImpl implements Serializable {
 	 */
 	@Deprecated
 	public boolean isFollowing(User user) {
-		return isFollowing(user.screenName);
+		return isFollowing(((UserImpl)user).screenName);
 	}
 
 	/**
@@ -2159,14 +2169,14 @@ public class TwitterImpl implements Serializable {
 			List<Status> stati;
 			try {
 				String json = http.getPage(url, vars, false);
-				stati = Status.getStatusesFromSearch(this, json);
+				stati = StatusImpl.getStatusesFromSearch(this, json);
 			} catch (TwitterExceptionImpl.Parsing pex) {
 				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
 				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, vars, false);
-					stati = Status.getStatusesFromSearch(this, json);
+					stati = StatusImpl.getStatusesFromSearch(this, json);
 				} else {
 					throw pex;
 				}
@@ -2305,8 +2315,8 @@ public class TwitterImpl implements Serializable {
 	public void setFavorite(Status status, boolean isFavorite) {
 		try {
 			String uri = isFavorite ? TWITTER_URL + "/favorites/create/"
-					+ status.id + ".json" : TWITTER_URL + "/favorites/destroy/"
-					+ status.id + ".json";
+					+ ((StatusImpl)status).id + ".json" : TWITTER_URL + "/favorites/destroy/"
+					+ ((StatusImpl)status).id + ".json";
 			http.post(uri, null, true);
 		} catch (E403 e) {
 			// already a favorite?
@@ -2583,12 +2593,12 @@ public class TwitterImpl implements Serializable {
 	 */
 	public List<String> splitMessage(String longStatus) {
 		// Is it really long?
-		if (longStatus.length() <= 140)
+		if (longStatusImpl.length() <= 140)
 			return Collections.singletonList(longStatus);
 		// Multiple tweets for a longer post
 		List<String> sections = new ArrayList<String>(4);
 		StringBuilder tweet = new StringBuilder(140);
-		String[] words = longStatus.split("\\s+");
+		String[] words = longStatusImpl.split("\\s+");
 		for (String w : words) {
 			// messages have a max length of 140
 			// plus the last bit of a long tweet tends to be hidden on

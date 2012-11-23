@@ -24,7 +24,7 @@ public interface User extends Serializable,Remote{
 	Status getStatus();
 	int getStatusesCount();
 	java.net.URI getWebsite();
-	boolean isFollowedByYou();
+	Boolean isFollowedByYou();
 	java.lang.Boolean isFollowingYou();
 	void aumentarContador();
 }
