@@ -336,7 +336,7 @@ public class InternalUtils {
 				Date _createdAt = InternalUtils.dfMarko.parse(c);
 				return _createdAt;
 			} catch (ParseException e1) {
-				throw new TwitterException.Parsing(c, e1);
+				throw new TwitterExceptionImpl.Parsing(c, e1);
 			}
 		}
 	}

@@ -75,7 +75,7 @@ public class Twitter_GeoImpl implements IGeoCode {
 			}
 			return places;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Twitter_GeoImpl implements IGeoCode {
 			}
 			return trends;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 

@@ -32,7 +32,7 @@ public final class UserImpl implements Serializable {
 			JSONArray arr = new JSONArray(json);
 			return getUsers2(arr);
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -244,7 +244,7 @@ public final class UserImpl implements Serializable {
 				this.status = status;
 			}
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(String.valueOf(obj), e);
+			throw new TwitterExceptionImpl.Parsing(String.valueOf(obj), e);
 		} catch (NullPointerException e) {
 			throw new TwitterExceptionImpl(e + " from <" + obj + ">, <" + status
 					+ ">\n\t" + e.getStackTrace()[0] + "\n\t"

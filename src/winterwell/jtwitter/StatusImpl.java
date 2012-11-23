@@ -9,13 +9,19 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import excepcionesComunes.TwitterException;
+
 
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.ITweet;
-import winterwell.jtwitter.Twitter.KEntityType;
-import winterwell.jtwitter.Twitter.TweetEntity;
+import interfacesComunes.Place;
+import interfacesComunes.Status;
+import interfacesComunes.Twitter;
+import interfacesComunes.Twitter.ITweet;
+import winterwell.jtwitter.TwitterImpl.KEntityType;
+import winterwell.jtwitter.TwitterImpl.TweetEntity;
+import interfacesComunes.User;
 
 /**
  * A Twitter status post. .toString() returns the status text.
@@ -24,7 +30,7 @@ import winterwell.jtwitter.Twitter.TweetEntity;
  * access. If you want to change your status, use
  * {@link Twitter#setStatus(String)} and {@link Twitter#destroyStatus(Status)}.
  */
-public final class StatusImpl implements ITweet {
+public final class StatusImpl implements ITweet, Status {
 	/**
 	 * regex for @you mentions
 	 */
@@ -58,7 +64,7 @@ public final class StatusImpl implements ITweet {
 			}
 			return tweets;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -81,14 +87,14 @@ public final class StatusImpl implements ITweet {
 				JSONObject obj = arr.getJSONObject(i);
 				String userScreenName = obj.getString("from_user");
 				String profileImgUrl = obj.getString("profile_image_url");
-				User user = new UserImpl(userScreenName);
+				UserImpl user = new UserImpl(userScreenName);
 				user.profileImageUrl = InternalUtils.URI(profileImgUrl);
 				Status s = new StatusImpl(obj, user);
 				users.add(s);
 			}
 			return users;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -150,9 +156,9 @@ public final class StatusImpl implements ITweet {
 	 * null, except for official retweets when this is the original retweeted
 	 * Status.
 	 */
-	private Status original;
+	private StatusImpl original;
 
-	private Place place;
+	private PlaceImpl place;
 
 	/**
 	 * Represents the number of times a status has been retweeted using
@@ -183,7 +189,7 @@ public final class StatusImpl implements ITweet {
 	 * {@link Status#Status(User, String, long, Date)} and supplying a null
 	 * User!
 	 */
-	public final User user;
+	public final UserImpl user;
 
 //	private String[] withheldIn;
 	
@@ -204,7 +210,7 @@ public final class StatusImpl implements ITweet {
 	 * @throws TwitterException
 	 */
 	@SuppressWarnings("deprecation")
-	StatusImpl(JSONObject object, User user) throws TwitterException {
+	StatusImpl(JSONObject object, UserImpl user) throws TwitterException {
 		try {
 			String _id = object.optString("id_str");
 			id = new BigInteger(_id == "" ? object.get("id").toString() : _id);
@@ -275,10 +281,10 @@ public final class StatusImpl implements ITweet {
 
 			}
 			// location if geocoding is on
-			Object _locn = Status.jsonGetLocn(object);
+			Object _locn = StatusImpl.jsonGetLocn(object);
 			location = _locn == null ? null : _locn.toString();
 			if (_locn instanceof Place) {
-				place = (Place) _locn;
+				place = (PlaceImpl) _locn;
 			}
 
 			retweetCount = object.optInt("retweet_count", -1);			
@@ -290,7 +296,7 @@ public final class StatusImpl implements ITweet {
 			JSONObject jsonEntities = object.optJSONObject("entities");
 			// Note: Twitter filters out dud @names
 			if (jsonEntities != null) {
-				entities = new EnumMap<Twitter.KEntityType, List<TweetEntity>>(
+				entities = new EnumMap<TwitterImpl.KEntityType, List<TweetEntity>>(
 						KEntityType.class);
 				setupEntities(_rawtext, rtStart, jsonEntities);								
 			}
@@ -304,7 +310,7 @@ public final class StatusImpl implements ITweet {
 //			"withheld_scope": "status" or "user"
 			sensitive = object.optBoolean("possibly_sensitive");
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(null, e);
+			throw new TwitterExceptionImpl.Parsing(null, e);
 		}
 	}
 
@@ -353,7 +359,7 @@ public final class StatusImpl implements ITweet {
 	 *            Can be null -- provided that's OK with your code.
 	 */
 	@Deprecated
-	public StatusImpl(User user, String text, Number id, Date createdAt) {
+	public StatusImpl(UserImpl user, String text, Number id, Date createdAt) {
 		this.text = text;
 		this.user = user;
 		this.createdAt = createdAt;
@@ -376,7 +382,7 @@ public final class StatusImpl implements ITweet {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Status other = (Status) obj;
+		StatusImpl other = (StatusImpl) obj;
 		return id.equals(other.id);
 	}
 
@@ -418,7 +424,7 @@ public final class StatusImpl implements ITweet {
 			}
 			String mention = m.group(1);
 			// enforce lower case? (normally yes)
-			if (!Twitter.CASE_SENSITIVE_SCREENNAMES) {
+			if (!TwitterImpl.CASE_SENSITIVE_SCREENNAMES) {
 				mention = mention.toLowerCase();
 			}
 			list.add(mention);

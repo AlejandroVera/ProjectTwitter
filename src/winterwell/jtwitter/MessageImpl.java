@@ -49,7 +49,7 @@ public final class MessageImpl implements ITweet, Message {
 			}
 			return msgs;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 

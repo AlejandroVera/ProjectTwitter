@@ -87,7 +87,7 @@ public class Twitter_AccountImpl {
 		try {
 			return makeSearch(new JSONObject(json));
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -105,7 +105,7 @@ public class Twitter_AccountImpl {
 		try {
 			return makeSearch(new JSONObject(json));
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -141,7 +141,7 @@ public class Twitter_AccountImpl {
 			}
 			return searches;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 

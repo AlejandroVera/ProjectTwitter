@@ -548,7 +548,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 			try {
 				read2(json);
 			} catch (JSONException e) {
-				throw new TwitterException.Parsing(json, e);
+				throw new TwitterExceptionImpl.Parsing(json, e);
 			}
 		}
 		if (isConnected())

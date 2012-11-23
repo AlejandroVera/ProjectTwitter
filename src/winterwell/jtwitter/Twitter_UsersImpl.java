@@ -143,7 +143,7 @@ public class Twitter_UsersImpl {
 			}
 			throw e;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(page, e);
+			throw new TwitterExceptionImpl.Parsing(page, e);
 		}
 	}
 
@@ -175,7 +175,7 @@ public class Twitter_UsersImpl {
 			}
 			return ids;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -389,7 +389,7 @@ public class Twitter_UsersImpl {
 					ids.add(jarr.getLong(i));
 				}
 			} catch (JSONException e) {
-				throw new TwitterException.Parsing(json, e);
+				throw new TwitterExceptionImpl.Parsing(json, e);
 			}
 		}
 		return ids;
@@ -417,7 +417,7 @@ public class Twitter_UsersImpl {
 				users.addAll(User.getUsers(jobj.getString("users")));
 				cursor = new Long(jobj.getString("next_cursor"));
 			} catch (JSONException e) {
-				throw new TwitterException.Parsing(null, e);
+				throw new TwitterExceptionImpl.Parsing(null, e);
 			}
 		}
 		return users;
@@ -558,7 +558,7 @@ public class Twitter_UsersImpl {
 		try {
 			return new UserImpl(new JSONObject(page), null);
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(page, e);
+			throw new TwitterExceptionImpl.Parsing(page, e);
 		}
 	}
 
@@ -578,7 +578,7 @@ public class Twitter_UsersImpl {
 		try {
 			return new UserImpl(new JSONObject(page), null);
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(page, e);
+			throw new TwitterExceptionImpl.Parsing(page, e);
 		}
 	}
 
@@ -662,7 +662,7 @@ public class Twitter_UsersImpl {
 			User user = new UserImpl(new JSONObject(json), null);
 			return user;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -699,7 +699,7 @@ public class Twitter_UsersImpl {
 			User user = new UserImpl(new JSONObject(json), null);
 			return user;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -750,7 +750,7 @@ public class Twitter_UsersImpl {
 			User user = new UserImpl(new JSONObject(page), null);
 			return user;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(page, e);
+			throw new TwitterExceptionImpl.Parsing(page, e);
 		}
 	}
 

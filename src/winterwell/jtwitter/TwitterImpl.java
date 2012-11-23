@@ -156,7 +156,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return map;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		} catch (Exception e) {
 			return map;
 		}		
@@ -431,7 +431,7 @@ public class TwitterImpl implements Serializable {
 						arr.length());
 				for (int i = 0; i < arr.length(); i++) {
 					JSONObject obj = arr.getJSONObject(i);
-					TweetEntity te = new TweetEntity(tweet, rawText, type, obj, list);
+					TweetEntity te = new TweetEntityImpl(tweet, rawText, type, obj, list);
 					list.add(te);
 				}
 				return list;
@@ -1223,7 +1223,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return lists;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(null, e);
+			throw new TwitterExceptionImpl.Parsing(null, e);
 		}
 	}
 
@@ -1246,7 +1246,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return lists;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(null, e);
+			throw new TwitterExceptionImpl.Parsing(null, e);
 		}
 	}
 
@@ -1279,7 +1279,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return lists;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(null, e);
+			throw new TwitterExceptionImpl.Parsing(null, e);
 		}
 	}
 
@@ -1442,7 +1442,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return hits;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -1656,7 +1656,7 @@ public class TwitterImpl implements Serializable {
 		try {
 			return new StatusImpl(new JSONObject(json), null);
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -1782,7 +1782,7 @@ public class TwitterImpl implements Serializable {
 			}
 			return trends;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(jsonTrends, e);
+			throw new TwitterExceptionImpl.Parsing(jsonTrends, e);
 		}
 	}
 
@@ -2087,7 +2087,7 @@ public class TwitterImpl implements Serializable {
 			}
 			throw e;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(null, e);
+			throw new TwitterExceptionImpl.Parsing(null, e);
 		}
 	}
 
@@ -2266,7 +2266,7 @@ public class TwitterImpl implements Serializable {
 			// sadly the response doesn't include rate-limit info
 			return new MessageImpl(new JSONObject(result));
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(result, e);
+			throw new TwitterExceptionImpl.Parsing(result, e);
 		} catch (TwitterException.E404 e) {
 			// suspended user?? TODO investigate
 			throw new TwitterException.E404(e.getMessage() + " with recipient="
@@ -2663,7 +2663,7 @@ public class TwitterImpl implements Serializable {
 			// photo_sizes
 			// short_url_length_https
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(json, e);
+			throw new TwitterExceptionImpl.Parsing(json, e);
 		}
 	}
 
@@ -2807,7 +2807,7 @@ public class TwitterImpl implements Serializable {
 			s = updateStatus2_safetyCheck(statusText, s);
 			return s;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(result, e);
+			throw new TwitterExceptionImpl.Parsing(result, e);
 		}
 	}
 
@@ -2950,7 +2950,7 @@ public class TwitterImpl implements Serializable {
 				throw new TwitterException.Repetition(s.getText());
 			throw e;
 		} catch (JSONException e) {
-			throw new TwitterException.Parsing(result, e);
+			throw new TwitterExceptionImpl.Parsing(result, e);
 		}
 	}
 
