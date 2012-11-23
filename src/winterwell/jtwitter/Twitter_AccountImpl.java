@@ -1,5 +1,8 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Twitter_Account;
+import interfacesComunes.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +12,8 @@ import java.util.Map;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.IHttpClient;
-import winterwell.jtwitter.Twitter.ITweet;
+import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.ITweet;
 
 /**
  * Access the account methods: e.g. change your profile colours.
@@ -20,7 +23,7 @@ import winterwell.jtwitter.Twitter.ITweet;
  * 
  * @author Daniel Winterstein
  */
-public class Twitter_AccountImpl {
+public class Twitter_AccountImpl implements Twitter_Account{
 
 	public static enum KAccessLevel {
 		/** no login or invalid login */
@@ -66,9 +69,9 @@ public class Twitter_AccountImpl {
 	public static String COLOR_SIDEBAR_FILL = "profile_sidebar_fill_color";
 	public static String COLOR_TEXT = "profile_text_color";
 	private KAccessLevel accessLevel;
-	final Twitter jtwit;
+	final TwitterImpl jtwit;
 
-	public Twitter_AccountImpl(Twitter jtwit) {
+	public Twitter_AccountImpl(TwitterImpl jtwit) {
 		assert jtwit.getHttpClient().canAuthenticate() : jtwit;
 		this.jtwit = jtwit;
 	}

@@ -1,5 +1,7 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.User;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -7,13 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import excepcionesComunes.TwitterException;
+
 
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.IHttpClient;
-import winterwell.jtwitter.TwitterException.E403;
-import winterwell.jtwitter.TwitterException.SuspendedUser;
+import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import winterwell.jtwitter.TwitterExceptionImpl.E403;
+import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
 
 /**
  * API calls relating to users and relationships (the social network). Use
@@ -28,9 +32,9 @@ public class Twitter_UsersImpl {
 
 	private final IHttpClient http;
 
-	private final Twitter jtwit;
+	private final TwitterImpl jtwit;
 
-	Twitter_UsersImpl(Twitter jtwit) {
+	Twitter_UsersImpl(TwitterImpl jtwit) {
 		this.jtwit = jtwit;
 		http = jtwit.getHttpClient();
 	}
@@ -85,12 +89,12 @@ public class Twitter_UsersImpl {
 			Map<String, String> vars = InternalUtils.asMap(var, names);
 			try {
 				String json = http.getPage(jtwit.TWITTER_URL + apiMethod, vars, auth);
-				List<User> usersi = User.getUsers(json);
+				List<User> usersi = UserImpl.getUsers(json);
 				users.addAll(usersi);
-			} catch (TwitterException.E404 e) {
+			} catch (TwitterExceptionImpl.E404 e) {
 				// All names were bogus or deleted users!
 				// Oh well
-			} catch (TwitterException e) {
+			} catch (TwitterExceptionImpl e) {
 				// Stop here.
 				// Don't normally throw an exception so we don't waste the
 				// results we have.
@@ -414,7 +418,7 @@ public class Twitter_UsersImpl {
 			try {
 				jobj = new JSONObject(http.getPage(url, vars,
 						http.canAuthenticate()));
-				users.addAll(User.getUsers(jobj.getString("users")));
+				users.addAll(UserImpl.getUsers(jobj.getString("users")));
 				cursor = new Long(jobj.getString("next_cursor"));
 			} catch (JSONException e) {
 				throw new TwitterExceptionImpl.Parsing(null, e);
@@ -434,7 +438,7 @@ public class Twitter_UsersImpl {
 			String json = http.getPage(jtwit.TWITTER_URL
 					+ "/blocks/exists.json", vars, true);
 			return true;
-		} catch (TwitterException.E404 e) {
+		} catch (TwitterExceptionImpl.E404 e) {
 			return false;
 		}
 	}
@@ -503,7 +507,7 @@ public class Twitter_UsersImpl {
 				if (whoSecond.equals(jtwit.getScreenName()))
 					throw e;
 				show(whoSecond);
-			} catch (TwitterException.RateLimit e2) {
+			} catch (TwitterExceptionImpl.RateLimit e2) {
 				// ignore
 			}
 			// both shows worked?
@@ -678,7 +682,7 @@ public class Twitter_UsersImpl {
 	 * @see #show(long)
 	 */
 	public User show(String screenName) throws TwitterException,
-			TwitterException.SuspendedUser {
+			TwitterExceptionImpl.SuspendedUser {
 		Map vars = InternalUtils.asMap("screen_name", screenName);
 		//Test Code Debugger at work - expected closures until 2012
 		String json = "";

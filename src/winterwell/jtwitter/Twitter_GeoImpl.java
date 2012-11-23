@@ -1,5 +1,7 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.Place;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +15,7 @@ import com.winterwell.jgeoplanet.MFloat;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.KRequestType;
+import winterwell.jtwitter.TwitterImpl.KRequestType;
 
 /**
  * Twitter's geolocation support. Use {@link Twitter#geo()} to get one of these
@@ -33,14 +35,14 @@ public class Twitter_GeoImpl implements IGeoCode {
 
 	private double accuracy;
 
-	private final Twitter jtwit;
+	private final TwitterImpl jtwit;
 
 	/**
 	 * Use {@link Twitter#geo()} to get one.
 	 * 
 	 * @param jtwit
 	 */
-	Twitter_GeoImpl(Twitter jtwit) {
+	Twitter_GeoImpl(TwitterImpl jtwit) {
 		assert jtwit != null;
 		this.jtwit = jtwit;
 	}

@@ -6,15 +6,18 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
 
+import excepcionesComunes.TwitterException;
+
 
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.Twitter.ITweet;
-import winterwell.jtwitter.Twitter.KEntityType;
-import winterwell.jtwitter.Twitter.TweetEntity;
-import interfacesComunes.Message;
 import interfacesComunes.Twitter.ITweet;
+import winterwell.jtwitter.TwitterImpl.KEntityType;
+import interfacesComunes.Place;
+import interfacesComunes.Twitter.TweetEntity;
+import interfacesComunes.Message;
+import interfacesComunes.User;
 /**
  * A Twitter direct message. Fields are null if unset.
  * 
@@ -27,7 +30,7 @@ public final class MessageImpl implements ITweet, Message {
 	
 	@Override
 	public String getDisplayText() {
-		return Status.getDisplayText2(this);
+		return StatusImpl.getDisplayText2(this);
 	}
 	
 	/**
@@ -54,7 +57,7 @@ public final class MessageImpl implements ITweet, Message {
 	}
 
 	private final Date createdAt;
-	private EnumMap<KEntityType, List<TweetEntity>> entities;
+	private EnumMap<TwitterImpl.KEntityType, List<TweetEntity>> entities;
 
 	public final Long id;
 
@@ -68,9 +71,9 @@ public final class MessageImpl implements ITweet, Message {
 
 	private String location;
 
-	private Place place;
-	private final User recipient;
-	private final User sender;
+	private PlaceImpl place;
+	private final UserImpl recipient;
+	private final UserImpl sender;
 	public final String text;
 
 	/**
@@ -99,8 +102,8 @@ public final class MessageImpl implements ITweet, Message {
 		JSONObject jsonEntities = obj.optJSONObject("entities");
 		if (jsonEntities != null) {
 			// Note: Twitter filters out dud @names
-			entities = new EnumMap<Twitter.KEntityType, List<TweetEntity>>(
-					KEntityType.class);
+			entities = new EnumMap<TwitterImpl.KEntityType, List<TweetEntity>>(
+					TwitterImpl.KEntityType.class);
 			for (KEntityType type : KEntityType.values()) {
 				List<TweetEntity> es = TweetEntity.parse(this, _text, type,
 						jsonEntities);
@@ -108,10 +111,10 @@ public final class MessageImpl implements ITweet, Message {
 			}
 		}
 		// geo-location?
-		Object _locn = Status.jsonGetLocn(obj);
+		Object _locn = StatusImpl.jsonGetLocn(obj);
 		location = _locn == null ? null : _locn.toString();
-		if (_locn instanceof Place) {
-			place = (Place) _locn;
+		if (_locn instanceof PlaceImpl) {
+			place = (PlaceImpl) _locn;
 		}
 	}
 
