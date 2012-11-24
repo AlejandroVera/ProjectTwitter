@@ -13,7 +13,7 @@ public interface Twitter_Geo extends Serializable{
 
     //public void setAccuracy(double metres);
 
-    //public com.winterwell.jgeoplanet.IPlace getPlace(java.lang.String locationDescription,
-    //                                        com.winterwell.jgeoplanet.MFloat confidence)
+    //public com.winterwell.jgeoplanet.IPlace getPlace(java.lang.String locationDescription);
+                                           
 
 }
