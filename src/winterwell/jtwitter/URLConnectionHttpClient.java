@@ -255,8 +255,8 @@ public class URLConnectionHttpClient implements TwitterImpl.IHttpClient,
 	/**
 	 * Called on error. What to throw? 
 	 */
-	private TwitterException getPage2_ex(Exception ex, String url) {
-		if (ex instanceof TwitterExceptionImpl) return (TwitterException) ex;
+	private TwitterExceptionImpl getPage2_ex(Exception ex, String url) {
+		if (ex instanceof TwitterExceptionImpl) return (TwitterExceptionImpl) ex;
 		if (ex instanceof SocketTimeoutException) {
 			return new TwitterExceptionImpl.Timeout(url);
 		}

@@ -17,7 +17,7 @@ import java.util.Map;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 
 /**
  * A Twitter list, which uses lazy-fetching of its members.

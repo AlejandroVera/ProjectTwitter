@@ -23,7 +23,7 @@ import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
 import winterwell.jtwitter.AStreamImpl.IListen;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 
 import interfacesComunes.*;
 import interfacesComunes.Twitter.ITweet;

@@ -23,7 +23,7 @@ import oauth.signpost.exception.OAuthException;
 import oauth.signpost.http.HttpRequest;
 import oauth.signpost.signature.AuthorizationHeaderSigningStrategy;
 import oauth.signpost.signature.SigningStrategy;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 import winterwell.jtwitter.guts.ClientHttpRequest;
 
 /**

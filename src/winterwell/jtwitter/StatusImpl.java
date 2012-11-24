@@ -15,6 +15,7 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
+import winterwell.jtwitter.TwitterImpl.TweetEntityImpl;
 import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
@@ -129,7 +130,6 @@ public final class StatusImpl implements Status {
 			JSONArray latLong = geo.getJSONArray("coordinates");
 			_location = latLong.get(0) + "," + latLong.get(1);
 		}
-		// TODO place (when is this set?)
 		return _location;
 	}
 
@@ -262,9 +262,6 @@ public final class StatusImpl implements Status {
 				if (jsonUser == null) {
 					this.user = null;
 				} else if (jsonUser.length() < 3) {
-					// TODO seen a bug where the jsonUser is just
-					// {"id":24147187,"id_str":"24147187"}
-					// Not sure when/why this happens
 					String _uid = jsonUser.optString("id_str");
 					BigInteger userId = new BigInteger(_uid == "" ? object.get(
 							"id").toString() : _uid);
@@ -324,9 +321,9 @@ public final class StatusImpl implements Status {
 				if (es==null) continue;
 				ArrayList rtEs = new ArrayList(es.size());
 				for (TweetEntity e : es) {
-					TweetEntity rte = new TweetEntity(this, e.type, 
+					TweetEntity rte = new TwitterImpl.TweetEntityImpl(this, e.getType(), 
 							/* safety checks on length are paranoia (could be removed) */
-							Math.min(rt+e.start, text.length()), Math.min(rt+e.end, text.length()), e.display);
+							Math.min(rt+e.getStart(), text.length()), Math.min(rt+e.getEnd(), text.length()), e.getDisplay());
 					rtEs.add(rte);
 				}
 				entities.put(type, rtEs);
@@ -335,7 +332,7 @@ public final class StatusImpl implements Status {
 		}
 		// normal case
 		for (KEntityType type : KEntityType.values()) {
-			List<TweetEntity> es = TweetEntity.parse(this, _rawtext, type,
+			List<TweetEntity> es = TweetEntityImpl.parse(this, _rawtext, type,
 					jsonEntities);
 			entities.put(type, es);
 		}		
@@ -412,8 +409,6 @@ public final class StatusImpl implements Status {
 	 */
 	@Override
 	public List<String> getMentions() {
-		// TODO test & use this
-		// List<TweetEntity> ms = entities.get(KEntityType.user_mentions);
 		Matcher m = AT_YOU_SIR.matcher(text);
 		List<String> list = new ArrayList<String>(2);
 		while (m.find()) {
@@ -524,13 +519,18 @@ public final class StatusImpl implements Status {
 		StringBuilder sb = new StringBuilder(200);
 		int i=0;
 		for (TweetEntity entity : es) {
-			sb.append(_text.substring(i, entity.start));
+			sb.append(_text.substring(i, entity.getStart()));
 			sb.append(entity.displayVersion());
-			i = entity.end;
+			i = entity.getEnd();
 		}					
 		if (i < _text.length()) {
 			sb.append(_text.substring(i));
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public int getRetweetCount() {
+		return 0;
 	}
 }

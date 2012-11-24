@@ -12,9 +12,9 @@ import java.util.Map;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 import interfacesComunes.Twitter.ITweet;
-
+import interfacesComunes.Twitter_Account.KAccessLevel;
 /**
  * Access the account methods: e.g. change your profile colours.
  * <p>
@@ -24,17 +24,6 @@ import interfacesComunes.Twitter.ITweet;
  * @author Daniel Winterstein
  */
 public class Twitter_AccountImpl implements Twitter_Account{
-
-	public static enum KAccessLevel {
-		/** no login or invalid login */
-		NONE,
-		/** Read public messages */
-		READ_ONLY,
-		/** Read, write of public messages (but not DMs) */
-		READ_WRITE,
-		/** Read, write of public and private messages */
-		READ_WRITE_DM
-	}
 
 	public static class Search {
 		private Date createdAt;
@@ -109,21 +98,6 @@ public class Twitter_AccountImpl implements Twitter_Account{
 			return makeSearch(new JSONObject(json));
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl.Parsing(json, e);
-		}
-	}
-
-	/**
-	 * @return What access level does this login have? If the login is bogus,
-	 *         this will return {@link KAccessLevel#NONE}.
-	 */
-	public KAccessLevel getAccessLevel() {
-		if (accessLevel != null)
-			return accessLevel;
-		try {
-			verifyCredentials();
-			return accessLevel;
-		} catch (TwitterExceptionImpl.E401 e) {
-			return KAccessLevel.NONE;
 		}
 	}
 
@@ -248,4 +222,15 @@ public class Twitter_AccountImpl implements Twitter_Account{
 		return self;
 	}
 
+	@Override
+	public KAccessLevel getAccesLevel() {
+		if (accessLevel != null)
+			return accessLevel;
+		try {
+			verifyCredentials();
+			return accessLevel;
+		} catch (TwitterExceptionImpl.E401 e) {
+			return KAccessLevel.NONE;
+		}
+	}
 }

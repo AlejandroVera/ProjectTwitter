@@ -3,7 +3,7 @@ package winterwell.jtwitter;
 import java.util.Map;
 
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 
 /**
  * Example Usage:

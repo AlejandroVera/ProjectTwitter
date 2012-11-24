@@ -1,5 +1,6 @@
 package servidor;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,17 +21,17 @@ public class MessageImpl implements Message{
 
 	private static final long serialVersionUID = 5010896843053361786L;
 	
-	private Long id;
+	private BigInteger id;
 	private String text;
 	private Conexion con;
-	private Long inReplyTo;
+	private BigInteger inReplyTo;
 	private User loggedUser;
 	
-	MessageImpl (Long id, Conexion con, User loggedUser){
+	MessageImpl (BigInteger id, Conexion con, User loggedUser){
 		this(id, 0, con, loggedUser);
 	}
 	
-	MessageImpl(Long id, int inReplyTo, Conexion con, User loggedUser){
+	MessageImpl(BigInteger id, int inReplyTo, Conexion con, User loggedUser){
 		this.loggedUser=loggedUser;
 		ResultSet res = con.query("SELECT texto FROM mensajes WHERE id ="+id + " LIMIT 1");
 		this.id=id;
@@ -45,7 +46,7 @@ public class MessageImpl implements Message{
 		res = con.query("SELECT inReplyTo FROM mensajes WHERE id ="+id + " LIMIT 1");
 		try {
 			if (res.next())
-				this.inReplyTo=res.getLong(1);
+				this.inReplyTo=BigInteger.valueOf(res.getLong(1));
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error al obtener el texto");
 			e.printStackTrace();
@@ -195,7 +196,7 @@ public class MessageImpl implements Message{
 	}
 
 	public Message inReplyTo(){
-		if (inReplyTo!=0)
+		if (inReplyTo.equals(new BigInteger("0")))
 			return new MessageImpl(inReplyTo, this.con, this.loggedUser);
 		else
 			return null;

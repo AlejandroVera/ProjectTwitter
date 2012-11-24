@@ -15,7 +15,7 @@ import excepcionesComunes.TwitterException;
 import winterwell.json.JSONArray;
 import winterwell.json.JSONException;
 import winterwell.json.JSONObject;
-import winterwell.jtwitter.TwitterImpl.IHttpClient;
+import interfacesComunes.Twitter.IHttpClient;
 import winterwell.jtwitter.TwitterExceptionImpl.E403;
 import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
 

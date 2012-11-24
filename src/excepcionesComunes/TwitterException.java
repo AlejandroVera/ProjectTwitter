@@ -1,8 +1,8 @@
 package excepcionesComunes;
 
-import excepcionesComunes.TwitterException;
 
-public class TwitterException extends RuntimeException {
+
+public class TwitterException extends RuntimeException implements InterfazTwitterException {
 
 	/**
 	 * 

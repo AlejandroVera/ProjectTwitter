@@ -14,6 +14,7 @@ import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
+import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,9 +35,9 @@ public class TwitterImpl implements Twitter {
 		private int start;
 		private int end;
 		private Conexion con;
-		private Long tweet_id;
+		private BigInteger tweet_id;
 		
-		public TweetEntity(Long tweet_id, KEntityType type, int start, int end, Conexion con){
+		public TweetEntity(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con){
 			this.con=con;
 			this.type = type;
 			this.start = start;
@@ -62,6 +63,30 @@ public class TwitterImpl implements Twitter {
 				sol=textTweet.substring(this.start+1,this.end);
 			}
 			return sol;
+		}
+
+		@Override
+		public int getStart() {
+			
+			return 0;
+		}
+
+		@Override
+		public int getEnd() {
+			
+			return 0;
+		}
+
+		@Override
+		public KEntityType getType() {
+			
+			return null;
+		}
+
+		@Override
+		public String getDisplay() {
+			
+			return null;
 		}
 		
 	}
@@ -163,7 +188,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getLong(1), this.con,this.user));
+						list.add(new MessageImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessages");
 				}
@@ -182,7 +207,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new MessageImpl(res.getLong(1), this.con,this.user));
+						list.add(new MessageImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getDirectMessagesSent");
 				}
@@ -203,7 +228,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new StatusImpl(res.getLong(1), this.con,this.user));
+						list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
 				}
@@ -228,7 +253,7 @@ public class TwitterImpl implements Twitter {
 			if(res != null)
 				try {
 					while(res.next())
-						list.add(new StatusImpl(res.getLong(1), this.con,this.user));
+						list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 				} catch (SQLException e) {
 					ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getFavorites");
 				}
@@ -278,7 +303,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null)
 			try {
 				while(res.next())
-					list.add(new StatusImpl(res.getLong(1), this.con,this.user));
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
 			}
@@ -301,13 +326,13 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public List<Status> search(String searchTerm) {
-		// TODO Auto-generated method stub
+		// TODO 
 		return null;
 	}
 	
 	@Override
 	public List<Status> search(String searchTerm, ICallback callback, int rpp) {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
@@ -354,7 +379,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new StatusImpl(res.getLong(1), this.con,this.user));
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -375,7 +400,7 @@ public class TwitterImpl implements Twitter {
 		if(res != null){
 			try {
 				while(res.next()){
-					list.add(new StatusImpl(res.getLong(1), this.con,this.user ));
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user ));
 				}
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
@@ -409,7 +434,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese ID");
 			else
-				return new StatusImpl(id.longValue(),this.con,this.user );
+				return new StatusImpl(BigInteger.valueOf(id.longValue()),this.con,this.user );
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese ID");
@@ -425,7 +450,7 @@ public class TwitterImpl implements Twitter {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese screenName");
 			else
-				return new StatusImpl(res.getLong(1),this.con,this.user );
+				return new StatusImpl(BigInteger.valueOf(res.getLong(1)),this.con,this.user );
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.getStatus");
 			throw new TwitterException("No existe un usuario con ese screenName");
@@ -464,12 +489,12 @@ public class TwitterImpl implements Twitter {
 			throw new TwitterException("No se ha podido enviar el mensaje");
 		
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
-		Long message_id;
+		BigInteger message_id;
 		try {
 			if(last_id == null || !last_id.next())
 				throw new TwitterException("Upss, esto no debería ocurrir nunca");
 			else
-				message_id = last_id.getLong(1);
+				message_id = BigInteger.valueOf(last_id.getLong(1));
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
 			throw new TwitterException("No se ha podido obtener el mensaje, pero sí se ha mandado");
@@ -586,12 +611,12 @@ public class TwitterImpl implements Twitter {
 		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo) VALUES (?, ?, ?, ?)", params);
 		
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
-		Long status_id;
+		BigInteger status_id;
 		try {
 			if(last_id == null || !last_id.next())
 				return null; //Emmm, esto NUNCA debería ocurrir
 			else
-				status_id = last_id.getLong(1);
+				status_id = BigInteger.valueOf(last_id.getLong(1));
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.updateStatus");
 			return null;

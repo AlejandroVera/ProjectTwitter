@@ -4,13 +4,15 @@ import java.awt.geom.Point2D;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.winterwell.jgeoplanet.Location;
+
 import interfacesComunes.Conexion;
 import interfacesComunes.Place;
 
 public class PlaceImpl implements Place {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private String id;
 	private Conexion con;
 	private String countryName;
 	private String city;
@@ -18,7 +20,7 @@ public class PlaceImpl implements Place {
 	private String type;
 	private Point2D[] boundingBox = new Point2D.Double[4];
 
-	public PlaceImpl(int id, Conexion con) throws SQLException{
+	public PlaceImpl(String id, Conexion con) throws SQLException{
 		this.id=id;
 		this.con=con;
 		
@@ -58,7 +60,7 @@ public class PlaceImpl implements Place {
 	}
 
 	@Override
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -83,6 +85,18 @@ public class PlaceImpl implements Place {
 	@Override
 	public Point2D[] getBoundingBox() {
 		return boundingBox;
+	}
+
+	@Override
+	public Location getCentroid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUID() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

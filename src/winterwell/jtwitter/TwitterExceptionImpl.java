@@ -3,6 +3,8 @@ package winterwell.jtwitter;
 import java.io.IOException;
 import java.text.ParseException;
 
+import excepcionesComunes.InterfazTwitterException;
+
 import winterwell.json.JSONException;
 
 /**
@@ -19,7 +21,7 @@ import winterwell.json.JSONException;
  * 
  * @author Daniel Winterstein
  */
-public class TwitterExceptionImpl extends RuntimeException {
+public class TwitterExceptionImpl extends RuntimeException implements InterfazTwitterException {
 
 	/**
 	 * Subclass of 403 thrown when you breach the access level of the app /

@@ -106,7 +106,7 @@ public final class MessageImpl implements Message {
 			entities = new EnumMap<TwitterImpl.KEntityType, List<TweetEntity>>(
 					TwitterImpl.KEntityType.class);
 			for (KEntityType type : KEntityType.values()) {
-				List<TweetEntity> es = TwitterImpl.TweetEntity.parse(this, _text, type,
+				List<TweetEntity> es = TwitterImpl.TweetEntityImpl.parse(this, _text, type,
 						jsonEntities);
 				entities.put(type, es);
 			}

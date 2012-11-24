@@ -1,9 +1,18 @@
 package interfacesComunes;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
 import java.rmi.Remote;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import winterwell.jtwitter.OAuthSignpostClient;
+import winterwell.jtwitter.RateLimit;
+import winterwell.jtwitter.TwitterExceptionImpl;
+import winterwell.jtwitter.URLConnectionHttpClient;
+import winterwell.jtwitter.TwitterImpl.KRequestType;
 
 import excepcionesComunes.TwitterException;
 
@@ -21,7 +30,144 @@ public interface Twitter extends Serializable, Remote{
 	}
 
 	public static interface TweetEntity extends Serializable{
+		int getStart();
+		int getEnd();
+		KEntityType getType();
+		String getDisplay();
+		String displayVersion();
 	}
+	
+	
+	/**
+	 * Interface for an http client - e.g. allows for OAuth to be used instead.
+	 * The standard version is {@link OAuthSignpostClient}.
+	 * <p>
+	 * If creating your own version, please provide support for throwing the
+	 * right subclass of TwitterException - see
+	 * {@link URLConnectionHttpClient#processError(java.net.HttpURLConnection)}
+	 * for example code.
+	 * 
+	 * @author Daniel Winterstein
+	 */
+	public static interface IHttpClient {
+
+		/**
+		 * Whether this client is setup to do authentication when contacting the
+		 * Twitter server. Note: This is a fast method that does not call the
+		 * server, so it does not check whether the access token or password is
+		 * valid. See {Twitter#isValidLogin()} or
+		 * {@link Twitter_Account#verifyCredentials()} if you need to check a
+		 * login.
+		 * */
+		boolean canAuthenticate();
+
+		/**
+		 * Lower-level GET method.
+		 * 
+		 * @param url
+		 * @param vars
+		 * @param authenticate
+		 * @return
+		 * @throws IOException
+		 */
+		HttpURLConnection connect(String url, Map<String, String> vars,
+				boolean authenticate) throws IOException;
+
+		/**
+		 * @return a copy of this client. The copy can share structure, but it
+		 *         MUST be safe for passing to a new thread to be used in
+		 *         parallel with the original.
+		 */
+		IHttpClient copy();
+
+		/**
+		 * Fetch a header from the last http request. This is inherently NOT
+		 * thread safe. Headers from error messages should (probably) be cached.
+		 * 
+		 * @param headerName
+		 * @return header value, or null if unset
+		 */
+		String getHeader(String headerName);
+
+		/**
+		 * Send an HTTP GET request and return the response body. Note that this
+		 * will change all line breaks into system line breaks!
+		 * 
+		 * @param uri
+		 *            The uri to fetch
+		 * @param vars
+		 *            get arguments to add to the uri
+		 * @param authenticate
+		 *            If true, use authentication. The authentication method
+		 *            used depends on the implementation (basic-auth, OAuth). It
+		 *            is an error to use true if no authentication details have
+		 *            been set.
+		 * 
+		 * @throws TwitterException
+		 *             for a variety of reasons
+		 * @throws TwitterExceptionImpl.E404
+		 *             for resource-does-not-exist errors
+		 */
+		String getPage(String uri, Map<String, String> vars,
+				boolean authenticate) throws TwitterException;
+
+		/**
+		 * @see Twitter#getRateLimit(KRequestType) This is where the Twitter
+		 *      method is implemented.
+		 */
+		RateLimit getRateLimit(KRequestType reqType);
+
+		/**
+		 * Send an HTTP POST request and return the response body.
+		 * 
+		 * @param uri
+		 *            The uri to post to.
+		 * @param vars
+		 *            The form variables to send. These are URL encoded before
+		 *            sending.
+		 * @param authenticate
+		 *            If true, send user authentication
+		 * @return The response from the server.
+		 * 
+		 * @throws TwitterException
+		 *             for a variety of reasons
+		 * @throws TwitterExceptionImpl.E404
+		 *             for resource-does-not-exist errors
+		 */
+		String post(String uri, Map<String, String> vars, boolean authenticate)
+				throws TwitterException;
+
+		/**
+		 * Lower-level POST method.
+		 * 
+		 * @param uri
+		 * @param vars
+		 * @return a freshly opened authorised connection
+		 * @throws TwitterException
+		 */
+		HttpURLConnection post2_connect(String uri, Map<String, String> vars)
+				throws Exception;
+
+		/**
+		 * Set the timeout for a single get/post request. This is an optional
+		 * method - implementations can ignore it!
+		 * 
+		 * @param millisecs
+		 */
+		void setTimeout(int millisecs);
+
+		/**
+		 * If true, will wait 1/2 second and make a 2nd request when presented with
+		 * a server error (E50X). Only retries once -- a 2nd fail will throw an exception.
+		 * 
+		 * This policy handles most Twitter server glitches.
+		 */
+		boolean isRetryOnError();
+
+		void setRetryOnError(boolean retryOnError);
+
+	}
+	
 
 	public static interface ITweet extends Serializable {
 

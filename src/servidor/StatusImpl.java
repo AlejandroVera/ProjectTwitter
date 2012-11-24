@@ -2,6 +2,7 @@ package servidor;
 
 import interfacesComunes.*;
 
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class StatusImpl implements Status{
 
 	private static final long serialVersionUID = 4967335867172572534L;
 	
-	private Long id;
+	private BigInteger id;
 	private int retweetCount;
 	private String text;
 	private User usuario;
@@ -26,10 +27,10 @@ public class StatusImpl implements Status{
 	private Conexion con;
 	private User loggedUser;
 
-	public StatusImpl(Long id, Conexion con, User loggedUser){
+	public StatusImpl(BigInteger status_id, Conexion con, User loggedUser){
 		this.con = con;
-		this.id=id;
-		ResultSet res = con.query("SELECT texto, autor, fecha FROM tweet WHERE id=" + id + " LIMIT 1");
+		this.id=status_id;
+		ResultSet res = con.query("SELECT texto, autor, fecha FROM tweet WHERE id=" + status_id + " LIMIT 1");
 		try {
 			if(res.next()){
 				this.loggedUser=loggedUser;
@@ -45,7 +46,7 @@ public class StatusImpl implements Status{
 
 	}
 
-	public Long getId() {
+	public BigInteger getId() {
 		return id;
 	}
 

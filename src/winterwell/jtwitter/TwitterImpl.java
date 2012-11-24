@@ -1,14 +1,13 @@
 package winterwell.jtwitter;
 
 import interfacesComunes.Message;
-import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
-import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.Twitter_Geo;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
+import interfacesComunes.Twitter.IHttpClient;
 
 import java.io.File;
 import java.io.IOException;
@@ -114,19 +113,7 @@ import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
  * @author Daniel Winterstein
  */
 public class TwitterImpl implements Serializable, Twitter {
-	/**
-	 * Use to register per-page callbacks for long-running searches. To stop the
-	 * search, return true.
-	 * 
-	 */
-	public interface ICallback {
-		public boolean process(List<Status> statuses);
-	}
-	
 
-	/** TODO
-	 * 
-	 */
 //	If available, returns an array of replies and mentions related to the 
 //	specified Tweet. There is no guarantee there will be any replies or 
 //	mentions in the response. This method is only available to users who 
@@ -171,137 +158,6 @@ public class TwitterImpl implements Serializable, Twitter {
 			return map;
 		}		
 	}
-	
-	/**
-	 * Interface for an http client - e.g. allows for OAuth to be used instead.
-	 * The standard version is {@link OAuthSignpostClient}.
-	 * <p>
-	 * If creating your own version, please provide support for throwing the
-	 * right subclass of TwitterException - see
-	 * {@link URLConnectionHttpClient#processError(java.net.HttpURLConnection)}
-	 * for example code.
-	 * 
-	 * @author Daniel Winterstein
-	 */
-	public static interface IHttpClient {
-
-		/**
-		 * Whether this client is setup to do authentication when contacting the
-		 * Twitter server. Note: This is a fast method that does not call the
-		 * server, so it does not check whether the access token or password is
-		 * valid. See {Twitter#isValidLogin()} or
-		 * {@link Twitter_Account#verifyCredentials()} if you need to check a
-		 * login.
-		 * */
-		boolean canAuthenticate();
-
-		/**
-		 * Lower-level GET method.
-		 * 
-		 * @param url
-		 * @param vars
-		 * @param authenticate
-		 * @return
-		 * @throws IOException
-		 */
-		HttpURLConnection connect(String url, Map<String, String> vars,
-				boolean authenticate) throws IOException;
-
-		/**
-		 * @return a copy of this client. The copy can share structure, but it
-		 *         MUST be safe for passing to a new thread to be used in
-		 *         parallel with the original.
-		 */
-		IHttpClient copy();
-
-		/**
-		 * Fetch a header from the last http request. This is inherently NOT
-		 * thread safe. Headers from error messages should (probably) be cached.
-		 * 
-		 * @param headerName
-		 * @return header value, or null if unset
-		 */
-		String getHeader(String headerName);
-
-		/**
-		 * Send an HTTP GET request and return the response body. Note that this
-		 * will change all line breaks into system line breaks!
-		 * 
-		 * @param uri
-		 *            The uri to fetch
-		 * @param vars
-		 *            get arguments to add to the uri
-		 * @param authenticate
-		 *            If true, use authentication. The authentication method
-		 *            used depends on the implementation (basic-auth, OAuth). It
-		 *            is an error to use true if no authentication details have
-		 *            been set.
-		 * 
-		 * @throws TwitterException
-		 *             for a variety of reasons
-		 * @throws TwitterExceptionImpl.E404
-		 *             for resource-does-not-exist errors
-		 */
-		String getPage(String uri, Map<String, String> vars,
-				boolean authenticate) throws TwitterException;
-
-		/**
-		 * @see Twitter#getRateLimit(KRequestType) This is where the Twitter
-		 *      method is implemented.
-		 */
-		RateLimit getRateLimit(KRequestType reqType);
-
-		/**
-		 * Send an HTTP POST request and return the response body.
-		 * 
-		 * @param uri
-		 *            The uri to post to.
-		 * @param vars
-		 *            The form variables to send. These are URL encoded before
-		 *            sending.
-		 * @param authenticate
-		 *            If true, send user authentication
-		 * @return The response from the server.
-		 * 
-		 * @throws TwitterException
-		 *             for a variety of reasons
-		 * @throws TwitterExceptionImpl.E404
-		 *             for resource-does-not-exist errors
-		 */
-		String post(String uri, Map<String, String> vars, boolean authenticate)
-				throws TwitterException;
-
-		/**
-		 * Lower-level POST method.
-		 * 
-		 * @param uri
-		 * @param vars
-		 * @return a freshly opened authorised connection
-		 * @throws TwitterException
-		 */
-		HttpURLConnection post2_connect(String uri, Map<String, String> vars)
-				throws Exception;
-
-		/**
-		 * Set the timeout for a single get/post request. This is an optional
-		 * method - implementations can ignore it!
-		 * 
-		 * @param millisecs
-		 */
-		void setTimeout(int millisecs);
-
-		/**
-		 * If true, will wait 1/2 second and make a 2nd request when presented with
-		 * a server error (E50X). Only retries once -- a 2nd fail will throw an exception.
-		 * 
-		 * This policy handles most Twitter server glitches.
-		 */
-		boolean isRetryOnError();
-
-		void setRetryOnError(boolean retryOnError);
-
-	}
-
 
 	/**
 	 * The different types of API request. These can have different rate limits.
@@ -329,7 +185,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * 
 	 * @see Twitter#setIncludeTweetEntities(boolean)
 	 */
-	public final static class TweetEntity implements Serializable {
+	public final static class TweetEntityImpl implements TweetEntity, Serializable {
 		private static final long serialVersionUID = 1L;
 
 		/**
@@ -356,7 +212,7 @@ public class TwitterImpl implements Serializable, Twitter {
 						arr.length());
 				for (int i = 0; i < arr.length(); i++) {
 					JSONObject obj = arr.getJSONObject(i);
-					TweetEntity te = new TweetEntity(tweet, rawText, type, obj, list);
+					TweetEntity te = new TweetEntityImpl(tweet, rawText, type, obj, list);
 					list.add(te);
 				}
 				return list;
@@ -367,18 +223,35 @@ public class TwitterImpl implements Serializable, Twitter {
 		}
 
 		final String display;
+		
+		public String getDisplay(){
+			return display;
+		}
+		
 		/**
 		 * end of the entity in the contents String, exclusive
 		 */
 		public final int end;
+		
+		public int getEnd(){
+			return end;
+		}
 		/**
 		 * start of the entity in the contents String, inclusive
 		 */
 		public final int start;
+		
+		public int getStart(){
+			return end;
+		}
+		
 		private final ITweet tweet;
 
 		public final KEntityType type;
 
+		public KEntityType getType(){
+			return type;
+		}
 		/**
 		 * 
 		 * @param tweet
@@ -386,9 +259,10 @@ public class TwitterImpl implements Serializable, Twitter {
 		 * @param type
 		 * @param obj
 		 * @param previous Used to handle repeated entities
+		 * @return 
 		 * @throws JSONException
 		 */
-		TweetEntity(ITweet tweet, String rawText, KEntityType type, JSONObject obj, ArrayList<TweetEntity> previous)
+		TweetEntityImpl(ITweet tweet, String rawText, KEntityType type, JSONObject obj, ArrayList<TweetEntity> previous)
 				throws JSONException 
 		{
 			this.tweet = tweet;
@@ -451,8 +325,8 @@ public class TwitterImpl implements Serializable, Twitter {
 			// Handle repeated entities -- eg same url / @name twice at different positions
 			int from = 0;
 			for(TweetEntity prev : previous) {
-				if (tweet.getText().regionMatches(prev.start, entityText, 0, entityText.length())) {
-					from = prev.end;
+				if (tweet.getText().regionMatches(prev.getStart(), entityText, 0, entityText.length())) {
+					from = prev.getEnd();
 				}
 			}
 			// Find where the referenced text is in the un-encoded version
@@ -470,7 +344,7 @@ public class TwitterImpl implements Serializable, Twitter {
 		/**
 		 * Constructor for when you know exactly what you want (rare).
 		 */
-		TweetEntity(ITweet tweet, KEntityType type, int start, int end, String display) {
+		TweetEntityImpl(ITweet tweet, KEntityType type, int start, int end, String display) {
 			this.tweet = tweet;
 			this.end = end;
 			this.start = start;
@@ -619,7 +493,6 @@ public class TwitterImpl implements Serializable, Twitter {
 	}
 
 	/**
-	 * TODO merge with {@link #maxResults}??
 	 */
 	Integer count;
 
@@ -1540,7 +1413,11 @@ public class TwitterImpl implements Serializable, Twitter {
 			}
 			return null;
 		}
-		account().verifyCredentials();
+		try {
+			account().verifyCredentials();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		name = self.getScreenName();
 		return self;
 	}
@@ -1623,8 +1500,7 @@ public class TwitterImpl implements Serializable, Twitter {
 				msgs = StatusImpl.getStatuses(http.getPage(url, var,
 						authenticate));
 			} catch (TwitterExceptionImpl.Parsing pex) {
-				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
-				// TODO remove when Twitter fix this!
+				
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, var, authenticate);
@@ -1649,8 +1525,6 @@ public class TwitterImpl implements Serializable, Twitter {
 				String json = http.getPage(url, var, authenticate);
 				nextpage = StatusImpl.getStatuses(json);
 			} catch (TwitterExceptionImpl.Parsing pex) {
-				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
-				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, var, authenticate);
@@ -1911,7 +1785,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		if (rl == null) {
 			if (reqType == KRequestType.NORMAL) {
 				int rls = getRateLimitStatus();
-				Log.d("Twitter", "RatelimitStatus for " + this.getScreenName() + " is...." + rls);
 				return rls >= minCalls;
 			}
 			return false;
@@ -1957,7 +1830,11 @@ public class TwitterImpl implements Serializable, Twitter {
 			return false;
 		try {
 			Twitter_Account ta = new Twitter_AccountImpl(this);
-			User u = ta.verifyCredentials();
+			try {
+				User u = ta.verifyCredentials();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			return true;
 		} catch (TwitterExceptionImpl.E403 e) {
 			return false;
@@ -2059,7 +1936,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 *         rpp if maxResults is negative/zero. See
 	 *         {@link #setMaxResults(int)} to use > 100.
 	 */
-	public List<Status> search(String searchTerm, ICallback callback, int rpp) {
+	public List<Status> search(String searchTerm, interfacesComunes.Twitter.ICallback callback, int rpp) {
 		if (rpp > 100 && maxResults < rpp)
 			throw new IllegalArgumentException(
 					"You need to switch on paging to fetch more than 100 search results. First call setMaxResults() to raise the limit above "
@@ -2086,8 +1963,6 @@ public class TwitterImpl implements Serializable, Twitter {
 				String json = http.getPage(url, vars, false);
 				stati = StatusImpl.getStatusesFromSearch(this, json);
 			} catch (TwitterExceptionImpl.Parsing pex) {
-				// Twitter bug, July 2012: malformed responses -- end is chopped off ~1 time in 20
-				// TODO remove when Twitter fix this!
 				if (http.isRetryOnError()) {
 					InternalUtils.sleep(250);
 					String json = http.getPage(url, vars, false);
@@ -2135,8 +2010,6 @@ public class TwitterImpl implements Serializable, Twitter {
 	 *         "apples OR pears -kfz" (near Edinburgh)
 	 */
 	private String search2_bugHack(String searchTerm) {
-//		if (true) return searchTerm; TODO Looks like this is no longer needed (quick test, 4th Nov 2012)
-		// zero-length is valid with location
 		if (searchTerm.length()==0)
 			return searchTerm;
 		// bug 1: a OR b near X fails
@@ -2193,7 +2066,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		} catch (JSONException e) {
 			throw new TwitterExceptionImpl.Parsing(result, e);
 		} catch (TwitterExceptionImpl.E404 e) {
-			// suspended user?? TODO investigate
 			throw new TwitterExceptionImpl.E404(e.getMessage() + " with recipient="
 					+ recipient + ", text=" + text);
 		}
@@ -2683,7 +2555,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @return 
 	 * 			The effective message length in characters
 	 */
-	public static int countCharacters(String statusText) {
+	public int countCharacters(String statusText) {
 		int shortLength = statusText.length();
 		Matcher m = InternalUtils.URL_REGEX.matcher(statusText);
 		while(m.find()) {
@@ -2779,7 +2651,6 @@ public class TwitterImpl implements Serializable, Twitter {
 			vars.put("source", sourceApp);
 		}
 		if (inReplyToStatusId != null) {
-			// TODO remove this legacy check
 			double v = inReplyToStatusId.doubleValue();
 			assert v != 0 && v != -1;
 			vars.put("in_reply_to_status_id", inReplyToStatusId.toString());
@@ -2814,10 +2685,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		// Sanity check...
 		String targetText = statusText.trim();
 		String returnedStatusText = ((StatusImpl)s).text.trim();
-		// strip the urls to remove the effects of the t.co shortener
-		// (obviously this weakens the safety test, but failure would be
-		// a corner case of a corner case).
-		// TODO Twitter also shorten some not-quite-urls, such as "www.google.com", which stripUrls() won't catch.		
 		targetText = InternalUtils.stripUrls(targetText);
 		returnedStatusText = InternalUtils.stripUrls(returnedStatusText);
 		if (returnedStatusText.equals(targetText)) {
@@ -2858,8 +2725,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		}
 		Map vars = updateStatus2_vars(statusText, inReplyToStatusId);
 		vars.put("media[]", mediaFile);
-		// TODO possibly_sensitive
-		// TODO display_coordinates
 		String result = null;
 		try {			
 			result = ((OAuthSignpostClient)http)
@@ -2886,4 +2751,9 @@ public class TwitterImpl implements Serializable, Twitter {
 		return (Twitter_Users) new Twitter_UsersImpl(this);
 	}
 
+	@Override
+	public List<Status> getUserTimeline(Number userId) throws TwitterException {
+
+		return null;
+	}
 }
