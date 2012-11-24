@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.MiCuentaController">
+  <children>
+    <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+    <HBox id="HBox" alignment="CENTER" layoutX="20.0" layoutY="25.0" prefHeight="252.0" prefWidth="286.0" spacing="5.0">
+      <children>
+        <GridPane prefHeight="129.0" prefWidth="276.0">
+          <children>
+            <VBox id="cajaIz" alignment="CENTER" prefHeight="252.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <children>
+                <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="file:/home/borja/workspace/ProyectTwitter/src/cliente/Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+                <Label id="screenName" fx:id="ScreenName" onMouseClicked="#irCuenta" text="" />
+                <Label id="nameMyUser" fx:id="name" text="" />
+                <TextArea fx:id="descripcion" editable="true" onKeyPressed="#cambiarDescripcion" prefHeight="71.0" prefWidth="274.0" promptText="Este texto es para probar los 160 caracteres que se pueden llegar a meter en la caja de descripción de un usuario en twitter, para ver que no falta espacio...." text="" wrapText="true" />
+              </children>
+            </VBox>
+            <HBox id="cajaIz" alignment="CENTER" prefHeight="129.00010681152344" prefWidth="276.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+              <children>
+                <GridPane>
+                  <children>
+                    <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarTweetsUsuario" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nTweets" text="" />
+                        <Label id="numeroDe" text="TWEETS" />
+                      </children>
+                    </VBox>
+                    <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFriends" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nSiguiendo" text="" />
+                        <Label id="numeroDe" text="SIGUIENDO" />
+                      </children>
+                    </VBox>
+                    <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFollowers" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                      <children>
+                        <Label fx:id="nSeguidores" text="" />
+                        <Label id="numeroDe" text="SEGUIDORES" />
+                      </children>
+                    </VBox>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </HBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="237.0" minHeight="10.0" prefHeight="183.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </HBox>
+    <VBox id="contenedorMensaje" alignment="CENTER" layoutX="38.0" layoutY="300.0" onMouseClicked="#verMensajesPrivados" prefHeight="43.0" prefWidth="253.00009999999747" spacing="5.0">
+      <children>
+        <Label id="misMensajesPrivados" opacity="0.72" text="Mis mensajes privados">
+          <graphic>
+            <ImageView id="mensajeprivado" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="file:/home/borja/workspace/ProyectTwitter/src/cliente/Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Label>
+      </children>
+    </VBox>
+    <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Tweets">
+          <content>
+            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane prefHeight="553.0" prefWidth="517.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                      <children>
+                        <Label text="Tweets" />
+                      </children>
+                    </HBox>
+                    <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                          <children>
+                            <VBox id="cajaInteracciones" fx:id="tweetsUsuario" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </ScrollPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Siguiendo">
+          <content>
+            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane layoutX="0.0" layoutY="0.0" prefHeight="553.0" prefWidth="517.0">
+                  <children>
+                    <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                      <children>
+                        <Label id="" text="Siguiendo" />
+                      </children>
+                    </HBox>
+                    <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                          <children>
+                            <VBox id="tweetsMenciones" fx:id="cajaSiguiendo" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </ScrollPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Seguidores">
+          <content>
+            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane layoutX="0.0" layoutY="0.0" prefHeight="553.0" prefWidth="517.0">
+                  <children>
+                    <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                      <children>
+                        <Label id="" text="Seguidores" />
+                      </children>
+                    </HBox>
+                    <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                          <children>
+                            <VBox id="tweetsMenciones" fx:id="cajaSeguidores" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </ScrollPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Favoritos">
+          <content>
+            <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane layoutX="0.0" layoutY="0.0" prefHeight="553.0" prefWidth="517.0">
+                  <children>
+                    <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="517.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+                      <children>
+                        <Label id="" text="Favoritos" />
+                      </children>
+                    </HBox>
+                    <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <content>
+                        <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                          <children>
+                            <VBox id="tweetsMenciones" fx:id="tweetsFavoritos" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                          </children>
+                        </AnchorPane>
+                      </content>
+                    </ScrollPane>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+  <stylesheets>
+    <URL value="@timeline.css" />
+  </stylesheets>
+</AnchorPane>

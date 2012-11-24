@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="Content" fx:id="imagenFondo" blendMode="SRC_OVER" minHeight="0.0" minWidth="0.0" mouseTransparent="false" opacity="1.0" prefHeight="584.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TimeLineController">
+  <children>
+    <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="-2.0" />
+    <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0" />
+    <HBox id="HBox" alignment="CENTER" layoutX="343.0" layoutY="25.0" spacing="5.0">
+      <children>
+        <GridPane prefHeight="553.0" prefWidth="517.0">
+          <children>
+            <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="505.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+              <children>
+                <Label text="Tweets" />
+              </children>
+            </HBox>
+            <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+              <content>
+                <AnchorPane id="Content2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="515.0">
+                  <children>
+                    <VBox id="tweetsTimeline" fx:id="tweetsTimeLine" prefHeight="0.0" prefWidth="515.0" AnchorPane.bottomAnchor="511.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </ScrollPane>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </HBox>
+  </children>
+  <stylesheets>
+    <URL value="@timeline.css" />
+  </stylesheets>
+</AnchorPane>
