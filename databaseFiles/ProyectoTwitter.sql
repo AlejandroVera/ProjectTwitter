@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-11-2012 a las 12:48:52
+-- Tiempo de generación: 24-11-2012 a las 18:41:16
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -107,10 +107,6 @@ CREATE TABLE IF NOT EXISTS `places` (
   `latitud1` double NOT NULL,
   `longitud2` double NOT NULL,
   `latitud2` double NOT NULL,
-  `longitud3` double NOT NULL,
-  `latitud3` double NOT NULL,
-  `longitud4` double NOT NULL,
-  `latitud4` double NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
