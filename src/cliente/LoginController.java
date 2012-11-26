@@ -28,36 +28,49 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 public class LoginController extends Controller{
 
-    @FXML //  fx:id="createAccountLabel"
-    private Label createAccountLabel; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="gridContainer"
-    private GridPane gridContainer; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="HBoxServer"
-    private HBox HBoxServer; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="loginButton"
-    private Button loginButton; // Value injected by FXMLLoader
+	 @FXML //  fx:id="HBoxServer"
+	    private HBox HBoxServer; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="loginGridPane"
-    private GridPane loginGridPane; // Value injected by FXMLLoader
+	    @FXML //  fx:id="avisoConexion"
+	    private VBox avisoConexion; // Aviso que sale preguntando si quieres añadir una nueva conexión
 
-    @FXML //  fx:id="password"
-    private PasswordField password; // Value injected by FXMLLoader
+	    @FXML //  fx:id="createAccountLabel"
+	    private Label createAccountLabel; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="serverSelector"
-    private ChoiceBox<String> serverSelector; // Value injected by FXMLLoader
+	    @FXML //  fx:id="gridContainer"
+	    private GridPane gridContainer; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="username"
-    private TextField username; // Value injected by FXMLLoader
+	    @FXML //  fx:id="loginButton"
+	    private Button loginButton; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="worldContainer"
-    private AnchorPane worldContainer; // Value injected by FXMLLoader
+	    @FXML //  fx:id="loginGridPane"
+	    private GridPane loginGridPane; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="password"
+	    private PasswordField password; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="peticionPassword"
+	    private VBox peticionPassword; // Aviso que sale una vez ha obtenido el token para preguntar la pass con la que cifrar
+
+	    @FXML //  fx:id="repetirPassword"
+	    private PasswordField repetirPassword; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="serverSelector"
+	    private ChoiceBox<String> serverSelector; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="twitterRealPassword"
+	    private PasswordField twitterRealPassword; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="username"
+	    private TextField username; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="worldContainer"
+	    private AnchorPane worldContainer; // Value injected by FXMLLoader
     
     private HBox emailHBox;
     private TextField emailField;
@@ -130,27 +143,37 @@ public class LoginController extends Controller{
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert createAccountLabel != null : "fx:id=\"createAccountLabel\" was not injected: check your FXML file 'login.fxml'.";
-        assert gridContainer != null : "fx:id=\"gridContainer\" was not injected: check your FXML file 'login.fxml'.";
-        assert HBoxServer != null : "fx:id=\"HBoxServer\" was not injected: check your FXML file 'login.fxml'.";
-        assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'login.fxml'.";
-        assert loginGridPane != null : "fx:id=\"loginGridPane\" was not injected: check your FXML file 'login.fxml'.";
-        assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'login.fxml'.";
-        assert serverSelector != null : "fx:id=\"serverSelector\" was not injected: check your FXML file 'login.fxml'.";
-        assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'login.fxml'.";
-        assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'login.fxml'.";
+    	 assert HBoxServer != null : "fx:id=\"HBoxServer\" was not injected: check your FXML file 'login.fxml'.";
+         assert avisoConexion != null : "fx:id=\"avisoConexion\" was not injected: check your FXML file 'login.fxml'.";
+         assert createAccountLabel != null : "fx:id=\"createAccountLabel\" was not injected: check your FXML file 'login.fxml'.";
+         assert gridContainer != null : "fx:id=\"gridContainer\" was not injected: check your FXML file 'login.fxml'.";
+         assert loginButton != null : "fx:id=\"loginButton\" was not injected: check your FXML file 'login.fxml'.";
+         assert loginGridPane != null : "fx:id=\"loginGridPane\" was not injected: check your FXML file 'login.fxml'.";
+         assert password != null : "fx:id=\"password\" was not injected: check your FXML file 'login.fxml'.";
+         assert peticionPassword != null : "fx:id=\"peticionPassword\" was not injected: check your FXML file 'login.fxml'.";
+         assert repetirPassword != null : "fx:id=\"repetirPassword\" was not injected: check your FXML file 'login.fxml'.";
+         assert serverSelector != null : "fx:id=\"serverSelector\" was not injected: check your FXML file 'login.fxml'.";
+         assert twitterRealPassword != null : "fx:id=\"twitterRealPassword\" was not injected: check your FXML file 'login.fxml'.";
+         assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'login.fxml'.";
+         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'login.fxml'.";
+
         
 
         // initialize your logic here: all @FXML variables will have been injected
         serverSelector.getSelectionModel().selectFirst();
         
+        //Ocultamos los paneles auxiliares
+        avisoConexion.setVisible(false);
+        peticionPassword.setVisible(false);
+        
         //Si se elige el servidor real de twitter, no permitimos el registro      
         serverSelector.valueProperty().addListener(new ChangeListener<String>() {
             @Override 
             public void changed(ObservableValue<? extends String> ov, String t, String t1) {                
-            	if(serverSelector.getSelectionModel().getSelectedIndex() == 1)
+            	if(serverSelector.getSelectionModel().getSelectedIndex() == 1){
         			createAccountLabel.setVisible(false);
-        		else
+        			//TODO: aqui vas a tener que añadir el control para lanzar la primera ventana
+            	}else
         			createAccountLabel.setVisible(true);
             }    
         });       
@@ -168,6 +191,8 @@ public class LoginController extends Controller{
         
 
     }
+    
+    
         
     /**
      * Realiza las acciones necesarias para volver al login desde el registro
@@ -206,6 +231,31 @@ public class LoginController extends Controller{
     	}
     }
     
+    // Handler for Button[Button[id=null, styleClass=button]] onMouseClicked
+    public void addNewConection(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for Button[Button[id=null, styleClass=button]] onMouseClicked
+    public void cancelAddNewConection(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for Button[Button[id=null, styleClass=button]] onAction
+    public void closeError(ActionEvent event) {
+        // handle the event here
+    }
+
+    // Handler for Button[Button[id=null, styleClass=button]] onMouseClicked
+    public void finishAddNewConection(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for PasswordField[fx:id="twitterRealPassword"] onKeyTyped
+    public void sendFormAddNewConection(KeyEvent event) {
+        // handle the event here
+    }
+    
     private void login(){
     	String user = username.getText();
         String pass = password.getText();
@@ -222,4 +272,6 @@ public class LoginController extends Controller{
 	protected AnchorPane getContainer() {
 		return worldContainer;
 	}
+	
+	
 }

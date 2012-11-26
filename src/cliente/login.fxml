@@ -12,104 +12,173 @@
 
 <AnchorPane fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.LoginController">
   <children>
-    <VBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.5" AnchorPane.rightAnchor="249.5" AnchorPane.topAnchor="0.0">
+    <StackPane prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <ImageView fitHeight="199.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true" translateY="50.0">
-          <image>
-            <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" preserveRatio="false" smooth="false" />
-          </image>
-        </ImageView>
-        <VBox id="loginFormContainer1" alignment="CENTER" focusTraversable="false" maxWidth="350.0" spacing="5.0" style="&#10;" visible="true">
+        <VBox alignment="CENTER" prefHeight="650.0" prefWidth="401.0">
           <children>
-            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+            <ImageView fitHeight="199.0" fitWidth="199.0" pickOnBounds="true" preserveRatio="true" translateY="50.0">
+              <image>
+                <Image url="@Imagenes/corporate-ir-twitter-strategy-graphic.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+            <VBox id="loginFormContainer1" alignment="CENTER" focusTraversable="false" maxWidth="350.0" spacing="5.0" style="&#10;" visible="true">
               <children>
                 <VBox id="VBox" alignment="CENTER" spacing="5.0">
                   <children>
-                    <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" minHeight="-1.0" minWidth="-1.0" padding="$x1" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true" vgap="5.0">
+                    <VBox id="VBox" alignment="CENTER" spacing="5.0">
                       <children>
-                        <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <GridPane fx:id="gridContainer" alignment="CENTER" hgap="5.0" minHeight="-1.0" minWidth="-1.0" padding="$x1" prefHeight="-1.0" prefWidth="-1.0" snapToPixel="true" vgap="5.0">
                           <children>
-                            <Label minHeight="-Infinity" minWidth="-Infinity" text="Usuario" underline="false" wrapText="false" />
+                            <HBox id="HBox" alignment="CENTER_RIGHT" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                              <children>
+                                <Label minHeight="-Infinity" minWidth="-Infinity" text="Usuario" underline="false" wrapText="false" />
+                              </children>
+                              <padding>
+                                <Insets fx:id="x1" />
+                              </padding>
+                              <GridPane.margin>
+                                <Insets left="7.0" fx:id="x2" />
+                              </GridPane.margin>
+                            </HBox>
+                            <HBox id="HBox" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="1">
+                              <children>
+                                <Label minHeight="-Infinity" minWidth="-Infinity" text="Contraseña" />
+                              </children>
+                            </HBox>
+                            <HBox id="" fx:id="HBoxServer" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2">
+                              <children>
+                                <Label minHeight="-Infinity" minWidth="-Infinity" text="Servidor">
+                                  <HBox.margin>
+                                    <Insets left="15.0" />
+                                  </HBox.margin>
+                                </Label>
+                              </children>
+                            </HBox>
+                            <TextField fx:id="username" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                              <GridPane.margin>
+                                <Insets right="7.0" fx:id="x3" />
+                              </GridPane.margin>
+                            </TextField>
+                            <PasswordField fx:id="password" maxWidth="150.0" minWidth="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="1" />
+                            <ChoiceBox fx:id="serverSelector" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="2">
+                              <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                  <String fx:value="Nuestro twitter" />
+                                  <String fx:value="Twitter real" />
+                                </FXCollections>
+                              </items>
+                            </ChoiceBox>
                           </children>
-                          <padding>
-                            <Insets fx:id="x1" />
-                          </padding>
+                          <columnConstraints>
+                            <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="-1.0" prefWidth="-1.0" />
+                            <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="-1.0" prefWidth="-1.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </VBox>
+                    <GridPane id="GridPane" fx:id="loginGridPane">
+                      <children>
+                        <Button fx:id="loginButton" alignment="CENTER_RIGHT" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="createAccountLabel" alignment="BOTTOM_RIGHT" graphicTextGap="4.0" onMouseClicked="#showcreateAccount" text="Crear cuenta" underline="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
                           <GridPane.margin>
-                            <Insets left="7.0" fx:id="x2" />
+                            <Insets right="15.0" />
                           </GridPane.margin>
-                        </HBox>
-                        <HBox id="HBox" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="1">
-                          <children>
-                            <Label minHeight="-Infinity" minWidth="-Infinity" text="Contraseña" />
-                          </children>
-                        </HBox>
-                        <HBox id="" fx:id="HBoxServer" alignment="CENTER_RIGHT" padding="$x1" spacing="5.0" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2">
-                          <children>
-                            <Label minHeight="-Infinity" minWidth="-Infinity" text="Servidor">
-                              <HBox.margin>
-                                <Insets left="15.0" />
-                              </HBox.margin>
-                            </Label>
-                          </children>
-                        </HBox>
-                        <TextField fx:id="username" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                          <GridPane.margin>
-                            <Insets right="7.0" fx:id="x3" />
-                          </GridPane.margin>
-                        </TextField>
-                        <PasswordField fx:id="password" maxWidth="150.0" minWidth="-1.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="1" />
-                        <ChoiceBox fx:id="serverSelector" maxWidth="150.0" minWidth="150.0" prefWidth="-1.0" GridPane.columnIndex="1" GridPane.margin="$x3" GridPane.rowIndex="2">
-                          <items>
-                            <FXCollections fx:factory="observableArrayList">
-                              <String fx:value="Nuestro twitter" />
-                              <String fx:value="Twitter real" />
-                            </FXCollections>
-                          </items>
-                        </ChoiceBox>
+                        </Label>
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="-1.0" prefWidth="-1.0" />
-                        <ColumnConstraints fillWidth="true" hgrow="SOMETIMES" minWidth="-1.0" percentWidth="-1.0" prefWidth="-1.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" />
                       </columnConstraints>
                       <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                       </rowConstraints>
+                      <VBox.margin>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                      </VBox.margin>
                     </GridPane>
                   </children>
                 </VBox>
-                <GridPane id="GridPane" fx:id="loginGridPane">
-                  <children>
-                    <Button fx:id="loginButton" alignment="CENTER_RIGHT" minHeight="25.0" minWidth="60.0" mnemonicParsing="false" onAction="#sendLoginForm" text="Entrar" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label fx:id="createAccountLabel" alignment="BOTTOM_RIGHT" graphicTextGap="4.0" onMouseClicked="#showcreateAccount" text="Crear cuenta" underline="false" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                      <GridPane.margin>
-                        <Insets right="15.0" />
-                      </GridPane.margin>
-                    </Label>
-                  </children>
-                  <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" />
-                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                  <VBox.margin>
-                    <Insets left="5.0" right="5.0" top="5.0" />
-                  </VBox.margin>
-                </GridPane>
               </children>
+              <padding>
+                <Insets bottom="15.0" top="15.0" />
+              </padding>
             </VBox>
           </children>
           <padding>
-            <Insets bottom="15.0" top="15.0" />
+            <Insets fx:id="x1" />
           </padding>
         </VBox>
       </children>
-      <padding>
-        <Insets fx:id="x1" />
-      </padding>
+    </StackPane>
+    <VBox fx:id="avisoConexion" alignment="CENTER" prefHeight="650.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <TitledPane id="errorPane" animated="true" blendMode="SRC_ATOP" cache="false" collapsible="false" contentDisplay="CENTER" expanded="true" maxHeight="-Infinity" maxWidth="476.0" minHeight="-Infinity" minWidth="350.0" pickOnBounds="false" prefHeight="114.0" prefWidth="476.0" text="Aviso" textAlignment="LEFT" visible="true">
+          <content>
+            <AnchorPane id="Content" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="88.0" prefWidth="200.0" visible="true">
+              <children>
+                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="88.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <TextArea id="errorText" disable="true" editable="false" maxHeight="-Infinity" minHeight="-Infinity" opacity="1.0" prefHeight="64.0" prefWidth="200.0" text="No está definida la conexion para este usuario.&#10;¿Desea crear un nuevo perfil de acceso a twitter.com?" visible="true" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                      <children>
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#addNewConection" text="Aceptar" />
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeError" onMouseClicked="#cancelAddNewConection" text="Cancelar" />
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+      </children>
+    </VBox>
+    <VBox fx:id="peticionPassword" alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="650.0" prefWidth="900.0" visible="false">
+      <children>
+        <TitledPane id="errorPane" animated="true" blendMode="SRC_ATOP" cache="false" collapsible="false" contentDisplay="CENTER" expanded="true" maxHeight="-Infinity" maxWidth="476.0" minHeight="-Infinity" minWidth="350.0" pickOnBounds="false" prefHeight="114.0" prefWidth="476.0" text="Aviso" textAlignment="LEFT" visible="true">
+          <content>
+            <AnchorPane id="Content" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="88.0" prefWidth="200.0" visible="true">
+              <children>
+                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="88.0" prefWidth="472.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <TextArea id="errorText" disable="true" editable="false" maxHeight="-Infinity" minHeight="-Infinity" opacity="1.0" prefHeight="41.0" prefWidth="472.0" text="Introduzca una contraseña para el acceso. No es necesario que sea la misma que para Twitter.&#10;" wrapText="true" VBox.vgrow="ALWAYS" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="472.0">
+                      <children>
+                        <Label text="Contraseña:">
+                          <HBox.margin>
+                            <Insets left="5.0" right="5.0" />
+                          </HBox.margin>
+                        </Label>
+                        <PasswordField fx:id="twitterRealPassword" onKeyTyped="#sendFormAddNewConection" prefWidth="135.0" />
+                        <Label text="Repetir:">
+                          <HBox.margin>
+                            <Insets left="10.0" right="5.0" />
+                          </HBox.margin>
+                        </Label>
+                        <PasswordField fx:id="repetirPassword" prefWidth="135.0" />
+                      </children>
+                    </HBox>
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                      <children>
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#closeError" onMouseClicked="#finishAddNewConection" text="Aceptar">
+                          <HBox.margin>
+                            <Insets bottom="3.0" top="5.0" />
+                          </HBox.margin>
+                        </Button>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </TitledPane>
+      </children>
     </VBox>
   </children>
   <stylesheets>
