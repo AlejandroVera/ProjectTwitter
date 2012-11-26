@@ -36,105 +36,61 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class TimelineController extends Controller implements AStream.IListen {
+public class WorldController extends Controller implements AStream.IListen {
 
 	private static final long serialVersionUID = 6319965686022119977L;
 
-	 @FXML //  fx:id="ajustes"
-	    private MenuItem ajustes; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="busquedaLabel"
-	    private TextField busquedaLabel; // Value injected by FXMLLoader
+    @FXML //  fx:id="ajustes"
+    private MenuItem ajustes; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaFavoritos"
-	    private VBox cajaFavoritos; // Value injected by FXMLLoader
+    @FXML //  fx:id="busquedaLabel"
+    private TextField busquedaLabel; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaInteracciones"
-	    private VBox cajaInteracciones; // Value injected by FXMLLoader
+    @FXML //  fx:id="cajaNuevoTweet"
+    private VBox cajaNuevoTweet; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaMisTweets"
-	    private VBox cajaMisTweets; // Value injected by FXMLLoader
+    @FXML //  fx:id="cajaSeleccion"
+    private HBox cajaSeleccion; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaNuevoTweet"
-	    private VBox cajaNuevoTweet; // Value injected by FXMLLoader
+    @FXML //  fx:id="cerrarNuevoTweet"
+    private Label cerrarNuevoTweet; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaSeguidores"
-	    private VBox cajaSeguidores; // Value injected by FXMLLoader
+    @FXML //  fx:id="cerrarSesion"
+    private MenuItem cerrarSesion; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaSeleccion"
-	    private HBox cajaSeleccion; // Value injected by FXMLLoader
+    @FXML //  fx:id="creadorTweets"
+    private StackPane creadorTweets; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cajaSiguiendo"
-	    private VBox cajaSiguiendo; // Value injected by FXMLLoader
+    @FXML //  fx:id="infCuenta"
+    private StackPane infCuenta; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cerrarNuevoTweet"
-	    private Label cerrarNuevoTweet; // Value injected by FXMLLoader
+    @FXML //  fx:id="nSeguidores"
+    private Label nSeguidores; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="cerrarSesion"
-	    private MenuItem cerrarSesion; // Value injected by FXMLLoader
+    @FXML //  fx:id="nSiguiendo"
+    private Label nSiguiendo; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="contenedorMensaje"
-	    private VBox contenedorMensaje; // Value injected by FXMLLoader
+    @FXML //  fx:id="nTweets"
+    private Label nTweets; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="creadorTweets"
-	    private StackPane creadorTweets; // Value injected by FXMLLoader
+    @FXML //  fx:id="profileImage"
+    private ImageView profileImage; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="infCuenta"
-	    private StackPane infCuenta; // Value injected by FXMLLoader
+    @FXML //  fx:id="screenName"
+    private Label screenName; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="misMensajesPrivados"
-	    private Label misMensajesPrivados; // Value injected by FXMLLoader
+    @FXML //  fx:id="textoNuevoTweet"
+    private TextArea textoNuevoTweet; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="nSeguidores"
-	    private Label nSeguidores; // Value injected by FXMLLoader
+    @FXML //  fx:id="tweetButton"
+    private Button tweetButton; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="nSeguidores2"
-	    private Label nSeguidores2; // Value injected by FXMLLoader
+    @FXML //  fx:id="twittear"
+    private Button twittear; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="nSiguiendo"
-	    private Label nSiguiendo; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="nSiguiendo2"
-	    private Label nSiguiendo2; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="nTweets"
-	    private Label nTweets; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="nTweets2"
-	    private Label nTweets2; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="nameMyUser"
-	    private Label nameMyUser; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="profileImage"
-	    private ImageView profileImage; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="profileImageMiCuenta"
-	    private ImageView profileImageMiCuenta; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="screenName"
-	    private Label screenName; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="screenNameMyUser"
-	    private Label screenNameMyUser; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="textoNuevoTweet"
-	    private TextArea textoNuevoTweet; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="tweetButton"
-	    private Button tweetButton; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="tweetsMenciones"
-	    private VBox tweetsMenciones; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="tweetsTimeline"
-	    private VBox tweetsTimeline; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="twittear"
-	    private Button twittear; // Value injected by FXMLLoader
-
-	    @FXML //  fx:id="worldContainer"
-	    private AnchorPane worldContainer; // Value injected by FXMLLoader
+    @FXML //  fx:id="worldContainer"
+    private AnchorPane worldContainer; // Value injected by FXMLLoader
 
 
     // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
@@ -209,7 +165,6 @@ public class TimelineController extends Controller implements AStream.IListen {
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
     	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'timeline.fxml'.";
          assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert cajaInteracciones != null : "fx:id=\"cajaInteracciones\" was not injected: check your FXML file 'timeline.fxml'.";
          assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'timeline.fxml'.";
          assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'timeline.fxml'.";
          assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'timeline.fxml'.";
@@ -218,8 +173,6 @@ public class TimelineController extends Controller implements AStream.IListen {
          assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'timeline.fxml'.";
          assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
          assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert tweetsMenciones != null : "fx:id=\"tweetsMenciones\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert tweetsTimeline != null : "fx:id=\"tweetsTimeline\" was not injected: check your FXML file 'timeline.fxml'.";
          assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
 
          // initialize your logic here: all @FXML variables will have been injected
