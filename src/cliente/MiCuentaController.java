@@ -5,22 +5,31 @@ package cliente;
  * You can copy and paste this code into your favorite IDE
  **/
 
+import interfacesComunes.AStream;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
+
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 
-public class MiCuentaController
-    implements Initializable {
+public class MiCuentaController extends Controller implements AStream.IListen {
 
-    @FXML //  fx:id="ScreenName"
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8554344662002374232L;
+
+	@FXML //  fx:id="ScreenName"
     private Label ScreenName; // Value injected by FXMLLoader
 
     @FXML //  fx:id="cajaSeguidores"
@@ -101,5 +110,35 @@ public class MiCuentaController
         // initialize your logic here: all @FXML variables will have been injected
 
     }
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void postInitialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

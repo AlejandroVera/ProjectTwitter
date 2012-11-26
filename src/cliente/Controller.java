@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 public abstract class Controller implements Initializable {
 
@@ -35,5 +36,12 @@ public abstract class Controller implements Initializable {
 	 * Este método se ejecuta después de haber cargado en el controlador los valores de Twitter y TwitterClient
 	 */
 	public abstract void postInitialize();
+	
+	
+	/**
+	 * Método para acceder al AnchosPane raiz de ese controlador.
+	 * @return Devuelve el AnchosPane raiz.
+	 */
+	protected abstract AnchorPane getContainer();
 
 }

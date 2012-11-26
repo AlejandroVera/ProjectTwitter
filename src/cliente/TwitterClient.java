@@ -95,7 +95,7 @@ public class TwitterClient extends Application {
 				return false;
 			}			
 			//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-			Controller control = this.loadFXMLAndShow("timeline.fxml");
+			Controller control = this.loadFXMLAndShow("world.fxml");
 			
 			//Ponemos al controlador a la escucha de los eventos de twitter
 			this.cliente.setListener((AStream.IListen) control);

@@ -217,4 +217,9 @@ public class LoginController extends Controller{
 	public void postInitialize() {
 		//Vacio, no se hace nada
 	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		return worldContainer;
+	}
 }

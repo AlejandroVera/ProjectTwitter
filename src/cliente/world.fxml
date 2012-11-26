@@ -13,7 +13,7 @@
     <HBox id="barraArriba" layoutX="8.0" layoutY="28.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0" />
     <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
       <tabs>
-        <Tab id="tab" content="$null" text="">
+        <Tab id="tab" fx:id="timeLineTab" content="$null" text="">
           <graphic>
             <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="103.0" spacing="5.0" styleClass="label">
               <children>
@@ -27,7 +27,7 @@
             </HBox>
           </graphic>
         </Tab>
-        <Tab content="$null" text="">
+        <Tab fx:id="conectaTab" content="$null" text="">
           <graphic>
             <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
               <children>
@@ -41,7 +41,7 @@
             </HBox>
           </graphic>
         </Tab>
-        <Tab content="$null" text="">
+        <Tab fx:id="miCuentaTab" content="$null" text="">
           <graphic>
             <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
               <children>

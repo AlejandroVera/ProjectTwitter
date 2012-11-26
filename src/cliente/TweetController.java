@@ -130,4 +130,9 @@ public class TweetController extends Controller{
 		this.tweet = tweet;
 	}
 
+	@Override
+	protected AnchorPane getContainer() {
+		return worldTweetContainer;
+	}
+
 }

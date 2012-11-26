@@ -6,7 +6,6 @@
 package cliente;
 
 import interfacesComunes.AStream;
-import interfacesComunes.Status;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
@@ -14,16 +13,16 @@ import interfacesComunes.User;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -61,9 +60,15 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="creadorTweets"
     private StackPane creadorTweets; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="conectaTab"
+    private Tab conectaTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="infCuenta"
     private StackPane infCuenta; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="miCuentaTab"
+    private Tab miCuentaTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="nSeguidores"
     private Label nSeguidores; // Value injected by FXMLLoader
@@ -82,6 +87,9 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="textoNuevoTweet"
     private TextArea textoNuevoTweet; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="timeLineTab"
+    private Tab timeLineTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tweetButton"
     private Button tweetButton; // Value injected by FXMLLoader
@@ -91,6 +99,11 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
+    
+    //privadas propias
+    private MiCuentaController miCuentaController;
+    private ConectaController conectaController;
+    private TimeLineController timeLineController;
 
 
     // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
@@ -163,17 +176,27 @@ public class WorldController extends Controller implements AStream.IListen {
     }
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-    	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'timeline.fxml'.";
-         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'timeline.fxml'.";
+    	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'world.fxml'.";
+         assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'world.fxml'.";
+         assert cajaNuevoTweet != null : "fx:id=\"cajaNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+         assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'world.fxml'.";
+         assert cerrarNuevoTweet != null : "fx:id=\"cerrarNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+         assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'world.fxml'.";
+         assert conectaTab != null : "fx:id=\"conectaTab\" was not injected: check your FXML file 'world.fxml'.";
+         assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'world.fxml'.";
+         assert infCuenta != null : "fx:id=\"infCuenta\" was not injected: check your FXML file 'world.fxml'.";
+         assert miCuentaTab != null : "fx:id=\"miCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
+         assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'world.fxml'.";
+         assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'world.fxml'.";
+         assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'world.fxml'.";
+         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'world.fxml'.";
+         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'world.fxml'.";
+         assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+         assert timeLineTab != null : "fx:id=\"timeLineTab\" was not injected: check your FXML file 'world.fxml'.";
+         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'world.fxml'.";
+         assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'world.fxml'.";
+         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'world.fxml'.";
+
 
          // initialize your logic here: all @FXML variables will have been injected
          creadorTweets.setVisible(false);
@@ -187,18 +210,18 @@ public class WorldController extends Controller implements AStream.IListen {
 		nTweets.setText(""+user.getStatusesCount());
         nSeguidores.setText(""+user.getFollowersCount());
         nSiguiendo.setText(""+user.getFriendsCount());
-        
-        //Inicializar tweets
-		Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
-		tweetsTimeline.getChildren().clear();
-		while(timeline.hasNext()){
-			this.addTweet(timeline.next());
+		try {
+		   	this.timeLineController = (TimeLineController) loadFXMLAndAppendToTab("timeLine.fxml", this.timeLineTab);
+		   	this.miCuentaController = (MiCuentaController) loadFXMLAndAppendToTab("miCuenta.fxml", this.miCuentaTab);
+		   	this.conectaController = (ConectaController) loadFXMLAndAppendToTab("conecta.fxml", this.conectaTab);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		// TODO Auto-generated method stub
+		this.conectaController.processEvent(event);
 		return true;
 	}
 
@@ -210,42 +233,41 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		this.addTweet(tweet, true);
-		nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1)); //Inc numero tweets
+		
+		//Inc numero tweets
+		nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
+		
+		//Propagamos el evento
+		this.timeLineController.processTweet(tweet);
+		
+		//TODO: si el usuario del tweet es el mismo cuyo timeline tenemos abierto, mandamos el tweet al timeline
+		//
+		
 		return true;
 	}
 	
-	
-	
-	/**
-	 * Añade un tweet al final de la lista.
-	 * @param tweet Tweet a añadir.
-	 */
-	private void addTweet(ITweet tweet){
-		addTweet(tweet, false);
+	private Controller loadFXMLAndAppendToTab(String fxml, Tab parent) throws IOException{
+    	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(fxml));
+		Parent root = (Parent) loader.load(getClass().getResource(fxml).openStream());
+		
+		//Obtenemos el objeto controlador
+		Controller control = loader.getController();
+		control.setClientListener(super.getClientListener());
+		control.setTwitter(super.getTwitter());
+		control.postInitialize();
+		
+		//Mostramos la nueva vista
+		parent.setContent(root);
+		
+		return control;
+    }
+
+	@Override
+	protected AnchorPane getContainer() {
+		return worldContainer;
 	}
 	
-	/**
-	 * Añade un tweet.
-	 * @param tweet Tweet a añadir.
-	 * @param onTop True si el tweet se tiene que añadir al principio de la lista.
-	 */
-	private void addTweet(ITweet tweet, boolean onTop){
-		try {
-			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), tweet);
-			if(!onTop)
-				tweetsTimeline.getChildren().add(tweetUI.getRoot());
-			else{
-				LinkedList<Node> list = new LinkedList<Node>(tweetsTimeline.getChildren());
-				list.addFirst(tweetUI.getRoot());
-				tweetsTimeline.getChildren().clear();
-				tweetsTimeline.getChildren().addAll(list);
-			}
-			((AnchorPane)tweetsTimeline.getParent()).setMinHeight(((AnchorPane)tweetsTimeline.getParent()).getMinHeight()+126);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 }
 
