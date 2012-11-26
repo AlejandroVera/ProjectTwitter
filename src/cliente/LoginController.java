@@ -22,6 +22,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -240,14 +241,11 @@ public class LoginController extends Controller{
     public void cancelAddNewConection(MouseEvent event) {
         // handle the event here
     }
-
-    // Handler for Button[Button[id=null, styleClass=button]] onAction
-    public void closeError(ActionEvent event) {
-        // handle the event here
-    }
-
+    
     // Handler for Button[Button[id=null, styleClass=button]] onMouseClicked
-    public void finishAddNewConection(MouseEvent event) {
+    // Handler for PasswordField[fx:id="repetirPassword"] onKeyTyped
+    // Handler for PasswordField[fx:id="twitterRealPassword"] onKeyTyped
+    public void sendFormAddNewConection(InputEvent event) {
         // handle the event here
     }
 
