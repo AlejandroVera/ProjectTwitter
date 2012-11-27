@@ -104,10 +104,8 @@
 		
 }
 
-#Content{
-	-fx-background-image: url("beach36.jpg");
-	-fx-background-position: center center;
-	
+#prueba {
+	-fx-background-color: rgba(0, 230, 255, 0);
 }
 
 #fondoPestana{
@@ -128,4 +126,3 @@
 	-fx-font-family: "Ubuntu";
 	-fx-text-fill:rgba(0, 0, 0, 1);
 }
-

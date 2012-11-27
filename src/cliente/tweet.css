@@ -31,6 +31,14 @@
 	
 }
 
+#opcionRealizada{
+	-fx-effect: innershadow( three-pass-box , rgba(255,220,50,0.2) , 10, 0.5 , 1 , 1 );
+	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.8) , 3, 0.0 , 1 , 1 );
+	-fx-text-fill: rgba(255, 220, 90, 1);
+	-fx-font-weight: bold;
+	
+}
+
 #opcion:hover{
 	-fx-cursor: hand;
 	-fx-underline: true;
@@ -39,8 +47,37 @@
 
 }
 
-#opcion:pressed{
+#opcionRealizada:hover{
+	-fx-cursor: hand;
+	-fx-underline: true;
+	-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.9) , 15, 0.0 , 0, 0 );
+
+}
+
+#opcion:pressed, #opcionRealizada:pressed{
 	-fx-cursor: hand;
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
+
 }
+
+#cajita:hover{
+	-fx-cursor: hand;
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , -1 , -1 );
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , 1 , 1 );
+}
+
+#cajita{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(250, 250, 250, 0.4);
+	-fx-margin-top: 25px;
+	-fx-background-color: rgba(256, 256, 256, 0.35);
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
+	
+}
+
+#numeroDe, #cerrarNuevoTweet, #misMensajesPrivados{
+	-fx-font-weight: bold;
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.75) , 10, 0.0 , 0 , 0 );
+}
+
 

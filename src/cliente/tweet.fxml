@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="126.0" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="302.999977929685" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
   <children>
-    <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox id="HBox" alignment="CENTER" prefHeight="145.5" spacing="5.0" AnchorPane.bottomAnchor="145.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <GridPane prefWidth="516.0">
+        <GridPane prefHeight="138.0" prefWidth="516.0">
           <children>
             <HBox id="cajaIz" alignment="CENTER" prefHeight="159.0" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <children>
@@ -66,58 +66,142 @@
                         <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                     </GridPane>
-                    <GridPane prefHeight="26.000099999997474" prefWidth="439.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <GridPane prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <children>
-                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <StackPane id="StackPane" fx:id="stackAbrir" opacity="1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" text="Abrir" />
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" text="Abrir" />
+                              </children>
+                            </HBox>
                           </children>
-                        </HBox>
-                        <HBox id="HBox" alignment="CENTER" prefHeight="26.0" prefWidth="110.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackResponder" GridPane.columnIndex="1" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#responderTweet" opacity="1.0" prefWidth="101.0" text="Responder">
-                              <graphic>
-                                <ImageView id="responder" fitHeight="14.360000023696001" fitWidth="21.75757598876953" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                    <Image url="@Imagenes/responder.png" preserveRatio="true" smooth="true" />
-                                  </image>
-                                </ImageView>
-                              </graphic>
-                            </Label>
+                            <HBox id="HBox" alignment="CENTER" prefHeight="26.000099999997474" prefWidth="96.99990000000253" spacing="5.0">
+                              <children>
+                                <Label id="opcion" onMouseClicked="#responderTweet" opacity="1.0" prefWidth="101.0" text="Responder">
+                                  <graphic>
+                                    <ImageView id="responder" fitHeight="14.360000023696001" fitWidth="21.75757598876953" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/responder.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
                           </children>
-                        </HBox>
-                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackFavorito" GridPane.columnIndex="3" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#retwittearTweet" opacity="1.0" text="Retwittear">
-                              <graphic>
-                                <ImageView id="retweet" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                    <Image url="@Imagenes/retweet.png" preserveRatio="true" smooth="true" />
-                                  </image>
-                                </ImageView>
-                              </graphic>
-                            </Label>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcion" onMouseClicked="#anadirFavorito" opacity="1.0" text="Favorito">
+                                  <graphic>
+                                    <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/favoritos.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
                           </children>
-                        </HBox>
-                        <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackVerConve" opacity="1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
-                            <Label id="opcion" onMouseClicked="#anadirFavorito" opacity="1.0" text="Favorito">
-                              <graphic>
-                                <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
-                                  <image>
-                                    <Image url="@Imagenes/favoritos.png" preserveRatio="true" smooth="true" />
-                                  </image>
-                                </ImageView>
-                              </graphic>
-                            </Label>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" prefWidth="414.0" text="Conversacion">
+                                  <graphic>
+                                    <ImageView id="verconv" fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/verconv.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
                           </children>
-                        </HBox>
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackYaFavorito" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                          <children>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcionRealizada" onMouseClicked="#borrarFavorito" opacity="1.0" text="Favorito">
+                                  <graphic>
+                                    <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/favoritosdorado.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
+                          </children>
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackRetwitteado" opacity="1.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <children>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcionRealizada" minHeight="26.000091552734375" onMouseClicked="#borrarRetweet" opacity="1.0" prefHeight="26.000091552734375" text="Retwitteado">
+                                  <graphic>
+                                    <ImageView id="retweet" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/retweetdorado.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
+                          </children>
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackRetwittear" opacity="1.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <children>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcion" minHeight="26.000091552734375" onMouseClicked="#retwittearTweet" opacity="1.0" prefHeight="27.0" prefWidth="139.0" text="Retwittear">
+                                  <graphic>
+                                    <ImageView id="retweet" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/retweet.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
+                          </children>
+                        </StackPane>
+                        <StackPane id="StackPane" fx:id="stackBorrar" opacity="1.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <children>
+                            <HBox id="HBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="opcion" minHeight="26.000091552734375" onMouseClicked="#borrarTweet" opacity="1.0" prefHeight="26.000091552734375" text="Borrar">
+                                  <graphic>
+                                    <ImageView id="retweet" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                        <Image url="@Imagenes/borrar.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                  </graphic>
+                                </Label>
+                              </children>
+                            </HBox>
+                          </children>
+                        </StackPane>
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="96.0" minWidth="1.0" prefWidth="87.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="134.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="110.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="122.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="241.0" minWidth="1.0" prefWidth="132.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="0.0" prefWidth="97.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="127.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="97.0" />
                       </columnConstraints>
                       <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -145,8 +229,91 @@
         </GridPane>
       </children>
     </HBox>
+    <HBox layoutX="1.0" layoutY="140.0" prefHeight="65.0" prefWidth="514.0">
+      <children>
+        <GridPane prefHeight="65.0" prefWidth="514.0">
+          <children>
+            <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarRetweeters" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <children>
+                <Label id="numeroDe" fx:id="nRetweets" text="" />
+                <Label id="numeroDe" text="RETWEETS" />
+              </children>
+            </VBox>
+            <VBox id="cajita" alignment="CENTER" onMouseClicked="#mostrarFavoritosPor" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+              <children>
+                <Label id="numeroDe" fx:id="nFavoritos" text="" />
+                <Label id="numeroDe" text="FAVORITOS" />
+              </children>
+            </VBox>
+            <VBox id="cajita" alignment="CENTER" onMouseClicked="#responderTweet" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+              <children>
+                <Label id="misMensajesPrivados" opacity="0.95" text="Responder">
+                  <graphic>
+                    <ImageView id="tweetoscuro" fitHeight="43.999900000002526" fitWidth="43.999900000002526" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@Imagenes/tweetoscuro.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                  </graphic>
+                </Label>
+              </children>
+            </VBox>
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+    </HBox>
+    <VBox fx:id="tweetsRespuesta" layoutX="0.0" layoutY="205.0" prefHeight="0.0" prefWidth="514.0" />
+    <StackPane id="creadorTweets" fx:id="stackRespuesta" layoutX="1.0" layoutY="140.0" opacity="1.0" prefHeight="164.0" prefWidth="514.0">
+      <children>
+        <VBox id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
+          <children>
+            <GridPane prefHeight="164.0" prefWidth="498.0">
+              <children>
+                <TextArea id="textoNuevoTweet" onKeyPressed="#cambiaContador" prefHeight="85.0" prefWidth="426.0" promptText="\@name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label id="numeroDe" prefHeight="20.000091552734375" text="Twittea a @name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <children>
+                    <Button id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                    <Label id="numeroDe" text="140" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <Label id="cerrarNuevoTweet" onMouseClicked="#cerrarNuevoTweet" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="36.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="446.0" minWidth="10.0" prefWidth="426.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="36.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="73.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </VBox>
+      </children>
+    </StackPane>
   </children>
   <stylesheets>
     <URL value="@tweet.css" />
+    <URL value="@timeline.css" />
   </stylesheets>
 </fx:root>
