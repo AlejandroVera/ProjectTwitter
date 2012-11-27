@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="302.999977929685" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-1.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="-1.0" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
   <children>
     <HBox id="HBox" alignment="CENTER" prefHeight="145.5" spacing="5.0" AnchorPane.bottomAnchor="145.5" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
@@ -183,7 +183,7 @@
                           <children>
                             <HBox id="HBox" alignment="CENTER" spacing="5.0">
                               <children>
-                                <Label id="opcion" minHeight="26.000091552734375" onMouseClicked="#borrarTweet" opacity="1.0" prefHeight="26.000091552734375" text="Borrar">
+                                <Label id="opcion" minHeight="26.000091552734375" onMouseClicked="#borrarTweet" opacity="1.0" prefHeight="27.0" prefWidth="68.9998779296875" text="Borrar">
                                   <graphic>
                                     <ImageView id="retweet" fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                       <image>
@@ -229,7 +229,7 @@
         </GridPane>
       </children>
     </HBox>
-    <HBox layoutX="1.0" layoutY="140.0" prefHeight="65.0" prefWidth="514.0">
+    <HBox fx:id="infoExtra" layoutX="1.0" layoutY="140.0" prefHeight="-1.0" prefWidth="514.0" visible="false">
       <children>
         <GridPane prefHeight="65.0" prefWidth="514.0">
           <children>
@@ -270,19 +270,19 @@
         </GridPane>
       </children>
     </HBox>
-    <VBox fx:id="tweetsRespuesta" layoutX="0.0" layoutY="205.0" prefHeight="0.0" prefWidth="514.0" />
-    <StackPane id="creadorTweets" fx:id="stackRespuesta" layoutX="1.0" layoutY="140.0" opacity="1.0" prefHeight="164.0" prefWidth="514.0">
+    <VBox fx:id="tweetsRespuesta" layoutX="0.0" layoutY="205.0" prefHeight="0.0" prefWidth="514.0" visible="false" />
+    <StackPane id="creadorTweets" fx:id="stackRespuesta" layoutX="1.0" layoutY="140.0" opacity="1.0" prefHeight="-1.0" prefWidth="514.0" visible="false">
       <children>
         <VBox id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
           <children>
             <GridPane prefHeight="164.0" prefWidth="498.0">
               <children>
-                <TextArea id="textoNuevoTweet" onKeyPressed="#cambiaContador" prefHeight="85.0" prefWidth="426.0" promptText="\@name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextArea fx:id="textoNuevoTweet" onKeyPressed="#cambiaContador" prefHeight="85.0" prefWidth="426.0" promptText="\@name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label id="numeroDe" prefHeight="20.000091552734375" text="Twittea a @name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                   <children>
                     <Button id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                    <Label id="numeroDe" text="140" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <Label fx:id="numeroDe" text="140" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -96,7 +96,7 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	 */
 	private void addTweet(ITweet tweet, boolean onTop){
 		try {
-			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), tweet);
+			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			if(!onTop)
 				tweetsTimeLine.getChildren().add(tweetUI.getRoot());
 			else{

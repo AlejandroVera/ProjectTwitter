@@ -4,6 +4,7 @@
  **/
 package cliente;
 
+import interfacesComunes.Status;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.User;
 
@@ -11,6 +12,8 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import excepcionesComunes.TwitterException;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
@@ -20,17 +23,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
 public class TweetController extends Controller{
 
+    @FXML //  fx:id="infoExtra"
+    private HBox infoExtra; // Value injected by FXMLLoader
+	
 	@FXML //  fx:id="nFavoritos"
 	private Label nFavoritos; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="nRetweets"
 	private Label nRetweets; // Value injected by FXMLLoader
+	
+    @FXML //  fx:id="numeroDe"
+    private Label numeroDe; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="screename"
 	private Label screename; // Value injected by FXMLLoader
@@ -61,6 +71,9 @@ public class TweetController extends Controller{
 
 	@FXML //  fx:id="stackYaFavorito"
 	private StackPane stackYaFavorito; // Value injected by FXMLLoader
+	
+    @FXML //  fx:id="textoNuevoTweet"
+    private TextArea textoNuevoTweet; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="timeAgo"
 	private Label timeAgo; // Value injected by FXMLLoader
@@ -80,7 +93,7 @@ public class TweetController extends Controller{
 	@FXML //  fx:id="worldTweetContainer"
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
-	private ITweet tweet;
+	private Status tweet;
 
 
 
@@ -91,12 +104,16 @@ public class TweetController extends Controller{
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void anadirFavorito(MouseEvent event) {
-		// handle the event here
+		super.getTwitter().setFavorite((Status) tweet, true);
+		stackYaFavorito.setVisible(true);
+		stackFavorito.setVisible(false);
 	}
 
 	// Handler for Label[id="opcionRealizada"] onMouseClicked
 	public void borrarFavorito(MouseEvent event) {
-		// handle the event here
+		super.getTwitter().setFavorite((Status) tweet, false);
+		stackYaFavorito.setVisible(false);
+		stackFavorito.setVisible(true);
 	}
 
 	// Handler for Label[id="opcionRealizada"] onMouseClicked
@@ -106,17 +123,21 @@ public class TweetController extends Controller{
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void borrarTweet(MouseEvent event) {
-		// handle the event here
+		//TODO: pedir confirmación?
+		try{
+			super.getTwitter().destroyStatus(tweet.getId());
+			this.worldTweetContainer.setVisible(false);
+		}catch(TwitterException e){}
 	}
 
 	// Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
 	public void cambiaContador(KeyEvent event) {
-		// handle the event here
+		numeroDe.setText(""+(140-ClientTools.countCharacters(textoNuevoTweet.getText())));
 	}
 
 	// Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
 	public void cerrarNuevoTweet(MouseEvent event) {
-		// handle the event here
+		stackRespuesta.setVisible(false);
 	}
 
 	// Handler for Hyperlink[fx:id="username"] onAction
@@ -137,30 +158,53 @@ public class TweetController extends Controller{
 
 	// Handler for Button[id="twittear"] onMouseClicked
 	public void publicarTweet(MouseEvent event) {
-		// handle the event here
+		if(ClientTools.countCharacters(textoNuevoTweet.getText()) < 140){
+			this.getTwitter().updateStatus(textoNuevoTweet.getText(), tweet.getId());
+		}else{
+			//TODO: avisar de que se va a cortar el mensaje??
+		}
 	}
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void responderTweet(MouseEvent event) {
-		// handle the event here
+		stackRespuesta.setVisible(true);
 	}
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void retwittearTweet(MouseEvent event) {
-		// handle the event here
+		
 	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		assert screename != null : "fx:id=\"screename\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert nFavoritos != null : "fx:id=\"nFavoritos\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert nRetweets != null : "fx:id=\"nRetweets\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert numeroDe != null : "fx:id=\"numeroDe\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert screename != null : "fx:id=\"screename\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackAbrir != null : "fx:id=\"stackAbrir\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackBorrar != null : "fx:id=\"stackBorrar\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackFavorito != null : "fx:id=\"stackFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackResponder != null : "fx:id=\"stackResponder\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackRespuesta != null : "fx:id=\"stackRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackRetwitteado != null : "fx:id=\"stackRetwitteado\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackRetwittear != null : "fx:id=\"stackRetwittear\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackVerConve != null : "fx:id=\"stackVerConve\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert stackYaFavorito != null : "fx:id=\"stackYaFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert tweetsRespuesta != null : "fx:id=\"tweetsRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
+
 
 		// initialize your logic here: all @FXML variables will have been injected
+        tweetsRespuesta.setVisible(false);
+        stackRespuesta.setVisible(false);
+        infoExtra.setVisible(false);
 
 	}
 
@@ -203,11 +247,15 @@ public class TweetController extends Controller{
 		}
 
 		timeAgo.setText(timeago);
+		
+		//boolean favorito = tweet.isFavourite();
+		//stackYaFavorito.setVisible(favorito);
+		//stackFavorito.setVisible(favorito);
 
 
 	}
 
-	protected void setTweet(ITweet tweet){
+	protected void setTweet(Status tweet){
 		this.tweet = tweet;
 	}
 

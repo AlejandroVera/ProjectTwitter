@@ -22,4 +22,10 @@ class ClientTools {
 		errorController = controller;
 	}
 	
+	protected static int countCharacters(String statusText) {
+		final String regex = "((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+";
+		//Devolvemos la longitud sustituyendo las URLs con 20 caracteres.
+		return statusText.replaceAll(regex, "********************").length();
+	}
+	
 }
