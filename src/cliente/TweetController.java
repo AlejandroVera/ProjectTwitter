@@ -33,6 +33,9 @@ public class TweetController extends Controller{
 	@FXML //  fx:id="contenedorTweet"
 	private HBox contenedorTweet; // Value injected by FXMLLoader
 	
+    @FXML //  fx:id="globalContainer"
+    private VBox globalContainer; // Value injected by FXMLLoader
+	
     @FXML //  fx:id="infoExtra"
     private HBox infoExtra; // Value injected by FXMLLoader
 	
@@ -81,6 +84,9 @@ public class TweetController extends Controller{
 	@FXML //  fx:id="timeAgo"
 	private Label timeAgo; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="tweetBox"
+    private HBox tweetBox; // Value injected by FXMLLoader
+
 	@FXML //  fx:id="tweetTextArea"
 	private TextArea tweetTextArea; // Value injected by FXMLLoader
 
@@ -97,6 +103,7 @@ public class TweetController extends Controller{
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
 	private Status tweet;
+	private double originalSize = 0.0;
 
 
 
@@ -141,6 +148,10 @@ public class TweetController extends Controller{
 	// Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
 	public void cerrarNuevoTweet(MouseEvent event) {
 		stackRespuesta.setVisible(false);
+		worldTweetContainer.getChildren().remove(stackRespuesta);
+		worldTweetContainer.setMinHeight(originalSize);
+		worldTweetContainer.setMaxHeight(originalSize);
+		
 	}
 
 	// Handler for Hyperlink[fx:id="username"] onAction
@@ -171,7 +182,11 @@ public class TweetController extends Controller{
 	// Handler for Label[id="opcion"] onMouseClicked
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void responderTweet(MouseEvent event) {
+		originalSize = worldTweetContainer.getBoundsInLocal().getHeight();
 		stackRespuesta.setVisible(true);
+		worldTweetContainer.setMinHeight(tweetBox.getBoundsInLocal().getHeight() + originalSize);
+		worldTweetContainer.setMaxHeight(tweetBox.getBoundsInLocal().getHeight() + originalSize);
+		worldTweetContainer.getChildren().add(stackRespuesta);
 	}
 
 	// Handler for Label[id="opcion"] onMouseClicked
@@ -207,22 +222,8 @@ public class TweetController extends Controller{
 
 
 		// initialize your logic here: all @FXML variables will have been injected
-        tweetsRespuesta.setMinHeight(0);
-        tweetsRespuesta.setMaxHeight(0);
-        tweetsRespuesta.setVisible(false);
-        
-        stackRespuesta.setMinHeight(0);
-        stackRespuesta.setMaxHeight(0);
         stackRespuesta.setVisible(false);
-        
-        infoExtra.setMinHeight(0);
-        infoExtra.setMaxHeight(0);
-        infoExtra.setVisible(false);
-        
-        worldTweetContainer.getChildren().remove(tweetsRespuesta);
         worldTweetContainer.getChildren().remove(stackRespuesta);
-        worldTweetContainer.getChildren().remove(infoExtra);
-        worldTweetContainer.setMaxHeight(100);
 
 	}
 
