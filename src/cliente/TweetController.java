@@ -30,6 +30,9 @@ import javafx.scene.layout.VBox;
 
 public class TweetController extends Controller{
 
+	@FXML //  fx:id="contenedorTweet"
+	private HBox contenedorTweet; // Value injected by FXMLLoader
+	
     @FXML //  fx:id="infoExtra"
     private HBox infoExtra; // Value injected by FXMLLoader
 	
@@ -173,12 +176,14 @@ public class TweetController extends Controller{
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void retwittearTweet(MouseEvent event) {
-		
+		//TODO: comprobar si ya está retwitteado??
+		super.getTwitter().retweet(tweet);
 	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert contenedorTweet != null : "fx:id=\"contenedorTweet\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
         assert nFavoritos != null : "fx:id=\"nFavoritos\" was not injected: check your FXML file 'tweet.fxml'.";
         assert nRetweets != null : "fx:id=\"nRetweets\" was not injected: check your FXML file 'tweet.fxml'.";
         assert numeroDe != null : "fx:id=\"numeroDe\" was not injected: check your FXML file 'tweet.fxml'.";
@@ -202,9 +207,22 @@ public class TweetController extends Controller{
 
 
 		// initialize your logic here: all @FXML variables will have been injected
+        tweetsRespuesta.setMinHeight(0);
+        tweetsRespuesta.setMaxHeight(0);
         tweetsRespuesta.setVisible(false);
+        
+        stackRespuesta.setMinHeight(0);
+        stackRespuesta.setMaxHeight(0);
         stackRespuesta.setVisible(false);
+        
+        infoExtra.setMinHeight(0);
+        infoExtra.setMaxHeight(0);
         infoExtra.setVisible(false);
+        
+        worldTweetContainer.getChildren().remove(tweetsRespuesta);
+        worldTweetContainer.getChildren().remove(stackRespuesta);
+        worldTweetContainer.getChildren().remove(infoExtra);
+        worldTweetContainer.setMaxHeight(100);
 
 	}
 
