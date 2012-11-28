@@ -126,3 +126,15 @@
 	-fx-font-family: "Ubuntu";
 	-fx-text-fill:rgba(0, 0, 0, 1);
 }
+
+#screenName{
+	-fx-font-weight: bold;
+	-fx-text-fill: rgba(0, 0, 0, 0.9);
+}
+
+#cajaTexto{
+	-fx-margin-top: 25px;
+	-fx-background-color: rgba(256, 256, 256, 0.0);
+		
+
+}
