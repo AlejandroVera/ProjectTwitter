@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-1.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.5" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldTweetContainer" maxHeight="-1.0" maxWidth="-Infinity" minHeight="-1.0" minWidth="-Infinity" prefHeight="326.0" prefWidth="516.000022070315" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TweetController">
   <children>
-    <VBox id="VBox" fx:id="globalContainer" alignment="TOP_CENTER" layoutX="0.0" layoutY="0.0" prefHeight="145.5" spacing="0.0">
+    <VBox id="VBox" fx:id="globalContainer" alignment="TOP_CENTER" prefHeight="326.0" spacing="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <HBox id="HBox" fx:id="tweetBox" alignment="CENTER" fillHeight="true" minHeight="145.5" pickOnBounds="true" prefHeight="151.0" spacing="5.0">
           <children>

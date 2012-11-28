@@ -105,7 +105,7 @@ public class TimeLineController extends Controller implements AStream.IListen {
 				tweetsTimeLine.getChildren().clear();
 				tweetsTimeLine.getChildren().addAll(list);
 			}
-			((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
+			//((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
