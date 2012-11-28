@@ -14,16 +14,16 @@
     <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0" />
     <HBox id="HBox" alignment="CENTER" layoutX="343.0" layoutY="25.0" spacing="5.0">
       <children>
-        <GridPane prefHeight="553.0" prefWidth="517.0">
+        <GridPane prefHeight="553.0" prefWidth="525.0">
           <children>
-            <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="505.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
+            <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
               <children>
                 <Label text="Tweets" />
               </children>
             </HBox>
-            <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <ScrollPane prefHeight="513.0" prefWidth="516.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
               <content>
-                <VBox id="tweetsTimeline" fx:id="tweetsTimeLine" prefHeight="0.0" prefWidth="515.0" />
+                <VBox id="tweetsTimeline" fx:id="tweetsTimeLine" prefHeight="0.0" prefWidth="-1.0" />
               </content>
             </ScrollPane>
           </children>

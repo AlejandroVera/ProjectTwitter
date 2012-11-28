@@ -13,7 +13,7 @@
   <children>
     <VBox id="VBox" fx:id="globalContainer" alignment="TOP_CENTER" prefHeight="326.0" spacing="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <HBox id="HBox" fx:id="tweetBox" alignment="CENTER" fillHeight="true" minHeight="145.5" pickOnBounds="true" prefHeight="151.0" spacing="5.0">
+        <HBox id="HBox" fx:id="tweetBox" alignment="CENTER" fillHeight="true" minHeight="145.5" pickOnBounds="true" prefHeight="-1.0" spacing="5.0">
           <children>
             <GridPane prefHeight="145.5" prefWidth="516.0">
               <children>
@@ -232,7 +232,7 @@
             </GridPane>
           </children>
           <VBox.margin>
-            <Insets top="-5.0" />
+            <Insets fx:id="x1" />
           </VBox.margin>
         </HBox>
         <StackPane id="creadorTweets" fx:id="stackRespuesta" maxHeight="-1.0" minHeight="185.0" opacity="1.0" prefHeight="180.0" prefWidth="514.0" snapToPixel="true" visible="true">
