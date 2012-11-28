@@ -35,7 +35,7 @@ check
 
 echo "Lanzando cliente";
 sleep 1;
-java -Djava.rmi.server.codebaseile:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ cliente.TwitterClient
+java -Djava.rmi.server.codebaseile:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/signpost-core.jar:../libs/commons-codec-1.7.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ cliente.TwitterClient
 PIDCLI="$!";
 check
 
