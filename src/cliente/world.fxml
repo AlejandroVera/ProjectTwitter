@@ -10,6 +10,7 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.WorldController">
   <children>
+    <StackPane layoutX="11.0" layoutY="66.0" prefHeight="584.0" prefWidth="889.0" />
     <HBox id="barraArriba" layoutX="8.0" layoutY="28.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0" />
     <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
       <tabs>
@@ -84,19 +85,23 @@
                 </Button>
               </children>
             </HBox>
-            <HBox id="ajustes" alignment="CENTER" prefHeight="31.999900000002526" prefWidth="56.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <HBox id="Ajustes" alignment="CENTER" prefHeight="31.999900000002526" prefWidth="56.0" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
               <children>
-                <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@Imagenes/engranaje.png" preserveRatio="true" smooth="true" />
-                  </image>
-                </ImageView>
-                <MenuButton id="menuAjustes" minWidth="14.0" mnemonicParsing="false" prefWidth="31.619873046875" text="MenuButton">
-                  <items>
-                    <MenuItem id="ajustes" mnemonicParsing="false" onAction="#irAjustes" text="Ajustes" fx:id="ajustes" />
-                    <MenuItem id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" fx:id="cerrarSesion" />
-                  </items>
-                </MenuButton>
+                <AnchorPane id="AnchorPane" minHeight="30.999900817871094" prefHeight="30.999900817871094" prefWidth="56.80994892120361">
+                  <children>
+                    <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" layoutX="4.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                        <Image url="@Imagenes/engranaje.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                    <MenuButton id="menuAjustes" layoutX="4.0" layoutY="-3.0" minWidth="14.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.999908447265625" prefWidth="32.0" text="MenuButton">
+                      <items>
+                        <MenuItem id="ajustes" mnemonicParsing="false" onAction="#irAjustes" text="Ajustes" fx:id="ajustes" />
+                        <MenuItem id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" fx:id="cerrarSesion" />
+                      </items>
+                    </MenuButton>
+                  </children>
+                </AnchorPane>
               </children>
             </HBox>
           </children>

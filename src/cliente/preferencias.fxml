@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
+  <children>
+    <GridPane prefHeight="584.0" prefWidth="889.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <VBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <children>
+            <HBox id="HBox" alignment="CENTER" prefHeight="25.0" prefWidth="600.0" spacing="5.0">
+              <children>
+                <GridPane prefHeight="34.0" prefWidth="571.0">
+                  <children>
+                    <Label id="numeroDe" onMouseClicked="#cerrar" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <Label id="titulo" text="Ajustes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="554.0" minWidth="10.0" prefWidth="255.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="426.0" minWidth="10.0" prefWidth="304.0" />
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="12.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </HBox>
+            <VBox id="" prefHeight="385.0" prefWidth="602.0">
+              <children>
+                <GridPane prefHeight="385.9999000000025" prefWidth="573.0">
+                  <children>
+                    <GridPane prefHeight="87.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                      <children>
+                        <TextArea fx:id="descripcion" prefHeight="70.0" prefWidth="347.0" text=" " wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="323.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="73.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <Label text="Descripcion" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label text="Nombre" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                      <children>
+                        <GridPane prefHeight="78.0" prefWidth="408.0">
+                          <children>
+                            <TextField fx:id="name" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="106.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </HBox>
+                    <Label text="Imagen de perfil" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <Label text="Imagen de fondo" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                      <children>
+                        <GridPane prefHeight="78.0" prefWidth="408.0">
+                          <children>
+                            <TextField id="name" fx:id="imagenPerfilURL" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Button id="twittear" fx:id="examinarPerfil" mnemonicParsing="false" onMouseClicked="#examinarImagenPerfil" text="Examinar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="106.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </HBox>
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                      <children>
+                        <GridPane prefHeight="78.0" prefWidth="408.0">
+                          <children>
+                            <TextField id="name" fx:id="fondoURL" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                            <Button id="twittear" mnemonicParsing="false" onContextMenuRequested="#examinarImagenFondo" text="Examinar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="106.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </HBox>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="181.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="43.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="406.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="89.0" valignment="TOP" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="253.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="250.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </VBox>
+            <Button id="twittear" mnemonicParsing="false" onMouseClicked="#guardarAjustes" text="Guardar ajustes" />
+          </children>
+        </VBox>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="444.0" minWidth="10.0" prefWidth="141.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" prefWidth="602.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" prefWidth="146.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints maxHeight="194.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="477.0" minHeight="10.0" prefHeight="455.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="473.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+  </children>
+  <stylesheets>
+    <URL value="@timeline.css" />
+  </stylesheets>
+</AnchorPane>

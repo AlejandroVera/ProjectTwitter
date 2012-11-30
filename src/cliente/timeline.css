@@ -21,7 +21,7 @@
 	-fx-border-color: rgba(250, 250, 250, 0.4);
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.85);
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic";
 	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
 }
 
@@ -44,7 +44,7 @@
 #twittear{
 	-fx-font-weight: bold;
 	-fx-font-size: 13;
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic";
 	-text-fill: rgba(80, 80, 80, 0.85);
 	-fx-background-color: rgba(0, 200, 255, 0.7);
 	-fx-effect: dropshadow(three-pass-box , rgba(0,100,120,0.3) , 10, 0.0 , 0 , 0 );
@@ -57,13 +57,13 @@
 	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.9) , 20, 0.0 , 1 , 1 );
 }
 
-#cajita:hover, #menuAjustes:hover, .tab:hover,  #cerrarNuevoTweet:hover, #contenedorMensaje:hover{
+#cajita:hover, #Ajustes:hover, .tab:hover,  #cerrarNuevoTweet:hover, #contenedorMensaje:hover{
 	-fx-cursor: hand;
 	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , -1 , -1 );
 	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , 1 , 1 );
 }
 
-#tweetButton:pressed, #opcion:pressed, #cajita:pressed, #menuAjustes:pressed, #twittear:pressed,  #cerrarNuevoTweet:pressed, #contenedorMensaje:pressed{ 
+#tweetButton:pressed, #opcion:pressed, #cajita:pressed, #Ajustes:pressed, #twittear:pressed,  #cerrarNuevoTweet:pressed, #contenedorMensaje:pressed{ 
 	-fx-cursor: hand;
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.9) , 0, 0.0 , 0 , 0 );
 	
@@ -73,7 +73,7 @@
 .choice-box, .label{
 	-fx-font-weight: normal;
 	-fx-font-size: 13;
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic";
 	-fx-text-fill:rgba(0, 0, 0, 1);		
 }
 
@@ -85,14 +85,14 @@
 #textoPestana{
 	-fx-font-weight: bold;
 	-fx-font-size: 14;
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic";
 	-fx-text-fill: rgba(255, 255, 255, 1);
 }
 
 #MenuArriba .content.label{
 	-fx-font-weight: bold;
 	-fx-font-size: 14;
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic Book";
 	-fx-text-fill:rgba(0, 0, 0, 1);
 	
 }
@@ -123,7 +123,7 @@
 #nSiguiendo, #nTweets, #nSeguidores{
 	-fx-font-weight: bold;
 	-fx-font-size: 14;
-	-fx-font-family: "Ubuntu";
+	-fx-font-family: "NanumGothic";
 	-fx-text-fill:rgba(0, 0, 0, 1);
 }
 
@@ -135,6 +135,18 @@
 #cajaTexto{
 	-fx-margin-top: 25px;
 	-fx-background-color: rgba(256, 256, 256, 0.0);
-		
-
 }
+
+#tabVacio .tab:selected{
+	-fx-background-color: rgba(0, 230, 255, 0);
+}	
+
+#titulo{
+	-fx-font-weight: bold;
+	-fx-font-size: 20;
+	-fx-font-family: "NanumGothic";
+	-fx-text-fill:rgba(0, 0, 0, 0.85);
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,0.75) , 10, 0.0 , 0 , 0 );
+}
+	
+
