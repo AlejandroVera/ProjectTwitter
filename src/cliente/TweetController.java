@@ -187,10 +187,9 @@ public class TweetController extends Controller{
 		if(!this.desplegado){
 			originalSize = worldTweetContainer.getBoundsInLocal().getHeight();
 			stackRespuesta.setVisible(true);
-			//worldTweetContainer.setMinHeight(tweetBox.getBoundsInLocal().getHeight() + originalSize);
-			//worldTweetContainer.setMaxHeight(tweetBox.getBoundsInLocal().getHeight() + originalSize);
 			globalContainer.getChildren().add(stackRespuesta);
 			this.desplegado = true;
+			this.textoNuevoTweet.requestFocus();
 			
 			nFavoritos.setText("?");
 			nRetweets.setText(""+this.tweet.getRetweetCount());

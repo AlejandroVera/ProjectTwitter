@@ -5,11 +5,13 @@
 
 package cliente;
 
+import interfacesComunes.Twitter_Account;
+import interfacesComunes.User;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -19,8 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 
-public class AjustesController
-    implements Initializable {
+public class AjustesController extends Controller{
 
     @FXML //  fx:id="descripcion"
     private TextArea descripcion; // Value injected by FXMLLoader
@@ -78,8 +79,12 @@ public class AjustesController
     }
 
     // Handler for Button[id="twittear"] onMouseClicked
+    //TODO: falta completar algunas cosillas
     public void guardarAjustes(MouseEvent event) {
-        // handle the event here
+    	Twitter_Account account = super.getTwitter().account();
+    	User user = super.getTwitter().getSelf();
+    	account.setProfile(name.getText(), "UNKNOWN", user.getLocation(), descripcion.getText());
+    	account.setProfileColors(null);
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -94,5 +99,20 @@ public class AjustesController
         // initialize your logic here: all @FXML variables will have been injected
 
     }
+
+	@Override
+	public void postInitialize() {
+		User user = super.getTwitter().getSelf();
+		fondoURL.setText(user.getProfileBackgroundImageUrl().toString());
+		imagenPerfilURL.setText(user.getProfileImageUrl().toString());
+		name.setText(user.getName());
+		descripcion.setText(user.getDescription());
+	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
