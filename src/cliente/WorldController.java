@@ -100,6 +100,10 @@ public class WorldController extends Controller implements AStream.IListen {
     @FXML //  fx:id="worldContainer"
     private AnchorPane worldContainer; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="caracteresTweet"
+    private Label caracteresTweet; // Value injected by FXMLLoader
+
+    
     //privadas propias
     private MiCuentaController miCuentaController;
     private ConectaController conectaController;
@@ -108,6 +112,11 @@ public class WorldController extends Controller implements AStream.IListen {
 
     // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
     public void busca(KeyEvent event) {
+        // handle the event here
+    }
+    
+    // Handler for TextArea[fx:id="textoNuevoTweet"] onKeyPressed
+    public void cambiaContador(KeyEvent event) {
         // handle the event here
     }
 
