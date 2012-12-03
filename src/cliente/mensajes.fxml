@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="602.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
+  <children>
+    <TabPane id="MenuArriba" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <tabs>
+        <Tab text="Recibidos">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="602.0">
+              <children>
+                <VBox id="cajaIz" alignment="CENTER" layoutX="-1.0" layoutY="-11.0" spacing="5.0">
+                  <children>
+                    <VBox id="" prefHeight="430.0" prefWidth="602.0" />
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Enviados">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Redactar">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+  <stylesheets>
+    <URL value="@timeline.css" />
+  </stylesheets>
+</AnchorPane>
