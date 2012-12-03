@@ -6,5 +6,6 @@ import java.util.List;
 public interface Twitter_Users extends Serializable{
 
 	List<Long> getFollowerIDs();
+	java.util.List<Long> getFriendIDs();
 
 }

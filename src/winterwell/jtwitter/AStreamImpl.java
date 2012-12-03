@@ -948,6 +948,7 @@ final class StreamGobbler extends Thread {
 			assert stream.stream != null : stream;
 			try {
 				InputStreamReader isr = new InputStreamReader(stream.stream);
+				
 				BufferedReader br = new BufferedReader(isr);
 				while (!stopFlag) {
 					int len = readLength(br);

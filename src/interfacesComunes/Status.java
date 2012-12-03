@@ -6,7 +6,7 @@ import java.rmi.Remote;
 
 import servidor.TwitterImpl;
 
-public interface Status extends TwitterImpl.ITweet, Serializable, Remote{
+public interface Status extends Twitter.ITweet, Serializable, Remote{
 	int getRetweetCount();
 	BigInteger getId();
 	boolean isFavorite();
