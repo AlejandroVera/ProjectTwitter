@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 24-11-2012 a las 18:41:16
+-- Tiempo de generación: 03-12-2012 a las 17:27:43
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -89,7 +89,15 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   KEY `id_autor` (`id_autor`),
   KEY `id_destinatario` (`id_destinatario`),
   KEY `fecha` (`fecha`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=12 ;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `id_autor`, `id_destinatario`, `texto`, `fecha`, `inReplyTo`) VALUES
+(11, 1, 2, 'esto es un mensaje para kmilinho', 1353509601, 0),
+(10, 1, 2, 'esto es un mensaje para kmilinho', 1353507332, 0);
 
 -- --------------------------------------------------------
 
@@ -107,6 +115,10 @@ CREATE TABLE IF NOT EXISTS `places` (
   `latitud1` double NOT NULL,
   `longitud2` double NOT NULL,
   `latitud2` double NOT NULL,
+  `longitud3` double NOT NULL,
+  `latitud3` double NOT NULL,
+  `longitud4` double NOT NULL,
+  `latitud4` double NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
@@ -148,12 +160,20 @@ CREATE TABLE IF NOT EXISTS `tweet` (
   `inReplyTo` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=37 ;
+
+--
+-- Volcado de datos para la tabla `tweet`
+--
+
+INSERT INTO `tweet` (`id`, `texto`, `autor`, `fecha`, `inReplyTo`) VALUES
+(36, 'hello', 1, 1354210596, 0),
+(35, 'hola ', 1, 1354021925, 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Tabla `usuario`
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
@@ -169,6 +189,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `id_status` int(11) unsigned NOT NULL DEFAULT '0',
+  `protectedUser` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=4 ;
 
@@ -176,9 +197,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundImageUrl`, `profileImageUrl`, `web_link`, `id_status`) VALUES
-(1, 'Antonio', 'Antonio Fernandez', 'email@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', 0),
-(2, 'kmilinho', 'Camilo Pereira', 'c.pereira.leon@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', 0);
+INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundImageUrl`, `profileImageUrl`, `web_link`, `id_status`, `protectedUser`) VALUES
+(1, 'Antonio', 'Antonio Fernandez', 'email@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', 0, 0),
+(2, 'kmilinho', 'Camilo Pereira', 'c.pereira.leon@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
