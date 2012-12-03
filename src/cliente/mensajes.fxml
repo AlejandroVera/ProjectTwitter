@@ -9,33 +9,90 @@
 
 <AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="602.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
   <children>
-    <TabPane id="MenuArriba" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox id="cajaIz" layoutX="0.0" layoutY="0.0" prefHeight="37.0" prefWidth="602.0" />
+    <TabPane id="MenuArriba" layoutX="0.0" layoutY="0.0" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab text="Recibidos">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="602.0">
               <children>
-                <VBox id="cajaIz" alignment="CENTER" layoutX="-1.0" layoutY="-11.0" spacing="5.0">
-                  <children>
-                    <VBox id="" prefHeight="430.0" prefWidth="602.0" />
-                  </children>
-                </VBox>
+                <ScrollPane prefHeight="417.0" prefWidth="602.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <content>
+                    <VBox fx:id="bandejaEntrada" prefHeight="402.0" prefWidth="578.0" />
+                  </content>
+                </ScrollPane>
               </children>
             </AnchorPane>
           </content>
         </Tab>
         <Tab text="Enviados">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="417.0" prefWidth="602.0">
+                  <content>
+                    <VBox fx:id="bandejaSalida" prefHeight="402.0" prefWidth="578.0" />
+                  </content>
+                </ScrollPane>
+              </children>
+            </AnchorPane>
           </content>
         </Tab>
         <Tab text="Redactar">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <GridPane layoutX="0.0" layoutY="55.0" prefHeight="246.0" prefWidth="600.0">
+                  <children>
+                    <GridPane prefHeight="87.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                      <children>
+                        <TextArea id="descripcion" fx:id="texto" prefHeight="70.0" prefWidth="347.0" promptText="Escribe aqui el mensaje...." text=" " wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                      </children>
+                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="323.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="73.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                    </GridPane>
+                    <Label text="Mensaje" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Label text="Destinatario" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                      <children>
+                        <GridPane prefHeight="78.0" prefWidth="408.0">
+                          <children>
+                            <TextField id="name" fx:id="destinatario" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="106.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                      </children>
+                    </HBox>
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="181.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="43.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="10.0" prefWidth="406.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="89.0" valignment="TOP" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+                <Button id="twittear" layoutX="272.0" layoutY="333.0" mnemonicParsing="false" onMouseClicked="#enviarMensaje" prefHeight="37.0" prefWidth="70.0" text="Enviar" />
+              </children>
+            </AnchorPane>
           </content>
         </Tab>
       </tabs>
     </TabPane>
+    <Label id="numeroDe" layoutX="579.0" layoutY="9.0" onMouseClicked="#cerrarMenu" text="X" />
   </children>
   <stylesheets>
     <URL value="@timeline.css" />
