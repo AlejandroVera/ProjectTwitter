@@ -220,7 +220,7 @@
         </VBox>
       </children>
     </StackPane>
-    <StackPane fx:id="nuevaVentana" layoutX="149.0" layoutY="120.0" prefHeight="455.0" prefWidth="602.0" />
+    <StackPane fx:id="nuevaVentana" layoutX="11.0" layoutY="65.0" prefHeight="584.0" prefWidth="889.0" />
   </children>
   <stylesheets>
     <URL value="@timeline.css" />
