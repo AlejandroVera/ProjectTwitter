@@ -28,6 +28,7 @@ public class FXMLTweetAutoLoader {
 		this.controller = loader.getController();
 		this.controller.setTwitter(twitter);
 		this.controller.setTweet(tweet);
+		this.controller.setRoot(this.root);
 		this.controller.postInitialize();
     }
 

@@ -44,7 +44,7 @@ public class AjustesController extends Controller{
 
     // Handler for Label[id="numeroDe"] onMouseClicked
     public void cerrar(MouseEvent event) {
-        // handle the event here
+        this.hideWindow();
     }
 
     // Handler for Button[id="twittear"] onContextMenuRequested
@@ -113,6 +113,14 @@ public class AjustesController extends Controller{
 	protected AnchorPane getContainer() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	protected void showWindow(){
+		imagenFondo.setVisible(true);
+	}
+	
+	protected void hideWindow(){
+		imagenFondo.setVisible(false);
 	}
 
 }

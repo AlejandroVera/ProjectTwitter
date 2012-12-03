@@ -39,24 +39,16 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 			String description) {
 		
 		LinkedList<Object> params = new LinkedList<Object>();
+		params.add(name);
 		params.add(url);
 		params.add(location);
 		params.add(description);
-		params.add(name);
+		params.add(loggedUser.getId());
 		
-		con.updateQuery("UPDATE usuario SET web_link= ?, location = ?, descripcion = ? WHERE name = ? LIMIT=1", params);
-		ResultSet res = con.query("SELECT id FROM usuario WHERE name ="+ name);
-		try {
-			//Si existe un usuario con esos datos, se devuelve un objeto
-			if(res.next()){
-				
-				return new UserImpl(res.getLong(1), this.con, this.loggedUser);
-			}
-		} catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "No se ha podido actualizar usuario " + name);
-		}
+		con.updateQuery("UPDATE usuario SET name = ?, web_link= ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
+
+		return new UserImpl(this.loggedUser.getId(), this.con, this.loggedUser);
 		
-		return null;
 	}
 		
 		

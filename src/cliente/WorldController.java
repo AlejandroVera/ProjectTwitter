@@ -111,6 +111,7 @@ public class WorldController extends Controller implements AStream.IListen {
     private MiCuentaController miCuentaController;
     private ConectaController conectaController;
     private TimeLineController timeLineController;
+    private AjustesController ajustesController;
 
 
     // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
@@ -130,7 +131,8 @@ public class WorldController extends Controller implements AStream.IListen {
 
     // Handler for MenuItem[fx:id="ajustes"] onAction
     public void irAjustes(ActionEvent event) {
-        // handle the event here
+    	this.ajustesController.postInitialize(); //Truquito para que se cargue siempre la info por defecto
+        this.ajustesController.showWindow();
     }
 
     // Handler for HBox[id="cajaIz"] onKeyPressed
@@ -226,6 +228,10 @@ public class WorldController extends Controller implements AStream.IListen {
 		   	this.timeLineController = (TimeLineController) loadFXMLAndAppendToTab("timeLine.fxml", this.timeLineTab);
 		   	this.miCuentaController = (MiCuentaController) loadFXMLAndAppendToTab("miCuenta.fxml", this.miCuentaTab);
 		   	this.conectaController = (ConectaController) loadFXMLAndAppendToTab("conecta.fxml", this.conectaTab);
+		   	this.ajustesController = (AjustesController) loadFXMLAndAppendToTab("preferencias.fxml", null);
+		   	nuevaVentana.getChildren().add(this.ajustesController.getRoot());
+		   	this.ajustesController.hideWindow();
+		   	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -268,10 +274,12 @@ public class WorldController extends Controller implements AStream.IListen {
 		control.setClientListener(super.getClientListener());
 		control.setTwitter(super.getTwitter());
 		control.setParentController(this);
+		control.setRoot(root);
 		control.postInitialize();
 		
 		//Mostramos la nueva vista
-		parent.setContent(root);
+		if(parent != null)
+			parent.setContent(root);
 		
 		return control;
     }
