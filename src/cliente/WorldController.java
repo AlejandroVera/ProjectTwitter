@@ -103,6 +103,9 @@ public class WorldController extends Controller implements AStream.IListen {
     @FXML //  fx:id="caracteresTweet"
     private Label caracteresTweet; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="nuevaVentana"
+    private StackPane nuevaVentana; // Value injected by FXMLLoader
+
     
     //privadas propias
     private MiCuentaController miCuentaController;
