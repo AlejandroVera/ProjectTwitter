@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="602.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
+<AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
   <children>
-    <VBox id="cajaIz" alignment="CENTER" prefHeight="455.0" prefWidth="602.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox id="cajaIz" alignment="CENTER" layoutX="142.0" layoutY="93.0" prefHeight="455.0" prefWidth="602.0" spacing="5.0">
       <children>
         <HBox id="HBox" alignment="CENTER" prefHeight="25.0" prefWidth="600.0" spacing="5.0">
           <children>
@@ -35,7 +35,7 @@
               <children>
                 <GridPane prefHeight="87.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <children>
-                    <TextArea fx:id="descripcion" prefHeight="70.0" prefWidth="347.0" text=" " wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextArea id="descripcion" prefHeight="70.0" prefWidth="347.0" text=" " wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="10.0" prefWidth="323.0" />
@@ -51,7 +51,7 @@
                   <children>
                     <GridPane prefHeight="78.0" prefWidth="408.0">
                       <children>
-                        <TextField fx:id="name" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField id="name" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
@@ -69,8 +69,8 @@
                   <children>
                     <GridPane prefHeight="78.0" prefWidth="408.0">
                       <children>
-                        <TextField id="name" fx:id="imagenPerfilURL" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Button id="twittear" fx:id="examinarPerfil" mnemonicParsing="false" onMouseClicked="#examinarImagenPerfil" text="Examinar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField id="name" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Button id="twittear" mnemonicParsing="false" onMouseClicked="#examinarImagenPerfil" text="Examinar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="261.0" />
@@ -86,7 +86,7 @@
                   <children>
                     <GridPane prefHeight="78.0" prefWidth="408.0">
                       <children>
-                        <TextField id="name" fx:id="fondoURL" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField id="name" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <Button id="twittear" mnemonicParsing="false" onContextMenuRequested="#examinarImagenFondo" text="Examinar" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
