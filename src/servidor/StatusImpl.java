@@ -49,7 +49,7 @@ public class StatusImpl implements Status{
 	public boolean isFavorite(){
 		boolean sol = false;
 		ResultSet res = con.query("SELECT * FROM favoritos WHERE id_usuario=" 
-		+this.loggedUser+" AND id_tweet="+this.id +" LIMIT 1");
+		+this.loggedUser.getId()+" AND id_tweet="+this.id +" LIMIT 1");
 		try {
 			sol=res.next();
 		} catch (SQLException e) {

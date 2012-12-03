@@ -5,22 +5,29 @@
 
 package cliente;
 
+import interfacesComunes.Status;
+import interfacesComunes.User;
+import interfacesComunes.Twitter.ITweet;
+
+import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class OtraCuentaController
-    implements Initializable {
+public class OtraCuentaController extends Controller{
 
     @FXML //  fx:id="ScreenName"
     private Label ScreenName; // Value injected by FXMLLoader
@@ -81,6 +88,8 @@ public class OtraCuentaController
 
     @FXML //  fx:id="twittear"
     private Button twittear; // Value injected by FXMLLoader
+    
+    private User user; //Usuario que se está mostrando actualmente
 
 
     // Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
@@ -169,6 +178,67 @@ public class OtraCuentaController
         // initialize your logic here: all @FXML variables will have been injected
 
     }
+
+	@Override
+	public void postInitialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	protected void changeToUser(User user){
+		
+		//Limpiamos la información anterior
+		this.user = user;
+		tweetsUsuario.getChildren().clear();
+		
+		ScreenName.setText(user.getScreenName());
+		nTweets.setText(""+user.getStatusesCount());
+        nSeguidores.setText(""+user.getFollowersCount());
+        nSiguiendo.setText(""+user.getFriendsCount());
+		
+		//Cargamos su timeline
+		Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
+		tweetsUsuario.getChildren().clear();
+		while(timeline.hasNext()){
+			this.addTweet(timeline.next());
+		}
+	}
+	
+	/**
+	 * Añade un tweet al final de la lista.
+	 * @param tweet Tweet a añadir.
+	 */
+	private void addTweet(ITweet tweet){
+		addTweet(tweet, false);
+	}
+	
+	/**
+	 * Añade un tweet.
+	 * @param tweet Tweet a añadir.
+	 * @param onTop True si el tweet se tiene que añadir al principio de la lista.
+	 */
+	private void addTweet(ITweet tweet, boolean onTop){
+		try {
+			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
+			if(!onTop)
+				tweetsUsuario.getChildren().add(tweetUI.getRoot());
+			else{
+				LinkedList<Node> list = new LinkedList<Node>(tweetsUsuario.getChildren());
+				list.addFirst(tweetUI.getRoot());
+				tweetsUsuario.getChildren().clear();
+				tweetsUsuario.getChildren().addAll(list);
+			}
+			//((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
 

@@ -12,6 +12,7 @@ public abstract class Controller implements Initializable {
 
 	private TwitterClient clientListener;
 	private Twitter twitter;
+	private Initializable parentController;
 	
 	@Override
 	public abstract void initialize(URL location, ResourceBundle resources);
@@ -44,4 +45,13 @@ public abstract class Controller implements Initializable {
 	 */
 	protected abstract AnchorPane getContainer();
 
+	public Initializable getParentController() {
+		return parentController;
+	}
+
+	public void setParentController(Initializable parentController) {
+		this.parentController = parentController;
+	}
+
+	
 }

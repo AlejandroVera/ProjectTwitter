@@ -26,7 +26,6 @@ public class FXMLTweetAutoLoader {
 		
 		//Obtenemos el objeto controlador
 		this.controller = loader.getController();
-		//this.controller.setClientListener(this); TODO
 		this.controller.setTwitter(twitter);
 		this.controller.setTweet(tweet);
 		this.controller.postInitialize();

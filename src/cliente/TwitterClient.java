@@ -72,7 +72,7 @@ public class TwitterClient extends Application {
 
 			//Obtenemos el objeto controlador
 			this.universeController = loader.getController();
-			ClientTools.setErrorController(this.universeController);
+			ClientTools.setUniverseController(this.universeController);
 
 			//Mostramos la nueva vista
 			Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
@@ -181,6 +181,7 @@ public class TwitterClient extends Application {
 		Controller control = loader.getController();
 		control.setClientListener(this);
 		control.setTwitter(this.twitter);
+		control.setParentController(universeController);
 		control.postInitialize();
 
 		//Mostramos la nueva vista

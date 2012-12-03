@@ -34,7 +34,6 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	private VBox tweetsTimeLine; // Value injected by FXMLLoader
 
 
-
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		assert imagenFondo != null : "fx:id=\"imagenFondo\" was not injected: check your FXML file 'timeLine.fxml'.";
@@ -45,13 +44,11 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	}
 
 
-
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 
 	@Override
@@ -61,13 +58,11 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	}
 
 
-
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
 		this.addTweet(tweet, true);
 		return true;
 	}
-
 
 
 	@Override
@@ -97,6 +92,7 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	private void addTweet(ITweet tweet, boolean onTop){
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
+			tweetUI.getController().setParentController(this);
 			if(!onTop)
 				tweetsTimeLine.getChildren().add(tweetUI.getRoot());
 			else{
@@ -110,6 +106,10 @@ public class TimeLineController extends Controller implements AStream.IListen {
 			e.printStackTrace();
 		}
 	}
+	
+	protected void removeTweet(Node o){
+		tweetsTimeLine.getChildren().remove(o);
+	}
 
 
 
@@ -118,6 +118,7 @@ public class TimeLineController extends Controller implements AStream.IListen {
 		// TODO Auto-generated method stub
 		return imagenFondo;
 	}
+
 
 }
 

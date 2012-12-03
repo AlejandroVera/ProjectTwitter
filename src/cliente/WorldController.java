@@ -255,6 +255,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		Controller control = loader.getController();
 		control.setClientListener(super.getClientListener());
 		control.setTwitter(super.getTwitter());
+		control.setParentController(this);
 		control.postInitialize();
 		
 		//Mostramos la nueva vista
@@ -267,6 +268,7 @@ public class WorldController extends Controller implements AStream.IListen {
 	protected AnchorPane getContainer() {
 		return worldContainer;
 	}
+
 	
 
 }

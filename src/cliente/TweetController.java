@@ -5,7 +5,6 @@
 package cliente;
 
 import interfacesComunes.Status;
-import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.User;
 
 import java.net.URL;
@@ -138,6 +137,7 @@ public class TweetController extends Controller{
 		try{
 			super.getTwitter().destroyStatus(tweet.getId());
 			this.worldTweetContainer.setVisible(false);
+			((TimeLineController)super.getParentController()).removeTweet(this.getContainer());
 		}catch(TwitterException e){}
 	}
 
@@ -191,6 +191,9 @@ public class TweetController extends Controller{
 			//worldTweetContainer.setMaxHeight(tweetBox.getBoundsInLocal().getHeight() + originalSize);
 			globalContainer.getChildren().add(stackRespuesta);
 			this.desplegado = true;
+			
+			nFavoritos.setText("?");
+			nRetweets.setText(""+this.tweet.getRetweetCount());
 		}
 	}
 
@@ -269,6 +272,21 @@ public class TweetController extends Controller{
 		}
 
 		timeAgo.setText(timeago);
+		
+		if(user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
+			stackBorrar.setVisible(true);
+			stackRetwitteado.setVisible(false);
+			stackRetwittear.setVisible(false);
+		}
+		//TODO: casos de retwiteado
+		
+		if(this.tweet.isFavorite()){
+			stackFavorito.setVisible(false);
+			stackYaFavorito.setVisible(true);
+		}else{
+			stackFavorito.setVisible(true);
+			stackYaFavorito.setVisible(false);
+		}
 		
 		//boolean favorito = tweet.isFavourite();
 		//stackYaFavorito.setVisible(favorito);

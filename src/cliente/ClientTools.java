@@ -2,24 +2,24 @@ package cliente;
 
 class ClientTools {
 	
-	static UniverseController errorController;
+	static UniverseController universeController;
 
 	protected static void showDialog(String text){
 		showDialog(text, "Error");
     }
 	
 	protected static void showDialog(String text, String topText){
-		if(errorController != null){
-			errorController.showError(text, topText);
+		if(universeController != null){
+			universeController.showError(text, topText);
 		}
     }
 	
-	protected static UniverseController getErrorController(){
-		return errorController;
+	protected static UniverseController getUniverseController(){
+		return universeController;
 	}
 	
-	protected static void setErrorController(UniverseController controller){
-		errorController = controller;
+	protected static void setUniverseController(UniverseController controller){
+		universeController = controller;
 	}
 	
 	protected static int countCharacters(String statusText) {

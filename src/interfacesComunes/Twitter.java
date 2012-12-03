@@ -241,6 +241,8 @@ public interface Twitter extends Serializable, Remote{
 		 * Note: this does NOT resolve short urls from bit.ly etc. 
 		 */
 		String getDisplayText();
+		
+		boolean isFavorite();
 
 	}
 
