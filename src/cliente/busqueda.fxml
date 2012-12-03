@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="455.0" prefWidth="602.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.BusquedaController">
+  <children>
+    <HBox id="cajaIz" layoutX="0.0" layoutY="0.0" prefHeight="37.0" prefWidth="602.0" />
+    <TabPane id="MenuArriba" layoutX="0.0" layoutY="0.0" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Tweets">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="602.0">
+              <children>
+                <ScrollPane prefHeight="417.0" prefWidth="602.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <content>
+                    <VBox id="bandejaEntrada" fx:id="tweetsBusqueda" prefHeight="402.0" prefWidth="578.0" />
+                  </content>
+                </ScrollPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Personas">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="417.0" prefWidth="602.0">
+                  <content>
+                    <VBox id="bandejaSalida" fx:id="usersBusqueda" prefHeight="402.0" prefWidth="578.0" />
+                  </content>
+                </ScrollPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <Label id="numeroDe" layoutX="579.0" layoutY="9.0" onMouseClicked="#cerrarMenu" text="X" />
+  </children>
+  <stylesheets>
+    <URL value="@timeline.css" />
+  </stylesheets>
+</AnchorPane>
