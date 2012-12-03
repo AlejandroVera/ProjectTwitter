@@ -625,7 +625,7 @@ public class TwitterImpl implements Twitter {
 		Status status = new StatusImpl(status_id, this.con,this.user);		
 		
 		//Mandamos el tweet a todos los seguidores
-		Iterator<Number> seguidores = this.users().getFollowerIDs().iterator();
+		Iterator<Long> seguidores = this.users().getFollowerIDs().iterator();
 
 		while(seguidores.hasNext()){
 			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)

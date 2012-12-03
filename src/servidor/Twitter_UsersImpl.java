@@ -28,13 +28,13 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	public List<Number> getFollowerIDs(){
-		List<Number> seguidores=new ArrayList<Number>();
+	public List<Long> getFollowerIDs(){
+		List<Long> seguidores=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+loggedUser.getId());
 		try {
 			while(res.next()){
-				seguidores.add(res.getInt(1));
+				seguidores.add(res.getLong(1));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");

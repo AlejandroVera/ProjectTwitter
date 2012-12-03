@@ -204,7 +204,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 
 	private BigInteger lastId = BigInteger.ZERO;
 
-	final List<IListen> listeners = new ArrayList(0);
+	final List<interfacesComunes.AStream.IListen> listeners = new ArrayList(0);
 
 	final List<Outage> outages = Collections.synchronizedList(new ArrayList());
 
@@ -243,7 +243,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 	 * 
 	 * @param listener
 	 */
-	public void addListener(IListen listener) {
+	public void addListener(interfacesComunes.AStream.IListen listener) {
 		synchronized (listeners) {
 			// remove if already there
 			listeners.remove(listener);
@@ -702,7 +702,7 @@ public abstract class AStreamImpl implements Closeable, AStream {
 		if (listeners.size()==0) return;
 		synchronized (listeners) {
 			try {
-				for (IListen listener : listeners) {
+				for (interfacesComunes.AStream.IListen listener : listeners) {
 					boolean carryOn = listener.processSystemEvent(sysEvent);
 					// hide from earlier listeners?
 					if (!carryOn) {
@@ -891,7 +891,7 @@ final class StreamGobbler extends Thread {
 			try {
 				JSONObject jo = new JSONObject(json);
 				Object obj = AStreamImpl.read3_parse(jo, stream.jtwit);
-				for (IListen listener : stream.listeners) {
+				for (interfacesComunes.AStream.IListen listener : stream.listeners) {
 					boolean carryOn;
 					if (obj instanceof ITweet) {
 						carryOn = listener.processTweet((ITweet) obj);

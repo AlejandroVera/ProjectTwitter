@@ -10,8 +10,11 @@ import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.List;
 
+import winterwell.jtwitter.AStreamImpl;
 import winterwell.jtwitter.OAuthSignpostClient;
+import winterwell.jtwitter.TwitterStream;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -89,8 +92,31 @@ public class TwitterClient extends Application {
 		if(oauthClient!=null) {
 			this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
 			try {
-				this.loadFXMLAndShow("world.fxml");
+				this.cliente = new ClientCallbackListener();
+				
+				TwitterStream a = new TwitterStream(this.twitter);
+				List<Long> l= this.twitter.users().getFollowerIDs();
+				l.add(this.twitter.getSelf().getId());
+				
+				a.setFollowUsers(l);
+				
+				//lanzar la visión principal (pasandole al controlador el objeto Twitter)
+				Controller control = this.loadFXMLAndShow("world.fxml");
+				
+				a.addListener((AStream.IListen) control);
+				//Ponemos al controlador a la escucha de los eventos de twitter
+				this.cliente.setListener((AStream.IListen) control);
+			} 
+			catch (RemoteException e1) {
+				e1.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				this.loadFXMLAndShow("world.fxml");
+			} 
+			catch (IOException e) {
 				e.printStackTrace();
 			}
 			return true;

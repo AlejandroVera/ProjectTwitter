@@ -87,8 +87,8 @@ public class TwitterStream extends AStreamImpl {
 	 *            This will have it's timeout set to 90 seconds. So you probably
 	 *            don't want to reuse the object with the REST api.
 	 */
-	public TwitterStream(TwitterImpl jtwit) {
-		super(jtwit);
+	public TwitterStream(Twitter twitter) {
+		super(twitter);
 	}
 
 	@Override

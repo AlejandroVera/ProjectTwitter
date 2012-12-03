@@ -39,6 +39,11 @@ public class UserImpl implements User{
 	private java.net.URI 	website;
 	private Conexion con;
 	private User loggedUser;
+	private boolean protectedUser;
+	
+	public boolean getProtectedUser() {
+		return protectedUser;
+	}
 	
 	public UserImpl(String screenName, Conexion con, User loggedUser){
 		this(Long.parseLong("0"),screenName,con,loggedUser);
@@ -61,6 +66,12 @@ public class UserImpl implements User{
 		try {
 			if(!res.next()){
 				throw new TwitterException("Usuario no existe");
+			}
+			if(res.getInt("protectedUser")==0){
+				this.protectedUser=false;
+			}
+			else{
+				this.protectedUser=true;
 			}
 			this.name=res.getString("name");
 			this.createdAt=new Date(res.getInt("fecha_registro")*1000);

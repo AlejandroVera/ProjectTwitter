@@ -899,7 +899,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @see Twitter_Users#getFollowerIDs()
 	 */
 	@Deprecated
-	public List<Number> getFollowerIDs() throws TwitterException {
+	public List<Long> getFollowerIDs() throws TwitterException {
 		return ((Twitter_UsersImpl)users()).getFollowerIDs();
 	}
 
@@ -907,7 +907,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @see Twitter_Users#getFollowerIDs(String)
 	 */
 	@Deprecated
-	public List<Number> getFollowerIDs(String screenName)
+	public List<Long> getFollowerIDs(String screenName)
 			throws TwitterException {
 		return ((Twitter_UsersImpl)users()).getFollowerIDs(screenName);
 	}
@@ -932,7 +932,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @see Twitter_Users#getFriendIDs()
 	 */
 	@Deprecated
-	public List<Number> getFriendIDs() throws TwitterException {
+	public List<Long> getFriendIDs() throws TwitterException {
 		return ((Twitter_UsersImpl)users()).getFriendIDs();
 	}
 
@@ -940,7 +940,7 @@ public class TwitterImpl implements Serializable, Twitter {
 	 * @see Twitter_Users#getFriendIDs(String)
 	 */
 	@Deprecated
-	public List<Number> getFriendIDs(String screenName) throws TwitterException {
+	public List<Long> getFriendIDs(String screenName) throws TwitterException {
 		return ((Twitter_UsersImpl)users()).getFriendIDs(screenName);
 	}
 

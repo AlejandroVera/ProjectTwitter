@@ -28,7 +28,12 @@ import winterwell.jtwitter.TwitterExceptionImpl.SuspendedUser;
  * 
  * @author Daniel
  */
-public class Twitter_UsersImpl {
+public class Twitter_UsersImpl implements interfacesComunes.Twitter_Users {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8823764200653608716L;
 
 	private final IHttpClient http;
 
@@ -201,7 +206,7 @@ public class Twitter_UsersImpl {
 	 * 
 	 * @throws TwitterException
 	 */
-	public List<Number> getFollowerIDs() throws TwitterException {
+	public List<Long> getFollowerIDs() throws TwitterException {
 		return getUserIDs(jtwit.TWITTER_URL + "/followers/ids.json", null);
 	}
 
@@ -212,7 +217,7 @@ public class Twitter_UsersImpl {
 	 *            screen name of the user whose followers are to be fetched.
 	 * @throws TwitterException
 	 */
-	public List<Number> getFollowerIDs(String screenName)
+	public List<Long> getFollowerIDs(String screenName)
 			throws TwitterException {
 		return getUserIDs(jtwit.TWITTER_URL + "/followers/ids.json", screenName);
 	}
@@ -251,7 +256,7 @@ public class Twitter_UsersImpl {
 	 * 
 	 * @throws TwitterException
 	 */
-	public List<Number> getFriendIDs() throws TwitterException {
+	public List<Long> getFriendIDs() throws TwitterException {
 		return getUserIDs(jtwit.TWITTER_URL + "/friends/ids.json", null);
 	}
 
@@ -263,7 +268,7 @@ public class Twitter_UsersImpl {
 	 *            screen name of the user whose friends are to be fetched.
 	 * @throws TwitterException
 	 */
-	public List<Number> getFriendIDs(String screenName) throws TwitterException {
+	public List<Long> getFriendIDs(String screenName) throws TwitterException {
 		return getUserIDs(jtwit.TWITTER_URL + "/friends/ids.json", screenName);
 	}
 
@@ -370,9 +375,9 @@ public class Twitter_UsersImpl {
 	 * @return twitter-id numbers for friends/followers of screenName Is
 	 *         affected by {@link #maxResults}
 	 */
-	private List<Number> getUserIDs(String url, String screenName) {
+	private List<Long> getUserIDs(String url, String screenName) {
 		Long cursor = -1L;
-		List<Number> ids = new ArrayList<Number>();
+		List<Long> ids = new ArrayList<Long>();
 		Map<String, String> vars = InternalUtils.asMap("screen_name",
 				screenName);
 		while (cursor != 0 && !jtwit.enoughResults(ids)) {
