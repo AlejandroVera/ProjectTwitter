@@ -137,6 +137,12 @@
 	-fx-background-color: rgba(256, 256, 256, 0.0);
 }
 
+#descUser{
+	-fx-font-size:12;
+	-fx-margin-top: 25px;
+	-fx-background-color: rgba(256, 256, 256, 0.0);
+}
+
 #tabVacio .tab:selected{
 	-fx-background-color: rgba(0, 230, 255, 0);
 }	
