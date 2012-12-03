@@ -14,55 +14,58 @@
       <children>
         <AnchorPane id="AnchorPane">
           <children>
-            <StackPane layoutX="6.0" layoutY="81.0" prefHeight="584.0" prefWidth="889.0" />
-            <HBox id="barraArriba" layoutX="0.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0" />
-            <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
-              <tabs>
-                <Tab id="tab" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
-                  <graphic>
-                    <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="103.0" spacing="5.0" styleClass="label">
-                      <children>
-                        <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@Imagenes/casita.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                        <Label id="textoPestana" text="Timeline" />
-                      </children>
-                    </HBox>
-                  </graphic>
-                </Tab>
-                <Tab fx:id="conectaTab" content="$null" text="">
-                  <graphic>
-                    <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
-                      <children>
-                        <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@Imagenes/conecta.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                        <Label id="textoPestana" prefHeight="20.000091552734375" text="Conecta" />
-                      </children>
-                    </HBox>
-                  </graphic>
-                </Tab>
-                <Tab fx:id="miCuentaTab" content="$null" text="">
-                  <graphic>
-                    <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
-                      <children>
-                        <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@Imagenes/cuenta.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                        <Label id="textoPestana" text="Cuenta" />
-                      </children>
-                    </HBox>
-                  </graphic>
-                </Tab>
-              </tabs>
-            </TabPane>
-            <HBox id="HBox" alignment="CENTER" layoutX="370.0" layoutY="48.0" prefWidth="505.0" spacing="5.0">
+            <StackPane layoutX="1.0" layoutY="40.0" prefHeight="584.0" prefWidth="889.0" />
+            <HBox id="barraArriba" layoutX="0.0" layoutY="6.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0">
+              <children>
+                <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="541.0" prefWidth="878.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+                  <tabs>
+                    <Tab id="tab" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
+                      <graphic>
+                        <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="103.0" spacing="5.0" styleClass="label">
+                          <children>
+                            <ImageView id="casita" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                <Image url="@Imagenes/casita.png" preserveRatio="true" smooth="true" />
+                              </image>
+                            </ImageView>
+                            <Label id="textoPestana" text="Timeline" />
+                          </children>
+                        </HBox>
+                      </graphic>
+                    </Tab>
+                    <Tab fx:id="conectaTab" content="$null" text="">
+                      <graphic>
+                        <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
+                          <children>
+                            <ImageView id="conecta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                <Image url="@Imagenes/conecta.png" preserveRatio="true" smooth="true" />
+                              </image>
+                            </ImageView>
+                            <Label id="textoPestana" prefHeight="20.000091552734375" text="Conecta" />
+                          </children>
+                        </HBox>
+                      </graphic>
+                    </Tab>
+                    <Tab fx:id="miCuentaTab" content="$null" text="">
+                      <graphic>
+                        <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
+                          <children>
+                            <ImageView id="cuenta" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                <Image url="@Imagenes/cuenta.png" preserveRatio="true" smooth="true" />
+                              </image>
+                            </ImageView>
+                            <Label id="textoPestana" text="Cuenta" />
+                          </children>
+                        </HBox>
+                      </graphic>
+                    </Tab>
+                  </tabs>
+                </TabPane>
+              </children>
+            </HBox>
+            <HBox id="HBox" alignment="CENTER" layoutX="353.0" layoutY="13.0" prefWidth="505.0" spacing="5.0">
               <children>
                 <GridPane prefHeight="31.999900000002526" prefWidth="524.0">
                   <children>
@@ -121,7 +124,7 @@
                 </GridPane>
               </children>
             </HBox>
-            <StackPane fx:id="infCuenta" layoutX="25.0" layoutY="105.0" opacity="1.0" prefHeight="138.0" prefWidth="286.0">
+            <StackPane fx:id="infCuenta" layoutX="25.0" layoutY="80.0" opacity="1.0" prefHeight="138.0" prefWidth="286.0">
               <children>
                 <HBox id="HBox" alignment="CENTER" prefHeight="150.0" prefWidth="310.0" spacing="5.0">
                   <children>
@@ -184,7 +187,7 @@
                 </HBox>
               </children>
             </StackPane>
-            <StackPane fx:id="creadorTweets" layoutX="352.0" layoutY="80.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0">
+            <StackPane fx:id="creadorTweets" layoutX="352.0" layoutY="45.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0">
               <children>
                 <VBox fx:id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
                   <children>
