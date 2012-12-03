@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.WorldController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.WorldController">
   <children>
-    <StackPane fx:id="nuevaVentana" layoutX="11.0" layoutY="65.0" prefHeight="584.0" prefWidth="889.0">
+    <StackPane fx:id="nuevaVentana" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <AnchorPane id="AnchorPane">
+        <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="886.0">
           <children>
             <StackPane layoutX="6.0" layoutY="81.0" prefHeight="584.0" prefWidth="889.0" />
-            <HBox id="barraArriba" layoutX="0.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="889.0" />
+            <HBox id="barraArriba" layoutX="7.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="874.0" />
             <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
               <tabs>
                 <Tab id="tab" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
@@ -73,7 +73,7 @@
                     </ImageView>
                     <HBox id="HBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                       <children>
-                        <TextField id="" fx:id="busquedaLabel" editable="true" focusTraversable="false" onKeyPressed="#busca" prefWidth="150.0" promptText="Busqueda..." />
+                        <TextField id="" fx:id="busquedaLabel" editable="true" focusTraversable="false" onKeyPressed="#busca" prefWidth="157.0" promptText="Busqueda..." />
                       </children>
                     </HBox>
                     <HBox id="HBox" alignment="CENTER" prefWidth="149.9998779296875" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
@@ -93,12 +93,12 @@
                       <children>
                         <AnchorPane id="AnchorPane" minHeight="30.999900817871094" prefHeight="30.999900817871094" prefWidth="56.80994892120361">
                           <children>
-                            <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" layoutX="4.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView id="engranaje" fitHeight="30.999900000002526" fitWidth="31.619898839233265" layoutX="15.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
                               <image>
                                 <Image url="@Imagenes/engranaje.png" preserveRatio="true" smooth="true" />
                               </image>
                             </ImageView>
-                            <MenuButton id="menuAjustes" layoutX="4.0" layoutY="-3.0" minWidth="14.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.999908447265625" prefWidth="32.0" text="MenuButton">
+                            <MenuButton id="menuAjustes" layoutX="15.0" layoutY="-3.0" minWidth="14.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.999908447265625" prefWidth="32.0" text="MenuButton">
                               <items>
                                 <MenuItem id="ajustes" mnemonicParsing="false" onAction="#irAjustes" text="Ajustes" fx:id="ajustes" />
                                 <MenuItem id="cerrarSesion" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" fx:id="cerrarSesion" />
@@ -111,8 +111,8 @@
                   </children>
                   <columnConstraints>
                     <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="574.0" minWidth="10.0" prefWidth="141.0" />
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="278.0" minWidth="0.0" prefWidth="166.0" />
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="141.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="278.0" minWidth="0.0" prefWidth="193.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="311.0" minWidth="10.0" prefWidth="114.0" />
                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="173.0" minWidth="0.0" prefWidth="57.0" />
                   </columnConstraints>
                   <rowConstraints>
