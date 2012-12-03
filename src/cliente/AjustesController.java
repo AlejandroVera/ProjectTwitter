@@ -5,6 +5,7 @@
 
 package cliente;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 
 
 public class AjustesController
@@ -46,12 +48,33 @@ public class AjustesController
 
     // Handler for Button[id="twittear"] onContextMenuRequested
     public void examinarImagenFondo(ContextMenuEvent event) {
-        // handle the event here
+    	 
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Imágenes (*.jpg *.png)", "*.jpg", "*.png");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extFilter);
+       
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+        
+        //TODO: guardar la imagen en el servidor y obtener la ruta
+       
+        fondoURL.setText(file.getPath());
     }
 
     // Handler for Button[fx:id="examinarPerfil"] onMouseClicked
     public void examinarImagenPerfil(MouseEvent event) {
-        // handle the event here
+    	 //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Imágenes (*.jpg *.png)", "*.jpg", "*.png");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(extFilter);
+       
+        //Show open file dialog
+        File file = fileChooser.showOpenDialog(null);
+        
+        //TODO: guardar la imagen en el servidor y obtener la ruta
+       
+        imagenPerfilURL.setText(file.getPath());
     }
 
     // Handler for Button[id="twittear"] onMouseClicked
