@@ -14,6 +14,7 @@ import java.util.List;
 
 import winterwell.jtwitter.AStreamImpl;
 import winterwell.jtwitter.OAuthSignpostClient;
+import winterwell.jtwitter.PruebaListener;
 import winterwell.jtwitter.TwitterStream;
 
 import javafx.application.Application;
@@ -34,6 +35,7 @@ public class TwitterClient extends Application {
 	private ClientCallbackListener cliente;
 	private Stage primaryStage;
 	private UniverseController universeController;
+	private TwitterStream twitterStream;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -59,8 +61,12 @@ public class TwitterClient extends Application {
 
 				@Override
 				public void handle(WindowEvent event) {
-					if(twitter != null)
+					if(twitter != null){
+						if(twitterStream!=null){
+							twitterStream.close();
+						}
 						notifyLogout();
+					}
 					System.exit(0);
 				}
 			});
@@ -89,30 +95,29 @@ public class TwitterClient extends Application {
 	}
 
 	protected boolean notifyLogin(String user, String pass,OAuthSignpostClient oauthClient){
+		try {
+			this.cliente = new ClientCallbackListener();
+		} catch (RemoteException e2) {
+			e2.printStackTrace();
+		}
 		if(oauthClient!=null) {
 			this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
 			try {
-				this.cliente = new ClientCallbackListener();
-				
-				TwitterStream a = new TwitterStream(this.twitter);
-				List<Long> l= this.twitter.users().getFollowerIDs();
-				l.add(this.twitter.getSelf().getId());
-				
-				a.setFollowUsers(l);
-				
-				//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-				Controller control = this.loadFXMLAndShow("world.fxml");
-				
-				a.addListener((AStream.IListen) control);
-				//Ponemos al controlador a la escucha de los eventos de twitter
-				this.cliente.setListener((AStream.IListen) control);
+				this.twitterStream = new TwitterStream(twitter);
+				List<Long> l= twitter.users().getFriendIDs();
+				l.add(twitter.getSelf().getId());
+				twitterStream.setFollowUsers(l);
+				twitterStream.addListener(this.cliente);
+				twitterStream.connect();
+				twitterStream.popTweets();
+				if(twitterStream.isAlive()){
+					System.out.println("Stream conectado \n");
+
+				}
 			} 
-			catch (RemoteException e1) {
+			catch (Exception e1) {
 				e1.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
 			}
-			
 			try {
 				this.loadFXMLAndShow("world.fxml");
 			} 
@@ -124,7 +129,6 @@ public class TwitterClient extends Application {
 		else{
 			try {
 				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-				this.cliente = new ClientCallbackListener();
 				this.twitter = stub.login(user, pass, cliente);
 				if(this.twitter ==  null){
 					ClientTools.showDialog("Login invalido.");
