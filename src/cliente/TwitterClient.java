@@ -96,16 +96,6 @@ public class TwitterClient extends Application {
 
 	protected boolean notifyLogin(String user, String pass,OAuthSignpostClient oauthClient){
 		Controller control;
-		try {
-			control = this.loadFXMLAndShow("world.fxml");
-		} catch (IOException e3) {
-			e3.printStackTrace();
-		}
-		try {
-			this.cliente = new ClientCallbackListener();
-		} catch (RemoteException e2) {
-			e2.printStackTrace();
-		}
 		if(oauthClient!=null) {
 			this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
 			try {
@@ -128,17 +118,12 @@ public class TwitterClient extends Application {
 			catch (Exception e1) {
 				e1.printStackTrace();
 			}
-			try {
-				this.loadFXMLAndShow("world.fxml");
-			} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
 			return true;
 		}
 		else{
 			try {
 				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
+				this.cliente = new ClientCallbackListener();
 				this.twitter = stub.login(user, pass, cliente);
 				if(this.twitter ==  null){
 					ClientTools.showDialog("Login invalido.");
