@@ -103,6 +103,7 @@ public class TwitterClient extends Application {
 				List<Long> l= twitter.users().getFriendIDs();
 				l.add(twitter.getSelf().getId());
 				twitterStream.setFollowUsers(l);
+				this.cliente = new ClientCallbackListener();
 				twitterStream.addListener(this.cliente);
 				
 				control = this.loadFXMLAndShow("world.fxml");
@@ -179,7 +180,6 @@ public class TwitterClient extends Application {
 		//Obtenemos el objeto controlador
 		Controller control = loader.getController();
 		control.setClientListener(this);
-		System.out.println("hello"+this.twitter);
 		control.setTwitter(this.twitter);
 		control.setParentController(universeController);
 		control.postInitialize();
