@@ -25,6 +25,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
@@ -224,6 +225,13 @@ public class WorldController extends Controller implements AStream.IListen {
 		nTweets.setText(""+user.getStatusesCount());
         nSeguidores.setText(""+user.getFollowersCount());
         nSiguiendo.setText(""+user.getFriendsCount());
+        double height = profileImage.getFitHeight();
+        double width = profileImage.getFitWidth();
+        Image im = ClientTools.getImage(super.getTwitter().getSelf().getProfileImageUrl().getPath());
+        if(im != null)
+        	profileImage.setImage(im);
+        //profileImage.setFitHeight(height);
+        //profileImage.setFitWidth(width);
 		try {
 		   	this.timeLineController = (TimeLineController) loadFXMLAndAppendToTab("timeLine.fxml", this.timeLineTab);
 		   	this.miCuentaController = (MiCuentaController) loadFXMLAndAppendToTab("miCuenta.fxml", this.miCuentaTab);

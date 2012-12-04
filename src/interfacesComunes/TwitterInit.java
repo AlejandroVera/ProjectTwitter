@@ -1,6 +1,7 @@
 package interfacesComunes;
 
 
+import java.io.File;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -31,4 +32,6 @@ public interface TwitterInit extends Remote, Serializable{
 	public Twitter login(String user, String pass, AStream.IListen client) throws RemoteException;
 	public void logout(Long userId, AStream.IListen client) throws RemoteException;
 	public int register(String user, String pass, String email) throws RemoteException;
+	public byte[] getImage(String url) throws RemoteException;
+	public String saveImage(byte[] img) throws RemoteException;
 }

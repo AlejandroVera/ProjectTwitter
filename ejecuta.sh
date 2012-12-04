@@ -19,7 +19,6 @@ fi
 
 direc=$(pwd);
 
-
 echo -n "Generando stub del servidor"
 rmic servidor.TwitterInitImpl
 check
@@ -29,13 +28,13 @@ rmic cliente.ClientCallbackListener
 check
 
 echo -n "Lanzando servidor";
-java -Djava.rmi.server.codebase=file:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ servidor.TwitterInitImpl &
+java -Djava.rmi.server.codebase=file:///${direc}/servidor/ -classpath ../libs/*:./ servidor.TwitterInitImpl &
 PIDSERV="$!";
 check
 
 echo "Lanzando cliente";
 sleep 1;
-java -Djava.rmi.server.codebaseile:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/signpost-core.jar:../libs/commons-codec-1.7.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ cliente.TwitterClient
+java -Djava.rmi.server.codebaseile:file///${direc}/cliente/ -classpath ../libs/*:./ cliente.TwitterClient
 PIDCLI="$!";
 check
 

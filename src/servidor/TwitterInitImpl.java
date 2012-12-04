@@ -6,6 +6,15 @@ import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -16,8 +25,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
+
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import servidor.db.ConexionImpl;
 
@@ -27,6 +38,12 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
+	
+	/**
+	 * Ruta al directorio donde se guardarán las imágenes
+	 */
+	private final String IMAGE_CONTAINER_PATH = getClass().getResource("."+File.separator+"contenedorImagenes"+File.separator).getPath();
+	
 	private Conexion con;
 	private HashMap<Long, LinkedList<IListen>> callbackArray;
 	
@@ -166,6 +183,61 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public byte[] getImage(String url) {
+		
+		try{
+			File guardado = new File(IMAGE_CONTAINER_PATH+url);
+			if(!guardado.exists())
+				return null;
+			
+			ByteArrayOutputStream array = new ByteArrayOutputStream();
+			InputStream ie = new FileInputStream(guardado);
+			
+			byte[] buf = new byte[1024];
+			int leidos;
+			
+			while((leidos = ie.read(buf)) != -1)
+				array.write(buf, 0, leidos);
+				
+			return array.toByteArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public String saveImage(byte[] img) {
+		String url;
+		File guardado;
+		try{
+			
+			//Buscamos un nombre para el archivo
+			do{
+				url = RandomStringUtils.randomAlphanumeric(7); //37⁷ es suficiente...
+				System.out.println(IMAGE_CONTAINER_PATH+url);
+				guardado = new File(IMAGE_CONTAINER_PATH+url);
+			} while(!guardado.createNewFile());
+			
+	        OutputStream out = new FileOutputStream(guardado);
+	    
+	        //Copiamos el archivo
+	        out.write(img, 0, img.length);
+	        out.close();
+	        
+	        return url;
+	        
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		return "";
+		
+		
 	}
 
 }

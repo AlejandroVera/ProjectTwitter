@@ -61,9 +61,10 @@ public class AjustesController extends Controller{
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
         
-        //TODO: guardar la imagen en el servidor y obtener la ruta
+        //Guardar la imagen en el servidor y obtener la ruta
+        String url = ClientTools.saveImage(new File(file.getPath()));
        
-        fondoURL.setText(file.getPath());
+        fondoURL.setText(url);
     }
 
     // Handler for Button[fx:id="examinarPerfil"] onMouseClicked
@@ -76,9 +77,10 @@ public class AjustesController extends Controller{
         //Show open file dialog
         File file = fileChooser.showOpenDialog(null);
         
-        //TODO: guardar la imagen en el servidor y obtener la ruta
-       
-        imagenPerfilURL.setText(file.getPath());
+        //Guardar la imagen en el servidor y obtener la ruta
+        String url = ClientTools.saveImage(new File(file.getPath()));
+        
+        imagenPerfilURL.setText(url);
     }
 
     // Handler for Button[id="twittear"] onMouseClicked
