@@ -28,6 +28,9 @@ public class AjustesController extends Controller{
 
     @FXML //  fx:id="examinarPerfil"
     private Button examinarPerfil; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="examinarFondo"
+    private Button examinarFondo; // Value injected by FXMLLoader
 
     @FXML //  fx:id="fondoURL"
     private TextField fondoURL; // Value injected by FXMLLoader
@@ -47,7 +50,7 @@ public class AjustesController extends Controller{
         this.hideWindow();
     }
 
-    // Handler for Button[id="twittear"] onContextMenuRequested
+    // Handler for Button[id="examinarFondo"] onMouseClicked
     public void examinarImagenFondo(ContextMenuEvent event) {
     	 
         //Set extension filter
@@ -90,6 +93,7 @@ public class AjustesController extends Controller{
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert descripcion != null : "fx:id=\"descripcion\" was not injected: check your FXML file 'preferencias.fxml'.";
+        assert examinarFondo != null : "fx:id=\"examinarFondo\" was not injected: check your FXML file 'preferencias.fxml'.";
         assert examinarPerfil != null : "fx:id=\"examinarPerfil\" was not injected: check your FXML file 'preferencias.fxml'.";
         assert fondoURL != null : "fx:id=\"fondoURL\" was not injected: check your FXML file 'preferencias.fxml'.";
         assert imagenFondo != null : "fx:id=\"imagenFondo\" was not injected: check your FXML file 'preferencias.fxml'.";
