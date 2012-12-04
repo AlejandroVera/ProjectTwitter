@@ -95,6 +95,12 @@ public class TwitterClient extends Application {
 	}
 
 	protected boolean notifyLogin(String user, String pass,OAuthSignpostClient oauthClient){
+		Controller control;
+		try {
+			control = this.loadFXMLAndShow("world.fxml");
+		} catch (IOException e3) {
+			e3.printStackTrace();
+		}
 		try {
 			this.cliente = new ClientCallbackListener();
 		} catch (RemoteException e2) {
@@ -108,6 +114,10 @@ public class TwitterClient extends Application {
 				l.add(twitter.getSelf().getId());
 				twitterStream.setFollowUsers(l);
 				twitterStream.addListener(this.cliente);
+				
+				control = this.loadFXMLAndShow("world.fxml");
+				this.cliente.setListener((AStream.IListen) control);
+				
 				twitterStream.connect();
 				twitterStream.popTweets();
 				if(twitterStream.isAlive()){
@@ -135,7 +145,7 @@ public class TwitterClient extends Application {
 					return false;
 				}			
 				//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-				Controller control = this.loadFXMLAndShow("world.fxml");
+				control = this.loadFXMLAndShow("world.fxml");
 
 				//Ponemos al controlador a la escucha de los eventos de twitter
 				this.cliente.setListener((AStream.IListen) control);
@@ -184,6 +194,7 @@ public class TwitterClient extends Application {
 		//Obtenemos el objeto controlador
 		Controller control = loader.getController();
 		control.setClientListener(this);
+		System.out.println("hello"+this.twitter);
 		control.setTwitter(this.twitter);
 		control.setParentController(universeController);
 		control.postInitialize();
