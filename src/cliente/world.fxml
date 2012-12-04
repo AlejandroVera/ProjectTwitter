@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.WorldController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="worldContainer" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.WorldController">
   <children>
-    <StackPane fx:id="nuevaVentana" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <StackPane fx:id="nuevaVentana" layoutY="0.0" maxHeight="1.7976931348623157E308" prefHeight="650.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
-        <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="886.0">
+        <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" prefHeight="650.0" prefWidth="886.0">
           <children>
-            <StackPane layoutX="6.0" layoutY="81.0" prefHeight="584.0" prefWidth="889.0" />
+            <StackPane layoutX="6.0" layoutY="81.0" maxHeight="1.7976931348623157E308" prefHeight="584.0" prefWidth="889.0" />
             <HBox id="barraArriba" layoutX="7.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="874.0" />
-            <TabPane id="MenuArriba" cache="false" disable="false" opacity="1.0" prefHeight="622.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
+            <TabPane id="MenuArriba" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="607.0" prefWidth="889.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
               <tabs>
                 <Tab id="tab" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
                   <graphic>

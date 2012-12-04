@@ -29,7 +29,7 @@ rmic cliente.ClientCallbackListener
 check
 
 echo -n "Lanzando servidor";
-java -Djava.rmi.server.codebase=file:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ servidor.Servidor &
+java -Djava.rmi.server.codebase=file:///$direc/ -classpath ../libs/mysql-connector-java-5.1.22-bin.jar:../libs/javaQuery\ 7.0.jar:../libs/jfxrt.jar:./ servidor.TwitterInitImpl &
 PIDSERV="$!";
 check
 

@@ -1,9 +1,13 @@
 package servidor;
 
 import interfacesComunes.AStream.IListen;
+import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
+
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.security.MessageDigest;
@@ -12,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
@@ -144,7 +149,23 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
         
         return sb.toString();
 	}
+	
+	/**
+	 * @param args
+	 * @throws RemoteException 
+	 */
+	public static void main(String[] args) throws RemoteException {
+		
+		LinkedList<AStream.IListen> clientes = new LinkedList<AStream.IListen>();
+		
+		try { 
+			Naming.rebind("Conectar", new TwitterInitImpl(clientes));
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 
-
+	}
 
 }
