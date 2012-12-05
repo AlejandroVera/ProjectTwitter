@@ -136,7 +136,8 @@ public class TwitterClient extends Application {
 				if(this.twitter ==  null){
 					ClientTools.showDialog("Login invalido.");
 					return false;
-				}			
+				}	
+				TwitterClient.tw=this.twitter;//argucia
 				//lanzar la visión principal (pasandole al controlador el objeto Twitter)
 				control = this.loadFXMLAndShow("world.fxml");
 
