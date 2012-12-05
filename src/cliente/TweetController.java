@@ -301,10 +301,6 @@ public class TweetController extends Controller{
 			stackFavorito.setVisible(true);
 			stackYaFavorito.setVisible(false);
 		}
-		
-		//boolean favorito = tweet.isFavourite();
-		//stackYaFavorito.setVisible(favorito);
-		//stackFavorito.setVisible(favorito);
 
 
 	}
