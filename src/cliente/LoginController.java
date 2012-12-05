@@ -199,16 +199,6 @@ public class LoginController extends Controller{
 			public void changed(ObservableValue<? extends String> ov, String t, String t1) {                
 				if(serverSelector.getSelectionModel().getSelectedIndex() == 1){
 					createAccountLabel.setVisible(false);
-					String us;
-					if((us=userLine(username.getText()))==null){
-						serverSelector.setValue("Nuestro twitter");
-						avisoConexion.setVisible(true);	
-					}
-					else{//ya existe el usuario en el archivo
-						String[] aux=us.split(":");
-						OAuthSignpostClient oauthClient = new OAuthSignpostClient(JKEY, JSECRET, aux[1], aux[2]);
-						loginReal(oauthClient);
-					}
 				}else
 					createAccountLabel.setVisible(true);
 			}    
@@ -282,6 +272,7 @@ public class LoginController extends Controller{
 		//TODO encriptar
 		String cadena=username.getText()+":"+ats[0]+":"+ats[1];
 		guardarToken(cadena);
+		loginReal(oauthClient);
 
 	}
 
@@ -329,7 +320,12 @@ public class LoginController extends Controller{
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
-			archivo = new File("/home/kmilinho/twitterTokens.tw");
+
+			String homeUsuario = System.getProperty("user.home");
+			archivo = new File(homeUsuario+"/twitterTokens.tw");
+			if(!archivo.exists()){
+				archivo.createNewFile();
+			}
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 			String linea;
@@ -355,9 +351,14 @@ public class LoginController extends Controller{
 	}
 
 	private void guardarToken(String s){
+		File archivo = null;
 		try {
-			File TextFile = new File("/home/kmilinho/twitterTokens.tw");
-			FileWriter TextOut = new FileWriter(TextFile, true);
+			String homeUsuario = System.getProperty("user.home");
+			archivo = new File(homeUsuario+"/twitterTokens.tw");
+			if(!archivo.exists()){
+				archivo.createNewFile();
+			}
+			FileWriter TextOut = new FileWriter(archivo, true);
 			TextOut.write(s+"\n");
 			TextOut.close();
 		} catch (IOException e) {
@@ -365,5 +366,5 @@ public class LoginController extends Controller{
 		}
 
 	}
-	
+
 }
