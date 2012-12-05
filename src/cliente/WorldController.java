@@ -264,7 +264,10 @@ public class WorldController extends Controller implements AStream.IListen {
 	public boolean processTweet(ITweet tweet) throws RemoteException {
 		
 		//Inc numero tweets
-		nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
+		if(super.getTwitter().getSelf().getId()==tweet.getUser().getId()){
+			nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
+		}
+	
 		
 		//Propagamos el evento
 		this.timeLineController.processTweet(tweet);

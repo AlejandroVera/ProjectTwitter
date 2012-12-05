@@ -18,7 +18,7 @@ public class ClientCallbackListener extends UnicastRemoteObject implements AStre
 
 	private static final long serialVersionUID = 6865106167203455251L;
 	private AStream.IListen listener;
-	
+
 	public void setListener(AStream.IListen listener) {
 		this.listener = listener;
 	}
@@ -28,21 +28,21 @@ public class ClientCallbackListener extends UnicastRemoteObject implements AStre
 	}
 
 	public static void main(String[] args){
-		
+
 	}
-	
+
 	@Override
 	public boolean processEvent(final TwitterEvent event) throws RemoteException {
 		if(listener != null){
 			Platform.runLater(new Runnable() { //No se puede interactuar directamente con el thread de javafx
-                @Override public void run() {
-                	try {
+				@Override public void run() {
+					try {
 						listener.processEvent(event);
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-                }
-            });
+				}
+			});
 		}
 		return true;
 	}
@@ -51,14 +51,14 @@ public class ClientCallbackListener extends UnicastRemoteObject implements AStre
 	public boolean processSystemEvent(final Object[] obj) throws RemoteException {
 		if(listener != null){
 			Platform.runLater(new Runnable() { //No se puede interactuar directamente con el thread de javafx
-                @Override public void run() {
-                	try {
+				@Override public void run() {
+					try {
 						listener.processSystemEvent(obj);
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-                }
-            });
+				}
+			});
 		}
 		return true;
 	}
@@ -67,14 +67,15 @@ public class ClientCallbackListener extends UnicastRemoteObject implements AStre
 	public boolean processTweet(final ITweet tweet) throws RemoteException {
 		if(listener != null){
 			Platform.runLater(new Runnable() { //No se puede interactuar directamente con el thread de javafx
-                @Override public void run() {
-                	try {
-						listener.processTweet(tweet);
+				@Override public void run() {
+					try {
+						if(TwitterClient.amigosDelLogueado().contains(tweet.getUser().getId()))
+							listener.processTweet(tweet);
 					} catch (RemoteException e) {
 						e.printStackTrace();
 					}
-                }
-            });
+				}
+			});
 		}
 		return true;
 	}

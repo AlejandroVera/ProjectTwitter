@@ -36,7 +36,7 @@ public class TwitterClient extends Application {
 	private Stage primaryStage;
 	private UniverseController universeController;
 	private TwitterStream twitterStream;
-
+	private static Twitter tw;
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -93,11 +93,18 @@ public class TwitterClient extends Application {
 
 
 	}
+	//argucia 
+	public static List<Long> amigosDelLogueado(){
+		List<Long> l= tw.users().getFriendIDs();
+		l.add(tw.getSelf().getId());
+		return l;
+	}
 
 	protected boolean notifyLogin(String user, String pass,OAuthSignpostClient oauthClient){
 		Controller control;
 		if(oauthClient!=null) {
 			this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
+			TwitterClient.tw=this.twitter;//argucia
 			try {
 				this.twitterStream = new TwitterStream(twitter);
 				List<Long> l= twitter.users().getFriendIDs();
@@ -105,10 +112,10 @@ public class TwitterClient extends Application {
 				twitterStream.setFollowUsers(l);
 				this.cliente = new ClientCallbackListener();
 				twitterStream.addListener(this.cliente);
-				
+
 				control = this.loadFXMLAndShow("world.fxml");
 				this.cliente.setListener((AStream.IListen) control);
-				
+
 				twitterStream.connect();
 				twitterStream.popTweets();
 				if(twitterStream.isAlive()){
@@ -148,6 +155,9 @@ public class TwitterClient extends Application {
 	}
 
 	protected void notifyLogout(){
+		if(this.twitterStream!=null){
+			this.twitterStream.close();
+		}
 		try {
 			TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
 			stub.logout(this.twitter.getSelf().getId(), cliente);

@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -238,7 +239,14 @@ public class TweetController extends Controller{
 		User user = this.tweet.getUser();
 		screename.setText("@"+user.getScreenName());
 		username.setText(user.getName());
-
+		
+		double height = userImage.getFitHeight();
+        double width = userImage.getFitWidth();
+        Image im = ClientTools.getImage(tweet.getUser().getProfileImageUrl().toString());
+        if(im != null)
+        	userImage.setImage(im);
+        
+        
 		//Parse the time
 		Date createdAt = this.tweet.getCreatedAt();
 		Date now = new Date();
