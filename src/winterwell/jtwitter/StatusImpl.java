@@ -533,4 +533,9 @@ public final class StatusImpl implements Status {
 	public int getRetweetCount() {
 		return 0;
 	}
+
+	@Override
+	public boolean isRetweetedByMe(Number myID) {
+		return original != null && user.getId() != original.getUser().getId() && user.getId() == myID;
+	}
 }

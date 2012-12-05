@@ -137,4 +137,15 @@ public class StatusImpl implements Status{
 		return null;
 	}
 
+	@Override
+	public boolean isRetweetedByMe(Number myID) {
+		ResultSet res = con.query("SELECT 1 FROM retweet WHERE id_usuario =" + myID + " AND id_tweet = "+this.id+" LIMIT 1");
+		try {
+			if(res.next()){
+				return true;
+			}
+		} catch (SQLException e) {}
+		return false;
+	}
+
 }

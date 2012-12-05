@@ -284,8 +284,15 @@ public class TweetController extends Controller{
 			stackBorrar.setVisible(true);
 			stackRetwitteado.setVisible(false);
 			stackRetwittear.setVisible(false);
+		}else if(this.tweet.isRetweetedByMe(getTwitter().getSelf().getId())){
+			stackRetwitteado.setVisible(true);
+			stackBorrar.setVisible(false);
+			stackRetwittear.setVisible(false);
+		}else{
+			stackRetwittear.setVisible(true);
+			stackRetwitteado.setVisible(false);
+			stackBorrar.setVisible(false);
 		}
-		//TODO: casos de retwiteado
 		
 		if(this.tweet.isFavorite()){
 			stackFavorito.setVisible(false);

@@ -90,6 +90,7 @@ public class AjustesController extends Controller{
     	User user = super.getTwitter().getSelf();
     	account.setProfile(name.getText(), "UNKNOWN", imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
     	account.setProfileColors(null);
+    	this.hideWindow();
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete

@@ -63,7 +63,6 @@ public class ClientTools {
 	 * @return Imagen solicitada.
 	 */
 	protected static Image getImage(String url) {
-		System.out.println(url);
 		if(url.startsWith(FALSE_IMAGESERVER_URL)){
 			try {
 				if(twi == null)
@@ -75,14 +74,13 @@ public class ClientTools {
 				
 				return new Image(imageStream);
 			} catch (MalformedURLException | RemoteException | NotBoundException e) {
-				e.printStackTrace();
+				//e.printStackTrace(); //No se ha encontrado la imagen, no es necesario mostrar el trace ya	
 			}
 		}else if(!url.isEmpty()){
 			try {
 				return new Image(new URL(url).openStream());
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println(DEFAULT_PROFILE_IMAGE);				
+				//e.printStackTrace(); //No se ha encontrado la imagen, no es necesario mostrar el trace ya			
 			}
 		}
 		
