@@ -215,7 +215,8 @@ public class WorldController extends Controller implements AStream.IListen {
 
          // initialize your logic here: all @FXML variables will have been injected
          creadorTweets.setVisible(false);
-        
+         profileImage.setPreserveRatio(false);
+         
     }
 
 	@Override
@@ -227,11 +228,13 @@ public class WorldController extends Controller implements AStream.IListen {
         nSiguiendo.setText(""+user.getFriendsCount());
         double height = profileImage.getFitHeight();
         double width = profileImage.getFitWidth();
-        Image im = ClientTools.getImage(super.getTwitter().getSelf().getProfileImageUrl().getPath());
+        Image im = ClientTools.getImage(super.getTwitter().getSelf().getProfileImageUrl().toString());
         if(im != null)
         	profileImage.setImage(im);
+        //profileImage.setPreserveRatio(false);
         //profileImage.setFitHeight(height);
         //profileImage.setFitWidth(width);
+        
 		try {
 		   	this.timeLineController = (TimeLineController) loadFXMLAndAppendToTab("timeLine.fxml", this.timeLineTab);
 		   	this.miCuentaController = (MiCuentaController) loadFXMLAndAppendToTab("miCuenta.fxml", this.miCuentaTab);

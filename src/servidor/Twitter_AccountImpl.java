@@ -35,17 +35,17 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	}
 	
 	//Cambia cosas del perfil _ Se necesita implementar el constructor User
-	public User setProfile(String name, String url, String location,
-			String description) {
+	public User setProfile(String name, String url, String profileImageUrl, String location, String description) {
 		
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(name);
 		params.add(url);
+		params.add(profileImageUrl);
 		params.add(location);
 		params.add(description);
 		params.add(loggedUser.getId());
 		
-		con.updateQuery("UPDATE usuario SET name = ?, web_link= ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
+		con.updateQuery("UPDATE usuario SET name = ?, web_link= ?, profileImageUrl = ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
 
 		return new UserImpl(this.loggedUser.getId(), this.con, this.loggedUser);
 		

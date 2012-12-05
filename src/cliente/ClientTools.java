@@ -63,7 +63,7 @@ public class ClientTools {
 	 * @return Imagen solicitada.
 	 */
 	protected static Image getImage(String url) {
-		
+		System.out.println(url);
 		if(url.startsWith(FALSE_IMAGESERVER_URL)){
 			try {
 				if(twi == null)

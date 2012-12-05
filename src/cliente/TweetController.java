@@ -227,9 +227,9 @@ public class TweetController extends Controller{
         assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
         assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
 
-
 		// initialize your logic here: all @FXML variables will have been injected
 		cerrarNuevoTweet(null);
+		userImage.setPreserveRatio(false);
 	}
 
 	@Override

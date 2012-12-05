@@ -19,7 +19,7 @@ public interface User extends Serializable,Remote{
 	String getName();
 	Place getPlace();
 	java.net.URI getProfileBackgroundImageUrl();
-	java.net.URI getProfileImageUrl(); 
+	java.net.URI getProfileImageUrl();
 	String getScreenName();
 	Status getStatus();
 	int getStatusesCount();

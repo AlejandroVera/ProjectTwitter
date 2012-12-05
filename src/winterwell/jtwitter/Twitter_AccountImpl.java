@@ -158,10 +158,10 @@ public class Twitter_AccountImpl implements Twitter_Account{
 	 *            of 160 characters.
 	 * @return updated User object
 	 */
-	public User setProfile(String name, String url, String location,
+	public User setProfile(String name, String url, String profileImageUrl, String location,
 			String description) {
 		Map<String, String> vars = InternalUtils.asMap("name", name, "url",
-				url, "location", location, "description", description);
+				url, "profile_image_url", profileImageUrl, "location", location, "description", description);
 		String apiUrl = jtwit.TWITTER_URL + "/account/update_profile.json";
 		String json = jtwit.getHttpClient().post(apiUrl, vars, true);
 		return InternalUtils.user(json);
