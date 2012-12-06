@@ -17,7 +17,7 @@ public interface Place extends IPlace, Serializable {
     public java.lang.String getName();
     public java.lang.String getType();
     public java.lang.String toString();
-    //public com.winterwell.jgeoplanet.Location getCentroid();
+    public com.winterwell.jgeoplanet.Location getCentroid();
    // public java.lang.String getUID();
     public BoundingBox getBoundingBox(); //La Bounding Box del lugar, el cuadradito que ocupa
     

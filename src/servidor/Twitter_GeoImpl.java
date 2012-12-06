@@ -2,7 +2,11 @@ package servidor;
 
 import java.net.InetAddress;
 import java.sql.ResultSet;
+
+import com.winterwell.jgeoplanet.IPlace;
 import com.winterwell.jgeoplanet.Location;
+import com.winterwell.jgeoplanet.MFloat;
+
 import javaQuery.j2ee.GeoLocation;
 import interfacesComunes.Conexion;
 import interfacesComunes.Place;
@@ -51,6 +55,11 @@ public class Twitter_GeoImpl implements Twitter_Geo{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public IPlace getPlace(String locationDescription, MFloat confidence) {
+		return geoSearchByIP("www.google.com");
 	}
 	
 }

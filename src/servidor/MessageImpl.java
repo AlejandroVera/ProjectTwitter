@@ -118,7 +118,7 @@ public class MessageImpl implements Message{
 	
 	public Place getPlace() {
 		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
-		return geo.geoSearchByIP("www.google.com");
+		return (Place) geo.getPlace(null,null);
 	}
 
 	

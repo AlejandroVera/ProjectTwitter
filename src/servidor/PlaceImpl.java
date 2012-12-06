@@ -109,4 +109,11 @@ public class PlaceImpl implements Place {
 		return null;
 	}
 	
+	public String toString(){
+	
+		return new String(this.getName()+", "+this.getCity()+", "+this.getCountryName());
+	}
+	
+	
+	
 }

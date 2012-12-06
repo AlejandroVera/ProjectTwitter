@@ -12,6 +12,7 @@ import interfacesComunes.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -123,6 +124,12 @@ public class WorldController extends Controller implements AStream.IListen {
     
     @FXML //  fx:id="menuPrincipal"
     private TabPane menuPrincipal; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="stackMapa"
+    private StackPane stackMapa; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="placeActual"
+    private Label placeActual; // Value injected by FXMLLoader
 
     
     //privadas propias
@@ -130,17 +137,41 @@ public class WorldController extends Controller implements AStream.IListen {
     private ConectaController conectaController;
     private TimeLineController timeLineController;
     private AjustesController ajustesController;
-    
+        
     private boolean geoLocation=false;
 
     // Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
     public void activarGeo(MouseEvent event) {
-        // handle the event here
+    	geoLocation=true;
+    	//Cuando este twitter.geo
+    	/*Double latitude= getTwitter().geo().getPlace(null,null).getCenter().getLatitude();
+    	Double longitude= getTwitter().geo().getPlace(null,null).getCenter().getLongitude(); 
+    	String coord=new String(latitude.toString()+","+longitude.toString());
+    	
+    	  
+    	URL url = new URL("https://maps.googleapis.com/maps/api/staticmap?center="+coord+
+    			"&size=200*150&maptype=hybrid&markers=color:red%"+coord+"&sensor=false");
+    	URLConnection conn = new URLConnection(url);
+    	InputStream in = conn.getInputStream();
+    	mapa.setImage((Image) in);
+    	placeActual.setText("getTwitter().geo().getPlace(null,null).toString()")*/
+    	geoActivado.setVisible(true);
+    	geoDesactivado.setVisible(false);
+    	
+    	
+        
     }
     
     // Handler for ImageView[fx:id="geoActivado"] onMouseClicked
     public void desactivarGeo(MouseEvent event) {
-        // handle the event here
+    	
+    	geoLocation=false;
+        geoActivado.setVisible(false);
+        stackMapa.setVisible(false);
+        geoDesactivado.setVisible(false);
+        mapa.setImage(null);
+        placeActual.setText("Geolocalizacion desactivada");
+        
     }
     
     // Handler for ImageView[id="lupa"] onMouseClicked
@@ -221,7 +252,12 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for Label[fx:id="placeActual"] onMouseClicked
     public void mostrarGeo(MouseEvent event) {
-        // handle the event here
+    	stackMapa.setVisible(true);
+    }
+    
+ // Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
+    public void cerrarMapa(MouseEvent event) {
+        stackMapa.setVisible(false);
     }
     
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -252,6 +288,8 @@ public class WorldController extends Controller implements AStream.IListen {
          // initialize your logic here: all @FXML variables will have been injected
          creadorTweets.setVisible(false);
          profileImage.setPreserveRatio(false);
+         geoActivado.setVisible(false);
+         stackMapa.setVisible(false);
                  
     }
 
