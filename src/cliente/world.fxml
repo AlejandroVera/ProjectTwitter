@@ -16,7 +16,7 @@
           <children>
             <StackPane layoutX="6.0" layoutY="81.0" maxHeight="1.7976931348623157E308" prefHeight="584.0" prefWidth="889.0" />
             <HBox id="barraArriba" layoutX="7.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="874.0" />
-            <TabPane id="" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="0.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
+            <TabPane id="" fx:id="menuPrincipal" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="0.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
               <tabs>
                 <Tab id="tabArriba" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
                   <graphic>
@@ -192,10 +192,10 @@
             </StackPane>
             <StackPane fx:id="creadorTweets" layoutX="352.0" layoutY="80.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0">
               <children>
-                <StackPane id="StackPane" prefHeight="164.0" prefWidth="353.49993896484375">
+                <StackPane id="StackPane" fx:id="stackMapa" prefHeight="164.0" prefWidth="353.49993896484375">
                   <children>
-                    <Label id="cerrarNuevoTweet" onMouseClicked="#cerrarNuevoTweet" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
-                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                    <Label id="cerrarNuevoTweet" onMouseClicked="#cerrarMapa" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
+                    <ImageView fx:id="mapa" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   </children>
                 </StackPane>
                 <VBox fx:id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
@@ -218,7 +218,7 @@
                                 <Image url="@Imagenes/geoDesactivado.png" preserveRatio="true" smooth="true" />
                               </image>
                             </ImageView>
-                            <Label id="numeroDe" fx:id="placeActual" text="Geolocalizacion desactivada" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                            <Label id="cerrarNuevoTweet" fx:id="placeActual" onMouseClicked="#mostrarGeo" text="Geolocalizacion desactivada" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                           </children>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="40.0" />

@@ -9,6 +9,7 @@ import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
+import interfacesComunes.Twitter_Geo;
 import interfacesComunes.Twitter_Users;
 import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
@@ -97,6 +98,7 @@ public class TwitterImpl implements Twitter {
 	private static final long serialVersionUID = -6621123794067420801L;
 	private static final int maxAllowedResults = 300;
 	
+	private Twitter_Geo geo;
 	private User user;
 	private Twitter_Users twitter_user;
 	private HashMap<Long, LinkedList<AStream.IListen>> callbackArray;
@@ -112,6 +114,7 @@ public class TwitterImpl implements Twitter {
 		this.user = null;
 		this.twitter_user = null;
 		this.con = new ConexionImpl();
+		this.geo= new Twitter_GeoImpl(this.con);
 	}
 	
 	public TwitterImpl(Long accountId, HashMap<Long, LinkedList<AStream.IListen>> callbackArray){
@@ -119,6 +122,7 @@ public class TwitterImpl implements Twitter {
 		this.user = new UserImpl(accountId, this.con,this.user);
 		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
 		this.callbackArray = callbackArray;
+		this.geo= new Twitter_GeoImpl(this.con);
 	}
 
 
@@ -678,6 +682,11 @@ public class TwitterImpl implements Twitter {
 				}
 			}
 		}
+	}
+
+	@Override
+	public Twitter_Geo geo() {
+		return this.geo;
 	}
 
 	

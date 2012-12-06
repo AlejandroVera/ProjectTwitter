@@ -407,5 +407,9 @@ public interface Twitter extends Serializable, Remote{
 	
 	
 	public Twitter_Users users();
+	/**
+	 * Devuelve el objeto con los metodos tipo Geo
+	 */
+	public Twitter_Geo geo();
 	
 }
