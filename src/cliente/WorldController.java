@@ -22,7 +22,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -115,6 +117,12 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="geoDesactivado"
     private ImageView geoDesactivado; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="mapa"
+    private ImageView mapa; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="menuPrincipal"
+    private TabPane menuPrincipal; // Value injected by FXMLLoader
 
     
     //privadas propias
@@ -122,6 +130,8 @@ public class WorldController extends Controller implements AStream.IListen {
     private ConectaController conectaController;
     private TimeLineController timeLineController;
     private AjustesController ajustesController;
+    
+    private boolean geoLocation=false;
 
     // Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
     public void activarGeo(MouseEvent event) {
@@ -181,6 +191,7 @@ public class WorldController extends Controller implements AStream.IListen {
     	creadorTweets.setVisible(!creadorTweets.isVisible());
     }
     
+    
  // Handler for Button[fx:id="twittear"] onMouseClicked (publicar ya el tweet como tal)
     public void publicarTweet(MouseEvent event) {
     	String texto = textoNuevoTweet.getText();
@@ -207,6 +218,12 @@ public class WorldController extends Controller implements AStream.IListen {
     public void verMensajesPrivados(MouseEvent event) {
         // handle the event here
     }
+    
+    // Handler for Label[fx:id="placeActual"] onMouseClicked
+    public void mostrarGeo(MouseEvent event) {
+        // handle the event here
+    }
+    
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
     	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'world.fxml'.";
@@ -230,12 +247,12 @@ public class WorldController extends Controller implements AStream.IListen {
          assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'world.fxml'.";
          assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'world.fxml'.";
          assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'world.fxml'.";
-
+         assert menuPrincipal != null : "fx:id=\"menuPrincipal\" was not injected: check your FXML file 'world.fxml'.";
 
          // initialize your logic here: all @FXML variables will have been injected
          creadorTweets.setVisible(false);
          profileImage.setPreserveRatio(false);
-         
+                 
     }
 
 	@Override
