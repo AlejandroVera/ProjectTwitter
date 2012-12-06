@@ -2751,9 +2751,4 @@ public class TwitterImpl implements Serializable, Twitter {
 		return (Twitter_Users) new Twitter_UsersImpl(this);
 	}
 
-	@Override
-	public List<Status> getUserTimeline(Number userId) throws TwitterException {
-
-		return null;
-	}
 }

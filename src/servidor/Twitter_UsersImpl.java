@@ -28,6 +28,10 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFollowerIDs()
+	 */
+	@Override
 	public List<Long> getFollowerIDs(){
 		List<Long> seguidores=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
@@ -41,8 +45,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		}
 		return seguidores;
 	}
-	public List<Integer> getFollowerIDs(String screenName){
-		List<Integer> seguidores=new ArrayList<Integer>();
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFollowerIDs(java.lang.String)
+	 */
+	@Override
+	public List<Long> getFollowerIDs(String screenName){
+		List<Long> seguidores=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
@@ -50,7 +58,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
 
 			while(res.next()){
-				seguidores.add(res.getInt(1));
+				seguidores.add((long) res.getInt(1));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -59,6 +67,10 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFollowers(java.lang.String)
+	 */
+	@Override
 	public List<User> getFollowers(String screenName){
 		List<User> seguidores=new ArrayList<User>();
 		Conexion con = new ConexionImpl();	
@@ -76,6 +88,10 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return seguidores;
 	}
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFriendIDs()
+	 */
+	@Override
 	public List<Long> getFriendIDs(){
 		List<Long> amigos=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
@@ -90,8 +106,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return amigos;
 	}
 
-	public List<Integer> getFriendIDs(String screenName){
-		List<Integer> amigos=new ArrayList<Integer>();
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFriendIDs(java.lang.String)
+	 */
+	@Override
+	public List<Long> getFriendIDs(String screenName){
+		List<Long> amigos=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		try {
 			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
@@ -99,7 +119,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
 			while(res.next()){
-				amigos.add(res.getInt(1));
+				amigos.add((long) res.getInt(1));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -108,6 +128,10 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getFriends(java.lang.String)
+	 */
+	@Override
 	public List<User> getFriends(String screenName){
 		List<User> amigos=new ArrayList<User>();
 		Conexion con = new ConexionImpl();	
@@ -126,30 +150,54 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#follow(java.lang.String)
+	 */
+	@Override
 	public User follow(String screenName){
 		return follow(new UserImpl(screenName,con,loggedUser));
 	}
 
+	/* (non-Javadoc)
+	 * @see servidor.Twitter_Users#follow(interfacesComunes.User)
+	 */
+	@Override
 	public User follow(User user){
 		Conexion con = new ConexionImpl();	
 		con.query("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		return user;
 	}
 
-    public User getUser(long userId){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getUser(long)
+	 */
+    @Override
+	public User getUser(long userId){
     	return show(userId);
     }
 
-    public User getUser(String screenName){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#getUser(java.lang.String)
+	 */
+    @Override
+	public User getUser(String screenName){
     	return show(screenName);
     }
 
-    public boolean isFollower(String userB){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#isFollower(java.lang.String)
+	 */
+    @Override
+	public boolean isFollower(String userB){
     	User u=new UserImpl(userB,con,loggedUser);
     	return u.isFollowingYou();
     }
 
-    public boolean isFollower(String followerScreenName,String followedScreenName){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#isFollower(java.lang.String, java.lang.String)
+	 */
+    @Override
+	public boolean isFollower(String followerScreenName,String followedScreenName){
     	boolean sol=true;
     	Conexion con=new ConexionImpl();
     	User u1=new UserImpl(followerScreenName,con,loggedUser);
@@ -166,11 +214,19 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
    
 
-    public boolean isFollowing(java.lang.String userB){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#isFollowing(java.lang.String)
+	 */
+    @Override
+	public boolean isFollowing(java.lang.String userB){
     	return isFollowing(new UserImpl(userB,con,loggedUser));
     }
 
-    public boolean isFollowing(User user){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#isFollowing(interfacesComunes.User)
+	 */
+    @Override
+	public boolean isFollowing(User user){
     	return user.isFollowedByYou();
     }
         /*
@@ -201,7 +257,11 @@ public class Twitter_UsersImpl implements Twitter_Users {
     
     
     //Busqueda por screenName, devuelve una lista con usuarios cuyos screenNames contengan el string pasado
-    public java.util.List<User> searchUsers(String search){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#searchUsers(java.lang.String)
+	 */
+    @Override
+	public java.util.List<User> searchUsers(String search){
     	List<User> sol = new ArrayList<User>();
     	Conexion con = new ConexionImpl();
     	ResultSet res = con.query("SELECT screenName FROM usuario");
@@ -217,15 +277,27 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	return sol;
     }
 
-    public User show(Number userId){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#show(java.lang.Number)
+	 */
+    @Override
+	public User show(Number userId){
     	return new UserImpl(userId.longValue(),con,loggedUser);
     }
  
-    public User show(String screenName) throws TwitterException{
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#show(java.lang.String)
+	 */
+    @Override
+	public User show(String screenName) throws TwitterException{
     	return new UserImpl(screenName,con,loggedUser);
     }
     
-    public List<User> showById(java.util.Collection<? extends Number> userIds){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#showById(java.util.Collection)
+	 */
+    @Override
+	public List<User> showById(java.util.Collection<? extends Number> userIds){
     	List<User> sol= new ArrayList<User>();
     	Iterator<? extends Number> it= userIds.iterator();
     	while(it.hasNext()){
@@ -235,11 +307,19 @@ public class Twitter_UsersImpl implements Twitter_Users {
     }
 
 
-    public User stopFollowing(String username){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#stopFollowing(java.lang.String)
+	 */
+    @Override
+	public User stopFollowing(String username){
     	return stopFollowing(new UserImpl(username,con,loggedUser));
     }
     
-    public User stopFollowing(User user){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#stopFollowing(interfacesComunes.User)
+	 */
+    @Override
+	public User stopFollowing(User user){
     	User sol=null;
     	Conexion con = new ConexionImpl();	
     	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
@@ -253,7 +333,11 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	return sol;
     }
 
-    public boolean userExists(String screenName){
+    /* (non-Javadoc)
+	 * @see servidor.Twitter_Users#userExists(java.lang.String)
+	 */
+    @Override
+	public boolean userExists(String screenName){
     	boolean sol=false;
 		Conexion con = new ConexionImpl();	
 		ResultSet res = con.query("SELECT id FROM usuario WHERE screenName="+screenName);

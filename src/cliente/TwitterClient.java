@@ -62,10 +62,7 @@ public class TwitterClient extends Application {
 				@Override
 				public void handle(WindowEvent event) {
 					if(twitter != null){
-						if(twitterStream!=null){
-							twitterStream.close();
-						}
-						notifyLogout();
+						notifyLogout(true);
 					}
 					System.exit(0);
 				}
@@ -155,20 +152,31 @@ public class TwitterClient extends Application {
 		}
 	}
 
-	protected void notifyLogout(){
-		if(this.twitterStream!=null){
-			this.twitterStream.close();
-		}
+	/**
+	 * Desloguea
+	 * @param force Este parametro está a true si el logout es forzoso (cerrar ventana)
+	 */
+	private void notifyLogout(boolean force){
 		try {
-			TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-			stub.logout(this.twitter.getSelf().getId(), cliente);
+			if(this.twitterStream!=null){
+				this.twitterStream.close();
+				this.twitterStream = null;
+			}else{
+				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
+				stub.logout(this.twitter.getSelf().getId(), cliente);
+			}
 			this.twitter = null;
-			this.loadFXMLAndShow("login.fxml");
+			if(!force)
+				this.loadFXMLAndShow("login.fxml");
 
 		} catch (NotBoundException | IOException e1) {
 			e1.printStackTrace();
 			ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
 		}
+	}
+	
+	protected void notifyLogout(){
+		notifyLogout(false);
 	}
 
 	protected int notifyRegistry(String user, String pass, String email){

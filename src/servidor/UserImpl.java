@@ -61,7 +61,7 @@ public class UserImpl implements User{
 			this.id = id;
 			res = con.query("SELECT * FROM usuario WHERE id="+this.id+" LIMIT 1");
 		}else{
-			res = con.query("SELECT * FROM usuario WHERE screenName="+screenName+" LIMIT 1");
+			res = con.query("SELECT * FROM usuario WHERE screenName='"+screenName+"' LIMIT 1");
 		}
 		try {
 			if(!res.next()){

@@ -107,15 +107,15 @@ public class TwitterImpl implements Twitter {
 	
 
 	/**
-	 * Contructor para conexión sin usuario. Solo lectura.
+	 * Contructor para conexión sin usuario. Solo lectura. Cambio: por ahora no lo vamos a soportar
 	 */
-	public TwitterImpl() {
+	/*public TwitterImpl() {
 		super();
 		this.user = null;
 		this.twitter_user = null;
 		this.con = new ConexionImpl();
 		this.geo= new Twitter_GeoImpl(this.con);
-	}
+	}*/
 	
 	public TwitterImpl(Long accountId, HashMap<Long, LinkedList<AStream.IListen>> callbackArray){
 		this.con = new ConexionImpl();
@@ -272,8 +272,8 @@ public class TwitterImpl implements Twitter {
 	}
 	
 	@Override
-	public List<Status> getUserTimeline(Number userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId.longValue(),this.con,this.user ));
+	public List<Status> getUserTimeline(Long userId) throws TwitterException{
+		return this.getTimeline(new UserImpl(userId,this.con,this.user ));
 	}
 	
 	@Override
@@ -683,6 +683,7 @@ public class TwitterImpl implements Twitter {
 			}
 		}
 	}
+
 
 	@Override
 	public Twitter_Geo geo() {

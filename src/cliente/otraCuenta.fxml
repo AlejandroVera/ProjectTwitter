@@ -19,7 +19,7 @@
               <children>
                 <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="file:/home/borja/workspace/ProyectTwitter/src/cliente/Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <Label id="screenName" fx:id="ScreenName" onMouseClicked="#irCuenta" text="" />
@@ -80,7 +80,7 @@
               <graphic>
                 <ImageView id="mensajeprivado" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="file:/home/borja/workspace/ProyectTwitter/src/cliente/Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
+                    <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -211,7 +211,7 @@
     </TabPane>
     <VBox id="contenedorMensaje" fx:id="botonTweet" alignment="CENTER" layoutX="32.0" layoutY="375.0" onMouseClicked="#crearTweetMencion" prefHeight="43.0" prefWidth="253.00009999999747" spacing="5.0">
       <children>
-        <Label id="misMensajesPrivados" fx:id="twitteaA" opacity="0.95" text="Twittea a @name">
+        <Label id="misMensajesPrivados" opacity="0.95" text="Twittea a">
           <graphic>
             <ImageView id="tweetoscuro" fitHeight="43.999900000002526" fitWidth="43.999900000002526" pickOnBounds="true" preserveRatio="true">
               <image>
@@ -220,6 +220,7 @@
             </ImageView>
           </graphic>
         </Label>
+        <Label id="misMensajesPrivados" fx:id="twitteaA" opacity="0.95" text="\@name" />
       </children>
     </VBox>
     <VBox id="contenedorMensaje" fx:id="botonFollow" alignment="CENTER" layoutX="32.0" layoutY="304.0" onMouseClicked="#seguir" prefHeight="43.0" prefWidth="253.00009999999747" spacing="5.0">
@@ -231,7 +232,8 @@
                 <Image url="@Imagenes/follow.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label id="misMensajesPrivados" fx:id="sigueA" opacity="1.0" text="Sigue a @name" />
+            <Label id="misMensajesPrivados" opacity="1.0" text="Sigue a" />
+            <Label id="misMensajesPrivados" fx:id="sigueA" text="\@name" />
           </children>
         </HBox>
       </children>
@@ -245,7 +247,8 @@
                 <Image url="@Imagenes/unfollow.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
-            <Label id="misMensajesPrivados" opacity="1.0" text="Dejar de seguir a @name" />
+            <Label id="misMensajesPrivados" opacity="1.0" text="Dejar de seguir a" />
+            <Label id="misMensajesPrivados" fx:id="desSigueA" text="\@name" />
           </children>
         </HBox>
       </children>

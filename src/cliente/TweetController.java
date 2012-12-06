@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -103,7 +104,6 @@ public class TweetController extends Controller{
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
 	private Status tweet;
-	private double originalSize = 0.0;
 	private boolean desplegado = false;
 
 
@@ -160,7 +160,11 @@ public class TweetController extends Controller{
 	// Handler for Hyperlink[fx:id="username"] onAction
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
-		// handle the event here
+		String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
+		System.out.println(screenName);
+		User destUser = getTwitter().users().getUser(screenName);
+		if(destUser != null)
+			((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
 	}
 
 	// Handler for VBox[id="cajita"] onMouseClicked
@@ -186,7 +190,6 @@ public class TweetController extends Controller{
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void responderTweet(MouseEvent event) {
 		if(!this.desplegado){
-			originalSize = worldTweetContainer.getBoundsInLocal().getHeight();
 			stackRespuesta.setVisible(true);
 			globalContainer.getChildren().add(stackRespuesta);
 			this.desplegado = true;
@@ -239,6 +242,7 @@ public class TweetController extends Controller{
 		User user = this.tweet.getUser();
 		screename.setText("@"+user.getScreenName());
 		username.setText(user.getName());
+		username.setTooltip(new Tooltip(user.getScreenName()));
 		
 		double height = userImage.getFitHeight();
         double width = userImage.getFitWidth();

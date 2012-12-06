@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -55,6 +56,9 @@ public class OtraCuentaController extends Controller{
 
     @FXML //  fx:id="descripcion"
     private TextArea descripcion; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="dessigueA"
+    private Label desSigueA; // Value injected by FXMLLoader
 
     @FXML //  fx:id="enviarMensaje"
     private StackPane enviarMensaje; // Value injected by FXMLLoader
@@ -89,7 +93,10 @@ public class OtraCuentaController extends Controller{
     @FXML //  fx:id="twittear"
     private Button twittear; // Value injected by FXMLLoader
     
-    private User user; //Usuario que se está mostrando actualmente
+    /** 
+     * Usuario que se está mostrando actualmente 
+     */
+    private User user; 
 
 
     // Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
@@ -114,7 +121,11 @@ public class OtraCuentaController extends Controller{
 
     // Handler for VBox[fx:id="botonUnfollow"] onMouseClicked
     public void dejarDeSeguir(MouseEvent event) {
-        // handle the event here
+    	User res = getTwitter().users().stopFollowing(this.user);
+        if(res != null){
+        	botonUnfollow.setVisible(false);
+			botonFollow.setVisible(true);
+        }	
     }
 
     // Handler for VBox[id="contenedorMensaje"] onMouseClicked
@@ -149,7 +160,11 @@ public class OtraCuentaController extends Controller{
 
     // Handler for VBox[fx:id="botonFollow"] onMouseClicked
     public void seguir(MouseEvent event) {
-        // handle the event here
+        User res = getTwitter().users().follow(this.user);
+        if(res != null){
+        	botonUnfollow.setVisible(true);
+			botonFollow.setVisible(false);
+        }	
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -170,13 +185,17 @@ public class OtraCuentaController extends Controller{
         assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert sigueA != null : "fx:id=\"sigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert desSigueA != null : "fx:id=\"desSigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert tweetsFavoritos != null : "fx:id=\"tweetsFavoritos\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert twitteaA != null : "fx:id=\"twitteaA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'otraCuenta.fxml'.";
 
         // initialize your logic here: all @FXML variables will have been injected
-
+        creadorTweets.setVisible(false);
+        profileImage.setPreserveRatio(false);
+        
+        
     }
 
 	@Override
@@ -197,42 +216,73 @@ public class OtraCuentaController extends Controller{
 		this.user = user;
 		tweetsUsuario.getChildren().clear();
 		
-		ScreenName.setText(user.getScreenName());
-		nTweets.setText(""+user.getStatusesCount());
-        nSeguidores.setText(""+user.getFollowersCount());
-        nSiguiendo.setText(""+user.getFriendsCount());
+		//Rellenamos la caja de información del usuario
+		ScreenName.setText(this.user.getScreenName());
+		nTweets.setText(""+this.user.getStatusesCount());
+        nSeguidores.setText(""+this.user.getFollowersCount());
+        nSiguiendo.setText(""+this.user.getFriendsCount());
+        descripcion.setText(this.user.getDescription());
+        
+        //Su imagen
+        Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+        if(im != null)
+        	profileImage.setImage(im);
 		
-		//Cargamos su timeline
-		Iterator<Status> timeline = super.getTwitter().getHomeTimeline().iterator();
+		//Cargamos su "timeline"
+		Iterator<Status> timeline = super.getTwitter().getUserTimeline(this.user.getId()).iterator();
 		tweetsUsuario.getChildren().clear();
 		while(timeline.hasNext()){
-			this.addTweet(timeline.next());
+			this.addTweet(tweetsUsuario, timeline.next());
 		}
+		
+		//Cargamos sus favoritos
+		Iterator<Status> favoritos = super.getTwitter().getFavorites(this.user.getScreenName()).iterator();
+		tweetsFavoritos.getChildren().clear();
+		while(favoritos.hasNext()){
+			this.addTweet(tweetsFavoritos, favoritos.next());
+		}
+		
+		//Botón de seguidor
+		if(super.getTwitter().users().isFollowing(this.user)){ //Si ya le estamos siguiendo
+			botonUnfollow.setVisible(true);
+			botonFollow.setVisible(false);
+		}else{
+			botonUnfollow.setVisible(false);
+			botonFollow.setVisible(true);
+		}
+		
+		twitteaA.setText(this.user.getScreenName());
+		sigueA.setText(this.user.getScreenName());
+		desSigueA.setText(this.user.getScreenName());
+		
+		
 	}
 	
 	/**
 	 * Añade un tweet al final de la lista.
+	 * @param contendor VBox a la que añadir el tweet.
 	 * @param tweet Tweet a añadir.
 	 */
-	private void addTweet(ITweet tweet){
-		addTweet(tweet, false);
+	private void addTweet(VBox contendor, ITweet tweet){
+		addTweet(contendor, tweet, false);
 	}
 	
 	/**
 	 * Añade un tweet.
+	 * @param contendor VBox a la que añadir el tweet.
 	 * @param tweet Tweet a añadir.
 	 * @param onTop True si el tweet se tiene que añadir al principio de la lista.
 	 */
-	private void addTweet(ITweet tweet, boolean onTop){
+	private void addTweet(VBox contendor,ITweet tweet, boolean onTop){
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			if(!onTop)
-				tweetsUsuario.getChildren().add(tweetUI.getRoot());
+				contendor.getChildren().add(tweetUI.getRoot());
 			else{
-				LinkedList<Node> list = new LinkedList<Node>(tweetsUsuario.getChildren());
+				LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
 				list.addFirst(tweetUI.getRoot());
-				tweetsUsuario.getChildren().clear();
-				tweetsUsuario.getChildren().addAll(list);
+				contendor.getChildren().clear();
+				contendor.getChildren().addAll(list);
 			}
 			//((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
 		} catch (IOException e) {

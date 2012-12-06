@@ -17,6 +17,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -137,6 +138,7 @@ public class WorldController extends Controller implements AStream.IListen {
     private ConectaController conectaController;
     private TimeLineController timeLineController;
     private AjustesController ajustesController;
+    private OtraCuentaController otraCuentaController;
         
     private boolean geoLocation=false;
 
@@ -250,6 +252,7 @@ public class WorldController extends Controller implements AStream.IListen {
         // handle the event here
     }
     
+    
     // Handler for Label[fx:id="placeActual"] onMouseClicked
     public void mostrarGeo(MouseEvent event) {
     	stackMapa.setVisible(true);
@@ -291,6 +294,20 @@ public class WorldController extends Controller implements AStream.IListen {
          geoActivado.setVisible(false);
          stackMapa.setVisible(false);
                  
+         //Eventos para volver a mostrar el cuadro de informacion del usuario de la izquierda
+         timeLineTab.setOnSelectionChanged(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				Tab newSelection = timeLineTab.getTabPane().getSelectionModel().selectedItemProperty().getValue();
+				//Tab oldSelection = (Tab) event.getSource();
+				
+				if(newSelection.equals(timeLineTab) || newSelection.equals(conectaTab)){
+					infCuenta.setVisible(true);
+				}
+			}
+         });
+         conectaTab.setOnSelectionChanged(timeLineTab.getOnSelectionChanged());
+         
     }
 
 	@Override
@@ -300,20 +317,17 @@ public class WorldController extends Controller implements AStream.IListen {
 		nTweets.setText(""+user.getStatusesCount());
         nSeguidores.setText(""+user.getFollowersCount());
         nSiguiendo.setText(""+user.getFriendsCount());
-        double height = profileImage.getFitHeight();
-        double width = profileImage.getFitWidth();
         Image im = ClientTools.getImage(super.getTwitter().getSelf().getProfileImageUrl().toString());
         if(im != null)
         	profileImage.setImage(im);
-        //profileImage.setPreserveRatio(false);
-        //profileImage.setFitHeight(height);
-        //profileImage.setFitWidth(width);
         
 		try {
 		   	this.timeLineController = (TimeLineController) loadFXMLAndAppendToTab("timeLine.fxml", this.timeLineTab);
 		   	this.miCuentaController = (MiCuentaController) loadFXMLAndAppendToTab("miCuenta.fxml", this.miCuentaTab);
 		   	this.conectaController = (ConectaController) loadFXMLAndAppendToTab("conecta.fxml", this.conectaTab);
 		   	this.ajustesController = (AjustesController) loadFXMLAndAppendToTab("preferencias.fxml", null);
+		   	this.otraCuentaController = (OtraCuentaController) loadFXMLAndAppendToTab("otraCuenta.fxml", this.otraCuentaTab);
+
 		   	nuevaVentana.getChildren().add(this.ajustesController.getRoot());
 		   	this.ajustesController.hideWindow();
 		   	
@@ -375,6 +389,17 @@ public class WorldController extends Controller implements AStream.IListen {
 	@Override
 	protected AnchorPane getContainer() {
 		return worldContainer;
+	}
+	
+	protected void changeToOtherAccount(User user){
+		//Queremos entrar a la cuenta de un usuario diferente
+		if(!user.getId().equals(getTwitter().getSelf().getId())){
+			this.otraCuentaController.changeToUser(user);
+			this.otraCuentaTab.getTabPane().getSelectionModel().select(this.otraCuentaTab);
+			infCuenta.setVisible(false);
+		}else{ //Queremos entrar a nuestra cuenta
+			this.miCuentaTab.getTabPane().getSelectionModel().select(this.miCuentaTab);
+		}
 	}
 
 	

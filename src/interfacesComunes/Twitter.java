@@ -344,7 +344,7 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public Status getStatus(String screenName) throws TwitterException;
 	
-	public List<Status> getUserTimeline(Number userId) throws TwitterException;
+	public List<Status> getUserTimeline(Long userId) throws TwitterException;
 	
 	public List<Status> getUserTimeline(String screenName) throws TwitterException;
 	
