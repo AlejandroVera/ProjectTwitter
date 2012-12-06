@@ -192,12 +192,6 @@
             </StackPane>
             <StackPane fx:id="creadorTweets" layoutX="352.0" layoutY="80.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0">
               <children>
-                <StackPane id="StackPane" fx:id="stackMapa" prefHeight="164.0" prefWidth="353.49993896484375">
-                  <children>
-                    <Label id="cerrarNuevoTweet" onMouseClicked="#cerrarMapa" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
-                    <ImageView fx:id="mapa" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  </children>
-                </StackPane>
                 <VBox fx:id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
                   <children>
                     <GridPane prefHeight="164.0" prefWidth="498.0">
@@ -245,6 +239,12 @@
                     </GridPane>
                   </children>
                 </VBox>
+                <StackPane id="StackPane" fx:id="stackMapa" prefHeight="164.0" prefWidth="353.49993896484375">
+                  <children>
+                    <ImageView fx:id="mapa" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                    <Label id="cerrarNuevoTweet" onMouseClicked="#cerrarMapa" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
+                  </children>
+                </StackPane>
               </children>
             </StackPane>
           </children>

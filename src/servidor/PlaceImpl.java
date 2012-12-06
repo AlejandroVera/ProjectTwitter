@@ -28,19 +28,19 @@ public class PlaceImpl implements Place {
 		this.id=id;
 		this.con=con;
 		
-		ResultSet res = this.con.query("SELECT name FROM places WHERE id ="+id + "LIMIT 1");
+		ResultSet res = this.con.query("SELECT name FROM places WHERE id ="+id + " LIMIT 1");
 		if (res.next())
 			this.name=res.getString(1);
 
-		res = this.con.query("SELECT pais FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT pais FROM places WHERE id ="+id + " LIMIT 1");
 		if (res.next())
 			this.countryName=res.getString(1);
 
-		res = this.con.query("SELECT ciudad FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT ciudad FROM places WHERE id ="+id + " LIMIT 1");
 		if (res.next())
-			this.countryName=res.getString(1);
+			this.city=res.getString(1);
 
-		res = this.con.query("SELECT tipo FROM places WHERE id ="+id + "LIMIT 1");
+		res = this.con.query("SELECT tipo FROM places WHERE id ="+id + " LIMIT 1");
 		if (res.next())
 			this.type=res.getString(1);
 

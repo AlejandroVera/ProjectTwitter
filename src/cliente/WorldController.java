@@ -11,10 +11,15 @@ import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -38,6 +43,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+
 
 
 public class WorldController extends Controller implements AStream.IListen {
@@ -145,18 +151,28 @@ public class WorldController extends Controller implements AStream.IListen {
     // Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
     public void activarGeo(MouseEvent event) {
     	geoLocation=true;
-    	//Cuando este twitter.geo
-    	/*Double latitude= getTwitter().geo().getPlace(null,null).getCenter().getLatitude();
-    	Double longitude= getTwitter().geo().getPlace(null,null).getCenter().getLongitude(); 
-    	String coord=new String(latitude.toString()+","+longitude.toString());
+    	
+    	Double latitude= getTwitter().geo().getPlace(null,null).getCentroid().getLatitude();
+    	Double longitude= getTwitter().geo().getPlace(null,null).getCentroid().getLongitude(); 
+    	String coord=new String(longitude.toString()+","+latitude.toString());
     	
     	  
-    	URL url = new URL("https://maps.googleapis.com/maps/api/staticmap?center="+coord+
-    			"&size=200*150&maptype=hybrid&markers=color:red%"+coord+"&sensor=false");
-    	URLConnection conn = new URLConnection(url);
-    	InputStream in = conn.getInputStream();
-    	mapa.setImage((Image) in);
-    	placeActual.setText("getTwitter().geo().getPlace(null,null).toString()")*/
+    	URL url;
+		try {
+			url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
+					"&size=200x150&zoom=18&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+			/*url= new URL("http://maps.google.com/maps/api/staticmap?
+			 * center=40.277145,-3.808878&size=200x150&zoom=18&maptype=hybrid&markers=color:red|40.277145,-3.808878&sensor=true");
+			 */
+			URLConnection conn = url.openConnection();
+	    	InputStream in = conn.getInputStream();
+	    	Image image= new Image(in);
+	    	mapa.setImage(image);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
     	geoActivado.setVisible(true);
     	geoDesactivado.setVisible(false);
     	
@@ -173,6 +189,7 @@ public class WorldController extends Controller implements AStream.IListen {
         geoDesactivado.setVisible(false);
         mapa.setImage(null);
         placeActual.setText("Geolocalizacion desactivada");
+        geoDesactivado.setVisible(true);
         
     }
     
@@ -255,6 +272,7 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for Label[fx:id="placeActual"] onMouseClicked
     public void mostrarGeo(MouseEvent event) {
+    	if (geoLocation==true)
     	stackMapa.setVisible(true);
     }
     
