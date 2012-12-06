@@ -79,6 +79,9 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="nTweets"
     private Label nTweets; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="otraCuentaTab"
+    private Tab otraCuentaTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="profileImage"
     private ImageView profileImage; // Value injected by FXMLLoader
@@ -204,6 +207,7 @@ public class WorldController extends Controller implements AStream.IListen {
          assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'world.fxml'.";
          assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'world.fxml'.";
          assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'world.fxml'.";
+         assert otraCuentaTab != null : "fx:id=\"otraCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
          assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'world.fxml'.";
          assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'world.fxml'.";
          assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";

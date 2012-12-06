@@ -16,9 +16,9 @@
           <children>
             <StackPane layoutX="6.0" layoutY="81.0" maxHeight="1.7976931348623157E308" prefHeight="584.0" prefWidth="889.0" />
             <HBox id="barraArriba" layoutX="7.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="874.0" />
-            <TabPane id="MenuArriba" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
+            <TabPane id="" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="0.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
               <tabs>
-                <Tab id="tab" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
+                <Tab id="tabArriba" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
                   <graphic>
                     <HBox id="" fx:id="cajaSeleccion" alignment="CENTER" prefWidth="103.0" spacing="5.0" styleClass="label">
                       <children>
@@ -32,7 +32,7 @@
                     </HBox>
                   </graphic>
                 </Tab>
-                <Tab fx:id="conectaTab" content="$null" text="">
+                <Tab id="tabArriba" fx:id="conectaTab" content="$null" text="">
                   <graphic>
                     <HBox id="texto" alignment="CENTER" prefWidth="101.0" spacing="5.0">
                       <children>
@@ -46,7 +46,7 @@
                     </HBox>
                   </graphic>
                 </Tab>
-                <Tab fx:id="miCuentaTab" content="$null" text="">
+                <Tab id="tabArriba" fx:id="miCuentaTab" content="$null" text="">
                   <graphic>
                     <HBox id="" alignment="CENTER" prefWidth="99.0" spacing="5.0">
                       <children>
@@ -60,6 +60,7 @@
                     </HBox>
                   </graphic>
                 </Tab>
+                <Tab id="tabInvisible" fx:id="otraCuentaTab" content="$null" disable="false" text="" />
               </tabs>
             </TabPane>
             <HBox id="HBox" alignment="CENTER" layoutX="370.0" layoutY="48.0" prefWidth="505.0" spacing="5.0">
