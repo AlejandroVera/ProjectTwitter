@@ -5,6 +5,8 @@
 
 package cliente;
 
+import interfacesComunes.User;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.Event;
@@ -13,14 +15,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 /*Vista pequeñita de un usuario*/
 
-public class UserController
-    implements Initializable {
+public class UserController extends Controller {
 
     @FXML //  fx:id="descripcionUsuario"
     private TextArea descripcionUsuario; // Value injected by FXMLLoader
@@ -39,6 +41,8 @@ public class UserController
 
     @FXML //  fx:id="worldTweetContainer"
     private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+    
+    private User user;
 
 
     // Handler for Hyperlink[fx:id="username"] onAction
@@ -60,5 +64,25 @@ public class UserController
         // initialize your logic here: all @FXML variables will have been injected
 
     }
+
+	@Override
+	public void postInitialize() {
+		descripcionUsuario.setText(this.user.getDescription());
+		screename.setText(this.user.getScreenName());
+		Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+        if(im != null)
+        	userImage.setImage(im);
+        username.setText(this.user.getName());
+	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	protected void setUser(User user){
+		this.user = user;
+	}
 
 }

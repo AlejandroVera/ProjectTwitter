@@ -6,6 +6,8 @@
 package cliente;
 
 import interfacesComunes.Status;
+import interfacesComunes.Twitter_Account;
+import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;
 
@@ -242,6 +244,26 @@ public class OtraCuentaController extends Controller{
 			this.addTweet(tweetsFavoritos, favoritos.next());
 		}
 		
+		Twitter_Users tw_users = super.getTwitter().users();
+		
+		//Cargamos sus seguidores
+		Iterator<Long> seguidores = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
+		cajaSeguidores.getChildren().clear();
+		while(seguidores.hasNext()){
+			User us = tw_users.getUser(seguidores.next());
+			if(us != null)
+				this.addUser(cajaSeguidores, us);
+		}
+		
+		//Cargamos sus seguidos
+		Iterator<Long> seguidos = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
+		cajaSiguiendo.getChildren().clear();
+		while(seguidos.hasNext()){
+			User us = tw_users.getUser(seguidos.next());
+			if(us != null)
+				this.addUser(cajaSiguiendo, us);
+		}
+		
 		//Botón de seguidor
 		if(super.getTwitter().users().isFollowing(this.user)){ //Si ya le estamos siguiendo
 			botonUnfollow.setVisible(true);
@@ -284,7 +306,26 @@ public class OtraCuentaController extends Controller{
 				contendor.getChildren().clear();
 				contendor.getChildren().addAll(list);
 			}
-			//((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void addUser(VBox contendor, User user){
+		addUser(contendor, user, false);
+	}
+	
+	private void addUser(VBox contendor,User user, boolean onTop){
+		try {
+			FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), user);
+			if(!onTop)
+				contendor.getChildren().add(userUI.getRoot());
+			else{
+				LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
+				list.addFirst(userUI.getRoot());
+				contendor.getChildren().clear();
+				contendor.getChildren().addAll(list);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

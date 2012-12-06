@@ -161,7 +161,6 @@ public class TweetController extends Controller{
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
 		String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
-		System.out.println(screenName);
 		User destUser = getTwitter().users().getUser(screenName);
 		if(destUser != null)
 			((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);

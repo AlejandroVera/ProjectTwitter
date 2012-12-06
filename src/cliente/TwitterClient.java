@@ -122,6 +122,7 @@ public class TwitterClient extends Application {
 			} 
 			catch (Exception e1) {
 				e1.printStackTrace();
+				ClientTools.showDialog("Se ha producido un error al conectar con el servidor.\n"+e1.getMessage());
 			}
 			return true;
 		}
