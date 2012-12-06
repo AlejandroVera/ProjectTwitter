@@ -15,7 +15,7 @@
           <children>
             <GridPane prefHeight="34.0" prefWidth="571.0">
               <children>
-                <Label id="numeroDe" onMouseClicked="#cerrar" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label id="cerrarNuevoTweet" onMouseClicked="#cerrar" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                 <Label id="titulo" text="Ajustes" GridPane.columnIndex="1" GridPane.rowIndex="0" />
               </children>
               <columnConstraints>

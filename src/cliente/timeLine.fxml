@@ -8,20 +8,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="Content" fx:id="imagenFondo" blendMode="SRC_OVER" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" mouseTransparent="false" opacity="1.0" prefHeight="584.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TimeLineController">
+<AnchorPane id="Content" fx:id="imagenFondo" blendMode="SRC_OVER" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" mouseTransparent="false" opacity="1.0" prefHeight="1080.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.TimeLineController">
   <children>
-    <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="-2.0" />
-    <HBox id="HBox" alignment="CENTER" layoutX="344.0" layoutY="31.0" spacing="5.0" />
-    <HBox id="HBox" alignment="CENTER" layoutX="343.0" layoutY="25.0" spacing="5.0">
+    <HBox id="fondoPestana" layoutX="11.0" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="584.0" prefWidth="859.0" />
+    <HBox id="HBox" alignment="CENTER" layoutX="343.0" maxHeight="-Infinity" maxWidth="-1.0" prefHeight="1041.0" spacing="5.0" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="25.0">
       <children>
-        <GridPane prefHeight="553.0" prefWidth="525.0">
+        <GridPane maxHeight="1.7976931348623157E308" prefHeight="1041.0" prefWidth="525.0" HBox.hgrow="NEVER">
           <children>
             <HBox id="cajaIz" alignment="CENTER" depthTest="INHERIT" minHeight="15.0" prefHeight="35.0" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0">
               <children>
                 <Label text="Tweets" />
               </children>
             </HBox>
-            <ScrollPane prefHeight="513.0" prefWidth="516.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <ScrollPane prefHeight="810.0" prefWidth="525.0" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
               <content>
                 <VBox id="tweetsTimeline" fx:id="tweetsTimeLine" prefHeight="0.0" prefWidth="-1.0" />
               </content>
@@ -31,8 +30,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           </columnConstraints>
           <rowConstraints>
-            <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="513.0" minHeight="10.0" prefHeight="513.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="749.0" minHeight="32.0" prefHeight="32.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1009.0" minHeight="10.0" prefHeight="1009.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
       </children>

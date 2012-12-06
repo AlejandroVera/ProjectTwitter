@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.MiCuentaController">
+<AnchorPane id="Content" maxHeight="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="889.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.MiCuentaController">
   <children>
-    <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
+    <HBox id="fondoPestana" maxHeight="1.7976931348623157E308" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
     <HBox id="HBox" alignment="CENTER" layoutX="20.0" layoutY="25.0" prefHeight="252.0" prefWidth="286.0" spacing="5.0">
       <children>
         <GridPane prefHeight="129.0" prefWidth="276.0">
@@ -85,7 +85,7 @@
         </Label>
       </children>
     </VBox>
-    <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+    <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" maxHeight="1.7976931348623157E308" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab text="Tweets">
           <content>
