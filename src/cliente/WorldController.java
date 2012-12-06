@@ -109,6 +109,12 @@ public class WorldController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="nuevaVentana"
     private StackPane nuevaVentana; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="geoActivado"
+    private ImageView geoActivado; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="geoDesactivado"
+    private ImageView geoDesactivado; // Value injected by FXMLLoader
 
     
     //privadas propias
@@ -117,9 +123,18 @@ public class WorldController extends Controller implements AStream.IListen {
     private TimeLineController timeLineController;
     private AjustesController ajustesController;
 
-
-    // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
-    public void busca(KeyEvent event) {
+    // Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
+    public void activarGeo(MouseEvent event) {
+        // handle the event here
+    }
+    
+    // Handler for ImageView[fx:id="geoActivado"] onMouseClicked
+    public void desactivarGeo(MouseEvent event) {
+        // handle the event here
+    }
+    
+    // Handler for ImageView[id="lupa"] onMouseClicked
+    public void busca(MouseEvent event) {
         // handle the event here
     }
     
