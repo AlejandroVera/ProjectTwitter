@@ -245,20 +245,21 @@ public class OtraCuentaController extends Controller{
 		}
 		
 		Twitter_Users tw_users = super.getTwitter().users();
+		int count = 0;
 		
 		//Cargamos sus seguidores
 		Iterator<Long> seguidores = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
 		cajaSeguidores.getChildren().clear();
-		while(seguidores.hasNext()){
+		while(seguidores.hasNext() && count++ < 10){//TODO: limite temporal
 			User us = tw_users.getUser(seguidores.next());
 			if(us != null)
 				this.addUser(cajaSeguidores, us);
 		}
-		
+		count = 0;
 		//Cargamos sus seguidos
 		Iterator<Long> seguidos = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
 		cajaSiguiendo.getChildren().clear();
-		while(seguidos.hasNext()){
+		while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
 			User us = tw_users.getUser(seguidos.next());
 			if(us != null)
 				this.addUser(cajaSiguiendo, us);
