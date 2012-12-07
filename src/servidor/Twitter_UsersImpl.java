@@ -53,12 +53,14 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		List<Long> seguidores=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		try {
-			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
-
-			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
-
-			while(res.next()){
-				seguidores.add((long) res.getInt(1));
+			ResultSet resu = con.query("SELECT id FROM usuario WHERE screenName='"+screenName+"' LIMIT 1");
+			if(resu.next()){
+				int idUser = resu.getInt("id");
+				ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
+	
+				while(res.next()){
+					seguidores.add((long) res.getInt(1));
+				}
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -75,12 +77,15 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		List<User> seguidores=new ArrayList<User>();
 		Conexion con = new ConexionImpl();	
 		try {
-			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
+			ResultSet resu = con.query("SELECT id FROM usuario WHERE screenName='"+screenName+"' LIMIT 1");
+			if(resu.next()){
+				int idUser = resu.getInt("id");
 
-			ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
-
-			while(res.next()){
-				seguidores.add(new UserImpl(res.getLong(1),con,loggedUser));
+				ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+idUser);
+	
+				while(res.next()){
+					seguidores.add(new UserImpl(res.getLong(1),con,loggedUser));
+				}
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");

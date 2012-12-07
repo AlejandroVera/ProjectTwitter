@@ -318,6 +318,8 @@ public class WorldController extends Controller implements AStream.IListen {
         	  public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
         		  	if(newTab.equals(timeLineTab) || newTab.equals(conectaTab)){
   						infCuenta.setVisible(true);
+  					}else if(newTab.equals(miCuentaTab)){
+  						miCuentaController.loadTweets(); //Entramos por primera vez y hay que cargar tweets?
   					}
         	  }
          });
@@ -368,6 +370,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		//Inc numero tweets
 		if(super.getTwitter().getSelf().getId().equals(tweet.getUser().getId())){
 			nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
+			this.miCuentaController.processTweet(tweet);
 		}
 	
 		

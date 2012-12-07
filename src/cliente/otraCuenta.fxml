@@ -91,7 +91,7 @@
     </StackPane>
     <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab text="Tweets">
+        <Tab fx:id="tweetsTab" text="Tweets">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -120,7 +120,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Siguiendo">
+        <Tab fx:id="siguiendoTab" text="Siguiendo">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -149,7 +149,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Seguidores">
+        <Tab fx:id="seguidoresTab" text="Seguidores">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -178,7 +178,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Favoritos">
+        <Tab fx:id="favoritosTab" text="Favoritos">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>

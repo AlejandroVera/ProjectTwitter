@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +33,7 @@ import javafx.scene.layout.VBox;
 
 public class OtraCuentaController extends Controller{
 
-    @FXML //  fx:id="ScreenName"
+	@FXML //  fx:id="ScreenName"
     private Label ScreenName; // Value injected by FXMLLoader
 
     @FXML //  fx:id="botonFollow"
@@ -56,14 +57,17 @@ public class OtraCuentaController extends Controller{
     @FXML //  fx:id="creadorTweets"
     private StackPane creadorTweets; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="desSigueA"
+    private Label desSigueA; // Value injected by FXMLLoader
+
     @FXML //  fx:id="descripcion"
     private TextArea descripcion; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="dessigueA"
-    private Label desSigueA; // Value injected by FXMLLoader
 
     @FXML //  fx:id="enviarMensaje"
     private StackPane enviarMensaje; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="favoritosTab"
+    private Tab favoritosTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="nSeguidores"
     private Label nSeguidores; // Value injected by FXMLLoader
@@ -80,11 +84,20 @@ public class OtraCuentaController extends Controller{
     @FXML //  fx:id="profileImage"
     private ImageView profileImage; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="seguidoresTab"
+    private Tab seguidoresTab; // Value injected by FXMLLoader
+
     @FXML //  fx:id="sigueA"
     private Label sigueA; // Value injected by FXMLLoader
 
+    @FXML //  fx:id="siguiendoTab"
+    private Tab siguiendoTab; // Value injected by FXMLLoader
+
     @FXML //  fx:id="tweetsFavoritos"
     private VBox tweetsFavoritos; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="tweetsTab"
+    private Tab tweetsTab; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tweetsUsuario"
     private VBox tweetsUsuario; // Value injected by FXMLLoader
@@ -171,7 +184,7 @@ public class OtraCuentaController extends Controller{
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-        assert ScreenName != null : "fx:id=\"ScreenName\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+    	assert ScreenName != null : "fx:id=\"ScreenName\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert botonFollow != null : "fx:id=\"botonFollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert botonTweet != null : "fx:id=\"botonTweet\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert botonUnfollow != null : "fx:id=\"botonUnfollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
@@ -179,19 +192,24 @@ public class OtraCuentaController extends Controller{
         assert cajaSiguiendo != null : "fx:id=\"cajaSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert contadorCaracteres != null : "fx:id=\"contadorCaracteres\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert desSigueA != null : "fx:id=\"desSigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert descripcion != null : "fx:id=\"descripcion\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert enviarMensaje != null : "fx:id=\"enviarMensaje\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert favoritosTab != null : "fx:id=\"favoritosTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert seguidoresTab != null : "fx:id=\"seguidoresTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert sigueA != null : "fx:id=\"sigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert desSigueA != null : "fx:id=\"desSigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert siguiendoTab != null : "fx:id=\"siguiendoTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert tweetsFavoritos != null : "fx:id=\"tweetsFavoritos\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+        assert tweetsTab != null : "fx:id=\"tweetsTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert twitteaA != null : "fx:id=\"twitteaA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
         assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+
 
         // initialize your logic here: all @FXML variables will have been injected
         creadorTweets.setVisible(false);
