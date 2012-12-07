@@ -54,7 +54,7 @@
                     </HBox>
                     <ScrollPane prefHeight="513.0" prefWidth="503.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <content>
-                        <VBox id="tweetsMenciones" fx:id="tweetsInteracciones" prefHeight="0.0" prefWidth="515.0" />
+                        <VBox fx:id="tweetsMenciones" prefHeight="0.0" prefWidth="515.0" />
                       </content>
                     </ScrollPane>
                   </children>

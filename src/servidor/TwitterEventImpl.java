@@ -31,6 +31,44 @@ public class TwitterEventImpl implements TwitterEvent{
 	private String type;
 	private Conexion con;
 	private User loggedUser;
+	
+	/** Constructor para obtener un event sin meterlo en la base de datos (solo consulta)
+	 * @throws SQLException */
+	public TwitterEventImpl(int id, Conexion con, User loggedUser) throws SQLException{
+		
+		this.id=id;
+		this.con=con;
+		this.loggedUser=loggedUser;
+		this.createdAt=new Date();
+		
+		//Obtenemos el usuario autor
+		ResultSet res=con.query("SELECT from eventos id_autor WHERE id="+id+" LIMIT=1");
+		if (res.next())
+			this.source=new UserImpl((Long)res.getLong(1), this.con, this.loggedUser);
+		
+		//Obtenemos el usuario de destino
+		res=con.query("SELECT from eventos id_destinatario WHERE id="+id+" LIMIT=1");
+		if (res.next())
+			this.target=new UserImpl((Long)res.getLong(1), this.con, this.loggedUser);
+		
+		//Obtenemos el tweet
+		res=con.query("SELECT from eventos id_tweet WHERE id="+id+" LIMIT=1");
+		if (res.next())
+			this.status=new StatusImpl(BigInteger.valueOf(res.getLong(1)), con, loggedUser);
+		
+		//Obtenemos la fecha
+		res=con.query("SELECT from eventos fecha WHERE id="+id+" LIMIT=1");
+		if (res.next())
+			this.createdAt.setTime(res.getLong(1));
+		
+		//Obtenemos el tipo
+		res=con.query("SELECT from eventos tipo WHERE id="+id+" LIMIT=1");
+		if (res.next())
+			this.type=res.getString(1);
+		
+		
+	}
+	
 	/** Constructor para actualizacion de cuenta*/
 	public TwitterEventImpl(Long id_source,String type, Conexion con, User loggedUser) throws SQLException{
 		this(id_source,Long.parseLong("0"), null, type, con,loggedUser);

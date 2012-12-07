@@ -14,5 +14,6 @@ public interface AStream extends Remote, Serializable{
 		public boolean processSystemEvent(java.lang.Object[] obj) throws RemoteException; 
 		public boolean processTweet(Twitter.ITweet tweet) throws RemoteException;
 	}
-
+	
+	public java.util.List<TwitterEvent>	getEvents(); 
 }
