@@ -690,7 +690,14 @@ public class TwitterImpl implements Twitter {
 		return this.geo;
 	}
 
-	
+
+	@Override
+	public AStream stream() {
+		
+		return new AStreamImpl(this, this.con);
+	}
+
+
 
 
 }

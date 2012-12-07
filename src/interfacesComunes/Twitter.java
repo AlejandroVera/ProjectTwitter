@@ -412,4 +412,10 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public Twitter_Geo geo();
 	
+
+	/**
+	 * Devuelve los metodos del AStream, esto no se puede usar con JTwitter
+	 */
+	public AStream stream();
+	
 }

@@ -7,7 +7,6 @@ package cliente;
 
 import interfacesComunes.AStream;
 import interfacesComunes.Status;
-import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 
@@ -53,8 +52,8 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		this.addEvent(cajaInteracciones, event);
+		return true;
 	}
 
 
@@ -81,6 +80,10 @@ public class ConectaController extends Controller implements AStream.IListen {
 			this.addTweet(tweetsMenciones, menciones.next());
 		}
 		
+		Iterator<TwitterEvent> interacciones =super.getTwitter().stream().getEvents().iterator();
+		while(interacciones.hasNext()){
+			this.addEvent(cajaInteracciones, interacciones.next());
+		}
 		
 	}
 
@@ -122,18 +125,18 @@ public class ConectaController extends Controller implements AStream.IListen {
 		}
 	}
 	
-	private void addUser(VBox contendor, User user){
-		addUser(contendor, user, false);
+	private void addEvent(VBox contendor, TwitterEvent event){
+		addEvent(contendor, event, false);
 	}
 	
-	private void addUser(VBox contendor,User user, boolean onTop){
+	private void addEvent(VBox contendor,TwitterEvent event, boolean onTop){
 		try {
-			FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), user);
+			FXMLEventAutoLoader eventUI = new FXMLEventAutoLoader(getTwitter(), (TwitterEvent)event);
 			if(!onTop)
-				contendor.getChildren().add(userUI.getRoot());
+				contendor.getChildren().add(eventUI.getRoot());
 			else{
 				LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
-				list.addFirst(userUI.getRoot());
+				list.addFirst(eventUI.getRoot());
 				contendor.getChildren().clear();
 				contendor.getChildren().addAll(list);
 			}
