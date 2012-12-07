@@ -147,6 +147,7 @@ public class WorldController extends Controller implements AStream.IListen {
     private TimeLineController timeLineController;
     private AjustesController ajustesController;
     private OtraCuentaController otraCuentaController;
+    private BusquedaController busquedaController;
         
     private boolean geoLocation=false;
 
@@ -194,7 +195,7 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for ImageView[id="lupa"] onMouseClicked
     public void busca(MouseEvent event) {
-        // handle the event here
+        System.out.println(this.busquedaLabel.getText());
     }
     
     // Handler for TextArea[fx:id="textoNuevoTweet"] onKeyPressed
@@ -340,7 +341,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		   	this.conectaController = (ConectaController) loadFXMLAndAppendToTab("conecta.fxml", this.conectaTab);
 		   	this.ajustesController = (AjustesController) loadFXMLAndAppendToTab("preferencias.fxml", null);
 		   	this.otraCuentaController = (OtraCuentaController) loadFXMLAndAppendToTab("otraCuenta.fxml", this.otraCuentaTab);
-
+		   	this.busquedaController = (BusquedaController) loadFXMLAndAppendToTab("busqueda.fxml", this.otraCuentaTab);
 		   	nuevaVentana.getChildren().add(this.ajustesController.getRoot());
 		   	this.ajustesController.hideWindow();
 		   	

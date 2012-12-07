@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 
-public class BusquedaController
+public class BusquedaController extends Controller
     implements Initializable {
 
     @FXML //  fx:id="imagenFondo"
@@ -41,5 +41,17 @@ public class BusquedaController
         // initialize your logic here: all @FXML variables will have been injected
 
     }
+
+	@Override
+	public void postInitialize() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected AnchorPane getContainer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
