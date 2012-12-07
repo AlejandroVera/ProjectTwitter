@@ -13,6 +13,7 @@ import interfacesComunes.TwitterEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -32,6 +33,8 @@ public class TimeLineController extends Controller implements AStream.IListen {
 
 	@FXML //  fx:id="tweetsTimeLine"
 	private VBox tweetsTimeLine; // Value injected by FXMLLoader
+	
+	private HashMap<Number, TweetController> tweetTable;
 
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
@@ -40,14 +43,19 @@ public class TimeLineController extends Controller implements AStream.IListen {
 		assert tweetsTimeLine != null : "fx:id=\"tweetsTimeLine\" was not injected: check your FXML file 'timeLine.fxml'.";
 
 		// initialize your logic here: all @FXML variables will have been injected
-
+		this.tweetTable = new HashMap<Number, TweetController>();
 	}
 
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.UNFAVORITE) ){
+			Number id = ((ITweet) event.getTargetObject()).getId();
+			TweetController controller = tweetTable.get(id);
+			if(controller != null)
+				controller.processEvent(event);
+		}
+		return true;
 	}
 
 
@@ -93,6 +101,11 @@ public class TimeLineController extends Controller implements AStream.IListen {
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			tweetUI.getController().setParentController(this);
+			
+			//Lo añadimos a la tabla de asociacion
+			tweetTable.put(tweet.getId(), tweetUI.getController());
+			
+			//Lo añadimos al lugar correspondiente
 			if(!onTop)
 				tweetsTimeLine.getChildren().add(tweetUI.getRoot());
 			else{
@@ -101,7 +114,7 @@ public class TimeLineController extends Controller implements AStream.IListen {
 				tweetsTimeLine.getChildren().clear();
 				tweetsTimeLine.getChildren().addAll(list);
 			}
-			//((AnchorPane)tweetsTimeLine.getParent()).setMinHeight(((AnchorPane)tweetsTimeLine.getParent()).getMinHeight()+126);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

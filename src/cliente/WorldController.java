@@ -7,6 +7,7 @@ package cliente;
 
 import interfacesComunes.AStream;
 import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
@@ -354,7 +355,10 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		this.miCuentaController.processEvent(event);
 		this.conectaController.processEvent(event);
+		this.timeLineController.processEvent(event);
+		
 		return true;
 	}
 
@@ -372,13 +376,9 @@ public class WorldController extends Controller implements AStream.IListen {
 			nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
 			this.miCuentaController.processTweet(tweet);
 		}
-	
 		
 		//Propagamos el evento
 		this.timeLineController.processTweet(tweet);
-		
-		//TODO: si el usuario del tweet es el mismo cuyo timeline tenemos abierto, mandamos el tweet al timeline
-		//
 		
 		return true;
 	}

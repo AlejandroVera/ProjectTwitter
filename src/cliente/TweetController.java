@@ -4,10 +4,14 @@
  **/
 package cliente;
 
+import interfacesComunes.AStream;
 import interfacesComunes.Status;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -29,7 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class TweetController extends Controller{
+public class TweetController extends Controller implements AStream.IListen{
 
 	@FXML //  fx:id="contenedorTweet"
 	private HBox contenedorTweet; // Value injected by FXMLLoader
@@ -116,15 +120,11 @@ public class TweetController extends Controller{
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void anadirFavorito(MouseEvent event) {
 		super.getTwitter().setFavorite((Status) tweet, true);
-		stackYaFavorito.setVisible(true);
-		stackFavorito.setVisible(false);
 	}
 
 	// Handler for Label[id="opcionRealizada"] onMouseClicked
 	public void borrarFavorito(MouseEvent event) {
 		super.getTwitter().setFavorite((Status) tweet, false);
-		stackYaFavorito.setVisible(false);
-		stackFavorito.setVisible(true);
 	}
 
 	// Handler for Label[id="opcionRealizada"] onMouseClicked
@@ -138,7 +138,11 @@ public class TweetController extends Controller{
 		try{
 			super.getTwitter().destroyStatus(tweet.getId());
 			this.worldTweetContainer.setVisible(false);
-			((TimeLineController)super.getParentController()).removeTweet(this.getContainer());
+			Object parent = super.getParentController();
+			if(parent instanceof TimeLineController)
+				((TimeLineController)parent).removeTweet(this.getContainer());
+			else if(parent instanceof MiCuentaController)
+				((MiCuentaController)parent).removeTweet(this.getContainer());
 		}catch(TwitterException e){}
 	}
 
@@ -315,6 +319,30 @@ public class TweetController extends Controller{
 	@Override
 	protected AnchorPane getContainer() {
 		return worldTweetContainer;
+	}
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
+			stackYaFavorito.setVisible(true);
+			stackFavorito.setVisible(false);
+		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+			stackYaFavorito.setVisible(false);
+			stackFavorito.setVisible(true);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

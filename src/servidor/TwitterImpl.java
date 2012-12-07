@@ -548,7 +548,7 @@ public class TwitterImpl implements Twitter {
 		
 		Long status_owner = status.getUser().getId();
 		
-		if(event_type != "0"){
+		if(!event_type.equals("0")){
 			try{
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 				List<AStream.IListen> user_callbacks = this.callbackArray.get(status_owner);
