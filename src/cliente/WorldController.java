@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -310,18 +312,14 @@ public class WorldController extends Controller implements AStream.IListen {
          stackMapa.setVisible(false);
                  
          //Eventos para volver a mostrar el cuadro de informacion del usuario de la izquierda
-         timeLineTab.setOnSelectionChanged(new EventHandler<Event>() {
-			@Override
-			public void handle(Event event) {
-				Tab newSelection = timeLineTab.getTabPane().getSelectionModel().selectedItemProperty().getValue();
-				//Tab oldSelection = (Tab) event.getSource();
-				
-				if(newSelection.equals(timeLineTab) || newSelection.equals(conectaTab)){
-					infCuenta.setVisible(true);
-				}
-			}
+         timeLineTab.getTabPane().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+        	  @Override 
+        	  public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
+        		  	if(newTab.equals(timeLineTab) || newTab.equals(conectaTab)){
+  						infCuenta.setVisible(true);
+  					}
+        	  }
          });
-         conectaTab.setOnSelectionChanged(timeLineTab.getOnSelectionChanged());
          
     }
 
