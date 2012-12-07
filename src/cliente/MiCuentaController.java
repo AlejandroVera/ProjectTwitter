@@ -149,11 +149,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		System.out.println("Recibido evento");
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			this.addTweet(tweetsFavoritos, (Status)event.getTargetObject(), true);
-			System.out.println("Procesado evento");
-			
 		}
 		return true;
 	}
@@ -310,7 +307,7 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 		}
 	}
 	
-	protected void removeTweet(Node o){
-		tweetsUsuario.getChildren().remove(o);
+	protected void removeTweet(TweetController c){
+		tweetsUsuario.getChildren().remove(c.getContainer());
 	}
 }

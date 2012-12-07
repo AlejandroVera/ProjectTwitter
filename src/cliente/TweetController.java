@@ -35,6 +35,8 @@ import javafx.scene.layout.VBox;
 
 public class TweetController extends Controller implements AStream.IListen{
 
+	private static final long serialVersionUID = 136870617271640893L;
+
 	@FXML //  fx:id="contenedorTweet"
 	private HBox contenedorTweet; // Value injected by FXMLLoader
 	
@@ -108,6 +110,7 @@ public class TweetController extends Controller implements AStream.IListen{
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
 	private Status tweet;
+
 	private boolean desplegado = false;
 
 
@@ -134,15 +137,14 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void borrarTweet(MouseEvent event) {
-		//TODO: pedir confirmación?
 		try{
 			super.getTwitter().destroyStatus(tweet.getId());
 			this.worldTweetContainer.setVisible(false);
 			Object parent = super.getParentController();
 			if(parent instanceof TimeLineController)
-				((TimeLineController)parent).removeTweet(this.getContainer());
+				((TimeLineController)parent).removeTweet(this);
 			else if(parent instanceof MiCuentaController)
-				((MiCuentaController)parent).removeTweet(this.getContainer());
+				((MiCuentaController)parent).removeTweet(this);
 		}catch(TwitterException e){}
 	}
 
@@ -247,8 +249,6 @@ public class TweetController extends Controller implements AStream.IListen{
 		username.setText(user.getName());
 		username.setTooltip(new Tooltip(user.getScreenName()));
 		
-		double height = userImage.getFitHeight();
-        double width = userImage.getFitWidth();
         Image im = ClientTools.getImage(tweet.getUser().getProfileImageUrl().toString());
         if(im != null)
         	userImage.setImage(im);
@@ -314,6 +314,10 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	protected void setTweet(Status tweet){
 		this.tweet = tweet;
+	}
+	
+	public Status getTweet() {
+		return tweet;
 	}
 
 	@Override

@@ -120,8 +120,9 @@ public class TimeLineController extends Controller implements AStream.IListen {
 		}
 	}
 	
-	protected void removeTweet(Node o){
-		tweetsTimeLine.getChildren().remove(o);
+	protected void removeTweet(TweetController c){
+		tweetsTimeLine.getChildren().remove(c.getContainer());
+		tweetTable.remove(c.getTweet().getId());
 	}
 
 
