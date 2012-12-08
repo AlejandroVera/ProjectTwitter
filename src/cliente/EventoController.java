@@ -66,7 +66,7 @@ public class EventoController extends Controller {
 		String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
 		User destUser = getTwitter().users().getUser(screenName);
 		if(destUser != null)
-			((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+			((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
 	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete

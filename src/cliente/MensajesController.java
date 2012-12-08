@@ -1,10 +1,22 @@
 
 package cliente;
 
+import interfacesComunes.AStream;
+import interfacesComunes.Message;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
+
+import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -12,10 +24,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 
-public class MensajesController
-    implements Initializable {
+public class MensajesController extends Controller implements AStream.IListen {
 
-    @FXML //  fx:id="bandejaEntrada"
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5651504061524623882L;
+
+	@FXML //  fx:id="bandejaEntrada"
     private VBox bandejaEntrada; // Value injected by FXMLLoader
 
     @FXML //  fx:id="bandejaSalida"
@@ -29,8 +45,13 @@ public class MensajesController
 
     @FXML //  fx:id="texto"
     private TextArea texto; // Value injected by FXMLLoader
-
-
+    
+    @FXML //  fx:id="menuMensaje"
+    private TabPane menuMensaje; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="redactar"
+    private Tab redactar; // Value injected by FXMLLoader
+    
     // Handler for Label[id="numeroDe"] onMouseClicked
     public void cerrarMenu(MouseEvent event) {
         // handle the event here
@@ -53,4 +74,87 @@ public class MensajesController
 
     }
 
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processTweet(ITweet mensaje) throws RemoteException {
+		if (mensaje instanceof Message){
+			mensaje=(Message) mensaje;
+			if (((Message) mensaje).getSender().getScreenName().equals(super.getTwitter().getSelf().getScreenName()))
+				
+				addMessage(bandejaSalida, (Message) mensaje, true);
+			
+			else if (((Message) mensaje).getRecipient().getScreenName().equals(super.getTwitter().getSelf().getScreenName()))
+				addMessage(bandejaEntrada, (Message) mensaje, false);
+		}
+		return false;
+	}
+
+	@Override
+	public void postInitialize() {
+		Iterator<Message> entrada =super.getTwitter().getDirectMessages().iterator();
+		bandejaEntrada.getChildren().clear();
+		while(entrada.hasNext()){
+			this.addMessage(bandejaEntrada, entrada.next(), false);
+		}
+		
+		Iterator<Message> salida =super.getTwitter().getDirectMessagesSent().iterator();
+		bandejaSalida.getChildren().clear();
+		while(salida.hasNext()){
+			this.addMessage(bandejaSalida, salida.next(), true);
+		}
+	}
+	
+	public void responderMensaje(Message mensaje){
+		 SingleSelectionModel<Tab> selectionModel=menuMensaje.getSelectionModel();
+         selectionModel.select(redactar);
+         destinatario.setText(mensaje.getSender().getScreenName());		
+	}
+	
+	
+	@Override
+	protected AnchorPane getContainer() {
+		return imagenFondo;
+	}
+	
+	/**
+	 * Añade un mensaje al final de la lista.
+	 * @param contendor VBox a la que añadir el tweet.
+	 * @param mensaje Mensaje a añadir.
+	 */
+	private void addMessage(VBox contendor, ITweet message, boolean deSalida){
+		addMessage(contendor, message, deSalida, false);
+	}
+	
+	/**
+	 * Añade un mensaje.
+	 * @param contendor VBox a la que añadir el mensaje.
+	 * @param mensaje Mensaje a añadir.
+	 * @param onTop True si el mensaje se tiene que añadir al principio de la lista.
+	 */
+	private void addMessage(VBox contendor,ITweet message,boolean deSalida, boolean onTop){
+		try {
+			FXMLMensajeAutoLoader messageUI = new FXMLMensajeAutoLoader(getTwitter(), (Message) message, deSalida);
+			if(!onTop)
+				contendor.getChildren().add(messageUI.getRoot());
+			else{
+				LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
+				list.addFirst(messageUI.getRoot());
+				contendor.getChildren().clear();
+				contendor.getChildren().addAll(list);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

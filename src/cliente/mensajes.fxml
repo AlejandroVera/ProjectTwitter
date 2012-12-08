@@ -10,7 +10,7 @@
 <AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.MensajesController">
   <children>
     <HBox id="cajaIz" layoutX="139.0" layoutY="98.0" prefHeight="37.0" prefWidth="605.0" />
-    <TabPane id="MenuArriba" layoutX="141.0" layoutY="98.0" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+    <TabPane id="MenuArriba" fx:id="menuMensaje" layoutX="141.0" layoutY="98.0" prefHeight="455.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab text="Recibidos">
           <content>
@@ -38,7 +38,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Redactar">
+        <Tab fx:id="redactar" text="Redactar">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
