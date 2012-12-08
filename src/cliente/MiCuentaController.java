@@ -122,7 +122,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 
     // Handler for VBox[id="contenedorMensaje"] onMouseClicked
     public void verMensajesPrivados(MouseEvent event) {
-        // handle the event here
+    	
+    	((WorldController) this.getParentController()).verMensajesPrivados(event);
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete

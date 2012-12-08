@@ -52,9 +52,9 @@ public class Twitter_GeoImpl implements Twitter_Geo{
 			return lugar;
 		} catch (Exception e) {
 			ServerCommon.TwitterWarning(e, "Fallo en la geolocalizacion al obtener el place");
-			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
 
 	@Override

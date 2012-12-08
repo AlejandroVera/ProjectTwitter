@@ -6,6 +6,7 @@
 package cliente;
 
 import interfacesComunes.AStream;
+import interfacesComunes.Place;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
@@ -156,28 +157,34 @@ public class WorldController extends Controller implements AStream.IListen {
     // Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
     public void activarGeo(MouseEvent event) {
     	geoLocation=true;
-    	
-    	Double latitude= getTwitter().geo().getPlace(null,null).getCentroid().getLatitude();
-    	Double longitude= getTwitter().geo().getPlace(null,null).getCentroid().getLongitude(); 
-    	String coord=new String(longitude.toString()+","+latitude.toString());
-    	
-    	  
-    	URL url;
-		try {
-			url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
-				"&size=200x150&zoom=18&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
-			URLConnection conn = url.openConnection();
-	    	InputStream in = conn.getInputStream();
-	    	Image image= new Image(in);
-	    	mapa.setImage(image);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
-    	geoActivado.setVisible(true);
-    	geoDesactivado.setVisible(false);
-    	
+    	Place lugar = (Place)getTwitter().geo().getPlace(null,null);
+    	if (lugar!=null){
+    		Double latitude= lugar.getCentroid().getLatitude();
+    		Double longitude= lugar.getCentroid().getLongitude(); 
+    		String coord=new String(longitude.toString()+","+latitude.toString());
+
+
+    		URL url;
+    		try {
+    			url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
+    					"&size=200x150&zoom=18&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+    			URLConnection conn = url.openConnection();
+    			InputStream in = conn.getInputStream();
+    			Image image= new Image(in);
+    			mapa.setImage(image);
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
+    		geoActivado.setVisible(true);
+    		geoDesactivado.setVisible(false);
+    	}
+    	else if (lugar==null){
+    		geoLocation=false;
+    		ClientTools.showDialog("Geolocalizacion no disponible");
+    		
+    	}
     	
         
     }
