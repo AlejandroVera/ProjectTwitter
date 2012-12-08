@@ -272,7 +272,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
     	ResultSet res = con.query("SELECT screenName FROM usuario");
     	try {
 			while(res.next()){
-				if(res.getString(1).matches("*"+search+"*") ){
+				if(res.getString(1).matches(".*"+search+".*") ){
 					sol.add(new UserImpl(res.getString(1),con,loggedUser));
 				}
 			}

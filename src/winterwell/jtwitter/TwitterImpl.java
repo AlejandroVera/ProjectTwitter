@@ -1,5 +1,6 @@
 package winterwell.jtwitter;
 
+import interfacesComunes.AStream;
 import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
@@ -2749,6 +2750,12 @@ public class TwitterImpl implements Serializable, Twitter {
 	 */
 	public Twitter_Users users() {
 		return (Twitter_Users) new Twitter_UsersImpl(this);
+	}
+
+	@Override
+	public AStream stream() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

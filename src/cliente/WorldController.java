@@ -17,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -196,7 +197,10 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for ImageView[id="lupa"] onMouseClicked
     public void busca(MouseEvent event) {
-        System.out.println(this.busquedaLabel.getText());
+		this.otraCuentaTab.getTabPane().getSelectionModel().select(this.otraCuentaTab);
+		infCuenta.setVisible(false);
+		List<User> l=super.getTwitter().users().searchUsers(this.busquedaLabel.getText());
+		busquedaController.addUserResult(l);
     }
     
     // Handler for TextArea[fx:id="textoNuevoTweet"] onKeyPressed
