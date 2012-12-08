@@ -27,7 +27,7 @@
                               <children>
                                 <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                   <children>
-                                    <Label id="timeAgo" opacity="0.7" text="17h" />
+                                    <Label id="timeAgo" fx:id="fecha" opacity="0.7" text="17h" />
                                   </children>
                                 </HBox>
                                 <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">

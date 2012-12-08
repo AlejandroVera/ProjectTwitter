@@ -13,7 +13,7 @@ public class FXMLEventAutoLoader {
 
 	private Parent root;
 	private EventoController controller;
-	private final static String FXML_URL = "tweet.fxml";
+	private final static String FXML_URL = "evento.fxml";
 	private static URL resource;
 	
 	protected FXMLEventAutoLoader (Twitter twitter, TwitterEvent event) throws IOException{

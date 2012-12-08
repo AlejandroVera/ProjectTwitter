@@ -42,27 +42,27 @@ public class TwitterEventImpl implements TwitterEvent{
 		this.createdAt=new Date();
 		
 		//Obtenemos el usuario autor
-		ResultSet res=con.query("SELECT from eventos id_autor WHERE id="+id+" LIMIT=1");
+		ResultSet res=con.query("SELECT id_autor FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
 			this.source=new UserImpl((Long)res.getLong(1), this.con, this.loggedUser);
 		
 		//Obtenemos el usuario de destino
-		res=con.query("SELECT from eventos id_destinatario WHERE id="+id+" LIMIT=1");
+		res=con.query("SELECT id_destinatario FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
 			this.target=new UserImpl((Long)res.getLong(1), this.con, this.loggedUser);
 		
 		//Obtenemos el tweet
-		res=con.query("SELECT from eventos id_tweet WHERE id="+id+" LIMIT=1");
+		res=con.query("SELECT id_tweet FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
 			this.status=new StatusImpl(BigInteger.valueOf(res.getLong(1)), con, loggedUser);
 		
 		//Obtenemos la fecha
-		res=con.query("SELECT from eventos fecha WHERE id="+id+" LIMIT=1");
+		res=con.query("SELECT fecha FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
 			this.createdAt.setTime(res.getLong(1));
 		
 		//Obtenemos el tipo
-		res=con.query("SELECT from eventos tipo WHERE id="+id+" LIMIT=1");
+		res=con.query("SELECT tipo FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
 			this.type=res.getString(1);
 		

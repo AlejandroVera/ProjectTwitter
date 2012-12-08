@@ -7,6 +7,7 @@ import java.util.List;
 
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
+import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
@@ -29,10 +30,12 @@ public class AStreamImpl implements AStream{
 		List <TwitterEvent> eventos = new ArrayList<TwitterEvent>();
 		User usuario = tw.getSelf();
 		
-		ResultSet res= con.query("SELECT FROM eventos id WHERE id_destinatario="+usuario.getId());
+		ResultSet res= con.query("SELECT id FROM eventos WHERE id_destinatario = "+usuario.getId());
 		try {
-			while (res.next())
-				eventos.add(new TwitterEventImpl(res.getInt(1),con,usuario));
+			while (res.next()){
+				TwitterEvent evento=new TwitterEventImpl(res.getInt(1),con,usuario);
+				eventos.add(evento);				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

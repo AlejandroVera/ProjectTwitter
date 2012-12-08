@@ -73,14 +73,15 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public void postInitialize() {
-		//Inicializar tweets
-		Iterator<Status> menciones = super.getTwitter().getMentions().iterator();
+		//Inicializar tweets hay que hacer getMentions xD
+		/*Iterator<Status> menciones = super.getTwitter().getMentions().iterator();
 		tweetsMenciones.getChildren().clear();
 		while(menciones.hasNext()){
 			this.addTweet(tweetsMenciones, menciones.next());
-		}
+		}*/
 		
 		Iterator<TwitterEvent> interacciones =super.getTwitter().stream().getEvents().iterator();
+		cajaInteracciones.getChildren().clear();
 		while(interacciones.hasNext()){
 			this.addEvent(cajaInteracciones, interacciones.next());
 		}
