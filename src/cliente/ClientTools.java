@@ -70,9 +70,10 @@ public class ClientTools {
 				
 				//Obtenemos los bytes de la imagen
 				byte[] imagen = twi.getImage(url.substring(FALSE_IMAGESERVER_URL.length()));
-				ByteArrayInputStream imageStream = new ByteArrayInputStream(imagen);
-				
-				return new Image(imageStream);
+				if(imagen != null){
+					ByteArrayInputStream imageStream = new ByteArrayInputStream(imagen);
+					return new Image(imageStream);
+				}
 			} catch (MalformedURLException | RemoteException | NotBoundException e) {
 				//e.printStackTrace(); //No se ha encontrado la imagen, no es necesario mostrar el trace ya	
 			}
