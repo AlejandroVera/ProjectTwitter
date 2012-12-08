@@ -53,7 +53,6 @@ implements Initializable {
 
 	@Override
 	public void postInitialize() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -64,6 +63,7 @@ implements Initializable {
 	}
 
 	public void addUserResult(List<User> u){
+		usersBusqueda.getChildren().clear();
 		Iterator<User> busquedas = u.iterator();
 		while(busquedas.hasNext()){
 			

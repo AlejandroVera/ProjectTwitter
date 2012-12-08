@@ -207,6 +207,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		this.otraCuentaTab.getTabPane().getSelectionModel().select(this.otraCuentaTab);
 		infCuenta.setVisible(false);
 		List<User> l=super.getTwitter().users().searchUsers(this.busquedaLabel.getText());
+		System.out.println(l);
 		busquedaController.addUserResult(l);
     }
     
