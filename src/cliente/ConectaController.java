@@ -146,10 +146,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 				e.printStackTrace();
 			}
 		}
-		//TODO
-		/*if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
-			
-		}*/
+		
 	}
 	
 	 

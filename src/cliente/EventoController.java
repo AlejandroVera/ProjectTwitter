@@ -32,6 +32,9 @@ public class EventoController extends Controller {
 	
 	@FXML //  fx:id="descripcionUsuario"
 	private TextArea descripcionUsuario; // Value injected by FXMLLoader
+	
+	@FXML //  fx:id="desfavorito"
+	private ImageView desfavorito; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="favorito"
 	private ImageView favorito; // Value injected by FXMLLoader
@@ -97,11 +100,15 @@ public class EventoController extends Controller {
         Image im = ClientTools.getImage(source.getProfileImageUrl().toString());
         if(im != null)
         	userImage.setImage(im);
+        
+        desfavorito.setVisible(false);
+		favorito.setVisible(false);
+		seguir.setVisible(false);
 		
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
 			favorito.setVisible(true);
-			seguir.setVisible(false);
+			
 			String resumen=status.getText();
 			if (resumen.length()<50){
 				descripcionUsuario.setText("Ha marcado como favorito tu tweet\n\""+resumen+"\"");
@@ -112,8 +119,21 @@ public class EventoController extends Controller {
 			}
 		}
 		
+		if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+			Status status=(Status) this.event.getTargetObject();
+			desfavorito.setVisible(true);
+		
+			String resumen=status.getText();
+			if (resumen.length()<50){
+				descripcionUsuario.setText("Ha desmarcado como favorito tu tweet\n\""+resumen+"\"");
+			}
+			else{
+				resumen=resumen.substring(0,49);
+				descripcionUsuario.setText("Ha desmarcado como favorito tu tweet\n\""+resumen+"...\"");
+			}
+		}
+		
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
-			favorito.setVisible(false);
 			seguir.setVisible(true);
 			descripcionUsuario.setText("Ahora te Sigue");
 		}
