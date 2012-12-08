@@ -52,7 +52,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		this.addEvent(cajaInteracciones, event);
+		this.addEvent(cajaInteracciones, event, true);
 		return true;
 	}
 
