@@ -106,6 +106,11 @@ public class TwitterEventImpl implements TwitterEvent{
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
 		if (last_id.next())
 			this.id=last_id.getInt(1);
+		
+		if (type.equals(TwitterEvent.Type.UNFAVORITE)){
+			con.updateQuery("DELETE FROM eventos WHERE id_autor ="+id_source+" AND id_tweet ="+id_status);
+		}
+				
 	}
 	
 	

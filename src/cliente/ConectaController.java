@@ -13,6 +13,7 @@ import interfacesComunes.TwitterEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -38,13 +39,14 @@ public class ConectaController extends Controller implements AStream.IListen {
     @FXML //  fx:id="tweetsMenciones"
     private VBox tweetsMenciones; // Value injected by FXMLLoader
 
+	private HashMap<Number, EventoController> eventTable;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert cajaInteracciones != null : "fx:id=\"cajaInteracciones\" was not injected: check your FXML file 'conecta.fxml'.";
         assert imagenFondo != null : "fx:id=\"imagenFondo\" was not injected: check your FXML file 'conecta.fxml'.";
         assert tweetsMenciones != null : "fx:id=\"tweetsMenciones\" was not injected: check your FXML file 'conecta.fxml'.";
-
+        this.eventTable=new HashMap<Number, EventoController>();
         // initialize your logic here: all @FXML variables will have been injected
 
     }
@@ -131,20 +133,26 @@ public class ConectaController extends Controller implements AStream.IListen {
 	}
 	
 	private void addEvent(VBox contendor,TwitterEvent event, boolean onTop){
-		try {
-			FXMLEventAutoLoader eventUI = new FXMLEventAutoLoader(getTwitter(), (TwitterEvent)event);
-			if(!onTop)
-				contendor.getChildren().add(eventUI.getRoot());
-			else{
-				LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
-				list.addFirst(eventUI.getRoot());
-				contendor.getChildren().clear();
-				contendor.getChildren().addAll(list);
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.FOLLOW)){
+			try {
+				FXMLEventAutoLoader eventUI = new FXMLEventAutoLoader(getTwitter(), (TwitterEvent)event);
+				if(!onTop)
+					contendor.getChildren().add(eventUI.getRoot());
+				else{
+					LinkedList<Node> list = new LinkedList<Node>(contendor.getChildren());
+					list.addFirst(eventUI.getRoot());
+					contendor.getChildren().clear();
+					contendor.getChildren().addAll(list);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		}
+		if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+			postInitialize();
 		}
 	}
-
+	
+	 
 }
 

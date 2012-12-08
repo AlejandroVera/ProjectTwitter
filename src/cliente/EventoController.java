@@ -87,8 +87,9 @@ public class EventoController extends Controller {
 	@Override
 	public void postInitialize() {
 		
-		User source = this.event.getSource();
 		
+		
+		User source = this.event.getSource();
 		screename.setText("@"+source.getScreenName());
 		username.setText(source.getName());
 		username.setTooltip(new Tooltip(source.getScreenName()));
@@ -101,10 +102,8 @@ public class EventoController extends Controller {
 			Status status=(Status) this.event.getTargetObject();
 			favorito.setVisible(true);
 			seguir.setVisible(false);
-			//System.out.println(status.getText());
 			String resumen=status.getText();
 			if (resumen.length()<50){
-				resumen=resumen.substring(0,resumen.length()-1);
 				descripcionUsuario.setText("Ha marcado como favorito tu tweet\n\""+resumen+"\"");
 			}
 			else{
@@ -116,7 +115,7 @@ public class EventoController extends Controller {
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
 			favorito.setVisible(false);
 			seguir.setVisible(true);
-			descripcionUsuario.setText("Te Sigue");
+			descripcionUsuario.setText("Ahora te Sigue");
 		}
 		
 		//Parse the time
