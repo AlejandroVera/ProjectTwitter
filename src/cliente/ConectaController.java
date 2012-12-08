@@ -39,14 +39,12 @@ public class ConectaController extends Controller implements AStream.IListen {
     @FXML //  fx:id="tweetsMenciones"
     private VBox tweetsMenciones; // Value injected by FXMLLoader
 
-	private HashMap<Number, EventoController> eventTable;
-
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert cajaInteracciones != null : "fx:id=\"cajaInteracciones\" was not injected: check your FXML file 'conecta.fxml'.";
         assert imagenFondo != null : "fx:id=\"imagenFondo\" was not injected: check your FXML file 'conecta.fxml'.";
         assert tweetsMenciones != null : "fx:id=\"tweetsMenciones\" was not injected: check your FXML file 'conecta.fxml'.";
-        this.eventTable=new HashMap<Number, EventoController>();
+       
         // initialize your logic here: all @FXML variables will have been injected
 
     }
