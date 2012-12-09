@@ -166,10 +166,18 @@ public class TwitterClient extends Application {
 				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
 				stub.logout(this.twitter.getSelf().getId(), cliente);
 			}
+			
+			ClientTools.stopTimeUpdate();
+			
 			this.twitter = null;
-			if(!force)
-				this.loadFXMLAndShow("login.fxml");
-
+			this.cliente.setListener(null);
+			this.cliente = null;
+			tw = null;
+			
+			if(!force){
+				loadFXMLAndShow("login.fxml");
+			}
+			
 		} catch (NotBoundException | IOException e1) {
 			e1.printStackTrace();
 			ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
@@ -201,7 +209,7 @@ public class TwitterClient extends Application {
 		Controller control = loader.getController();
 		control.setClientListener(this);
 		control.setTwitter(this.twitter);
-		control.setParentController(universeController);
+		control.setParentController(this.universeController);
 		control.postInitialize();
 
 		//Mostramos la nueva vista

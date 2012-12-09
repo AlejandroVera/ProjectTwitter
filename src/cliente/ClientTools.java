@@ -14,7 +14,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -224,6 +223,12 @@ public class ClientTools {
 	
 	protected static void removeLabelFromTimeUpdate(Label label, Date createdAt){
 		timingList.remove(new TimingEntry(createdAt, label));
+	}
+	
+	protected static void stopTimeUpdate(){
+		if(timer != null)
+			timer.cancel();
+		timerRunning = false;
 	}
 	
 	
