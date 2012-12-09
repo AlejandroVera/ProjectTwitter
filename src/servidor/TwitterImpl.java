@@ -370,7 +370,7 @@ public class TwitterImpl implements Twitter {
 	@Override
 	public List<Status> getMentions() {
 		List<Status> sol = new ArrayList<Status>();
-		ResultSet res = con.query("SELECT id FROM tweet WHERE texto REGEXP '.*(@"+this.getSelf().getScreenName()+").*'");
+		ResultSet res = con.query("SELECT id FROM tweet WHERE texto REGEXP BINARY'.*(@"+this.getSelf().getScreenName()+").*'");
 		try {
 			while(res.next()){
 				sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt(1)).toString()),con,getSelf()));
