@@ -295,6 +295,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	 */
     @Override
 	public User show(String screenName) throws TwitterException{
+    	System.out.println(screenName);
     	return new UserImpl(screenName,con,loggedUser);
     }
     

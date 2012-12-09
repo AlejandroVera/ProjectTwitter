@@ -163,8 +163,8 @@ public class TweetController extends Controller implements AStream.IListen{
 	// Handler for Hyperlink[fx:id="username"] onAction
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
-		String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
-		User destUser = getTwitter().users().getUser(screenName);
+		//String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
+		User destUser = getTwitter().users().getUser(this.screename.getText().substring(1));
 		if(destUser != null)
 			((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
 	}

@@ -230,7 +230,6 @@ public class OtraCuentaController extends Controller{
 	}
 	
 	protected void changeToUser(User user){
-		
 		//Limpiamos la información anterior
 		this.user = user;
 		tweetsUsuario.getChildren().clear();
