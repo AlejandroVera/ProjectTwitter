@@ -27,6 +27,7 @@ public interface TwitterEvent extends Serializable{
 		static String	FOLLOW="2";
 		static String	UNFAVORITE="3";
 		static String	USER_UPDATE="4";
+		static String	FOLLOW_REQUEST="5";
 		
 	}
 	

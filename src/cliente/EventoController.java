@@ -15,48 +15,55 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 
 public class EventoController extends Controller {
 	
-	@FXML //  fx:id="fecha"
-	private Label fecha; // Value injected by FXMLLoader
-	
-	@FXML //  fx:id="descripcionUsuario"
-	private TextArea descripcionUsuario; // Value injected by FXMLLoader
-	
-	@FXML //  fx:id="desfavorito"
-	private ImageView desfavorito; // Value injected by FXMLLoader
+	 	@FXML //  fx:id="botonPeticion"
+	    private Button botonPeticion; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="favorito"
-	private ImageView favorito; // Value injected by FXMLLoader
+	    @FXML //  fx:id="descripcionUsuario"
+	    private TextArea descripcionUsuario; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="screename"
-	private Label screename; // Value injected by FXMLLoader
+	    @FXML //  fx:id="desfavorito"
+	    private ImageView desfavorito; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="seguir"
-	private ImageView seguir; // Value injected by FXMLLoader
+	    @FXML //  fx:id="favorito"
+	    private ImageView favorito; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="tweetBox"
-	private HBox tweetBox; // Value injected by FXMLLoader
+	    @FXML //  fx:id="fecha"
+	    private Label fecha; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="userImage"
-	private ImageView userImage; // Value injected by FXMLLoader
+	    @FXML //  fx:id="peticionSeguir"
+	    private ImageView peticionSeguir; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="username"
-	private Hyperlink username; // Value injected by FXMLLoader
+	    @FXML //  fx:id="screename"
+	    private Label screename; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="worldTweetContainer"
-	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+	    @FXML //  fx:id="seguir"
+	    private ImageView seguir; // Value injected by FXMLLoader
 
+	    @FXML //  fx:id="tweetBox"
+	    private HBox tweetBox; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="userImage"
+	    private ImageView userImage; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="username"
+	    private Hyperlink username; // Value injected by FXMLLoader
+
+	    @FXML //  fx:id="worldTweetContainer"
+	    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 	
 	//Variables privadas propias
 	
@@ -71,6 +78,11 @@ public class EventoController extends Controller {
 		if(destUser != null)
 			((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
 	}
+	
+	// Handler for Button[fx:id="botonPeticion"] onMouseClicked
+    public void aceptarPeticion(MouseEvent event) {
+        // handle the event here
+    }
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -104,6 +116,8 @@ public class EventoController extends Controller {
         desfavorito.setVisible(false);
 		favorito.setVisible(false);
 		seguir.setVisible(false);
+		peticionSeguir.setVisible(false);
+		botonPeticion.setVisible(false);
 		
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
@@ -133,9 +147,10 @@ public class EventoController extends Controller {
 			}
 		}
 		
-		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
-			seguir.setVisible(true);
-			descripcionUsuario.setText("Ahora te Sigue");
+		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
+			peticionSeguir.setVisible(true);
+			botonPeticion.setVisible(true);
+			descripcionUsuario.setText("Quiere poder seguirte");
 		}
 		
 		//Parse the time
