@@ -359,8 +359,18 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 	@Override
 	public List<Status> getMentions() {
-		// TODO Auto-generated method stub
-		return null;
+    	List<Status> sol = new ArrayList<Status>();
+    	ResultSet res = con.query("SELECT * FROM tweet");
+    	try {
+			while(res.next()){
+				if(res.getString("texto").matches("(^|\\s)@[a-zA-Z0-9]+") ){
+					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
+				}
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+    	return sol;
 	}
 
 	@Override
