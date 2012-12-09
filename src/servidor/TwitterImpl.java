@@ -29,7 +29,7 @@ import servidor.db.ConexionImpl;
 
 public class TwitterImpl implements Twitter {
 
-	public static class TweetEntity implements Twitter.TweetEntity{
+	public  final static class TweetEntityImpl implements Twitter.TweetEntity{
 
 		private static final long serialVersionUID = -4096887025640652171L;
 		
@@ -37,14 +37,18 @@ public class TwitterImpl implements Twitter {
 		private int start;
 		private int end;
 		private Conexion con;
+		private Status tweet;
 		private BigInteger tweet_id;
+		private User loggedUser;
 		
-		public TweetEntity(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con){
+		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con, User loggedUser){
 			this.con=con;
 			this.type = type;
 			this.start = start;
 			this.end=end;
 			this.tweet_id=tweet_id;
+			this.loggedUser=loggedUser;
+			this.tweet=new StatusImpl(tweet_id,con,loggedUser);
 		}
 		
 		public String displayVersion(){
@@ -69,26 +73,32 @@ public class TwitterImpl implements Twitter {
 
 		@Override
 		public int getStart() {
-			
-			return 0;
+			return start;
 		}
 
 		@Override
 		public int getEnd() {
-			
-			return 0;
+			return end;
 		}
 
 		@Override
 		public KEntityType getType() {
-			
-			return null;
+			return type;
 		}
 
 		@Override
 		public String getDisplay() {
 			
 			return null;
+		}
+		
+		public String toString() {
+			// There is a strange bug where -- rarely -- end > tweet length!
+			// I think this is now fixed (it was an encoding issue).
+			String text = tweet.getText();
+			int e = Math.min(end, text.length());
+			int s = Math.min(start, e);
+			return text.substring(s, e);
 		}
 		
 	}
@@ -364,7 +374,7 @@ public class TwitterImpl implements Twitter {
     	ResultSet res = con.query("SELECT * FROM tweet");
     	try {
 			while(res.next()){
-				if(res.getString("texto").matches("(^|\\s)@[a-zA-Z0-9]+") ){
+				if(res.getString("texto").matches(".*((^|\\s)@[a-zA-Z0-9]+).*")){
 					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
 				}
 			}

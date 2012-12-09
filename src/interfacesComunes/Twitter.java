@@ -33,8 +33,9 @@ public interface Twitter extends Serializable, Remote{
 		int getStart();
 		int getEnd();
 		KEntityType getType();
-		String getDisplay();
 		String displayVersion();
+		String toString();
+		String getDisplay();
 	}
 	
 	

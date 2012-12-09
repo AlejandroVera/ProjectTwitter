@@ -115,7 +115,7 @@ public class StatusImpl implements Status{
 			else{
 				inicio=m.start();
 			}
-			entities.add(new TwitterImpl.TweetEntity(this.id,type, inicio,m.end(),this.con));
+			entities.add(new TwitterImpl.TweetEntityImpl(this.id,type, inicio,m.end(),this.con,this.loggedUser));
 		}
 		return entities;
 	}
@@ -123,7 +123,7 @@ public class StatusImpl implements Status{
 
 	public List<String> getMentions() {
 		List<String> mencionados=new ArrayList<String>();
-		Pattern p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
+		Pattern p=Pattern.compile(".*((^|\\s)@[a-zA-Z0-9]+).*");
 		Matcher m=p.matcher(this.text);
 		while(m.find()){
 			mencionados.add(this.text.substring(m.start(),m.end()).replaceAll(" ",""));

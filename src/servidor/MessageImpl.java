@@ -150,7 +150,7 @@ public class MessageImpl implements Message{
 			else{
 				inicio=m.start();
 			}
-			entities.add(new TwitterImpl.TweetEntity(this.id, type,inicio,m.end(),this.con));
+			entities.add(new TwitterImpl.TweetEntityImpl(this.id, type,inicio,m.end(),this.con,this.loggedUser));
 		}
 		return entities;
 	}

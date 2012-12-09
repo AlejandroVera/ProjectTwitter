@@ -27,7 +27,7 @@ import servidor.db.ConexionImpl;
 
 public class TwitterSuscriptorImpl implements Twitter {
 
-	public static class TweetEntity implements Twitter.TweetEntity{
+	public static final class TweetEntityImpl implements Twitter.TweetEntity{
 
 		private static final long serialVersionUID = -4096887025640652171L;
 		
@@ -35,14 +35,18 @@ public class TwitterSuscriptorImpl implements Twitter {
 		private int start;
 		private int end;
 		private Conexion con;
+		private Status tweet;
 		private BigInteger tweet_id;
+		private User loggedUser;
 		
-		public TweetEntity(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con){
+		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con,User loggedUser){
 			this.con=con;
 			this.type = type;
 			this.start = start;
 			this.end=end;
 			this.tweet_id=tweet_id;
+			this.loggedUser=loggedUser;
+			this.tweet=new StatusImpl(tweet_id,con,loggedUser);
 		}
 		
 		public String displayVersion(){
@@ -363,7 +367,7 @@ public class TwitterSuscriptorImpl implements Twitter {
     	ResultSet res = con.query("SELECT * FROM tweet");
     	try {
 			while(res.next()){
-				if(res.getString("texto").matches("(^|\\s)@[a-zA-Z0-9]+") ){
+				if(res.getString("texto").matches(".*((^|\\s)@[a-zA-Z0-9]+).*")){
 					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
 				}
 			}
