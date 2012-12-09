@@ -46,17 +46,17 @@ public class AjustesController extends Controller{
     private TextField name; // Value injected by FXMLLoader
     
     @FXML //  fx:id="proteccionCuenta"
-    private RadioButton proteccionCuenta; // Value injected by FXMLLoader
+    private Button proteccionCuenta; // Value injected by FXMLLoader
 
     //En el postinitialice le tendrás que dar un valor
-    private boolean protegida;
+    private boolean protegida=false;
 
 
  // Handler for RadioButton[fx:id="proteccionCuenta"] onMouseClicked
     public void activarProteccion(MouseEvent event) {
-        if (proteccionCuenta.isArmed()){
+        if (!this.protegida){
         	this.protegida=true;
-        	proteccionCuenta.setText("Activada");//En el postinitialice tendrás que cargar su estado        	
+        	proteccionCuenta.setText("Activada");//En el postinitialice tendrás que cargar su estado
         }
         else{
         	this.protegida=false;
@@ -112,6 +112,8 @@ public class AjustesController extends Controller{
     	account.setProfile(name.getText(), "UNKNOWN", imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
     	account.setProfileColors(null);
     	//Tendrás que meter el cambio de proteger/desprotegercuenta
+    	ClientTools.showDialog("Cambios realizados con exito", "Ajustes");
+    	
     	this.hideWindow();
     }
 

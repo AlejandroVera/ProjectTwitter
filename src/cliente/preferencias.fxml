@@ -100,7 +100,7 @@
                   </children>
                 </HBox>
                 <Label text="Proteccion de Cuenta" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <RadioButton id="proteccionDeCuenta" fx:id="proteccionCuenta" mnemonicParsing="false" onMouseClicked="#activarProteccion" text="Desactivada" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Button id="twittear" fx:id="proteccionCuenta" mnemonicParsing="false" onMouseClicked="#activarProteccion" text="Desactivada" GridPane.columnIndex="2" GridPane.rowIndex="2" />
               </children>
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="314.0" minWidth="10.0" prefWidth="181.0" />

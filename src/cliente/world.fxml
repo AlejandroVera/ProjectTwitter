@@ -16,7 +16,7 @@
           <children>
             <StackPane layoutX="6.0" layoutY="81.0" maxHeight="1.7976931348623157E308" prefHeight="584.0" prefWidth="889.0" />
             <HBox id="barraArriba" layoutX="7.0" layoutY="43.0" opacity="1.0" prefHeight="37.0" prefWidth="874.0" />
-            <TabPane id="" fx:id="menuPrincipal" cache="false" disable="false" maxHeight="1.7976931348623157E308" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="0.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
+            <TabPane id="" fx:id="menuPrincipal" cache="false" disable="false" maxHeight="1.7976931348623157E308" onMouseClicked="#ocultarPerfil" opacity="1.0" prefHeight="-1.0" prefWidth="-1.0" side="TOP" styleClass="floating" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="0.0" visible="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="4.5" AnchorPane.topAnchor="43.0">
               <tabs>
                 <Tab id="tabArriba" fx:id="timeLineTab" closable="false" content="$null" disable="false" text="">
                   <graphic>

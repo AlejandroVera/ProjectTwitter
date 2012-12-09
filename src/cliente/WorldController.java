@@ -30,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -256,7 +257,16 @@ public class WorldController extends Controller implements AStream.IListen {
 		creadorTweets.setVisible(!creadorTweets.isVisible());
 	}
 
-
+	// Handler for TabPane[fx:id="menuPrincipal"] onMouseClicked
+    public void ocultarPerfil(MouseEvent event) {
+    	SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+       
+    	if (selectionModel.getSelectedItem().equals(this.miCuentaTab)){
+    		this.infCuenta.setVisible(false);
+    		
+    	}
+    }
+	
 	// Handler for Button[fx:id="twittear"] onMouseClicked (publicar ya el tweet como tal)
 	public void publicarTweet(MouseEvent event) {
 		String texto = textoNuevoTweet.getText();
