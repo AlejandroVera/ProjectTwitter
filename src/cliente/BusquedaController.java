@@ -5,6 +5,7 @@
 
 package cliente;
 
+import interfacesComunes.Status;
 import interfacesComunes.User;
 
 import java.io.IOException;
@@ -72,6 +73,24 @@ implements Initializable {
 				list.addFirst(tweetUI.getRoot());
 				usersBusqueda.getChildren().clear();
 				usersBusqueda.getChildren().addAll(list);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void addTweetResult(List<Status> s){
+		tweetsBusqueda.getChildren().clear();
+		Iterator<Status> busquedas = s.iterator();
+		while(busquedas.hasNext()){
+			
+			try {
+				FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), busquedas.next());
+				tweetUI.getController().setParentController(this);
+				LinkedList<Node> list = new LinkedList<Node>(tweetsBusqueda.getChildren());
+				list.addFirst(tweetUI.getRoot());
+				tweetsBusqueda.getChildren().clear();
+				tweetsBusqueda.getChildren().addAll(list);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

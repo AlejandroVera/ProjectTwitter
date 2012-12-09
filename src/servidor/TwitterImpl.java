@@ -1,4 +1,5 @@
 package servidor;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -330,13 +331,22 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public List<Status> search(String searchTerm) {
-		// TODO 
-		return null;
+    	List<Status> sol = new ArrayList<Status>();
+    	ResultSet res = con.query("SELECT * FROM tweet");
+    	try {
+			while(res.next()){
+				if(res.getString("texto").matches(".*"+searchTerm+".*") ){
+					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
+				}
+			}
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD");
+		}
+    	return sol;
 	}
 	
 	@Override
 	public List<Status> search(String searchTerm, ICallback callback, int rpp) {
-		// TODO
 		return null;
 	}
 
