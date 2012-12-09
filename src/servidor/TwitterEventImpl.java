@@ -59,7 +59,7 @@ public class TwitterEventImpl implements TwitterEvent{
 		//Obtenemos la fecha
 		res=con.query("SELECT fecha FROM eventos WHERE id = "+id+" LIMIT 1");
 		if (res.next())
-			this.createdAt.setTime(res.getLong(1));
+			this.createdAt.setTime(res.getLong(1)*1000);
 		
 		//Obtenemos el tipo
 		res=con.query("SELECT tipo FROM eventos WHERE id = "+id+" LIMIT 1");
