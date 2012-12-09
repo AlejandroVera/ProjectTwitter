@@ -61,8 +61,14 @@ public class MensajeDirectoController extends Controller  {
     // Handler for Label[id="opcion"] onMouseClicked
     public void responderMensaje(MouseEvent event) {
     	Object parent = super.getParentController();
+    	String text;
+    	if (!this.deSalida)
+    		text= new String("@"+this.mensaje.getSender().getScreenName());
+    	else
+    		text= new String("@"+this.mensaje.getRecipient().getScreenName());
 		if(parent instanceof MensajesController)
-			((MensajesController)parent).responderMensaje(this.mensaje);		
+			
+			((MensajesController)parent).responderMensaje(text);		
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -83,7 +89,7 @@ public class MensajeDirectoController extends Controller  {
 		descripcionUsuario.setText(this.mensaje.getText());
 		User user;
 		if (deSalida==true)
-			user=this.mensaje.getRecipient();
+			user=this.mensaje.getRecipient();			
 		else
 			user=this.mensaje.getSender();
 	

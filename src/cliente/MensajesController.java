@@ -61,7 +61,11 @@ public class MensajesController extends Controller implements AStream.IListen {
     public void enviarMensaje(MouseEvent event) {
     	String destino=destinatario.getText();
     	destino=destino.substring(1, destino.length());
-    	super.getTwitter().sendMessage(destino, texto.getText());
+    	try{
+    		super.getTwitter().sendMessage(destino, texto.getText());
+    	} catch (Exception e){
+    		ClientTools.showDialog("Error al enviar el mensaje: Este usuario no te sigue");
+    	}
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -117,11 +121,10 @@ public class MensajesController extends Controller implements AStream.IListen {
 		}
 	}
 	
-	public void responderMensaje(Message mensaje){
-		System.out.println("FUNCIONA");
+	public void responderMensaje(String destino){
 		SingleSelectionModel<Tab> selectionModel=menuMensaje.getSelectionModel();
         selectionModel.select(redactar);
-        destinatario.setText("@"+mensaje.getSender().getScreenName());		
+        destinatario.setText(destino);		
 	}
 	
 	
@@ -148,6 +151,7 @@ public class MensajesController extends Controller implements AStream.IListen {
 	private void addMessage(VBox contendor,ITweet message,boolean deSalida, boolean onTop){
 		try {
 			FXMLMensajeAutoLoader messageUI = new FXMLMensajeAutoLoader(getTwitter(), (Message) message, deSalida);
+			messageUI.getController().setParentController(this);
 			if(!onTop)
 				contendor.getChildren().add(messageUI.getRoot());
 			else{

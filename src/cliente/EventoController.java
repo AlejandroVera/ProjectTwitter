@@ -123,7 +123,7 @@ public class EventoController extends Controller {
 			Status status=(Status) this.event.getTargetObject();
 			desfavorito.setVisible(true);
 		
-			String resumen=status.getText();
+			String resumen=status.getText();			
 			if (resumen.length()<50){
 				descripcionUsuario.setText("Ha desmarcado como favorito tu tweet\n\""+resumen+"\"");
 			}

@@ -134,6 +134,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 				||event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
 			try {
 				FXMLEventAutoLoader eventUI = new FXMLEventAutoLoader(getTwitter(), (TwitterEvent)event);
+				eventUI.getController().setParentController(this);
 				if(!onTop)
 					contendor.getChildren().add(eventUI.getRoot());
 				else{
