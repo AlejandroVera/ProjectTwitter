@@ -15,6 +15,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -65,13 +66,18 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		List<Status> menciones = super.getTwitter().getMentions();
+		if (tweet instanceof Status){
+			if (menciones.contains((Status) tweet))
+				addTweet(tweetsMenciones, (Status) tweet);
+		}
+		return true;
 	}
 
 
 	@Override
 	public void postInitialize() {
+		
 		//Inicializar tweets
 		Iterator<Status> menciones = super.getTwitter().getMentions().iterator();
 		tweetsMenciones.getChildren().clear();
