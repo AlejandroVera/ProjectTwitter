@@ -107,7 +107,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 	 * @param tweet Tweet a añadir.
 	 */
 	private void addTweet(VBox contendor, ITweet tweet){
-		addTweet(contendor, tweet, false);
+		addTweet(contendor, tweet, true);
 	}
 	
 	/**
@@ -119,6 +119,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 	private void addTweet(VBox contendor,ITweet tweet, boolean onTop){
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
+			tweetUI.getController().setParentController(this);
 			if(!onTop)
 				contendor.getChildren().add(tweetUI.getRoot());
 			else{
@@ -156,7 +157,6 @@ public class ConectaController extends Controller implements AStream.IListen {
 		}
 		
 	}
-	
-	 
+		 
 }
 

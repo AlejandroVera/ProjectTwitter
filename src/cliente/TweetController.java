@@ -166,8 +166,14 @@ public class TweetController extends Controller implements AStream.IListen{
 	public void goToPerfilUsuario(Event event) {
 		//String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
 		User destUser = getTwitter().users().getUser(this.screename.getText().substring(1));
-		if(destUser != null)
-			((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+		if(destUser != null){
+			if (super.getParentController() instanceof TimeLineController)
+				((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+			if (super.getParentController() instanceof ConectaController)
+				((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+			if (super.getParentController() instanceof MiCuentaController)
+				((WorldController)((MiCuentaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+		}
 	}
 
 	// Handler for VBox[id="cajita"] onMouseClicked
