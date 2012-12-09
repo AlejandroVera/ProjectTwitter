@@ -99,13 +99,13 @@ public class StatusImpl implements Status{
 		Pattern p=null;
 		Matcher m=null;
 		if(type==KEntityType.urls){
-			p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");//OJO al crear el tweet se acorta la url siempre.
+			p=Pattern.compile(".*(((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+).*");//OJO al crear el tweet se acorta la url siempre.
 		}
 		else if(type==KEntityType.hashtags){
-			p=Pattern.compile("(^|\\s)#[a-zA-Z0-9]+");
+			p=Pattern.compile(".*((^|\\s)#[a-zA-Z0-9]+).*");
 		}
 		else if(type==KEntityType.user_mentions){
-			p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
+			p=Pattern.compile(".*((^|\\s)@[a-zA-Z0-9]+).*");
 		}
 		m= p.matcher(this.text);
 		while(m.find()){
