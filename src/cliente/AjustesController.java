@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ContextMenuEvent;
@@ -43,8 +44,28 @@ public class AjustesController extends Controller{
 
     @FXML //  fx:id="name"
     private TextField name; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="proteccionCuenta"
+    private RadioButton proteccionCuenta; // Value injected by FXMLLoader
+
+    //En el postinitialice le tendrás que dar un valor
+    private boolean protegida;
 
 
+ // Handler for RadioButton[fx:id="proteccionCuenta"] onMouseClicked
+    public void activarProteccion(MouseEvent event) {
+        if (proteccionCuenta.isArmed()){
+        	this.protegida=true;
+        	proteccionCuenta.setText("Activada");//En el postinitialice tendrás que cargar su estado        	
+        }
+        else{
+        	this.protegida=false;
+        	proteccionCuenta.setText("Desactivada");    
+        }
+        	
+        	
+    }
+    
     // Handler for Label[id="numeroDe"] onMouseClicked
     public void cerrar(MouseEvent event) {
         this.hideWindow();
@@ -90,6 +111,7 @@ public class AjustesController extends Controller{
     	User user = super.getTwitter().getSelf();
     	account.setProfile(name.getText(), "UNKNOWN", imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
     	account.setProfileColors(null);
+    	//Tendrás que meter el cambio de proteger/desprotegercuenta
     	this.hideWindow();
     }
 
