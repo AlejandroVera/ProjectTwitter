@@ -12,6 +12,7 @@ import excepcionesComunes.TwitterException;
 
 
 import interfacesComunes.Conexion;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 
@@ -170,6 +171,11 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	public User follow(User user){
 		Conexion con = new ConexionImpl();	
 		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
+		try {
+			TwitterEvent evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
+		} catch (SQLException e) {
+			return null;
+		}
 		return user;
 	}
 
