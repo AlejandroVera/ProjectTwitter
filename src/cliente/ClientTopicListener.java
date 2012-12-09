@@ -62,7 +62,7 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 			subscriber.setMessageListener(this);
 			
 			//Arrancamos la conexion
-			connection.start();
+			this.connection.start();
 
 		} catch (NamingException | JMSException e) {
 			e.printStackTrace();
