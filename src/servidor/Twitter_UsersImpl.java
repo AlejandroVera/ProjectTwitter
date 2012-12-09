@@ -169,7 +169,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	@Override
 	public User follow(User user){
 		Conexion con = new ConexionImpl();	
-		con.query("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
+		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		return user;
 	}
 
@@ -329,17 +329,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	 */
     @Override
 	public User stopFollowing(User user){
-    	User sol=null;
     	Conexion con = new ConexionImpl();	
-    	ResultSet res=con.query("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
-    	try {
-			if(res.next()){
-				sol=user;
-			}
-		} catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "Error de BD");
-		}
-    	return sol;
+    	int res=con.updateQuery("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
+    	if(res > 0)
+    		return user;
+    	else
+    		return null;
     }
 
     /* (non-Javadoc)
