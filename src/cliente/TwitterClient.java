@@ -12,9 +12,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import winterwell.jtwitter.AStreamImpl;
 import winterwell.jtwitter.OAuthSignpostClient;
-import winterwell.jtwitter.PruebaListener;
 import winterwell.jtwitter.TwitterStream;
 
 import javafx.application.Application;

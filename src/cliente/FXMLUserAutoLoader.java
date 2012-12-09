@@ -1,7 +1,6 @@
 package cliente;
 
 import interfacesComunes.Twitter;
-import interfacesComunes.Status;
 import interfacesComunes.User;
 
 import java.io.IOException;

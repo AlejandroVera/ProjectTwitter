@@ -5,8 +5,6 @@
 
 package cliente;
 
-import interfacesComunes.Status;
-import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.User;
 
 import java.io.IOException;

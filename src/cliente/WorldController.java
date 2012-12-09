@@ -8,33 +8,27 @@ package cliente;
 import interfacesComunes.AStream;
 import interfacesComunes.Place;
 import interfacesComunes.Twitter.ITweet;
-import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -295,28 +289,35 @@ public class WorldController extends Controller implements AStream.IListen {
     
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-    	 assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'world.fxml'.";
-         assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'world.fxml'.";
-         assert cajaNuevoTweet != null : "fx:id=\"cajaNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
-         assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'world.fxml'.";
-         assert cerrarNuevoTweet != null : "fx:id=\"cerrarNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
-         assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'world.fxml'.";
-         assert conectaTab != null : "fx:id=\"conectaTab\" was not injected: check your FXML file 'world.fxml'.";
-         assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'world.fxml'.";
-         assert infCuenta != null : "fx:id=\"infCuenta\" was not injected: check your FXML file 'world.fxml'.";
-         assert miCuentaTab != null : "fx:id=\"miCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
-         assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'world.fxml'.";
-         assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'world.fxml'.";
-         assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'world.fxml'.";
-         assert otraCuentaTab != null : "fx:id=\"otraCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
-         assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'world.fxml'.";
-         assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'world.fxml'.";
-         assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
-         assert timeLineTab != null : "fx:id=\"timeLineTab\" was not injected: check your FXML file 'world.fxml'.";
-         assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'world.fxml'.";
-         assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'world.fxml'.";
-         assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'world.fxml'.";
-         assert menuPrincipal != null : "fx:id=\"menuPrincipal\" was not injected: check your FXML file 'world.fxml'.";
+    	assert ajustes != null : "fx:id=\"ajustes\" was not injected: check your FXML file 'world.fxml'.";
+        assert busquedaLabel != null : "fx:id=\"busquedaLabel\" was not injected: check your FXML file 'world.fxml'.";
+        assert cajaNuevoTweet != null : "fx:id=\"cajaNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+        assert cajaSeleccion != null : "fx:id=\"cajaSeleccion\" was not injected: check your FXML file 'world.fxml'.";
+        assert caracteresTweet != null : "fx:id=\"caracteresTweet\" was not injected: check your FXML file 'world.fxml'.";
+        assert cerrarNuevoTweet != null : "fx:id=\"cerrarNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+        assert cerrarSesion != null : "fx:id=\"cerrarSesion\" was not injected: check your FXML file 'world.fxml'.";
+        assert conectaTab != null : "fx:id=\"conectaTab\" was not injected: check your FXML file 'world.fxml'.";
+        assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'world.fxml'.";
+        assert geoActivado != null : "fx:id=\"geoActivado\" was not injected: check your FXML file 'world.fxml'.";
+        assert geoDesactivado != null : "fx:id=\"geoDesactivado\" was not injected: check your FXML file 'world.fxml'.";
+        assert infCuenta != null : "fx:id=\"infCuenta\" was not injected: check your FXML file 'world.fxml'.";
+        assert mapa != null : "fx:id=\"mapa\" was not injected: check your FXML file 'world.fxml'.";
+        assert menuPrincipal != null : "fx:id=\"menuPrincipal\" was not injected: check your FXML file 'world.fxml'.";
+        assert miCuentaTab != null : "fx:id=\"miCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
+        assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'world.fxml'.";
+        assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'world.fxml'.";
+        assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'world.fxml'.";
+        assert nuevaVentana != null : "fx:id=\"nuevaVentana\" was not injected: check your FXML file 'world.fxml'.";
+        assert otraCuentaTab != null : "fx:id=\"otraCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
+        assert placeActual != null : "fx:id=\"placeActual\" was not injected: check your FXML file 'world.fxml'.";
+        assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'world.fxml'.";
+        assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'world.fxml'.";
+        assert stackMapa != null : "fx:id=\"stackMapa\" was not injected: check your FXML file 'world.fxml'.";
+        assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
+        assert timeLineTab != null : "fx:id=\"timeLineTab\" was not injected: check your FXML file 'world.fxml'.";
+        assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'world.fxml'.";
+        assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'world.fxml'.";
+        assert worldContainer != null : "fx:id=\"worldContainer\" was not injected: check your FXML file 'world.fxml'.";
 
          // initialize your logic here: all @FXML variables will have been injected
          creadorTweets.setVisible(false);

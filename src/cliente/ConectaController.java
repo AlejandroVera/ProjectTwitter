@@ -13,7 +13,6 @@ import interfacesComunes.TwitterEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;

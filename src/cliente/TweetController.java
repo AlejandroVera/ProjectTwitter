@@ -36,9 +36,6 @@ import javafx.scene.layout.VBox;
 public class TweetController extends Controller implements AStream.IListen{
 
 	private static final long serialVersionUID = 136870617271640893L;
-
-	@FXML //  fx:id="contenedorTweet"
-	private HBox contenedorTweet; // Value injected by FXMLLoader
 	
     @FXML //  fx:id="globalContainer"
     private VBox globalContainer; // Value injected by FXMLLoader
@@ -213,7 +210,7 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		assert contenedorTweet != null : "fx:id=\"contenedorTweet\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert globalContainer != null : "fx:id=\"globalContainer\" was not injected: check your FXML file 'tweet.fxml'.";
         assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
         assert nFavoritos != null : "fx:id=\"nFavoritos\" was not injected: check your FXML file 'tweet.fxml'.";
         assert nRetweets != null : "fx:id=\"nRetweets\" was not injected: check your FXML file 'tweet.fxml'.";
@@ -230,11 +227,13 @@ public class TweetController extends Controller implements AStream.IListen{
         assert stackYaFavorito != null : "fx:id=\"stackYaFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
         assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'tweet.fxml'.";
         assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
+        assert tweetBox != null : "fx:id=\"tweetBox\" was not injected: check your FXML file 'tweet.fxml'.";
         assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
         assert tweetsRespuesta != null : "fx:id=\"tweetsRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
         assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
         assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
         assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
+
 
 		// initialize your logic here: all @FXML variables will have been injected
 		cerrarNuevoTweet(null);

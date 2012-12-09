@@ -7,7 +7,6 @@ import java.util.List;
 
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
-import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;

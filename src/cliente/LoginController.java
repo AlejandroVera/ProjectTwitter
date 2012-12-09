@@ -259,13 +259,14 @@ public class LoginController extends Controller{
 	}
 
 	// Handler for Button[Button[id=null, styleClass=button]] onMouseClicked
+	@SuppressWarnings("deprecation")
 	public void addNewConection(MouseEvent event) {
 		avisoConexion.setVisible(false);
 		/** no tengo el TOKEN, conectando por primera vez con twitter*/
 		OAuthSignpostClient oauthClient = new OAuthSignpostClient(JKEY, 
 				JSECRET, "oob");
 		oauthClient.authorizeDesktop();
-		String v = oauthClient.askUser("Please enter the verification PIN from Twitter");
+		String v = OAuthSignpostClient.askUser("Please enter the verification PIN from Twitter");
 		oauthClient.setAuthorizationCode(v);
 		String[] ats = oauthClient.getAccessToken();
 		//peticionPassword.setVisible(true);

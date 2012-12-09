@@ -15,9 +15,6 @@ import java.rmi.RemoteException;
 
 import javafx.scene.image.Image;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-
 import interfacesComunes.TwitterInit;
 
 public class ClientTools {

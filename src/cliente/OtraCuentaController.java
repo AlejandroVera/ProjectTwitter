@@ -6,7 +6,6 @@
 package cliente;
 
 import interfacesComunes.Status;
-import interfacesComunes.Twitter_Account;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;

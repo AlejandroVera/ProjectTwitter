@@ -1,6 +1,5 @@
 package interfacesComunes;
 
-import java.awt.geom.Point2D;
 import java.io.Serializable;
 
 import com.winterwell.jgeoplanet.BoundingBox;
