@@ -275,6 +275,34 @@ public class TwitterInitImplSuscriptor extends UnicastRemoteObject implements Tw
 	}
 	
 	protected static void sendThroughTopic(Serializable event, Long id_dest){
+		
+		if(pubSession == null || publisher == null){
+			try {
+				// Obtiene una conexión JNDI por medio del fichero jndi.properties
+				InitialContext ctx = new InitialContext();
+				
+				// Busca una factoría de conexiones y crea una conexión
+				TopicConnectionFactory conFactory = (TopicConnectionFactory) ctx.lookup("Twitter");
+				TopicConnection connection = conFactory.createTopicConnection();
+		
+				// Se crean objeto de sesión JMS
+				pubSession = connection.createTopicSession(false,
+						Session.AUTO_ACKNOWLEDGE);
+		
+				// Se busca un topic JMS
+				Topic chatTopic = (Topic) ctx.lookup("Eventos");
+				
+				//Y obtenemos el publicador
+				publisher = pubSession.createPublisher(chatTopic);
+				
+				//Arrancamos la conexion
+				connection.start();
+				
+			} catch (NamingException | JMSException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
 			//Publicamos el evento
 			ObjectMessage pubMes = pubSession.createObjectMessage();

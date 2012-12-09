@@ -60,6 +60,9 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 			TopicSubscriber subscriber = subSession.createSubscriber(chatTopic, selector, true);
 			// Establece el listener de mensajes JMS
 			subscriber.setMessageListener(this);
+			
+			//Arrancamos la conexion
+			connection.start();
 
 		} catch (NamingException | JMSException e) {
 			e.printStackTrace();
