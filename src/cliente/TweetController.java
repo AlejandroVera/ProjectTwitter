@@ -137,6 +137,7 @@ public class TweetController extends Controller implements AStream.IListen{
 		try{
 			super.getTwitter().destroyStatus(tweet.getId());
 			this.worldTweetContainer.setVisible(false);
+			ClientTools.removeLabelFromTimeUpdate(timeAgo, tweet.getCreatedAt());
 			Object parent = super.getParentController();
 			if(parent instanceof TimeLineController)
 				((TimeLineController)parent).removeTweet(this);
@@ -269,22 +270,23 @@ public class TweetController extends Controller implements AStream.IListen{
 			cal.setTime(createdAt);
 			timeago = ""+cal.get(Calendar.DAY_OF_MONTH);
 			switch(Calendar.MONTH){
-			case Calendar.JANUARY: timeago += " Ene"; break;
-			case Calendar.FEBRUARY: timeago += " Feb"; break;
-			case Calendar.MARCH: timeago += " Mar"; break;
-			case Calendar.APRIL: timeago += " Abr"; break;
-			case Calendar.MAY: timeago += " Mayo"; break;
-			case Calendar.JUNE: timeago += " Jun"; break;
-			case Calendar.JULY: timeago += " Jul"; break;
-			case Calendar.AUGUST: timeago += " Ago"; break;
-			case Calendar.SEPTEMBER: timeago += " Sept"; break;
-			case Calendar.OCTOBER: timeago += " Oct"; break;
-			case Calendar.NOVEMBER: timeago += " Nov"; break;
-			case Calendar.DECEMBER: timeago += " Dic"; break;
+				case Calendar.JANUARY: timeago += " Ene"; break;
+				case Calendar.FEBRUARY: timeago += " Feb"; break;
+				case Calendar.MARCH: timeago += " Mar"; break;
+				case Calendar.APRIL: timeago += " Abr"; break;
+				case Calendar.MAY: timeago += " Mayo"; break;
+				case Calendar.JUNE: timeago += " Jun"; break;
+				case Calendar.JULY: timeago += " Jul"; break;
+				case Calendar.AUGUST: timeago += " Ago"; break;
+				case Calendar.SEPTEMBER: timeago += " Sept"; break;
+				case Calendar.OCTOBER: timeago += " Oct"; break;
+				case Calendar.NOVEMBER: timeago += " Nov"; break;
+				case Calendar.DECEMBER: timeago += " Dic"; break;
 			}
 		}
 
 		timeAgo.setText(timeago);
+		ClientTools.addLabelToTimeUpdate(timeAgo, createdAt);
 		
 		if(user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
 			stackBorrar.setVisible(true);

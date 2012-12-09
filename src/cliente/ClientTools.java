@@ -12,19 +12,53 @@ import java.net.URL;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 import interfacesComunes.TwitterInit;
 
 public class ClientTools {
 	
+	static class TimingEntry{
+		Date createdAt; //Tiempo origen
+		Label label; //Etique que actualizar con el parseado del tiempo
+		
+		public TimingEntry(Date createdAt, Label label) {
+			this.createdAt = createdAt;
+			this.label = label;
+		}
+		
+		public boolean equals(Object o){
+			if(! (o instanceof TimingEntry) )
+				return false;
+			
+			TimingEntry test = (TimingEntry) o;
+			
+			return createdAt.equals(test.createdAt) && label.equals(test.label);
+			
+		}
+	}
+	
 	private static UniverseController universeController;
 	private static TwitterInit twi;
 	private static final String SERVER_URL = "rmi://localhost/Conectar";
 	private static final String FALSE_IMAGESERVER_URL = "http://imagestoge.twt/";
 	private static final String DEFAULT_PROFILE_IMAGE = ClientTools.class.getResource("."+File.separator+"Imagenes"+File.separator+"default_profile_6_bigger.png").getPath();
-
+	private static final long TIMER_FREQUENCY = 15000; //15s
+	private static Timer timer;
+	private static List<TimingEntry> timingList;
+	private static boolean timerRunning = false;
+	
+	
 	protected static void showDialog(String text){
 		showDialog(text, "Error");
     }
@@ -115,6 +149,78 @@ public class ClientTools {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	protected static void addLabelToTimeUpdate(Label label, Date createdAt){
+		if(!timerRunning){
+			timerRunning = true;
+			timer = new Timer(true);
+			timingList = new LinkedList<TimingEntry>();
+			timer.scheduleAtFixedRate(new TimerTask() {
+				
+				@Override
+				public void run() {
+					
+					Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							Date now = new Date();
+							List<TimingEntry> toRemove = new LinkedList<TimingEntry>();
+							Calendar cal = Calendar.getInstance();
+							
+							for (TimingEntry par : timingList){
+								Date createdAt = par.createdAt;
+								int timedif = (int)((now.getTime() - createdAt.getTime())/1000);
+								String timeago;
+								if(timedif < 60)
+									timeago = timedif+"s";
+								else if(timedif < 3600)
+									timeago = (timedif/60)+"m";
+								else if(timedif < 86400)
+									timeago = (timedif/3600)+"h";
+								else{
+									toRemove.add(par); //Ya no tiene que ser actualizado
+									cal.setTime(createdAt);
+									timeago = ""+cal.get(Calendar.DAY_OF_MONTH);
+									switch(Calendar.MONTH){
+										case Calendar.JANUARY: timeago += " Ene"; break;
+										case Calendar.FEBRUARY: timeago += " Feb"; break;
+										case Calendar.MARCH: timeago += " Mar"; break;
+										case Calendar.APRIL: timeago += " Abr"; break;
+										case Calendar.MAY: timeago += " Mayo"; break;
+										case Calendar.JUNE: timeago += " Jun"; break;
+										case Calendar.JULY: timeago += " Jul"; break;
+										case Calendar.AUGUST: timeago += " Ago"; break;
+										case Calendar.SEPTEMBER: timeago += " Sept"; break;
+										case Calendar.OCTOBER: timeago += " Oct"; break;
+										case Calendar.NOVEMBER: timeago += " Nov"; break;
+										case Calendar.DECEMBER: timeago += " Dic"; break;
+									}
+								}
+								
+								//Actualizamos el texto
+								par.label.setText(timeago);
+							}
+							
+							//Sacamos de la lista de actualización a los marcados
+							for(TimingEntry par : toRemove){
+								timingList.remove(par);
+							}
+							
+						}
+					});
+					
+					
+				}
+			}, 5000, ClientTools.TIMER_FREQUENCY);
+		}
+		
+		timingList.add(new TimingEntry(createdAt, label));
+	}
+	
+	protected static void removeLabelFromTimeUpdate(Label label, Date createdAt){
+		timingList.remove(new TimingEntry(createdAt, label));
 	}
 	
 	
