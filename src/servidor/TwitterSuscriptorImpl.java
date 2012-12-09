@@ -168,6 +168,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 							con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
 								" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
 					
+					con.updateQuery("DELETE FROM eventos WHERE id_tweet = "+id);
 					con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
 				}else
 					throw new TwitterException("El usuario no es propietario de ese tweet.");
