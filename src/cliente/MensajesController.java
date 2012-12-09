@@ -63,6 +63,9 @@ public class MensajesController extends Controller implements AStream.IListen {
     	destino=destino.substring(1, destino.length());
     	try{
     		super.getTwitter().sendMessage(destino, texto.getText());
+    		destinatario.setText(null);
+    		texto.setText(null);
+    		ClientTools.showDialog("Mensaje enviado correctamente");
     	} catch (Exception e){
     		ClientTools.showDialog("Error al enviar el mensaje: Este usuario no te sigue");
     	}
