@@ -62,7 +62,7 @@ public class MensajeDirectoController extends Controller  {
     public void responderMensaje(MouseEvent event) {
     	Object parent = super.getParentController();
 		if(parent instanceof MensajesController)
-			((MensajesController)parent).responderMensaje(this.mensaje);
+			((MensajesController)parent).responderMensaje(this.mensaje);		
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete

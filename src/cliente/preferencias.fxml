@@ -9,7 +9,7 @@
 
 <AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.AjustesController">
   <children>
-    <VBox id="cajaIz" alignment="CENTER" layoutX="142.0" layoutY="93.0" prefHeight="455.0" prefWidth="602.0" spacing="5.0">
+    <VBox id="cajaNitida" alignment="CENTER" layoutX="142.0" layoutY="93.0" prefHeight="455.0" prefWidth="602.0" spacing="5.0">
       <children>
         <HBox id="HBox" alignment="CENTER" prefHeight="25.0" prefWidth="600.0" spacing="5.0">
           <children>

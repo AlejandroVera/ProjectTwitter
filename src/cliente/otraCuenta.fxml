@@ -19,7 +19,7 @@
               <children>
                 <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
                 <Label id="screenName" fx:id="ScreenName" onMouseClicked="#irCuenta" text="" />
@@ -80,7 +80,7 @@
               <graphic>
                 <ImageView id="mensajeprivado" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
               </graphic>
@@ -209,18 +209,22 @@
         </Tab>
       </tabs>
     </TabPane>
-    <VBox id="contenedorMensaje" fx:id="botonTweet" alignment="CENTER" layoutX="32.0" layoutY="375.0" onMouseClicked="#crearTweetMencion" prefHeight="43.0" prefWidth="253.00009999999747" spacing="5.0">
+    <VBox id="contenedorMensaje" fx:id="botonTweet" alignment="CENTER" layoutX="32.0" layoutY="375.0" minHeight="40.5" onMouseClicked="#crearTweetMencion" prefHeight="43.0" prefWidth="254.0" spacing="5.0">
       <children>
-        <Label id="misMensajesPrivados" opacity="0.95" text="Twittea a">
-          <graphic>
-            <ImageView id="tweetoscuro" fitHeight="43.999900000002526" fitWidth="43.999900000002526" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@Imagenes/tweetoscuro.png" preserveRatio="true" smooth="true" />
-              </image>
-            </ImageView>
-          </graphic>
-        </Label>
-        <Label id="misMensajesPrivados" fx:id="twitteaA" opacity="0.95" text="\@name" />
+        <HBox id="HBox" alignment="CENTER" spacing="5.0">
+          <children>
+            <Label id="misMensajesPrivados" opacity="0.95" prefWidth="107.0" text="Twittea a">
+              <graphic>
+                <ImageView id="tweetoscuro" fitHeight="43.999900000002526" fitWidth="43.999900000002526" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="@Imagenes/tweetoscuro.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Label>
+            <Label id="misMensajesPrivados" fx:id="twitteaA" opacity="0.95" text="\@name" />
+          </children>
+        </HBox>
       </children>
     </VBox>
     <VBox id="contenedorMensaje" fx:id="botonFollow" alignment="CENTER" layoutX="32.0" layoutY="304.0" onMouseClicked="#seguir" prefHeight="43.0" prefWidth="253.00009999999747" spacing="5.0">

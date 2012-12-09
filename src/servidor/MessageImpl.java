@@ -180,7 +180,7 @@ public class MessageImpl implements Message{
 
 	@Override
 	public User getRecipient() {
-		ResultSet res = con.query("SELECT id_receptor FROM mensajes WHERE id ="+id+" LIMIT 1");
+		ResultSet res = con.query("SELECT id_destinatario FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
 			if (res.next()){
 				Long id_receptor = res.getLong(1);

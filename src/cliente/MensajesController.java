@@ -54,12 +54,14 @@ public class MensajesController extends Controller implements AStream.IListen {
     
     // Handler for Label[id="numeroDe"] onMouseClicked
     public void cerrarMenu(MouseEvent event) {
-        // handle the event here
+    	 this.hideWindow();
     }
 
     // Handler for Button[id="twittear"] onMouseClicked
     public void enviarMensaje(MouseEvent event) {
-        // handle the event here
+    	String destino=destinatario.getText();
+    	destino=destino.substring(1, destino.length());
+    	super.getTwitter().sendMessage(destino, texto.getText());
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -116,9 +118,10 @@ public class MensajesController extends Controller implements AStream.IListen {
 	}
 	
 	public void responderMensaje(Message mensaje){
-		 SingleSelectionModel<Tab> selectionModel=menuMensaje.getSelectionModel();
-         selectionModel.select(redactar);
-         destinatario.setText(mensaje.getSender().getScreenName());		
+		System.out.println("FUNCIONA");
+		SingleSelectionModel<Tab> selectionModel=menuMensaje.getSelectionModel();
+        selectionModel.select(redactar);
+        destinatario.setText("@"+mensaje.getSender().getScreenName());		
 	}
 	
 	
@@ -156,5 +159,13 @@ public class MensajesController extends Controller implements AStream.IListen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected void showWindow(){
+		imagenFondo.setVisible(true);
+	}
+	
+	protected void hideWindow(){
+		imagenFondo.setVisible(false);
 	}
 }

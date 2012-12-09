@@ -188,6 +188,15 @@
 	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
 }
 
+#cajaNitida{
+	-fx-border-style: solid;
+	-fx-border-color: rgba(0, 0, 0, 0.5);
+	-fx-margin-top: 15px;
+	-fx-background-color: rgba(245, 245, 245, 1);
+	-fx-font-family: "NanumGothic";
+	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
+}
+}
 
 	
 

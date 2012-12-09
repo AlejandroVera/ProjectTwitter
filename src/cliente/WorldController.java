@@ -89,6 +89,9 @@ public class WorldController extends Controller implements AStream.IListen {
     @FXML //  fx:id="nTweets"
     private Label nTweets; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="busquedaTab"
+    private Tab busquedaTab; // Value injected by FXMLLoader
+    
     @FXML //  fx:id="otraCuentaTab"
     private Tab otraCuentaTab; // Value injected by FXMLLoader
 
@@ -145,6 +148,7 @@ public class WorldController extends Controller implements AStream.IListen {
     private AjustesController ajustesController;
     private OtraCuentaController otraCuentaController;
     private BusquedaController busquedaController;
+    private MensajesController mensajesController;
         
     private boolean geoLocation=false;
 
@@ -198,7 +202,7 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for ImageView[id="lupa"] onMouseClicked
     public void busca(MouseEvent event) {
-		this.otraCuentaTab.getTabPane().getSelectionModel().select(this.otraCuentaTab);
+		menuPrincipal.getSelectionModel().select(this.busquedaTab);
 		infCuenta.setVisible(false);
 		List<User> l=super.getTwitter().users().searchUsers(this.busquedaLabel.getText());
 		busquedaController.addUserResult(l);
@@ -272,7 +276,8 @@ public class WorldController extends Controller implements AStream.IListen {
     
     // Handler for VBox[fx:id="contenedorMensaje"] onMouseClicked
     public void verMensajesPrivados(MouseEvent event) {
-        // handle the event here
+    	this.mensajesController.postInitialize();
+        this.mensajesController.showWindow();
     }
     
     
@@ -356,9 +361,12 @@ public class WorldController extends Controller implements AStream.IListen {
 		   	this.conectaController = (ConectaController) loadFXMLAndAppendToTab("conecta.fxml", this.conectaTab);
 		   	this.ajustesController = (AjustesController) loadFXMLAndAppendToTab("preferencias.fxml", null);
 		   	this.otraCuentaController = (OtraCuentaController) loadFXMLAndAppendToTab("otraCuenta.fxml", this.otraCuentaTab);
-		   	this.busquedaController = (BusquedaController) loadFXMLAndAppendToTab("busqueda.fxml", this.otraCuentaTab);
+		   	this.busquedaController = (BusquedaController) loadFXMLAndAppendToTab("busqueda.fxml", this.busquedaTab);
+		   	this.mensajesController= (MensajesController) loadFXMLAndAppendToTab("mensajes.fxml",null);
 		   	nuevaVentana.getChildren().add(this.ajustesController.getRoot());
+		   	nuevaVentana.getChildren().add(this.mensajesController.getRoot());
 		   	this.ajustesController.hideWindow();
+		   	this.mensajesController.hideWindow();
 		   	
 		} catch (IOException e) {
 			e.printStackTrace();

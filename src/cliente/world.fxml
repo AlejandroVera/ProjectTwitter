@@ -61,6 +61,7 @@
                   </graphic>
                 </Tab>
                 <Tab id="tabInvisible" fx:id="otraCuentaTab" content="$null" disable="false" text="" />
+                <Tab id="tabInvisible" fx:id="busquedaTab" content="$null" disable="false" text="" />
               </tabs>
             </TabPane>
             <HBox id="HBox" alignment="CENTER" layoutX="370.0" layoutY="48.0" prefWidth="505.0" spacing="5.0">
