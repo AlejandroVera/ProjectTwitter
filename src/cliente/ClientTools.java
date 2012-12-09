@@ -170,6 +170,9 @@ public class ClientTools {
 							Calendar cal = Calendar.getInstance();
 							
 							for (TimingEntry par : timingList){
+								if(!par.label.isVisible())
+									continue; //No me mateis, que otra indentacion ya era demasiado!
+
 								Date createdAt = par.createdAt;
 								int timedif = (int)((now.getTime() - createdAt.getTime())/1000);
 								String timeago;
