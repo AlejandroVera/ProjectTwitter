@@ -469,15 +469,19 @@ public class TwitterImpl implements Twitter {
 		List<Object> param = new LinkedList<Object>();
 		param.add(recipient);
 		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
-		int id_dest;
+		Long id_dest;
 		try {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe un usuario con ese screenName");
 			else
-				id_dest = res.getInt(1);
+				id_dest = (long) res.getInt(1);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error en TwitterImpl.sendMessage");
 			throw new TwitterException("No existe un usuario con ese screenName");
+		}
+		
+		if(!users().getFollowerIDs().contains(id_dest)){
+			throw new TwitterException("Ese usuario no te está siguiendo");
 		}
 		
 		List<Object> params = new LinkedList<Object>();
