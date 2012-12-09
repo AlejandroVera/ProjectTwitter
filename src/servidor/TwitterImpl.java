@@ -370,12 +370,10 @@ public class TwitterImpl implements Twitter {
 	@Override
 	public List<Status> getMentions() {
 		List<Status> sol = new ArrayList<Status>();
-		ResultSet res = con.query("SELECT id FROM tweet WHERE texto LIKE '.*(@"+this.getSelf().getScreenName()+").*'");
+		ResultSet res = con.query("SELECT id FROM tweet WHERE texto REGEXP '.*(@"+this.getSelf().getScreenName()+").*'");
 		try {
 			while(res.next()){
-				if(res.getString("texto").matches(".*((^|\\s)@[a-zA-Z0-9]+).*")){
-					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
-				}
+				sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt(1)).toString()),con,getSelf()));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
