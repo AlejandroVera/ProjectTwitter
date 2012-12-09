@@ -14,23 +14,11 @@ import excepcionesComunes.TwitterException;
 import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
-
-import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
-import javax.jms.Session;
-import javax.jms.Topic;
-import javax.jms.TopicConnection;
-import javax.jms.TopicConnectionFactory;
-import javax.jms.TopicPublisher;
-import javax.jms.TopicSession;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import servidor.db.ConexionImpl;
 
@@ -113,8 +101,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 	private Twitter_Users twitter_user;
 	private Conexion con;
 	private int maxResults = 20;
-	TopicPublisher publisher;
-	TopicSession pubSession;
 	
 
 	/**
@@ -133,28 +119,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 		this.user = new UserImpl(accountId, this.con,this.user);
 		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
 		this.geo= new Twitter_GeoImpl(this.con);
-		
-		try {
-			// Obtiene una conexión JNDI por medio del fichero jndi.properties
-			InitialContext ctx = new InitialContext();
-			
-			// Busca una factoría de conexiones y crea una conexión
-			TopicConnectionFactory conFactory = (TopicConnectionFactory) ctx.lookup("Twitter");
-			TopicConnection connection = conFactory.createTopicConnection();
-	
-			// Se crean objeto de sesión JMS
-			this.pubSession = connection.createTopicSession(false,
-					Session.AUTO_ACKNOWLEDGE);
-	
-			// Se busca un topic JMS
-			Topic chatTopic = (Topic) ctx.lookup("Eventos");
-			
-			//Y obtenemos el publicador
-			this.publisher = pubSession.createPublisher(chatTopic);
-			
-		} catch (NamingException | JMSException e) {
-			e.printStackTrace();
-		}
 	}
 
 
@@ -357,7 +321,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		if(this.user == null)
 			return null;
 		this.con.updateQuery("INSERT INTO retweet VALUES ("+this.user.getId()+", "+tweet.getId()+")");
-		sendThroughTopic(tweet, this.user.getId());
+		TwitterInitImplSuscriptor.sendThroughTopic(tweet, this.user.getId());
 		return tweet;
 	}
 
@@ -513,6 +477,10 @@ public class TwitterSuscriptorImpl implements Twitter {
 			throw new TwitterException("No existe un usuario con ese screenName");
 		}
 		
+		if(!users().getFollowerIDs().contains(id_dest)){
+			throw new TwitterException("Ese usuario no te está siguiendo");
+		}
+		
 		List<Object> params = new LinkedList<Object>();
 		params.add(this.user.getId());
 		params.add(id_dest);
@@ -540,7 +508,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 		
 		//Lo enviamos al topic
-		sendThroughTopic(mes, id_dest);
+		TwitterInitImplSuscriptor.sendThroughTopic(mes, id_dest);
 		
 		return mes;
 		
@@ -570,7 +538,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		if(!event_type.equals("0")){
 			try {
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
-				sendThroughTopic(event, status_owner);
+				TwitterInitImplSuscriptor.sendThroughTopic(event, status_owner);
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
 			}
@@ -632,7 +600,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		Status status = new StatusImpl(status_id, this.con,this.user);		
 		
 		//Mandamos el tweet a todos los seguidores
-		sendThroughTopic(status, this.user.getId());
+		TwitterInitImplSuscriptor.sendThroughTopic(status, this.user.getId());
 		
 		this.user.aumentarContador();
 		return status;
@@ -652,20 +620,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 	public Twitter_Users users() {
 		return this.twitter_user;
 	}
-
 	
-	private void sendThroughTopic(Serializable event, Long id_dest){
-		try {
-			//Publicamos el evento
-			ObjectMessage pubMes = pubSession.createObjectMessage();
-			pubMes.setLongProperty("userId", id_dest);
-			pubMes.setObject(event);
-			publisher.publish(pubMes);
-		} catch (JMSException e) {
-			ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
-		}
-	}
-
 
 	@Override
 	public Twitter_Geo geo() {
