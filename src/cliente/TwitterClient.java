@@ -35,6 +35,8 @@ public class TwitterClient extends Application {
 	private UniverseController universeController;
 	private TwitterStream twitterStream;
 	private static Twitter tw;
+	
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -206,5 +208,9 @@ public class TwitterClient extends Application {
 		this.universeController.setWorldContainer((AnchorPane)root);
 
 		return control;
+	}
+	
+	protected static Long getUserId(){
+		return tw.getSelf().getId();
 	}
 }

@@ -13,5 +13,8 @@
 	<classpathentry kind="lib" path="libs/signpost-core.jar"/>
 	<classpathentry kind="lib" path="libs/commons-codec-1.7.jar"/>
 	<classpathentry kind="lib" path="libs/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="libs/activemq-all-5.7.0.jar"/>
+	<classpathentry kind="lib" path="libs/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/geronimo-jms_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
