@@ -267,6 +267,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	 */
     @Override
 	public java.util.List<User> searchUsers(String search){
+		if((search==null) || (search=="")){
+			return null;
+		}
     	List<User> sol = new ArrayList<User>();
     	Conexion con = new ConexionImpl();
     	ResultSet res = con.query("SELECT screenName FROM usuario");

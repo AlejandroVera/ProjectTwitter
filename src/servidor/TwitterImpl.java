@@ -331,6 +331,9 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public List<Status> search(String searchTerm) {
+		if((searchTerm==null) || (searchTerm=="")){
+			return null;
+		}
     	List<Status> sol = new ArrayList<Status>();
     	ResultSet res = con.query("SELECT * FROM tweet");
     	try {
