@@ -23,7 +23,7 @@
                       <children>
                         <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                           <children>
-                            <ImageView id="profileImage" fx:id="userImage" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToPerfilUsuario" pickOnBounds="true" preserveRatio="true">
+                            <ImageView id="profileImage" fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                               <image>
                                 <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                               </image>

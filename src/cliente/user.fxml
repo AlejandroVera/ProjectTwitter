@@ -21,7 +21,7 @@
                   <children>
                     <GridPane GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <children>
-                        <ImageView id="profileImage" fx:id="userImage" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToPerfilUsuario" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                        <ImageView id="profileImage" fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                           <image>
                             <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                           </image>
@@ -44,7 +44,7 @@
                                 <HBox id="HBox" alignment="CENTER" prefHeight="31.0" prefWidth="70.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                 <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="32.000099999997474" prefWidth="339.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                                   <children>
-                                    <Hyperlink id="screenName" fx:id="username" focusTraversable="false" onAction="#goToPerfilUsuario" onMouseClicked="#goToPerfilUsuario" text="Tweet Prueba" />
+                                    <Hyperlink id="screenName" fx:id="username" focusTraversable="false" onMouseClicked="#goToPerfilUsuario" text="Tweet Prueba" />
                                     <Label id="name" fx:id="screename" opacity="0.68" text="\@prueba" />
                                   </children>
                                 </HBox>

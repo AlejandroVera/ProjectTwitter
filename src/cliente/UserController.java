@@ -49,6 +49,7 @@ public class UserController extends Controller {
 	// Handler for Hyperlink[fx:id="username"] onMouseClicked
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
+		System.out.println("ola soy manola");
 		setUser(getTwitter().users().getUser(screename.getText()));
 		((WorldController)((BusquedaController) getParentController()).getParentController()).changeToOtherAccount(this.user);
 	}
