@@ -177,8 +177,6 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		try{
 			List<AStream.IListen> user_callbacks;
 			TwitterEvent evento;
-
-			Conexion con = new ConexionImpl();	
 			con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 			if((user_callbacks = this.init.getCallbackArray().get(user.getId()))!=null){
 				evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
