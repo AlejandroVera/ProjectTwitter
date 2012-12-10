@@ -125,17 +125,20 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		List<Long> amigos=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		try {
-			int idUser = con.query("SELECT id FROM usuario WHERE screenName='"+screenName+"'").getInt("id");
+			ResultSet re = con.query("SELECT id FROM usuario WHERE screenName='"+screenName+"'");
+			if(re.next()){
+				int idUser=re.getInt("id");
 
-			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
+				ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
-			while(res.next()){
-				amigos.add((long) res.getInt(1));
+				while(res.next()){
+					amigos.add((long) res.getInt(1));
+				}
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
 		}
-		return amigos;
+		return amigos; //puede ser null, forever alone xD;
 	}
 
 
@@ -216,7 +219,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public void confirmarAmistad(User user/* usuario aceptado*/){
 		TwitterEvent evento;
-		
+
 		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		try{
 			List<AStream.IListen> user_callbacks;

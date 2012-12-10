@@ -160,7 +160,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 	
 	private void addEvent(VBox contendor,TwitterEvent event, boolean onTop){
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.FOLLOW)
-				||event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+				||event.getType().equals(TwitterEvent.Type.UNFAVORITE)||event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
 			try {
 				FXMLEventAutoLoader eventUI = new FXMLEventAutoLoader(getTwitter(), (TwitterEvent)event);
 				eventUI.getController().setParentController(this);
@@ -176,7 +176,6 @@ public class ConectaController extends Controller implements AStream.IListen {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 		 
 }
