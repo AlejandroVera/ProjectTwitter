@@ -55,19 +55,16 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-	/*
+	
 		if (event.getTarget().getScreenName().equals(super.getTwitter().getScreenName()))
 			this.addEvent(cajaInteracciones, event, true);
-		if (event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.FAVORITE)){
+		if (event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
 			Number id = ((ITweet) event.getTargetObject()).getId();
-
-			//ESTO ES LO QUE PETA :(
-			/*//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
 			TweetController controller = mentionsTable.get(id);
 			if(controller != null)
 				System.out.println("LO PROCESA");
-				controller.processEvent(event);*/
-		}*/
+				controller.processEvent(event);
+		}
 		return true;
 	}
 
