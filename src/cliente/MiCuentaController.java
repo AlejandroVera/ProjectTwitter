@@ -288,6 +288,7 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 	private void addTweet(VBox contendor,ITweet tweet, boolean onTop){
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
+			tweetUI.getController().setParentController(this);
 			
 			//Lo añadimos a la tabla de asociacion
 			if(contendor.equals(tweetsFavoritos))
@@ -315,6 +316,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 	private void addUser(VBox contendor,User user, boolean onTop){
 		try {
 			FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), user);
+			userUI.getController().setParentController(this);
+			
 			if(!onTop)
 				contendor.getChildren().add(userUI.getRoot());
 			else{

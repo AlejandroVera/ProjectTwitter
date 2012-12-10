@@ -48,7 +48,12 @@ public class UserController extends Controller {
 	// Handler for Hyperlink[fx:id="username"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
 		setUser(getTwitter().users().getUser(screename.getText()));
-		((WorldController)((BusquedaController) getParentController()).getParentController()).changeToOtherAccount(this.user);
+		if (super.getParentController() instanceof BusquedaController)
+			((WorldController)((BusquedaController) getParentController()).getParentController()).changeToOtherAccount(this.user);
+		else if (super.getParentController() instanceof MiCuentaController)
+			((WorldController)((MiCuentaController)this.getParentController()).getParentController()).changeToOtherAccount(this.user);
+		else if (super.getParentController() instanceof OtraCuentaController)
+			((WorldController)((OtraCuentaController)this.getParentController()).getParentController()).changeToOtherAccount(this.user);
 	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
