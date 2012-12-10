@@ -146,6 +146,12 @@ public class EventoController extends Controller {
 				descripcionUsuario.setText("Ha desmarcado como favorito tu tweet\n\""+resumen+"...\"");
 			}
 		}
+		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
+			this.descripcionUsuario.setText("Ahora te sigue");
+			this.seguir.setVisible(true);
+		}
+			
+		
 		
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
 			peticionSeguir.setVisible(true);

@@ -141,6 +141,9 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@FXML //  fx:id="placeActual"
 	private Label placeActual; // Value injected by FXMLLoader
+	
+	@FXML //  fx:id="cerrarNuevoTweet"
+	private Label name; // Value injected by FXMLLoader
 
 
 	//privadas propias
@@ -378,7 +381,8 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public void postInitialize() {
-		screenName.setText(super.getTwitter().getScreenName());
+		name.setText(super.getTwitter().getSelf().getName());
+		screenName.setText("@"+super.getTwitter().getScreenName());
 		User user = super.getTwitter().getSelf();
 		nTweets.setText(""+user.getStatusesCount());
 		nSeguidores.setText(""+user.getFollowersCount());

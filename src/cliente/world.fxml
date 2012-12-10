@@ -141,7 +141,12 @@
                                 <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                               </image>
                             </ImageView>
-                            <Label fx:id="screenName" onMouseClicked="#irCuenta" text="" />
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <Label id="numeroDe" fx:id="name" text="" />
+                                <Label fx:id="screenName" onMouseClicked="#irCuenta" opacity="0.35" text="" />
+                              </children>
+                            </VBox>
                           </children>
                         </HBox>
                         <HBox id="cajaIz" alignment="CENTER" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">

@@ -76,7 +76,7 @@
                         <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="94.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                     </GridPane>
-                    <ImageView id="follow" fx:id="seguir" fitHeight="35.0" fitWidth="100.0" opacity="0.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <ImageView id="follow" fx:id="seguir" fitHeight="35.0" fitWidth="100.0" opacity="1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
                       <image>
                         <Image url="@Imagenes/follow.png" preserveRatio="true" smooth="true" />
                       </image>
