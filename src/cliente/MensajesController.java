@@ -54,7 +54,11 @@ public class MensajesController extends Controller implements AStream.IListen {
     
     // Handler for Label[id="numeroDe"] onMouseClicked
     public void cerrarMenu(MouseEvent event) {
-    	 this.hideWindow();
+    	//Limpiamos los campos
+    	this.texto.setText(null);
+    	this.destinatario.setText(null);
+    	//Cerramos la ventana
+    	this.hideWindow();
     }
 
     // Handler for Button[id="twittear"] onMouseClicked
