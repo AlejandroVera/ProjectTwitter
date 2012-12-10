@@ -224,4 +224,10 @@ public class UserImpl implements User{
 	public void aumentarContador(){
 		this.statusesCount++;
 	}
+
+	@Override
+	public void proteger() {
+		con.updateQuery("UPDATE usuario SET protectedUser=1 WHERE id="+this.getId());
+		this.protectedUser=true;
+	}
 }

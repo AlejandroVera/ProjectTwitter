@@ -555,4 +555,9 @@ public final class UserImpl implements Serializable, User {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void proteger() {
+		//valido solo en nuestro twitter
+	}
 }

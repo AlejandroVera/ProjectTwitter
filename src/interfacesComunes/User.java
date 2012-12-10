@@ -28,4 +28,5 @@ public interface User extends Serializable,Remote{
 	java.lang.Boolean isFollowingYou();
 	void aumentarContador();
 	boolean getProtectedUser();
+	void proteger();
 }

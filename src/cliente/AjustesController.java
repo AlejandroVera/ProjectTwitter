@@ -48,15 +48,14 @@ public class AjustesController extends Controller{
     @FXML //  fx:id="proteccionCuenta"
     private Button proteccionCuenta; // Value injected by FXMLLoader
 
-    //En el postinitialice le tendrás que dar un valor
-    private boolean protegida=false;
+    private boolean protegida;
 
 
  // Handler for RadioButton[fx:id="proteccionCuenta"] onMouseClicked
     public void activarProteccion(MouseEvent event) {
         if (!this.protegida){
         	this.protegida=true;
-        	proteccionCuenta.setText("Activada");//En el postinitialice tendrás que cargar su estado
+        	proteccionCuenta.setText("Activada");
         }
         else{
         	this.protegida=false;
@@ -138,6 +137,14 @@ public class AjustesController extends Controller{
 		imagenPerfilURL.setText(user.getProfileImageUrl().toString());
 		name.setText(user.getName());
 		descripcion.setText(user.getDescription());
+		protegida=user.getProtectedUser();
+		if(protegida){
+			proteccionCuenta.setText("Activada");
+		}
+		else{
+			proteccionCuenta.setText("Desactivada");
+		}
+		
 	}
 
 	@Override
