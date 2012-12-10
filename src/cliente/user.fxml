@@ -91,7 +91,7 @@
         </GridPane>
       </children>
     </HBox>
-    <ImageView id="candado" fitHeight="47.78624725341797" fitWidth="36.895009994506836" layoutX="450.0" layoutY="15.0" opacity="0.58" pickOnBounds="true" preserveRatio="false">
+    <ImageView fx:id="candado" fitHeight="47.78624725341797" fitWidth="36.895009994506836" layoutX="450.0" layoutY="15.0" opacity="0.58" pickOnBounds="true" preserveRatio="false">
       <image>
         <Image url="@Imagenes/candado.png" preserveRatio="true" smooth="true" />
       </image>
