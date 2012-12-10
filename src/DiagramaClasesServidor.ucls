@@ -2,7 +2,7 @@
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <interface id="1" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.ClienteCallback" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/ClienteCallback.java" binary="false">    
-    <position height="93" width="165" x="525" y="-60"/>    
+    <position height="93" width="165" x="484" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
@@ -10,7 +10,7 @@
   </interface>  
   <interface id="2" corner="BOTTOM_RIGHT" language="java" name="excepcionesComunes.InterfazTwitterException" 
     project="ProyectTwitter" file="/ProyectTwitter/src/excepcionesComunes/InterfazTwitterException.java" binary="false">    
-    <position height="59" width="163" x="4042" y="685"/>    
+    <position height="59" width="163" x="3628" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
@@ -18,7 +18,7 @@
   </interface>  
   <interface id="3" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.TwitterEvent.Type" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/TwitterEvent.java" binary="false">    
-    <position height="144" width="160" x="1515" y="1920"/>    
+    <position height="144" width="160" x="1222" y="1929"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
@@ -26,809 +26,693 @@
   </interface>  
   <interface id="4" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.TwitterInit" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/TwitterInit.java" binary="false">    
-    <position height="229" width="291" x="612" y="1464"/>    
+    <position height="229" width="291" x="610" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="5" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterSuscriptorImpl.TweetEntityImpl" 
-    project="ProyectTwitter" file="/ProyectTwitter/src/servidor/TwitterSuscriptorImpl.java" binary="false">    
-    <position height="229" width="319" x="2812" y="685"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="false"/>    
-    </display>  
-  </class>  
-  <interface id="6" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Status" project="ProyectTwitter" 
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Status" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Status.java" binary="false">    
-    <position height="144" width="198" x="2180" y="1920"/>    
+    <position height="144" width="198" x="2076" y="1929"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl" project="ProyectTwitter" 
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/TwitterImpl.java" binary="false">    
-    <position height="705" width="219" x="1837" y="-60"/>    
+    <position height="705" width="219" x="1544" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="8" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Account" 
+  <interface id="7" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Account" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter_Account.java" binary="false">    
-    <position height="229" width="254" x="4741" y="685"/>    
+    <position height="229" width="254" x="4047" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <interface id="9" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.TwitterEvent" project="ProyectTwitter" 
+  <interface id="8" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.TwitterEvent" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/TwitterEvent.java" binary="false">    
-    <position height="161" width="141" x="1515" y="1464"/>    
+    <position height="161" width="141" x="1222" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="10" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterEventImpl" project="ProyectTwitter" 
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterEventImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/TwitterEventImpl.java" binary="false">    
-    <position height="314" width="301" x="1515" y="685"/>    
+    <position height="314" width="301" x="1222" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="11" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Geo" project="ProyectTwitter" 
+  <interface id="10" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Geo" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Twitter_Geo.java" binary="false">    
-    <position height="93" width="169" x="623" y="685"/>    
+    <position height="93" width="169" x="682" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <interface id="12" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.ICallback" 
+  <interface id="11" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.ICallback" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="76" width="168" x="4226" y="1464"/>    
+    <position height="76" width="168" x="3718" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="13" corner="BOTTOM_RIGHT" language="java" name="servidor.db.ConexionImpl" project="ProyectTwitter" 
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="servidor.db.ConexionImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/db/ConexionImpl.java" binary="false">    
-    <position height="280" width="220" x="3782" y="685"/>    
+    <position height="280" width="220" x="2750" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="14" corner="BOTTOM_RIGHT" language="java" name="servidor.LoggedConection" project="ProyectTwitter" 
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="servidor.LoggedConection" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/LoggedConection.java" binary="false">    
-    <position height="127" width="187" x="2564" y="685"/>    
+    <position height="127" width="187" x="1849" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="15" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Place" project="ProyectTwitter" 
+  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Place" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Place.java" binary="false">    
-    <position height="178" width="176" x="3506" y="1464"/>    
+    <position height="178" width="176" x="3502" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <enumeration id="16" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.KEntityType" 
+  <enumeration id="15" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.KEntityType" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="127" width="157" x="2822" y="1464"/>    
+    <position height="127" width="157" x="3010" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </enumeration>  
-  <class id="17" corner="BOTTOM_RIGHT" language="java" name="servidor.db.ConnectionContainer" project="ProyectTwitter" 
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="servidor.db.ConnectionContainer" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/db/ConnectionContainer.java" binary="false">    
-    <position height="127" width="145" x="955" y="-60"/>    
+    <position height="127" width="145" x="831" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="18" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.AStream.IListen" 
+  <interface id="17" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.AStream.IListen" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/AStream.java" binary="false">    
-    <position height="110" width="208" x="5035" y="1464"/>    
+    <position height="110" width="208" x="4527" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="19" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterInitImpl" project="ProyectTwitter" 
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterInitImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/TwitterInitImpl.java" binary="false">    
-    <position height="246" width="291" x="1184" y="685"/>    
+    <position height="246" width="291" x="891" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="20" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter" project="ProyectTwitter" 
+  <interface id="19" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="637" width="219" x="4482" y="685"/>    
+    <position height="637" width="219" x="3369" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <interface id="21" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.ITweet" 
+  <interface id="20" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.ITweet" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="212" width="255" x="3722" y="1464"/>    
+    <position height="212" width="255" x="3207" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="22" corner="BOTTOM_RIGHT" language="java" name="servidor.UserImpl" project="ProyectTwitter" 
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="servidor.UserImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/UserImpl.java" binary="false">    
-    <position height="739" width="204" x="1919" y="685"/>    
+    <position height="739" width="204" x="1584" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="23" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_GeoImpl" project="ProyectTwitter" 
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_GeoImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/Twitter_GeoImpl.java" binary="false">    
-    <position height="127" width="169" x="2096" y="-60"/>    
+    <position height="127" width="169" x="2480" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="24" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.User" project="ProyectTwitter" 
+  <interface id="23" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.User" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/User.java" binary="false">    
-    <position height="399" width="200" x="1959" y="1464"/>    
+    <position height="399" width="200" x="1624" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="25" corner="BOTTOM_RIGHT" language="java" name="servidor.AStreamImpl" project="ProyectTwitter" 
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="servidor.AStreamImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/AStreamImpl.java" binary="false">    
-    <position height="110" width="175" x="4482" y="-60"/>    
+    <position height="110" width="175" x="3282" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="26" corner="BOTTOM_RIGHT" language="java" name="servidor.PlaceImpl" project="ProyectTwitter" 
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="servidor.PlaceImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/PlaceImpl.java" binary="false">    
-    <position height="348" width="176" x="4266" y="685"/>    
+    <position height="348" width="176" x="3831" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="27" corner="BOTTOM_RIGHT" language="java" name="excepcionesComunes.TwitterException" 
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="excepcionesComunes.TwitterException" 
     project="ProyectTwitter" file="/ProyectTwitter/src/excepcionesComunes/TwitterException.java" binary="false">    
-    <position height="161" width="170" x="4042" y="-60"/>    
+    <position height="161" width="170" x="3628" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="28" corner="BOTTOM_RIGHT" language="java" name="servidor.StatusImpl" project="ProyectTwitter" 
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="servidor.StatusImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/StatusImpl.java" binary="false">    
-    <position height="365" width="255" x="3171" y="685"/>    
+    <position height="365" width="255" x="2076" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="29" corner="BOTTOM_RIGHT" language="java" name="servidor.ServerCommon" project="ProyectTwitter" 
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="servidor.ServerCommon" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/ServerCommon.java" binary="false">    
-    <position height="195" width="204" x="1366" y="-60"/>    
+    <position height="195" width="204" x="1158" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="30" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Conexion" project="ProyectTwitter" 
+  <interface id="29" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Conexion" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Conexion.java" binary="false">    
-    <position height="127" width="220" x="2541" y="1464"/>    
+    <position height="127" width="220" x="2537" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <interface id="31" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.AStream" project="ProyectTwitter" 
+  <interface id="30" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.AStream" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/AStream.java" binary="false">    
-    <position height="76" width="170" x="5035" y="685"/>    
+    <position height="76" width="170" x="4341" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <interface id="32" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Message" project="ProyectTwitter" 
+  <interface id="31" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Message" project="ProyectTwitter" 
     file="/ProyectTwitter/src/interfacesComunes/Message.java" binary="false">    
-    <position height="144" width="134" x="3466" y="1920"/>    
+    <position height="144" width="134" x="2799" y="1929"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="33" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterSuscriptorImpl" project="ProyectTwitter" 
-    file="/ProyectTwitter/src/servidor/TwitterSuscriptorImpl.java" binary="false">    
-    <position height="705" width="335" x="2305" y="-60"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="false"/>    
-    </display>  
-  </class>  
-  <enumeration id="34" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Account.KAccessLevel" 
+  <enumeration id="32" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Account.KAccessLevel" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter_Account.java" binary="false">    
-    <position height="144" width="189" x="4806" y="1464"/>    
+    <position height="144" width="189" x="4298" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </enumeration>  
-  <interface id="35" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.IHttpClient" 
+  <interface id="33" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.IHttpClient" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="246" width="332" x="4434" y="1464"/>    
+    <position height="246" width="332" x="3926" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="36" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterInitImplSuscriptor" 
-    project="ProyectTwitter" file="/ProyectTwitter/src/servidor/TwitterInitImplSuscriptor.java" binary="false">    
-    <position height="297" width="291" x="853" y="685"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="false"/>    
-    </display>  
-  </class>  
-  <class id="37" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl.TweetEntityImpl" 
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl.TweetEntityImpl" 
     project="ProyectTwitter" file="/ProyectTwitter/src/servidor/TwitterImpl.java" binary="false">    
-    <position height="246" width="319" x="2163" y="685"/>    
+    <position height="246" width="319" x="3010" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="38" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.TweetEntity" 
+  <interface id="35" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter.TweetEntity" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter.java" binary="false">    
-    <position height="161" width="131" x="3019" y="1464"/>    
+    <position height="161" width="131" x="2839" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="39" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_UsersImpl" project="ProyectTwitter" 
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_UsersImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/Twitter_UsersImpl.java" binary="false">    
-    <position height="450" width="240" x="343" y="685"/>    
+    <position height="450" width="240" x="402" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="40" corner="BOTTOM_RIGHT" language="java" name="servidor.MessageImpl" project="ProyectTwitter" 
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="servidor.MessageImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/MessageImpl.java" binary="false">    
-    <position height="365" width="255" x="3466" y="685"/>    
+    <position height="365" width="255" x="2371" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <class id="41" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_AccountImpl" project="ProyectTwitter" 
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="servidor.Twitter_AccountImpl" project="ProyectTwitter" 
     file="/ProyectTwitter/src/servidor/Twitter_AccountImpl.java" binary="false">    
-    <position height="161" width="254" x="3742" y="-60"/>    
+    <position height="161" width="254" x="2689" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </class>  
-  <interface id="42" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Users" 
+  <interface id="39" corner="BOTTOM_RIGHT" language="java" name="interfacesComunes.Twitter_Users" 
     project="ProyectTwitter" file="/ProyectTwitter/src/interfacesComunes/Twitter_Users.java" binary="false">    
-    <position height="416" width="229" x="343" y="1464"/>    
+    <position height="416" width="229" x="341" y="1473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <nesting id="43">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="38"/>  
-  </nesting>  
-  <nesting id="44">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="5"/>  
-  </nesting>  
-  <association id="45">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="46" name="loggedUser"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
+  <association id="40">    
+    <bendpoint x="2698" y="694"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="41" name="con"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="48">    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="49" name="twitter"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
+  <association id="43">    
+    <bendpoint x="350" y="694"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="44" name="twitter_user"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
+    <end type="TARGET" refId="39" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="51">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="52">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="31"/>  
-  </realization>  
-  <nesting id="53">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="21"/>  
-  </nesting>  
-  <association id="54">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="55" name="usuario"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
+  <association id="46">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="47" name="lugar"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="14" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="57">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="38"/>  
-  </realization>  
+  <association id="49">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="50" name="con"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="53" name="usuario"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="56" name="con"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <association id="58">    
-    <end type="SOURCE" refId="5" navigable="false">      
+    <bendpoint x="2656" y="694"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
       <attribute id="59" name="con"/>      
       <multiplicity id="60" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="61">    
-    <bendpoint x="2189" y="1464"/>    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="62" name="tweet"/>      
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="62" name="usuario"/>      
       <multiplicity id="63" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="64">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="65" name="init"/>      
-      <multiplicity id="66" minimum="0" maximum="1"/>    
+  <nesting id="64">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <realization id="65">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="66">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="67" name="con"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="69">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="35"/>  
+  </nesting>  
+  <realization id="70">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <association id="71">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="72" name="con"/>      
+      <multiplicity id="73" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="74">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <association id="75">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="76" name="loggedUser"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="79" name="source"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="37" navigable="false">      
+      <attribute id="82" name="loggedUser"/>      
+      <multiplicity id="83" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="84">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="85" name="loggedUser"/>      
+      <multiplicity id="86" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="87">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <association id="88">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="89" name="con"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="92" name="twitter"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="94">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <realization id="95">    
+    <bendpoint x="2085" y="1473"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="96">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="97" name="loggedUser"/>      
+      <multiplicity id="98" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="99">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="100">    
+    <bendpoint x="371" y="694"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="101" name="init"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="67">    
-    <end type="SOURCE" refId="39"/>    
-    <end type="TARGET" refId="42"/>  
-  </realization>  
-  <association id="68">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="69" name="type"/>      
-      <multiplicity id="70" minimum="0" maximum="1"/>    
+  <association id="103">    
+    <bendpoint x="2719" y="694"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="104" name="con"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="71">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="72" name="loggedUser"/>      
-      <multiplicity id="73" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="74">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="24"/>  
-  </realization>  
-  <realization id="75">    
-    <bendpoint x="3180" y="1464"/>    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <association id="76">    
-    <bendpoint x="2781" y="685"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="77" name="con"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="79">    
-    <bendpoint x="1888" y="685"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="80" name="user"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="82">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="83" name="loggedUser"/>      
-      <multiplicity id="84" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="85">    
-    <end type="SOURCE" refId="32"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <association id="86">    
-    <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="87" name="con"/>      
-      <multiplicity id="88" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="89">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="11"/>  
-  </realization>  
-  <nesting id="90">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="18"/>  
+  <nesting id="106">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="17"/>  
   </nesting>  
-  <association id="91">    
-    <bendpoint x="1867" y="685"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="92" name="con"/>      
-      <multiplicity id="93" minimum="0" maximum="1"/>    
+  <association id="107">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="108" name="con"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="94">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="95" name="lugar"/>      
-      <multiplicity id="96" minimum="0" maximum="1"/>    
+  <nesting id="110">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="34"/>  
+  </nesting>  
+  <generalization id="111">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
+  <nesting id="112">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="33"/>  
+  </nesting>  
+  <association id="113">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="114" name="con"/>      
+      <multiplicity id="115" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="117" name="init"/>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="119">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="120">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="121" name="type"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="15" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="97">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="98" name="target"/>      
-      <multiplicity id="99" minimum="0" maximum="1"/>    
+  <association id="123">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="124" name="geo"/>      
+      <multiplicity id="125" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="100">    
-    <end type="SOURCE" refId="41"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <association id="101">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="102" name="con"/>      
-      <multiplicity id="103" minimum="0" maximum="1"/>    
+  <association id="126">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="127" name="loggedUser"/>      
+      <multiplicity id="128" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="104">    
-    <bendpoint x="822" y="685"/>    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="105" name="twitter_user"/>      
-      <multiplicity id="106" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="107">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="108" name="geo"/>      
-      <multiplicity id="109" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="110">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="111" name="con"/>      
-      <multiplicity id="112" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="113">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="114" name="loggedUser"/>      
-      <multiplicity id="115" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="116">    
-    <bendpoint x="2533" y="685"/>    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="117" name="loggedUser"/>      
-      <multiplicity id="118" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="119">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="120" name="source"/>      
-      <multiplicity id="121" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="122">    
-    <bendpoint x="1857" y="1464"/>    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="123" name="status"/>      
-      <multiplicity id="124" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="125">    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="126" name="tw"/>      
-      <multiplicity id="127" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="128">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="129" name="con"/>      
-      <multiplicity id="130" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="131">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="132" name="loggedUser"/>      
-      <multiplicity id="133" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="134">    
-    <end type="SOURCE" refId="40" navigable="false">      
-      <attribute id="135" name="loggedUser"/>      
-      <multiplicity id="136" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="137">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="20"/>  
-  </realization>  
-  <nesting id="138">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="35"/>  
+  <nesting id="129">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
   </nesting>  
-  <realization id="139">    
-    <end type="SOURCE" refId="33"/>    
-    <end type="TARGET" refId="20"/>  
+  <realization id="130">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="140">    
-    <end type="SOURCE" refId="39" navigable="false">      
-      <attribute id="141" name="con"/>      
-      <multiplicity id="142" minimum="0" maximum="1"/>    
+  <realization id="131">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="19"/>  
+  </realization>  
+  <realization id="132">    
+    <bendpoint x="2808" y="1473"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="31"/>  
+  </realization>  
+  <association id="133">    
+    <bendpoint x="1593" y="1473"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="134" name="status"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="143">    
-    <bendpoint x="4235" y="685"/>    
-    <end type="SOURCE" refId="25" navigable="false">      
-      <attribute id="144" name="con"/>      
-      <multiplicity id="145" minimum="0" maximum="1"/>    
+  <association id="136">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="137" name="tw"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="140" name="target"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <bendpoint x="1553" y="694"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="143" name="user"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="145">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
   <association id="146">    
-    <end type="SOURCE" refId="14" navigable="false">      
-      <attribute id="147" name="usuario"/>      
+    <bendpoint x="2787" y="1473"/>    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="147" name="tweet"/>      
       <multiplicity id="148" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="149">    
-    <bendpoint x="3475" y="1464"/>    
-    <end type="SOURCE" refId="40"/>    
-    <end type="TARGET" refId="32"/>  
-  </realization>  
-  <realization id="150">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="30"/>  
-  </realization>  
-  <association id="151">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="152" name="type"/>      
-      <multiplicity id="153" minimum="0" maximum="1"/>    
+  <nesting id="149">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <association id="150">    
+    <bendpoint x="1818" y="694"/>    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="151" name="loggedUser"/>      
+      <multiplicity id="152" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="16" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="153">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="10"/>  
+  </realization>  
   <association id="154">    
-    <end type="SOURCE" refId="36" navigable="false">      
+    <end type="SOURCE" refId="21" navigable="false">      
       <attribute id="155" name="con"/>      
       <multiplicity id="156" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="157">    
-    <bendpoint x="2512" y="685"/>    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="158" name="con"/>      
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="158" name="loggedUser"/>      
       <multiplicity id="159" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="23" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="160">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="37"/>  
-  </nesting>  
-  <nesting id="161">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="12"/>  
-  </nesting>  
-  <association id="162">    
-    <end type="SOURCE" refId="33" navigable="false">      
-      <attribute id="163" name="geo"/>      
-      <multiplicity id="164" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="165">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <nesting id="166">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="3"/>  
-  </nesting>  
-  <association id="167">    
-    <bendpoint x="291" y="685"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="168" name="twitter_user"/>      
-      <multiplicity id="169" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="42" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="170">    
-    <bendpoint x="1846" y="685"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="171" name="user"/>      
-      <multiplicity id="172" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="173">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <nesting id="174">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="34"/>  
-  </nesting>  
-  <association id="175">    
-    <bendpoint x="3751" y="685"/>    
-    <end type="SOURCE" refId="41" navigable="false">      
-      <attribute id="176" name="con"/>      
-      <multiplicity id="177" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="178">    
+  <association id="160">    
+    <bendpoint x="2677" y="694"/>    
     <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="179" name="con"/>      
-      <multiplicity id="180" minimum="0" maximum="1"/>    
+      <attribute id="161" name="con"/>      
+      <multiplicity id="162" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="181">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="21"/>  
-  </generalization>  
-  <association id="182">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="183" name="loggedUser"/>      
-      <multiplicity id="184" minimum="0" maximum="1"/>    
+  <association id="163">    
+    <bendpoint x="1572" y="1473"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="164" name="status"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="24" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="185">    
-    <end type="SOURCE" refId="37"/>    
-    <end type="TARGET" refId="38"/>  
-  </realization>  
-  <association id="186">    
-    <end type="SOURCE" refId="37" navigable="false">      
-      <attribute id="187" name="con"/>      
-      <multiplicity id="188" minimum="0" maximum="1"/>    
+  <association id="166">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="167" name="con"/>      
+      <multiplicity id="168" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
+    <end type="TARGET" refId="29" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="189">    
-    <bendpoint x="312" y="685"/>    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="190" name="init"/>      
-      <multiplicity id="191" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="192">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <nesting id="193">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="16"/>  
-  </nesting>  
-  <association id="194">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="195" name="con"/>      
-      <multiplicity id="196" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="197">    
-    <end type="SOURCE" refId="26" navigable="false">      
-      <attribute id="198" name="con"/>      
-      <multiplicity id="199" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="200">    
-    <bendpoint x="1928" y="1464"/>    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="201" name="status"/>      
-      <multiplicity id="202" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="203">    
+  <realization id="169">    
     <end type="SOURCE" refId="36"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="TARGET" refId="39"/>  
   </realization>  
-  <association id="204">    
-    <bendpoint x="2791" y="1464"/>    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="205" name="tweet"/>      
-      <multiplicity id="206" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
+  <realization id="170">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="35"/>  
+  </realization>  
+  <realization id="171">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="29"/>  
+  </realization>  
+  <generalization id="172">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="20"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    
