@@ -57,7 +57,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		try{
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
 			
-			//Se lo enviamos al propietario del tweet
+			//Se lo enviamos al usuario
 			List<AStream.IListen> user_callbacks = this.init.getCallbackArray().get(loggedUser.getId());
 			
 			//Y ya procedemos al envio

@@ -236,6 +236,8 @@ public class TwitterInitImplSuscriptor extends UnicastRemoteObject implements Tw
 			
 			while((leidos = ie.read(buf)) != -1)
 				array.write(buf, 0, leidos);
+			
+			ie.close();
 				
 			return array.toByteArray();
 		} catch (IOException e) {

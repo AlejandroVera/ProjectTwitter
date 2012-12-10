@@ -111,6 +111,7 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	private boolean desplegado = false;
 	private String currentImage = "";
+	private User user; //Usuario del tweet
 	
 	
 
@@ -253,10 +254,10 @@ public class TweetController extends Controller implements AStream.IListen{
 	public void postInitialize() {
 		tweetTextArea.setText(this.tweet.getText());
 		
-		User user = this.tweet.getUser();
+		this.user = this.tweet.getUser();
 		
 		//Cargamos la información que el usuario puede modificar en cualquier momento
-		loadUserDependantInfo(user);
+		loadUserDependantInfo();
         
 		//Parse the time
 		Date createdAt = this.tweet.getCreatedAt();
@@ -292,7 +293,7 @@ public class TweetController extends Controller implements AStream.IListen{
 		timeAgo.setText(timeago);
 		ClientTools.addLabelToTimeUpdate(timeAgo, createdAt);
 		
-		if(user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
+		if(this.user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
 			stackBorrar.setVisible(true);
 			stackRetwitteado.setVisible(false);
 			stackRetwittear.setVisible(false);
@@ -317,14 +318,14 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	}
 	
-	private void loadUserDependantInfo(User user){
-		screename.setText("@"+user.getScreenName());
-		username.setText(user.getName());
-		username.setTooltip(new Tooltip(user.getScreenName()));
+	private void loadUserDependantInfo(){
+		screename.setText("@"+this.user.getScreenName());
+		username.setText(this.user.getName());
+		username.setTooltip(new Tooltip(this.user.getScreenName()));
 		
-		String url = user.getProfileImageUrl().toString();
+		String url = this.user.getProfileImageUrl().toString();
 		if(!currentImage.equals(url)){	
-	        Image im = ClientTools.getImage(user.getProfileImageUrl().toString());
+	        Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
 	        if(im != null)
 	        	userImage.setImage(im);
 		}
@@ -351,9 +352,9 @@ public class TweetController extends Controller implements AStream.IListen{
 		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
 			stackYaFavorito.setVisible(false);
 			stackFavorito.setVisible(true);
-		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.tweet.getUser().getId())){
-			User us = getTwitter().users().getUser(this.tweet.getUser().getId());
-			loadUserDependantInfo(us);
+		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.user.getId())){
+			this.user = getTwitter().users().getUser(this.user.getId());
+			loadUserDependantInfo();
 		}
 		return true;
 	}
