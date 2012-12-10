@@ -279,39 +279,15 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public List<Status> getHomeTimeline() throws TwitterException {
-		return this.getTimeline(this.user);
-	}
-
-	@Override
-	public List<Status> getUserTimeline(Long userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId,this.con,this.user ));
-	}
-
-	@Override
-	public List<Status> getUserTimeline(String screenName) throws TwitterException {
-		List<Object> param = new LinkedList<Object>();
-		param.add(screenName);
-		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
-		try {
-			if(res == null || !res.next())
-				throw new TwitterException("No existe ningún usuario con ese screeName");
-			return this.getTimeline(new UserImpl(res.getLong(1), this.con,this.user)); 
-		} catch (SQLException e) {
-			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
-			return null;
-		}
-	}
-
-	private List<Status> getTimeline(User user) throws TwitterException {
 		LinkedList<Status> list = new LinkedList<Status>();
 
-		if(user == null)
+		if(this.user == null)
 			throw new TwitterException("Usuario no logueado");
 
-		ResultSet res = this.con.query("SELECT DISTINCT id FROM (SELECT id, fecha FROM tweet WHERE autor = "+user.getId()+
-				" UNION SELECT id, fecha FROM  tweet tw, seguidores se WHERE se.id_seguidor = "+user.getId()+
+		ResultSet res = this.con.query("SELECT DISTINCT id FROM (SELECT id, fecha FROM tweet WHERE autor = "+this.user.getId()+
+				" UNION SELECT id, fecha FROM  tweet tw, seguidores se WHERE se.id_seguidor = "+this.user.getId()+
 				" AND tw.autor = se.id_seguido UNION SELECT id, fecha FROM tweet tw, retweet re, seguidores se WHERE " +
-				"se.id_seguidor = "+user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
+				"se.id_seguidor = "+this.user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
 				"ORDER BY fecha DESC " +
 				"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
 
@@ -324,6 +300,45 @@ public class TwitterImpl implements Twitter {
 			}
 
 		return list;
+	}
+
+	@Override
+	public List<Status> getUserTimeline(Long userId) throws TwitterException{
+		//return this.getTimeline(new UserImpl(userId,this.con,this.user ));
+		
+		LinkedList<Status> list = new LinkedList<Status>();
+
+		if(this.user == null)
+			throw new TwitterException("Usuario no logueado");
+		
+		ResultSet res = this.con.query("(SELECT id, fecha FROM tweet WHERE autor = "+userId+") " +
+				"UNION (SELECT tw.id, tw.fecha FROM tweet tw , retweet re WHERE tw.id = re.id_tweet AND re.id_usuario = "+userId+") ORDER BY fecha DESC " +
+				"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
+
+		if(res != null)
+			try {
+				while(res.next())
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
+			}
+
+		return list;
+	}
+
+	@Override
+	public List<Status> getUserTimeline(String screenName) throws TwitterException {
+		List<Object> param = new LinkedList<Object>();
+		param.add(screenName);
+		ResultSet res = this.con.query("SELECT id FROM usuario WHERE screenName = ? LIMIT 1", param);
+		try {
+			if(res == null || !res.next())
+				throw new TwitterException("No existe ningún usuario con ese screeName");
+			return getUserTimeline(res.getLong(1)); 
+		} catch (SQLException e) {
+			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
+			return null;
+		}
 	}
 
 	@Override
