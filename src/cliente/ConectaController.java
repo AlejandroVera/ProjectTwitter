@@ -13,6 +13,7 @@ import interfacesComunes.TwitterEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class ConectaController extends Controller implements AStream.IListen {
 
     @FXML //  fx:id="tweetsMenciones"
     private VBox tweetsMenciones; // Value injected by FXMLLoader
+    
+    private HashMap<Number, TweetController> mentionsTable;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -46,15 +49,34 @@ public class ConectaController extends Controller implements AStream.IListen {
         assert tweetsMenciones != null : "fx:id=\"tweetsMenciones\" was not injected: check your FXML file 'conecta.fxml'.";
        
         // initialize your logic here: all @FXML variables will have been injected
-
+        this.mentionsTable = new HashMap<Number, TweetController>();
     }
 
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
+	
 		if (event.getTarget().getScreenName().equals(super.getTwitter().getScreenName()))
 			this.addEvent(cajaInteracciones, event, true);
+		if ((event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.FAVORITE)) 
+				&& event.getSource().getId().equals(super.getTwitter().getSelf().getId())){
+			Number id = ((ITweet) event.getTargetObject()).getId();
+
+			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
+			TweetController controller = mentionsTable.get(id);
+			if(controller != null)
+				System.out.println("LO PROCESA");
+				controller.processEvent(event);
+		}
 		return true;
+	}
+
+
+	protected void removeFavourite(TweetController c){
+		if(c != null){
+			this.tweetsMenciones.getChildren().remove(c.getContainer());
+			mentionsTable.remove(c.getTweet().getId());
+		}
 	}
 
 
@@ -121,6 +143,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			tweetUI.getController().setParentController(this);
+			mentionsTable.put(tweet.getId(), tweetUI.getController());
 			if(!onTop)
 				contendor.getChildren().add(tweetUI.getRoot());
 			else{

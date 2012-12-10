@@ -14,6 +14,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import excepcionesComunes.TwitterException;
@@ -109,7 +110,8 @@ public class TweetController extends Controller implements AStream.IListen{
 	private Status tweet;
 
 	private boolean desplegado = false;
-
+	
+	
 
 
 	// Handler for Label[id="opcion"] onMouseClicked

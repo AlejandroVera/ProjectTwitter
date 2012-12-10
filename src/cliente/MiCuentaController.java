@@ -256,7 +256,7 @@ public class MiCuentaController extends Controller implements AStream.IListen {
       		  		int count = 0;
       		  		
 	      			//Cargamos sus seguidos
-	      			Iterator<Long> seguidos = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+	      			Iterator<Long> seguidos = tw_users.getFriendIDs(user.getScreenName()).iterator();
 	      			while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
 	      				User us = tw_users.getUser(seguidos.next());
 	      				if(us != null)
