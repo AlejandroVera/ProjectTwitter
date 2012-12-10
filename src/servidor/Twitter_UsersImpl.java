@@ -180,28 +180,25 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 			Conexion con = new ConexionImpl();	
 			con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
-			evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
-//			System.out.println("INICIO");
-//			System.out.println(this.init);
-//			System.out.println(this.init.getCallbackArray());
-//			System.out.println(user.getId());
-//			System.out.println("FIN");
-			user_callbacks = this.init.getCallbackArray().get(user.getId());
-			user_callbacks.addAll(this.init.getCallbackArray().get(loggedUser.getId()));
+			if((user_callbacks = this.init.getCallbackArray().get(user.getId()))!=null){
+				evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
 
-			if(user_callbacks != null){
-				Iterator<AStream.IListen> it = user_callbacks.iterator();
-				while(it.hasNext()){
-					AStream.IListen call = it.next();
-					try {
-						call.processEvent(evento);
-					} catch (RemoteException e) {
-						//Suponemos que ha sido por un error de conexión.
-						//Puede que el user se haya desconectado, así que lo sacamos del array.
-						user_callbacks.remove(call);
-						if(user_callbacks.isEmpty())
-							this.init.getCallbackArray().remove(user.getId());
-						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+				user_callbacks.addAll(this.init.getCallbackArray().get(loggedUser.getId()));
+
+				if(user_callbacks != null){
+					Iterator<AStream.IListen> it = user_callbacks.iterator();
+					while(it.hasNext()){
+						AStream.IListen call = it.next();
+						try {
+							call.processEvent(evento);
+						} catch (RemoteException e) {
+							//Suponemos que ha sido por un error de conexión.
+							//Puede que el user se haya desconectado, así que lo sacamos del array.
+							user_callbacks.remove(call);
+							if(user_callbacks.isEmpty())
+								this.init.getCallbackArray().remove(user.getId());
+							ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+						}
 					}
 				}
 			}
@@ -210,7 +207,6 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		}
 		return user;
 	}
-
 
 	/* (non-Javadoc)
 	 * @see servidor.Twitter_Users#getUser(long)

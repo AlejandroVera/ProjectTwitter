@@ -101,9 +101,7 @@ public class EventoController extends Controller {
 
 	@Override
 	public void postInitialize() {
-		
-		
-		
+	
 		User source = this.event.getSource();
 		screename.setText("@"+source.getScreenName());
 		username.setText(source.getName());
