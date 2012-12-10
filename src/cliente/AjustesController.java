@@ -112,9 +112,7 @@ public class AjustesController extends Controller{
     	User user = super.getTwitter().getSelf();
     	account.setProfile(name.getText(), "UNKNOWN", imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
     	account.setProfileColors(null);
-    	//Tendrás que meter el cambio de proteger/desprotegercuenta
     	ClientTools.showDialog("Cambios realizados con exito", "Ajustes");
-    	
     	this.hideWindow();
     }
 
@@ -139,8 +137,7 @@ public class AjustesController extends Controller{
 		imagenPerfilURL.setText(user.getProfileImageUrl().toString());
 		name.setText(user.getName());
 		descripcion.setText(user.getDescription());
-		protegida=user.getProtectedUser();
-		if(protegida){
+		if(protegida=user.getProtectedUser()){
 			proteccionCuenta.setText("Activada");
 		}
 		else{

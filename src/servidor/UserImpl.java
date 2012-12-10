@@ -73,13 +73,16 @@ public class UserImpl implements User{
 			else{
 				this.protectedUser=true;
 			}
+			this.screenName = res.getString("screenName");
 			this.name=res.getString("name");
+			if(name==null || name==""){
+				this.name=screenName;
+			}
 			this.createdAt=new Date(res.getInt("fecha_registro")*1000);
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
 			this.website=new URI(res.getString("web_link"));
 			this.description=res.getString("descripcion");
-			this.screenName = res.getString("screenName");
 			this.location = res.getString("location");
 			if(screenName!=null)
 				this.id = res.getLong("id");
