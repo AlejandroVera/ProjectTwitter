@@ -81,7 +81,8 @@ public class EventoController extends Controller {
 	
 	// Handler for Button[fx:id="botonPeticion"] onMouseClicked
     public void aceptarPeticion(MouseEvent event) {
-        // handle the event here
+        getTwitter().users().confirmarAmistad(this.event.getSource());
+        botonPeticion.setVisible(false);
     }
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
