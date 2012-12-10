@@ -557,7 +557,7 @@ public final class UserImpl implements Serializable, User {
 	}
 
 	@Override
-	public void proteger() {
+	public void proteger(boolean b) {
 		//valido solo en nuestro twitter
 	}
 }

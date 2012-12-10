@@ -56,10 +56,14 @@ public class AjustesController extends Controller{
         if (!this.protegida){
         	this.protegida=true;
         	proteccionCuenta.setText("Activada");
+        	getTwitter().getSelf().proteger(true);//le dice al servidor q proteja la cuenta
+        	//(servidor hace un update en la db)
         }
         else{
         	this.protegida=false;
-        	proteccionCuenta.setText("Desactivada");    
+        	proteccionCuenta.setText("Desactivada");  
+        	getTwitter().getSelf().proteger(true);//le dice al servidor q desproteja la cuenta
+        	//(servidor hace un update en la db)
         }
         	
         	

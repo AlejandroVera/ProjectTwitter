@@ -20,7 +20,7 @@ import interfacesComunes.User;
 
 
 public class UserImpl implements User{
-	
+
 	private static final long serialVersionUID = -4749433293227574768L;
 	private Long id; 
 	private java.util.Date 	createdAt;
@@ -40,11 +40,11 @@ public class UserImpl implements User{
 	private Conexion con;
 	private User loggedUser;
 	private boolean protectedUser;
-	
+
 	public boolean getProtectedUser() {
 		return protectedUser;
 	}
-	
+
 	public UserImpl(String screenName, Conexion con, User loggedUser){
 		this(Long.parseLong("0"),screenName,con,loggedUser);
 	}
@@ -52,7 +52,7 @@ public class UserImpl implements User{
 	public UserImpl(Long id,Conexion con, User loggedUser){
 		this(id,null,con, loggedUser);
 	}
-	
+
 	public UserImpl(Long id, String screenName,Conexion con, User loggedUser) {
 		this.con=con;
 		this.loggedUser=loggedUser;
@@ -84,29 +84,29 @@ public class UserImpl implements User{
 			if(screenName!=null)
 				this.id = res.getLong("id");
 			this.status=new StatusImpl(BigInteger.valueOf(res.getLong("id_status")),this.con,this.loggedUser);
-			
+
 			int c=0;
 			res=con.query("SELECT id_tweet FROM favoritos WHERE id_usuario="+this.id);
 			while (res.next()) {
-			    c++;
+				c++;
 			}
 			this.favoritesCount = c;
 			c=0;
 			res=con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
 			while (res.next()) {
-			    c++;
+				c++;
 			}
 			this.followersCount=c;
 			c=0;
 			res=con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+this.id);
 			while (res.next()) {
-			    c++;
+				c++;
 			}
 			this.friendsCount=c;
 			c=0;
 			res=con.query("SELECT id FROM tweet WHERE autor="+this.id);
 			while (res.next()) {
-			    c++;
+				c++;
 			}
 			this.statusesCount=c;
 		} 
@@ -117,11 +117,11 @@ public class UserImpl implements User{
 			ServerCommon.TwitterWarning(e, "Error al crear la URL");
 		}
 	}
-	
+
 	public boolean getFollowRequestSent(){
 		return followRequestSent;
 	}
-	
+
 	public String getName(){
 		return name;
 	}
@@ -153,7 +153,7 @@ public class UserImpl implements User{
 	public int getFriendsCount() {
 		return friendsCount;
 	}
-	
+
 	public URI getProfileBackgroundImageUrl() {
 		return profileBackgroundImageUrl;
 	}
@@ -211,7 +211,7 @@ public class UserImpl implements User{
 		}
 		return sol;
 	}
-	
+
 	public String getLang() {
 		return "es";
 	}
@@ -220,14 +220,21 @@ public class UserImpl implements User{
 		Twitter_Geo geo = new Twitter_GeoImpl(this.con);
 		return geo.geoSearchByIP("www.google.com");
 	}
-	
+
 	public void aumentarContador(){
 		this.statusesCount++;
 	}
 
 	@Override
-	public void proteger() {
-		con.updateQuery("UPDATE usuario SET protectedUser=1 WHERE id="+this.getId());
+	public void proteger(boolean b) {
+		int proteccion;
+		if(b){
+			proteccion=1;
+		}
+		else{
+			proteccion=0;
+		}
+		con.updateQuery("UPDATE usuario SET protectedUser="+proteccion+" WHERE id="+this.getId());
 		this.protectedUser=true;
 	}
 }
