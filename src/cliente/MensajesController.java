@@ -115,6 +115,7 @@ public class MensajesController extends Controller implements AStream.IListen {
 
 	@Override
 	public void postInitialize() {
+		this.destinatario.setText("@");
 		Iterator<Message> entrada =super.getTwitter().getDirectMessages().iterator();
 		bandejaEntrada.getChildren().clear();
 		while(entrada.hasNext()){
