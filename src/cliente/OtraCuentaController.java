@@ -19,10 +19,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -107,6 +110,16 @@ public class OtraCuentaController extends Controller{
     @FXML //  fx:id="twittear"
     private Button twittear; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="menuOtraCuenta"
+    private TabPane menuOtraCuenta; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="tituloTweet"
+    private Label tituloTweet; // Value injected by FXMLLoader
+    
+    @FXML //  fx:id="textoTweet"
+    private TextArea textoTweet; // Value injected by FXMLLoader
+
+    
     /** 
      * Usuario que se está mostrando actualmente 
      */
@@ -115,22 +128,17 @@ public class OtraCuentaController extends Controller{
 
     // Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
     public void cambiaContador(KeyEvent event) {
-        // handle the event here
+    	contadorCaracteres.setText(""+(140-ClientTools.countCharacters(textoTweet.getText())));
     }
-
-    // Handler for TextArea[fx:id="descripcion"] onKeyPressed
-    public void cambiarDescripcion(KeyEvent event) {
-        // handle the event here
-    }
-
+    
     // Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
     public void cerrarNuevoTweet(MouseEvent event) {
-        // handle the event here
+        this.creadorTweets.setVisible(false);
     }
 
     // Handler for VBox[fx:id="botonTweet"] onMouseClicked
     public void crearTweetMencion(MouseEvent event) {
-        // handle the event here
+        this.creadorTweets.setVisible(true);
     }
 
     // Handler for VBox[fx:id="botonUnfollow"] onMouseClicked
@@ -144,32 +152,32 @@ public class OtraCuentaController extends Controller{
 
     // Handler for VBox[id="contenedorMensaje"] onMouseClicked
     public void enviarMensajePrivado(MouseEvent event) {
-        // handle the event here
-    }
-
-    // Handler for Label[fx:id="ScreenName"] onMouseClicked
-    public void irCuenta(MouseEvent event) {
-        // handle the event here
+    	WorldController parent = (WorldController)super.getParentController();
+    	parent.responderMensaje("@"+this.user.getScreenName());
+       
     }
 
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarFollowers(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+		selectionModel.select(seguidoresTab);
     }
 
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarFriends(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+		selectionModel.select(siguiendoTab);
     }
 
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarTweetsUsuario(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+		selectionModel.select(tweetsTab);
     }
 
     // Handler for Button[fx:id="twittear"] onMouseClicked
     public void publicarTweet(MouseEvent event) {
-        // handle the event here
+        super.getTwitter().updateStatus(this.textoTweet.getText());
     }
 
     // Handler for VBox[fx:id="botonFollow"] onMouseClicked
@@ -212,9 +220,7 @@ public class OtraCuentaController extends Controller{
 
         // initialize your logic here: all @FXML variables will have been injected
         creadorTweets.setVisible(false);
-        profileImage.setPreserveRatio(false);
-        
-        
+        profileImage.setPreserveRatio(false);        
     }
 
 	@Override
@@ -235,7 +241,8 @@ public class OtraCuentaController extends Controller{
 		tweetsUsuario.getChildren().clear();
 		
 		//Rellenamos la caja de información del usuario
-		ScreenName.setText(this.user.getScreenName());
+		ScreenName.setText(this.user.getName());
+		name.setText("@"+this.user.getScreenName());
 		nTweets.setText(""+this.user.getStatusesCount());
         nSeguidores.setText(""+this.user.getFollowersCount());
         nSiguiendo.setText(""+this.user.getFriendsCount());
@@ -290,9 +297,12 @@ public class OtraCuentaController extends Controller{
 			botonFollow.setVisible(true);
 		}
 		
-		twitteaA.setText(this.user.getScreenName());
-		sigueA.setText(this.user.getScreenName());
-		desSigueA.setText(this.user.getScreenName());
+		twitteaA.setText("@"+this.user.getScreenName());
+		sigueA.setText("@"+this.user.getScreenName());
+		desSigueA.setText("@"+this.user.getScreenName());
+		tituloTweet.setText("Twittea a @"+this.user.getScreenName());
+		this.textoTweet.setText("@"+this.user.getScreenName());
+		
 		
 		
 	}

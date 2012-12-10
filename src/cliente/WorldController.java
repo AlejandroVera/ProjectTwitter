@@ -216,7 +216,7 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	// Handler for TextArea[fx:id="textoNuevoTweet"] onKeyPressed
 	public void cambiaContador(KeyEvent event) {
-		// handle the event here
+		caracteresTweet.setText(""+(140-ClientTools.countCharacters(textoNuevoTweet.getText())));
 	}
 
 	// Handler for MenuItem[fx:id="cerrarSesion"] onAction
@@ -233,22 +233,33 @@ public class WorldController extends Controller implements AStream.IListen {
 	// Handler for HBox[id="cajaIz"] onKeyPressed
 	// Handler for Label[fx:id="screenName"] onMouseClicked
 	public void irCuenta(InputEvent event) {
-		// handle the event here
+		SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+		this.infCuenta.setVisible(false);
+		selectionModel.select(miCuentaTab);
 	}
 
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void mostrarFollowers(MouseEvent event) {
-		// handle the event here
+		SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+		selectionModel.select(miCuentaTab);
+		this.infCuenta.setVisible(false);
+		this.miCuentaController.mostrarFollowers(event);
 	}
 
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void mostrarFriends(MouseEvent event) {
-		// handle the event here
+		SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+		selectionModel.select(miCuentaTab);
+		this.infCuenta.setVisible(false);
+		this.miCuentaController.mostrarFriends(event);
 	}
 
 	// Handler for VBox[id="cajita"] onMouseClicked
 	public void mostrarTweetsUsuario(MouseEvent event) {
-		// handle the event here
+		SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+		selectionModel.select(miCuentaTab);
+		this.infCuenta.setVisible(false);
+		this.miCuentaController.mostrarTweetsUsuario(event);
 	}
 
 	// Handler for Button[fx:id="tweetButton"] onAction
@@ -292,6 +303,12 @@ public class WorldController extends Controller implements AStream.IListen {
 	// Handler for VBox[fx:id="contenedorMensaje"] onMouseClicked
 	public void verMensajesPrivados(MouseEvent event) {
 		this.mensajesController.postInitialize();
+		this.mensajesController.showWindow();
+	}
+	
+	public void responderMensaje(String destino) {
+		this.mensajesController.postInitialize();
+		this.mensajesController.responderMensaje(destino);
 		this.mensajesController.showWindow();
 	}
 
@@ -450,6 +467,7 @@ public class WorldController extends Controller implements AStream.IListen {
 			this.otraCuentaTab.getTabPane().getSelectionModel().select(this.otraCuentaTab);
 			infCuenta.setVisible(false);
 		}else{ //Queremos entrar a nuestra cuenta
+			this.infCuenta.setVisible(false);
 			this.miCuentaTab.getTabPane().getSelectionModel().select(this.miCuentaTab);
 		}
 	}

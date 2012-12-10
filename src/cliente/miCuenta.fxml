@@ -19,12 +19,12 @@
               <children>
                 <ImageView fx:id="profileImage" fitHeight="65.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
+                    <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
-                <Label id="screenName" fx:id="ScreenName" onMouseClicked="#irCuenta" text="" />
+                <Label id="screenName" fx:id="ScreenName" text="" />
                 <Label id="nameMyUser" fx:id="name" opacity="0.5" text="" />
-                <TextArea fx:id="descripcion" editable="true" onKeyPressed="#cambiarDescripcion" prefHeight="71.0" prefWidth="274.0" promptText="Este texto es para probar los 160 caracteres que se pueden llegar a meter en la caja de descripción de un usuario en twitter, para ver que no falta espacio...." text="" wrapText="true" />
+                <TextArea id="cajaTexto" fx:id="descripcion" editable="false" prefHeight="71.0" prefWidth="274.0" promptText="" text="" wrapText="true" />
               </children>
             </VBox>
             <HBox id="cajaIz" alignment="CENTER" prefHeight="129.00010681152344" prefWidth="276.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -78,14 +78,14 @@
           <graphic>
             <ImageView id="mensajeprivado" fitHeight="40.5" fitWidth="40.5" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="@../../../../../borja/workspace/ProyectTwitter/src/cliente/Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
+                <Image url="@Imagenes/mensajeprivado.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
           </graphic>
         </Label>
       </children>
     </VBox>
-    <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" maxHeight="1.7976931348623157E308" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+    <TabPane id="MenuArriba" fx:id="menuMiCuenta" layoutX="305.0" layoutY="25.0" maxHeight="1.7976931348623157E308" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab fx:id="tweetsTab" text="Tweets">
           <content>

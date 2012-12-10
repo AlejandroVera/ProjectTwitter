@@ -25,7 +25,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -87,6 +89,10 @@ public class MiCuentaController extends Controller implements AStream.IListen {
     @FXML //  fx:id="tweetsUsuario"
     private VBox tweetsUsuario; // Value injected by FXMLLoader
     
+    @FXML //  fx:id="menuMiCuenta"
+    private TabPane menuMiCuenta; // Value injected by FXMLLoader
+
+    
     private User user;
     
     boolean tweetsLoaded;
@@ -98,29 +104,24 @@ public class MiCuentaController extends Controller implements AStream.IListen {
     private HashMap<Number, TweetController> tweetsTable; //Tabla que asocia los tweets que hay cargados con su id
 
 
-    // Handler for TextArea[fx:id="descripcion"] onKeyPressed
-    public void cambiarDescripcion(KeyEvent event) {
-        // handle the event here
-    }
-
-    // Handler for Label[fx:id="ScreenName"] onMouseClicked
-    public void irCuenta(MouseEvent event) {
-        // handle the event here
-    }
-
+  
+   
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarFollowers(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuMiCuenta.getSelectionModel();
+		selectionModel.select(seguidoresTab);
     }
 
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarFriends(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuMiCuenta.getSelectionModel();
+		selectionModel.select(siguiendoTab);
     }
 
     // Handler for VBox[id="cajita"] onMouseClicked
     public void mostrarTweetsUsuario(MouseEvent event) {
-        // handle the event here
+    	SingleSelectionModel<Tab> selectionModel=menuMiCuenta.getSelectionModel();
+		selectionModel.select(tweetsTab);
     }
 
     // Handler for VBox[id="contenedorMensaje"] onMouseClicked
@@ -175,7 +176,7 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 				controller.processEvent(event);
 			
 		}	
-		
+	
 		return true;
 	}
 
@@ -198,7 +199,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 		this.user = getTwitter().getSelf();
 		
 		//Rellenamos la caja de información del usuario
-		ScreenName.setText(this.user.getScreenName());
+		ScreenName.setText(this.user.getName());
+		name.setText("@"+this.user.getScreenName());
 		nTweets.setText(""+this.user.getStatusesCount());
         nSeguidores.setText(""+this.user.getFollowersCount());
         nSiguiendo.setText(""+this.user.getFriendsCount());

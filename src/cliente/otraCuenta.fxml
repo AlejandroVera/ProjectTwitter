@@ -22,9 +22,9 @@
                     <Image url="@Imagenes/default_profile_6_bigger.png" preserveRatio="true" smooth="true" />
                   </image>
                 </ImageView>
-                <Label id="screenName" fx:id="ScreenName" onMouseClicked="#irCuenta" text="" />
+                <Label id="screenName" fx:id="ScreenName" text="" />
                 <Label fx:id="name" opacity="0.5" text="" />
-                <TextArea id="cajaTexto" fx:id="descripcion" editable="false" onKeyPressed="#cambiarDescripcion" prefHeight="95.0" prefWidth="274.0" promptText="Este texto es para probar los 160 caracteres que se pueden llegar a meter en la caja de descripción de un usuario en twitter, para ver que no falta espacio...." text="" wrapText="true" />
+                <TextArea id="cajaTexto" fx:id="descripcion" editable="false" prefHeight="95.0" prefWidth="274.0" promptText="" text="" wrapText="true" />
               </children>
             </VBox>
             <HBox id="cajaIz" alignment="CENTER" prefHeight="129.00010681152344" prefWidth="276.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -89,7 +89,7 @@
         </VBox>
       </children>
     </StackPane>
-    <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+    <TabPane id="MenuArriba" fx:id="menuOtraCuenta" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
         <Tab fx:id="tweetsTab" text="Tweets">
           <content>
@@ -263,8 +263,8 @@
           <children>
             <GridPane prefHeight="164.0" prefWidth="498.0">
               <children>
-                <TextArea id="textoNuevoTweet" onKeyPressed="#cambiaContador" prefHeight="85.0" prefWidth="426.0" promptText="\@name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label id="numeroDe" prefHeight="20.000091552734375" text="Twittea a @name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <TextArea id="textoNuevoTweet" fx:id="textoTweet" onKeyPressed="#cambiaContador" prefHeight="85.0" prefWidth="426.0" promptText="\@name" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label id="numeroDe" fx:id="tituloTweet" prefHeight="20.000091552734375" text="Twittea a @name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                   <children>
                     <Button fx:id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
