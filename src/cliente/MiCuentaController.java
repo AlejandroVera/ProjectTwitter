@@ -170,12 +170,24 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 			Number id = ((ITweet) event.getTargetObject()).getId();
 			this.removeFavourite(favouritesTable.get(id));
 			
+			
 			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
 			TweetController controller = tweetsTable.get(id);
 			if(controller != null)
 				controller.processEvent(event);
-			
-		}	
+		
+			//Si el evento es un follow	
+		}else if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
+			//Si ahora tu sigues a alguien
+			if (event.getSource().getId().equals(user.getId())){
+				this.addUser(this.cajaSiguiendo, event.getTarget());
+			}
+			//Si ahora te sigue alguien
+			else if(event.getTarget().getId().equals(user.getId())){
+				this.addUser(this.cajaSeguidores, event.getSource());
+				
+			}
+		}
 	
 		return true;
 	}

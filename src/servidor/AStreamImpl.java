@@ -39,8 +39,7 @@ public class AStreamImpl implements AStream{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return eventos;
-		
+		return eventos;		
 	}
 
 }

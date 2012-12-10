@@ -52,7 +52,8 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		this.addEvent(cajaInteracciones, event, true);
+		if (event.getTarget().getScreenName().equals(super.getTwitter().getScreenName()))
+			this.addEvent(cajaInteracciones, event, true);
 		return true;
 	}
 
