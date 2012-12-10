@@ -17,6 +17,9 @@ import java.util.Properties;
 
 import servidor.ServerCommon;
 
+/**
+ * Clase para manejar las conexiones dentro de nuestro Twitter.
+ */
 public class ConexionImpl implements Serializable, Conexion{
 
 
@@ -28,6 +31,9 @@ public class ConexionImpl implements Serializable, Conexion{
 	private  String dbPassword;
 	private  String dbPort;
 
+	/**
+	 * Constructor de la clase. Obtiene los datos con los que conectar mediante un archivo de configuración.
+	 */
 	public ConexionImpl() {
 
 		if (dbName == null || dbUser == null || dbPassword == null) {
@@ -57,6 +63,13 @@ public class ConexionImpl implements Serializable, Conexion{
 
 	}
 
+	/**
+	 * Constructor de la clase.
+	 * @param name Nombre de la BD.
+	 * @param user Usuario con el que conectar a la BD.
+	 * @param pass Contraseña del usuario.
+	 * @param port Puerto en el que está corriendo el servidor de la BD.
+	 */
 	public ConexionImpl(String name, String user, String pass, String port) {
 
 		if(ConnectionContainer.getCon() == null){
@@ -185,6 +198,12 @@ public class ConexionImpl implements Serializable, Conexion{
 		}
 	}
 	
+	/**
+	 * Método auxiliar que rellena un prepared statement con los objetos pasados en una lista.
+	 * @param pre PreparedStatement a rellenar.
+	 * @param params Objetos con los que rellenarlos.
+	 * @throws SQLException Si se ha producido algún error.
+	 */
 	private void fillPreparedStatementCall(PreparedStatement pre, List<Object> params) throws SQLException{
 		Iterator<Object> it = params.iterator();
 		Object param;
@@ -211,6 +230,10 @@ public class ConexionImpl implements Serializable, Conexion{
 		
 	}
 	
+	/**
+	 * Main para pruebas de conexión.
+	 * @param args
+	 */
 	public static void main(String[] args){
 		Conexion con = new ConexionImpl();
 		int val = con.updateQuery("INSERT INTO usuario (screenName, name, email, password) VALUES ('Alex', 'Alex', 'xafilox@gmail.com', 'cacahuete')");

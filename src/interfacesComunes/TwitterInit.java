@@ -8,7 +8,9 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-
+/**
+ * Clase que representa nuestro servidor de Twitter. Presenta ciertos métodos para conexión, desconexión y manejo de imágenes.
+ */
 public interface TwitterInit extends Remote, Serializable{
 	
 	/**
