@@ -180,9 +180,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 			Conexion con = new ConexionImpl();	
 			con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
-
 			evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
-
+//			System.out.println("INICIO");
+//			System.out.println(this.init);
+//			System.out.println(this.init.getCallbackArray());
+//			System.out.println(user.getId());
+//			System.out.println("FIN");
 			user_callbacks = this.init.getCallbackArray().get(user.getId());
 			user_callbacks.addAll(this.init.getCallbackArray().get(loggedUser.getId()));
 

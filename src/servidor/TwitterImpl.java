@@ -130,7 +130,7 @@ public class TwitterImpl implements Twitter {
 	public TwitterImpl(Long accountId, TwitterInitImpl init){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
-		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,this.init);
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,init);
 		this.geo= new Twitter_GeoImpl(this.con);
 		this.init = init;
 	}
