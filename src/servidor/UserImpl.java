@@ -230,11 +230,12 @@ public class UserImpl implements User{
 		int proteccion;
 		if(b){
 			proteccion=1;
+			this.protectedUser=true;
 		}
 		else{
 			proteccion=0;
+			this.protectedUser=false;
 		}
 		con.updateQuery("UPDATE usuario SET protectedUser="+proteccion+" WHERE id="+this.getId());
-		this.protectedUser=true;
 	}
 }

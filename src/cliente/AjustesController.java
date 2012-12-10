@@ -62,11 +62,9 @@ public class AjustesController extends Controller{
         else{
         	this.protegida=false;
         	proteccionCuenta.setText("Desactivada");  
-        	getTwitter().getSelf().proteger(true);//le dice al servidor q desproteja la cuenta
+        	getTwitter().getSelf().proteger(false);//le dice al servidor q desproteja la cuenta
         	//(servidor hace un update en la db)
-        }
-        	
-        	
+        }   	
     }
     
     // Handler for Label[id="numeroDe"] onMouseClicked
