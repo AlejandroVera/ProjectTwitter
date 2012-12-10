@@ -814,4 +814,9 @@ public class Twitter_UsersImpl implements interfacesComunes.Twitter_Users {
 		}
 		return true;
 	}
+
+	@Override
+	public void confirmarAmistad(User u) {
+		//esto es para nuestro twitter no este. Está aqui porq está en la interfaz jeje
+	}
 }

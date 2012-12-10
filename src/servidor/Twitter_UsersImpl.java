@@ -214,8 +214,35 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return sol;
 	}
 
-	public void confirmarAmistad(User u/* usuario aceptado*/){
+	public void confirmarAmistad(User user/* usuario aceptado*/){
+		TwitterEvent evento;
+		
+		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
+		try{
+			List<AStream.IListen> user_callbacks;
+			if((user_callbacks = this.init.getCallbackArray().get(user.getId()))!=null){
+				evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
+				user_callbacks.addAll(this.init.getCallbackArray().get(loggedUser.getId()));
 
+				Iterator<AStream.IListen> it = user_callbacks.iterator();
+				while(it.hasNext()){
+					AStream.IListen call = it.next();
+					try {
+						call.processEvent(evento);
+					} catch (RemoteException e) {
+						//Suponemos que ha sido por un error de conexión.
+						//Puede que el user se haya desconectado, así que lo sacamos del array.
+						user_callbacks.remove(call);
+						if(user_callbacks.isEmpty())
+							this.init.getCallbackArray().remove(user.getId());
+						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+					}
+				}
+
+			}
+		}catch(SQLException | RemoteException e){
+			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
+		}
 	}
 
 	/* (non-Javadoc)

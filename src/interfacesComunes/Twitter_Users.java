@@ -36,6 +36,7 @@ public interface Twitter_Users extends Serializable{
 	public abstract boolean isFollowing(java.lang.String userB);
 
 	public abstract boolean isFollowing(User user);
+	public void confirmarAmistad(User u/* usuario aceptado*/);
 
 	/*
 	leaveNotifications
