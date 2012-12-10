@@ -160,7 +160,7 @@ public class WorldController extends Controller implements AStream.IListen {
 	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
 	public void activarGeo(MouseEvent event) {
 		geoLocation=true;
-		Place lugar = (Place)getTwitter().geo().getPlace(null,null);
+		Place lugar = (Place)getTwitter().getSelf().getPlace();
 		if (lugar!=null){
 			Double latitude= lugar.getCentroid().getLatitude();
 			Double longitude= lugar.getCentroid().getLongitude(); 

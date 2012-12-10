@@ -22,6 +22,9 @@ import javafx.scene.layout.HBox;
 /*Vista pequeñita de un usuario*/
 
 public class UserController extends Controller {
+	
+	@FXML //  fx:id="candado"
+    private ImageView candado; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="descripcionUsuario"
 	private TextArea descripcionUsuario; // Value injected by FXMLLoader
@@ -71,7 +74,14 @@ public class UserController extends Controller {
 
 	@Override
 	public void postInitialize() {
-		descripcionUsuario.setText(this.user.getDescription());
+		
+		if (!user.getProtectedUser()){
+			descripcionUsuario.setText(this.user.getDescription());
+			candado.setVisible(false);
+		}
+		else
+			descripcionUsuario.setText("Usuario protegido.");
+			
 		screename.setText(this.user.getScreenName());
 		Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
 		if(im != null)

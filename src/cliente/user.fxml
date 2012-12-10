@@ -59,7 +59,7 @@
                             </GridPane>
                           </children>
                         </HBox>
-                        <TextArea id="descUser" fx:id="descripcionUsuario" editable="false" focusTraversable="false" prefHeight="48.0" prefWidth="435.0" text="Este texto contiene unos 160 caracteres y estoy escribiendo esto para poder llenarlos para probar como se vería la descripción de un usuario con problema mental" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextArea id="descUser" fx:id="descripcionUsuario" editable="false" focusTraversable="false" prefHeight="48.0" prefWidth="435.0" text="Este usuario esta protegido." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="435.0" />
@@ -91,6 +91,11 @@
         </GridPane>
       </children>
     </HBox>
+    <ImageView id="candado" fitHeight="47.78624725341797" fitWidth="36.895009994506836" layoutX="450.0" layoutY="15.0" opacity="0.58" pickOnBounds="true" preserveRatio="false">
+      <image>
+        <Image url="@Imagenes/candado.png" preserveRatio="true" smooth="true" />
+      </image>
+    </ImageView>
   </children>
   <stylesheets>
     <URL value="@tweet.css" />
