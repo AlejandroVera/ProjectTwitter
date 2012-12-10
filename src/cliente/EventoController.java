@@ -28,45 +28,45 @@ import javafx.scene.layout.HBox;
 
 
 public class EventoController extends Controller {
-	
-	 	@FXML //  fx:id="botonPeticion"
-	    private Button botonPeticion; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="descripcionUsuario"
-	    private TextArea descripcionUsuario; // Value injected by FXMLLoader
+	@FXML //  fx:id="botonPeticion"
+	private Button botonPeticion; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="desfavorito"
-	    private ImageView desfavorito; // Value injected by FXMLLoader
+	@FXML //  fx:id="descripcionUsuario"
+	private TextArea descripcionUsuario; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="favorito"
-	    private ImageView favorito; // Value injected by FXMLLoader
+	@FXML //  fx:id="desfavorito"
+	private ImageView desfavorito; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="fecha"
-	    private Label fecha; // Value injected by FXMLLoader
+	@FXML //  fx:id="favorito"
+	private ImageView favorito; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="peticionSeguir"
-	    private ImageView peticionSeguir; // Value injected by FXMLLoader
+	@FXML //  fx:id="fecha"
+	private Label fecha; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="screename"
-	    private Label screename; // Value injected by FXMLLoader
+	@FXML //  fx:id="peticionSeguir"
+	private ImageView peticionSeguir; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="seguir"
-	    private ImageView seguir; // Value injected by FXMLLoader
+	@FXML //  fx:id="screename"
+	private Label screename; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="tweetBox"
-	    private HBox tweetBox; // Value injected by FXMLLoader
+	@FXML //  fx:id="seguir"
+	private ImageView seguir; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="userImage"
-	    private ImageView userImage; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetBox"
+	private HBox tweetBox; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="username"
-	    private Hyperlink username; // Value injected by FXMLLoader
+	@FXML //  fx:id="userImage"
+	private ImageView userImage; // Value injected by FXMLLoader
 
-	    @FXML //  fx:id="worldTweetContainer"
-	    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
-	
+	@FXML //  fx:id="username"
+	private Hyperlink username; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="worldTweetContainer"
+	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+
 	//Variables privadas propias
-	
+
 	private TwitterEvent event;
 
 	// Handler for Hyperlink[fx:id="username"] onAction
@@ -78,12 +78,12 @@ public class EventoController extends Controller {
 		if(destUser != null)
 			((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
 	}
-	
+
 	// Handler for Button[fx:id="botonPeticion"] onMouseClicked
-    public void aceptarPeticion(MouseEvent event) {
-        getTwitter().users().confirmarAmistad(this.event.getSource());
-        botonPeticion.setVisible(false);
-    }
+	public void aceptarPeticion(MouseEvent event) {
+		getTwitter().users().confirmarAmistad(this.event.getSource());
+		botonPeticion.setVisible(false);
+	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -102,26 +102,24 @@ public class EventoController extends Controller {
 
 	@Override
 	public void postInitialize() {
-	
+
 		User source = this.event.getSource();
 		screename.setText("@"+source.getScreenName());
 		username.setText(source.getName());
 		username.setTooltip(new Tooltip(source.getScreenName()));
-		
-        Image im = ClientTools.getImage(source.getProfileImageUrl().toString());
-        if(im != null)
-        	userImage.setImage(im);
-        
-        desfavorito.setVisible(false);
+
+		Image im = ClientTools.getImage(source.getProfileImageUrl().toString());
+		if(im != null)
+			userImage.setImage(im);
+
+		desfavorito.setVisible(false);
 		favorito.setVisible(false);
 		seguir.setVisible(false);
 		peticionSeguir.setVisible(false);
-		botonPeticion.setVisible(false);
-		
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
 			favorito.setVisible(true);
-			
+
 			String resumen=status.getText();
 			if (resumen.length()<50){
 				descripcionUsuario.setText("Ha marcado como favorito tu tweet\n\""+resumen+"\"");
@@ -131,11 +129,11 @@ public class EventoController extends Controller {
 				descripcionUsuario.setText("Ha marcado como favorito tu tweet\n\""+resumen+"...\"");
 			}
 		}
-		
+
 		if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
 			desfavorito.setVisible(true);
-		
+
 			String resumen=status.getText();			
 			if (resumen.length()<50){
 				descripcionUsuario.setText("Ha desmarcado como favorito tu tweet\n\""+resumen+"\"");
@@ -149,14 +147,20 @@ public class EventoController extends Controller {
 			this.descripcionUsuario.setText("Ahora te sigue");
 			this.seguir.setVisible(true);
 		}
-			
-		
-		
+
+
+
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
 			peticionSeguir.setVisible(true);
-			botonPeticion.setVisible(true);
+			if(source.isFollowingYou()){
+				botonPeticion.setVisible(false);
+			}
+			else{
+				botonPeticion.setVisible(true);
+			}
 			descripcionUsuario.setText("Quiere poder seguirte");
 		}
+		
 		
 		//Parse the time
 		Date createdAt = this.event.getCreatedAt();
@@ -188,7 +192,6 @@ public class EventoController extends Controller {
 			case Calendar.DECEMBER: timeago += " Dic"; break;
 			}
 		}
-		
 		fecha.setText(timeago);
 	}
 
@@ -196,15 +199,15 @@ public class EventoController extends Controller {
 	protected AnchorPane getContainer() {
 		return worldTweetContainer;
 	}
-	
+
 	public void setEvent (TwitterEvent event){
 		this.event=event;
 	}
-	
+
 	public TwitterEvent getEvent (){
 		return this.event;
 	}
-	
+
 }
 
 
