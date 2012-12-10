@@ -144,7 +144,7 @@ public class ConexionImpl implements Serializable, Conexion{
 			return ConnectionContainer.getCon().createStatement().executeUpdate(query);
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
-			return null;
+			return -1;
 		}
 	}
 	
@@ -181,7 +181,7 @@ public class ConexionImpl implements Serializable, Conexion{
 			return est.executeUpdate();
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Fallo al ejecutar la query "+ query);
-			return null;
+			return -1;
 		}
 	}
 	

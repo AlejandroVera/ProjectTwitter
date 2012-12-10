@@ -135,7 +135,7 @@ public class TwitterInitImplSuscriptor extends UnicastRemoteObject implements Tw
 				params.add(email);
 				params.add(pass);
 				params.add((int)(new Date().getTime()/1000));
-				int ins = con.updateQuery("INSERT INTO usuario (screenName, email, password, fecha_registro) VALUES (?, ?, ?, ?)", params);
+				int ins = con.updateQuery("INSERT INTO usuario (name, screenName, email, password, fecha_registro) VALUES (?, ?, ?, ?, ?)", params);
 				if(ins > 0)
 					return TwitterInit.REG_OK; //Usuario registrado correctamente
 				else
