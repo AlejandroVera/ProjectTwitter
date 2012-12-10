@@ -125,7 +125,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		List<Long> amigos=new ArrayList<Long>();
 		Conexion con = new ConexionImpl();	
 		try {
-			int idUser = con.query("SELECT id FROM usuario WHERE screenName="+screenName).getInt("id");
+			int idUser = con.query("SELECT id FROM usuario WHERE screenName='"+screenName+"'").getInt("id");
 
 			ResultSet res = con.query("SELECT id_seguido FROM seguidores WHERE id_seguidor="+idUser);
 
