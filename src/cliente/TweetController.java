@@ -352,7 +352,8 @@ public class TweetController extends Controller implements AStream.IListen{
 			stackYaFavorito.setVisible(false);
 			stackFavorito.setVisible(true);
 		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.tweet.getUser().getId())){
-			loadUserDependantInfo(this.tweet.getUser());
+			User us = getTwitter().users().getUser(this.tweet.getUser().getId());
+			loadUserDependantInfo(us);
 		}
 		return true;
 	}

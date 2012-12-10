@@ -137,7 +137,7 @@ public class TwitterImpl implements Twitter {
 
 
 	public Twitter_Account account() {
-		return new Twitter_AccountImpl(this, this.con,this.user);
+		return new Twitter_AccountImpl(this, this.con,this.user, this.init);
 	}
 
 	public int countCharacters(String statusText) {

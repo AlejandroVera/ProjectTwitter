@@ -128,7 +128,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 
 	public Twitter_Account account() {
-		return new Twitter_AccountImpl(this, this.con,this.user);
+		return new Twitter_AccountImplSuscriptor(this, this.con,this.user);
 	}
 
 	public int countCharacters(String statusText) {

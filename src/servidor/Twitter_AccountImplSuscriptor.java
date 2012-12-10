@@ -17,21 +17,18 @@ import java.util.Map;
 import excepcionesComunes.TwitterException;
 
 
-public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
+public class Twitter_AccountImplSuscriptor implements interfacesComunes.Twitter_Account {
 	
 	private static final long serialVersionUID = 1062348327090738818L;
 	
 	Twitter twitter;
 	Conexion con;
 	User loggedUser;
-	TwitterInit init;
 	
-	public Twitter_AccountImpl (Twitter jtwit, Conexion con, User loggedUser, TwitterInit init){
+	public Twitter_AccountImplSuscriptor (Twitter jtwit, Conexion con, User loggedUser){
 		twitter=jtwit;
 		this.con=con;
-		this.loggedUser=loggedUser;
-		this.init = init;
-		
+		this.loggedUser=loggedUser;		
 	}
 	
 	//Nivel de acceso del login, lo pongo como login normal
@@ -53,7 +50,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		params.add(loggedUser.getId());
 		
 		con.updateQuery("UPDATE usuario SET name = ?, web_link= ?, profileImageUrl = ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
-
+/*
 		try{
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
 			
@@ -80,7 +77,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		}catch(RemoteException | SQLException e){
 			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 		}
-		
+*/		
 		return new UserImpl(this.loggedUser.getId(), this.con, this.loggedUser);
 		
 	}

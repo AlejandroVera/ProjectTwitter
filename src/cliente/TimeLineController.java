@@ -54,6 +54,10 @@ public class TimeLineController extends Controller implements AStream.IListen {
 			if(controller != null){
 				controller.processEvent(event);
 			}
+		}else{
+			for(TweetController c : tweetTable.values()){
+				c.processEvent(event);
+			}
 		}
 		return true;
 	}
