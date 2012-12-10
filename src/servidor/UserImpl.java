@@ -75,9 +75,6 @@ public class UserImpl implements User{
 			}
 			this.screenName = res.getString("screenName");
 			this.name=res.getString("name");
-			if(name==null || name==""){
-				this.name=screenName;
-			}
 			this.createdAt=new Date(res.getInt("fecha_registro")*1000);
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
