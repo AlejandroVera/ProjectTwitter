@@ -122,7 +122,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 	public TwitterSuscriptorImpl(Long accountId, HashMap<Long, LinkedList<AStream.IListen>> callbackArray){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
-		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,null); //TODO!!!!!!!!!!
 		this.geo= new Twitter_GeoImpl(this.con);
 	}
 

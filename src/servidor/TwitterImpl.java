@@ -94,8 +94,6 @@ public class TwitterImpl implements Twitter {
 		}
 
 		public String toString() {
-			// There is a strange bug where -- rarely -- end > tweet length!
-			// I think this is now fixed (it was an encoding issue).
 			String text = tweet.getText();
 			int e = Math.min(end, text.length());
 			int s = Math.min(start, e);
@@ -132,7 +130,7 @@ public class TwitterImpl implements Twitter {
 	public TwitterImpl(Long accountId, TwitterInitImpl init){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
-		this.twitter_user = new Twitter_UsersImpl(this.con,this.user);
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,this.init);
 		this.geo= new Twitter_GeoImpl(this.con);
 		this.init = init;
 	}

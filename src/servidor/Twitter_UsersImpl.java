@@ -1,5 +1,6 @@
 package servidor;
 
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +12,10 @@ import servidor.db.ConexionImpl;
 import excepcionesComunes.TwitterException;
 
 
+import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.TwitterEvent;
+import interfacesComunes.TwitterInit;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 
@@ -22,10 +25,12 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	private User loggedUser;
 	private Conexion con;
+	private TwitterInit init;
 
-	public Twitter_UsersImpl(Conexion con,User loggedUser){
+	public Twitter_UsersImpl(Conexion con,User loggedUser, TwitterInit init){
 		this.loggedUser=loggedUser;
 		this.con=con;
+		this.init=init;
 	}
 
 
@@ -169,15 +174,40 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	 */
 	@Override
 	public User follow(User user){
-		Conexion con = new ConexionImpl();	
-		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
-		try {
-			TwitterEvent evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
-		} catch (SQLException e) {
-			return null;
+		try{
+			List<AStream.IListen> user_callbacks;
+			TwitterEvent evento;
+
+			Conexion con = new ConexionImpl();	
+			con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
+
+			evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
+
+			user_callbacks = this.init.getCallbackArray().get(user.getId());
+			user_callbacks.addAll(this.init.getCallbackArray().get(loggedUser.getId()));
+
+			if(user_callbacks != null){
+				Iterator<AStream.IListen> it = user_callbacks.iterator();
+				while(it.hasNext()){
+					AStream.IListen call = it.next();
+					try {
+						call.processEvent(evento);
+					} catch (RemoteException e) {
+						//Suponemos que ha sido por un error de conexión.
+						//Puede que el user se haya desconectado, así que lo sacamos del array.
+						user_callbacks.remove(call);
+						if(user_callbacks.isEmpty())
+							this.init.getCallbackArray().remove(user.getId());
+						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+					}
+				}
+			}
+		}catch(SQLException | RemoteException e){
+			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 		}
 		return user;
 	}
+
 
 	/* (non-Javadoc)
 	 * @see servidor.Twitter_Users#getUser(long)
