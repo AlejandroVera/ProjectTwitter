@@ -132,6 +132,7 @@ public class TwitterInitImplSuscriptor extends UnicastRemoteObject implements Tw
 			}else{
 				params.clear();
 				params.add(screenName);
+				params.add(screenName);
 				params.add(email);
 				params.add(pass);
 				params.add((int)(new Date().getTime()/1000));
