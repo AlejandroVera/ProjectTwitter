@@ -110,6 +110,7 @@ public class TweetController extends Controller implements AStream.IListen{
 	private Status tweet;
 
 	private boolean desplegado = false;
+	private String currentImage = "";
 	
 	
 
@@ -251,15 +252,11 @@ public class TweetController extends Controller implements AStream.IListen{
 	@Override
 	public void postInitialize() {
 		tweetTextArea.setText(this.tweet.getText());
-		User user = this.tweet.getUser();
-		screename.setText("@"+user.getScreenName());
-		username.setText(user.getName());
-		username.setTooltip(new Tooltip(user.getScreenName()));
 		
-        Image im = ClientTools.getImage(tweet.getUser().getProfileImageUrl().toString());
-        if(im != null)
-        	userImage.setImage(im);
-        
+		User user = this.tweet.getUser();
+		
+		//Cargamos la información que el usuario puede modificar en cualquier momento
+		loadUserDependantInfo(user);
         
 		//Parse the time
 		Date createdAt = this.tweet.getCreatedAt();
@@ -319,6 +316,19 @@ public class TweetController extends Controller implements AStream.IListen{
 
 
 	}
+	
+	private void loadUserDependantInfo(User user){
+		screename.setText("@"+user.getScreenName());
+		username.setText(user.getName());
+		username.setTooltip(new Tooltip(user.getScreenName()));
+		
+		String url = user.getProfileImageUrl().toString();
+		if(!currentImage.equals(url)){	
+	        Image im = ClientTools.getImage(user.getProfileImageUrl().toString());
+	        if(im != null)
+	        	userImage.setImage(im);
+		}
+	}
 
 	protected void setTweet(Status tweet){
 		this.tweet = tweet;
@@ -341,6 +351,8 @@ public class TweetController extends Controller implements AStream.IListen{
 		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
 			stackYaFavorito.setVisible(false);
 			stackFavorito.setVisible(true);
+		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.tweet.getUser().getId())){
+			loadUserDependantInfo(this.tweet.getUser());
 		}
 		return true;
 	}
