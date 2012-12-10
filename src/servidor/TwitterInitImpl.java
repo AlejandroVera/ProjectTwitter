@@ -48,7 +48,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	public TwitterInitImpl(LinkedList<IListen> clientes) throws RemoteException {
 		super();
 		this.con = new ConexionImpl();
-		this.callbackArray = new HashMap<Long, LinkedList<IListen>>();
+		callbackArray = new HashMap<Long, LinkedList<IListen>>();
 	}
 	
 	@Override
@@ -75,7 +75,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 				if(this.callbackArray.get(accountId) == null)
 					this.callbackArray.put(accountId, new LinkedList<IListen>());
 				this.callbackArray.get(accountId).add(cliente);
-				return new TwitterImpl(accountId, this.callbackArray);
+				return new TwitterImpl(accountId, this);
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "No se ha podido autenticar al usuario " + screenName);
@@ -238,4 +238,9 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		
 	}
 
+	public HashMap<Long, LinkedList<IListen>> getCallbackArray() {
+		return callbackArray;
+	}
+
+	
 }

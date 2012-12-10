@@ -51,8 +51,9 @@ public class TimeLineController extends Controller implements AStream.IListen {
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.UNFAVORITE) ){
 			Number id = ((ITweet) event.getTargetObject()).getId();
 			TweetController controller = tweetTable.get(id);
-			if(controller != null)
+			if(controller != null){
 				controller.processEvent(event);
+			}
 		}
 		return true;
 	}

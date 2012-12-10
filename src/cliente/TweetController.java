@@ -334,10 +334,10 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
 			stackYaFavorito.setVisible(true);
 			stackFavorito.setVisible(false);
-		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
 			stackYaFavorito.setVisible(false);
 			stackFavorito.setVisible(true);
 		}

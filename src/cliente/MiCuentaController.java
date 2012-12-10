@@ -15,6 +15,7 @@ import interfacesComunes.TwitterEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -92,6 +93,9 @@ public class MiCuentaController extends Controller implements AStream.IListen {
     boolean seguidoresLoaded;
     boolean siguiendoLoaded;
     boolean favoritosLoaded;
+    
+    private HashMap<Number, TweetController> favouritesTable; //Tabla que asocia los favoritos que hay cargados con su id
+    private HashMap<Number, TweetController> tweetsTable; //Tabla que asocia los tweets que hay cargados con su id
 
 
     // Handler for TextArea[fx:id="descripcion"] onKeyPressed
@@ -144,14 +148,34 @@ public class MiCuentaController extends Controller implements AStream.IListen {
          assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'miCuenta.fxml'.";
 
         // initialize your logic here: all @FXML variables will have been injected
-
+         this.favouritesTable = new HashMap<Number, TweetController>();
+         this.tweetsTable = new HashMap<Number, TweetController>();
     }
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
-			this.addTweet(tweetsFavoritos, (Status)event.getTargetObject(), true);
-		}
+
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(user.getId())){
+			if(favoritosLoaded)
+				this.addTweet(tweetsFavoritos, (Status)event.getTargetObject(), true);
+			Number id = ((ITweet) event.getTargetObject()).getId();
+			
+			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
+			TweetController controller = tweetsTable.get(id);
+			if(controller != null)
+				controller.processEvent(event);
+			
+		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)  && event.getSource().getId().equals(user.getId())){
+			Number id = ((ITweet) event.getTargetObject()).getId();
+			this.removeFavourite(favouritesTable.get(id));
+			
+			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
+			TweetController controller = tweetsTable.get(id);
+			if(controller != null)
+				controller.processEvent(event);
+			
+		}	
+		
 		return true;
 	}
 
@@ -163,7 +187,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		this.addTweet(tweetsUsuario, tweet, true);
+		if(tweetsLoaded)
+			this.addTweet(tweetsUsuario, tweet, true);
 		return true;
 	}
 
@@ -263,6 +288,13 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 	private void addTweet(VBox contendor,ITweet tweet, boolean onTop){
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
+			
+			//Lo añadimos a la tabla de asociacion
+			if(contendor.equals(tweetsFavoritos))
+				favouritesTable.put(tweet.getId(), tweetUI.getController());
+			else if(contendor.equals(tweetsUsuario))
+				tweetsTable.put(tweet.getId(), tweetUI.getController());
+			
 			if(!onTop)
 				contendor.getChildren().add(tweetUI.getRoot());
 			else{
@@ -308,6 +340,16 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 	}
 	
 	protected void removeTweet(TweetController c){
-		tweetsUsuario.getChildren().remove(c.getContainer());
+		if(c != null){
+			tweetsUsuario.getChildren().remove(c.getContainer());
+			tweetsTable.remove(c.getTweet().getId());
+		}
+	}
+	
+	protected void removeFavourite(TweetController c){
+		if(c != null){
+			tweetsFavoritos.getChildren().remove(c.getContainer());
+			favouritesTable.remove(c.getTweet().getId());
+		}
 	}
 }

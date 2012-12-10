@@ -270,12 +270,49 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 	@Override
 	public List<Status> getHomeTimeline() throws TwitterException {
-		return this.getTimeline(this.user);
+		LinkedList<Status> list = new LinkedList<Status>();
+
+		if(this.user == null)
+			throw new TwitterException("Usuario no logueado");
+
+		ResultSet res = this.con.query("SELECT DISTINCT id FROM (SELECT id, fecha FROM tweet WHERE autor = "+this.user.getId()+
+				" UNION SELECT id, fecha FROM  tweet tw, seguidores se WHERE se.id_seguidor = "+this.user.getId()+
+				" AND tw.autor = se.id_seguido UNION SELECT id, fecha FROM tweet tw, retweet re, seguidores se WHERE " +
+				"se.id_seguidor = "+this.user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
+				"ORDER BY fecha DESC " +
+				"LIMIT " + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+
+		if(res != null)
+			try {
+				while(res.next())
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
+			}
+
+		return list;
 	}
 	
 	@Override
 	public List<Status> getUserTimeline(Long userId) throws TwitterException{
-		return this.getTimeline(new UserImpl(userId,this.con,this.user ));
+		LinkedList<Status> list = new LinkedList<Status>();
+
+		if(this.user == null)
+			throw new TwitterException("Usuario no logueado");
+		
+		ResultSet res = this.con.query("(SELECT id, fecha FROM tweet WHERE autor = "+userId+") " +
+				"UNION (SELECT tw.id, tw.fecha FROM tweet tw , retweet re WHERE tw.id = re.id_tweet AND re.id_usuario = "+userId+") ORDER BY fecha DESC " +
+				"LIMIT " + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+
+		if(res != null)
+			try {
+				while(res.next())
+					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
+			} catch (SQLException e) {
+				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
+			}
+
+		return list;
 	}
 	
 	@Override
@@ -286,35 +323,11 @@ public class TwitterSuscriptorImpl implements Twitter {
 		try {
 			if(res == null || !res.next())
 				throw new TwitterException("No existe ningún usuario con ese screeName");
-			return this.getTimeline(new UserImpl(res.getLong(1), this.con,this.user)); 
+			return getUserTimeline(res.getLong(1)); 
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getRetweetsOfMe");
 			return null;
 		}
-	}
-	
-	private List<Status> getTimeline(User user) throws TwitterException {
-		LinkedList<Status> list = new LinkedList<Status>();
-		
-		if(user == null)
-			throw new TwitterException("Usuario no logueado");
-		
-		ResultSet res = this.con.query("SELECT DISTINCT id FROM (SELECT id, fecha FROM tweet WHERE autor = "+user.getId()+
-				" UNION SELECT id, fecha FROM  tweet tw, seguidores se WHERE se.id_seguidor = "+user.getId()+
-				" AND tw.autor = se.id_seguido UNION SELECT id, fecha FROM tweet tw, retweet re, seguidores se WHERE " +
-				"se.id_seguidor = "+user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
-				"ORDER BY fecha DESC " +
-				"LIMIT " + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
-		
-		if(res != null)
-			try {
-				while(res.next())
-					list.add(new StatusImpl(BigInteger.valueOf(res.getLong(1)), this.con,this.user));
-			} catch (SQLException e) {
-				ServerCommon.TwitterWarning(e, "Error de BD en TwitterImpl.getTimeline");
-			}
-		
-		return list;
 	}
 
 	@Override
@@ -567,7 +580,14 @@ public class TwitterSuscriptorImpl implements Twitter {
 		if(!event_type.equals("0")){
 			try {
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
+				
+				//Se lo enviamos al propietario del tweet
 				TwitterInitImplSuscriptor.sendThroughTopic(event, status_owner);
+				
+				//Y tambien al usuario que lo acaba de modificar para que se actualice su interfaz
+				if(!this.user.getId().equals(status_owner))
+					TwitterInitImplSuscriptor.sendThroughTopic(event, this.user.getId());
+				
 			} catch (SQLException e) {
 				ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
 			}

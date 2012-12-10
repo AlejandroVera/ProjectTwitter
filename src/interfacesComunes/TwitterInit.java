@@ -1,8 +1,12 @@
 package interfacesComunes;
 
+import interfacesComunes.AStream.IListen;
+
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 
 public interface TwitterInit extends Remote, Serializable{
@@ -32,4 +36,5 @@ public interface TwitterInit extends Remote, Serializable{
 	public int register(String user, String pass, String email) throws RemoteException;
 	public byte[] getImage(String url) throws RemoteException;
 	public String saveImage(byte[] img) throws RemoteException;
+	public HashMap<Long, LinkedList<IListen>> getCallbackArray() throws RemoteException;
 }
