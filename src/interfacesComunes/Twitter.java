@@ -254,10 +254,24 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public int countCharacters(String statusText);
 	
+	/**
+	 * Elimina un Tweet o Mensaje
+	 * @param tweet Elemento a eliminar.
+	 * @throws TwitterException Si no se ha podido borrar el elemento (p.e: no nos pertenece)
+	 */
 	public void destroy(Twitter.ITweet tweet) throws TwitterException;
 	
+	/**
+	 * Elimina un mensaje privado.
+	 * @param id Id del mensaje a eliminar.
+	 */
 	public void destroyMessage(Number id); //Y ESTE POR QUÉ COJONES NO LANZA EXCEPCIÓN??
 	
+	/**
+	 * Elimina un Tweet (Status).
+	 * @param id Id del Status a eliminar.
+	 * @throws TwitterException Si no se ha podido borrar el elemento (p.e: no nos pertenece)
+	 */
 	public void destroyStatus(Number id) throws TwitterException;
 	
 	/**
@@ -272,8 +286,17 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public List<Message> getDirectMessagesSent();
 	
+	/**
+	 * Obtiene una lista de status favoritos para el usuario autenticado.
+	 * @return Lista de status favoritos más recientes ordenados de más a menos recientes.
+	 */
 	public List<Status> getFavorites();
 	
+	/**
+	 * Obtiene una lista de status favoritos para el usuario indicado.
+	 * @param screenName
+	 * @return Lista de status favoritos más recientes ordenados de más a menos recientes para el usuario indicado.
+	 */
 	public List<Status> getFavorites(String screenName);
 	
 	/**
@@ -289,6 +312,10 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public int getMaxResults();
 	
+	/**
+	 * Obtiene una lista de las menciones más recientes al usuario autenticado.
+	 * @return Lista de las menciones más recientes ordenadas de más a menos reciente.
+	 */
 	public List<Status> getMentions();
 	
 	/**
@@ -345,8 +372,20 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public Status getStatus(String screenName) throws TwitterException;
 	
+	/**
+	 * Devuelve los Status más recientes del usuario indicado.
+	 * @param userId Id del usuario del que obtener sus Status
+	 * @return Lista de Status del usuario ordenada de más a menos reciente.
+	 * @throws TwitterException Si no se ha podido encontrar al usuario o no se ha podido obtener sus status.
+	 */
 	public List<Status> getUserTimeline(Long userId) throws TwitterException;
 	
+	/**
+	 * Devuelve los Status más recientes del usuario indicado.
+	 * @param screenName Screenname del usuario del que obtener sus Status
+	 * @return Lista de Status del usuario ordenada de más a menos reciente.
+	 * @throws TwitterException Si no se ha podido encontrar al usuario o no se ha podido obtener sus status.
+	 */
 	public List<Status> getUserTimeline(String screenName) throws TwitterException;
 	
 	/**
@@ -406,8 +445,12 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public Status updateStatus(String statusText, Number inReplyToStatusId) throws TwitterException;
 	
-	
+	/**
+	 * Devuelve un objeto Twitter_Users para realizar acciones sobre usuarios en Twitter.
+	 * @return Objeto Twitter_Users
+	 */
 	public Twitter_Users users();
+	
 	/**
 	 * Devuelve el objeto con los metodos tipo Geo
 	 */

@@ -201,6 +201,7 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			while((leidos = ie.read(buf)) != -1)
 				array.write(buf, 0, leidos);
 				
+			ie.close();
 			return array.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();
