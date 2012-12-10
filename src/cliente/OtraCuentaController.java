@@ -186,7 +186,11 @@ public class OtraCuentaController extends Controller{
         if(res != null){
         	botonUnfollow.setVisible(true);
 			botonFollow.setVisible(false);
-        }	
+        }
+        else{
+        	//usuario proteguido
+        	
+        }
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
