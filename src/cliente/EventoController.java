@@ -64,6 +64,9 @@ public class EventoController extends Controller {
 
 	@FXML //  fx:id="worldTweetContainer"
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+	
+	@FXML //  fx:id="unfollow"
+    private ImageView unfollow; // Value injected by FXMLLoader
 
 	//Variables privadas propias
 
@@ -116,6 +119,8 @@ public class EventoController extends Controller {
 		favorito.setVisible(false);
 		seguir.setVisible(false);
 		peticionSeguir.setVisible(false);
+		unfollow.setVisible(false);
+		
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
 			favorito.setVisible(true);
@@ -148,6 +153,10 @@ public class EventoController extends Controller {
 			this.seguir.setVisible(true);
 		}
 
+		if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)){
+			this.descripcionUsuario.setText("Ha dejado de seguirte");
+			this.unfollow.setVisible(true);
+		}
 
 
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
