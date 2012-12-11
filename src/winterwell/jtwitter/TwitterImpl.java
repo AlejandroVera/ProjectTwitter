@@ -2,6 +2,7 @@ package winterwell.jtwitter;
 
 import interfacesComunes.AStream;
 import interfacesComunes.Message;
+import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.Twitter_Account;
@@ -570,14 +571,7 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	private Long placeId;
 	
-	/**
-	 * If set, this will place-id be sent with status-updates to geo-tag your tweets.
-	 * @param placeId Can be null (which is the default)
-	 * @see #setMyLocation(double[])
-	 */
-	public void setMyPlace(Long placeId) {
-		this.placeId = placeId;
-	}
+	
 
 	/**
 	 * Create a Twitter client without specifying a user. This is an easy way to
@@ -2757,5 +2751,16 @@ public class TwitterImpl implements Serializable, Twitter {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**
+	 * If set, this will place-id be sent with status-updates to geo-tag your tweets.
+	 * @param placeId Can be null (which is the default)
+	 * @see #setMyLocation(double[])
+	 */
+	public void setMyPlace(Long placeId) {
+		this.placeId = placeId;
+	}
+
+
 
 }

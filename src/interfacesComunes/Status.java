@@ -11,4 +11,5 @@ public interface Status extends Twitter.ITweet, Serializable, Remote{
 	boolean isFavorite();
 	boolean isRetweetedByMe(Number myID);
 	List<String> getMentions();
+	Place getPlace();
 }

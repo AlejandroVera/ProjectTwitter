@@ -196,7 +196,21 @@
 	-fx-font-family: "NanumGothic";
 	-fx-effect: dropshadow( three-pass-box , rgba(40,40,40,0.35) ,5, 0.0 , 2 , 5 );
 }
+
+#cerrarMapa{
+	-fx-background-color: rgba(255, 255, 255, 1);
+	-fx-font-weight: bold;
 }
 
+#cerrarMapa:hover{
+	-fx-cursor: hand;
+	-fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.70) ,10, 0.0 , 0 ,  0);
+}
+
+
+#cerrarMapa:pressed{
+	-fx-cursor: hand;
+	-fx-effect: innershadow( three-pass-box , rgba(120,120,120,0.70) ,10, 0.0 , 0 ,  0);
+}
 	
 

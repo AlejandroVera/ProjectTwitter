@@ -58,7 +58,7 @@
                                 </GridPane>
                               </children>
                             </HBox>
-                            <TextArea id="cajaTexto" fx:id="tweetTextArea" editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                            <TextArea id="cajaTexto" fx:id="tweetTextArea" editable="false" focusTraversable="false" prefHeight="67.0" prefWidth="409.3099365234375" text="" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                           </children>
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="435.0" />
@@ -66,10 +66,11 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
-                        <GridPane prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <GridPane prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <children>
                             <StackPane id="StackPane" fx:id="stackAbrir" opacity="1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
                               <children>
@@ -210,6 +211,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                         </GridPane>
+                        <Label id="cerrarNuevoTweet" fx:id="location" onMouseClicked="#mostrarGeo" text="Geolocalizacion desactivada" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="61.0" />
@@ -217,6 +219,8 @@
                       </columnConstraints>
                       <rowConstraints>
                         <RowConstraints maxHeight="132.0" minHeight="0.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                     </GridPane>
@@ -325,6 +329,12 @@
         </StackPane>
       </children>
     </VBox>
+    <StackPane id="StackPane" fx:id="stackMapa" layoutX="55.0" layoutY="8.0" minHeight="112.0" minWidth="189.0" prefHeight="133.0" prefWidth="189.0">
+      <children>
+        <ImageView id="mapa" fx:id="Mapa" fitHeight="139.0" fitWidth="185.33334421011116" pickOnBounds="true" preserveRatio="true" />
+        <Label id="cerrarMapa" onMouseClicked="#cerrarMapa" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
+      </children>
+    </StackPane>
   </children>
   <stylesheets>
     <URL value="@tweet.css" />

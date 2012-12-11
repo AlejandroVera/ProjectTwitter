@@ -30,14 +30,19 @@ public class StatusImpl implements Status{
 	public StatusImpl(BigInteger status_id, Conexion con, User loggedUser){
 		this.con = con;
 		this.id=status_id;
-		ResultSet res = con.query("SELECT texto, autor, fecha FROM tweet WHERE id=" + status_id + " LIMIT 1");
+		ResultSet res = con.query("SELECT texto, autor, fecha, placeID FROM tweet WHERE id=" + status_id + " LIMIT 1");
 		try {
 			if(res.next()){
 				this.loggedUser=loggedUser;
 				this.text=res.getString("texto");
 				this.usuario=new UserImpl(res.getLong("autor"), this.con,this.loggedUser);
 				this.createdAt=new Date((long)res.getInt("fecha")*1000);
-				this.lugar=usuario.getPlace();
+				String placeId=String.valueOf(res.getLong("placeID"));
+				
+				if (Long.parseLong(placeId)==((long)-1))
+					this.lugar=null;
+				else
+					this.lugar= new PlaceImpl (placeId, this.con);
 			}
 		} 
 		catch (SQLException e) {
@@ -82,7 +87,7 @@ public class StatusImpl implements Status{
 		return usuario.getLocation();
 	}
 
-	public Place getPlace(){
+	public Place getPlace(){		
 		return lugar;
 	}
 

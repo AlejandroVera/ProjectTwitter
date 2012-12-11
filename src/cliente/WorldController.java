@@ -181,6 +181,7 @@ public class WorldController extends Controller implements AStream.IListen {
 			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
+			super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
 			
 		}
 		else if (lugar==null){
@@ -194,7 +195,7 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
 	public void desactivarGeo(MouseEvent event) {
-
+		super.getTwitter().setMyPlace((long)-1);
 		geoLocation=false;
 		geoActivado.setVisible(false);
 		stackMapa.setVisible(false);

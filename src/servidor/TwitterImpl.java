@@ -7,6 +7,7 @@ import java.util.List;
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Message;
+import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
@@ -113,6 +114,7 @@ public class TwitterImpl implements Twitter {
 	private Conexion con;
 	private int maxResults = 20;
 	private TwitterInit init;
+	private Long placeId=(long) -1;
 
 
 	/**
@@ -306,7 +308,7 @@ public class TwitterImpl implements Twitter {
 
 		if(this.user == null)
 			throw new TwitterException("Usuario no logueado");
-		
+
 		ResultSet res = this.con.query("(SELECT id, fecha FROM tweet WHERE autor = "+userId+") " +
 				"UNION (SELECT tw.id, tw.fecha FROM tweet tw , retweet re WHERE tw.id = re.id_tweet AND re.id_usuario = "+userId+") ORDER BY fecha DESC " +
 				"LIMIT " + (this.maxResults == -1 ? TwitterImpl.maxAllowedResults : this.maxResults));
@@ -555,8 +557,8 @@ public class TwitterImpl implements Twitter {
 			this.init.sendThroughCallback(mes, id_dest);
 			this.init.sendThroughCallback(mes, this.user.getId());
 		} catch (RemoteException e) {}
-		
-		
+
+
 		return mes;
 
 	}
@@ -584,15 +586,15 @@ public class TwitterImpl implements Twitter {
 		if(!event_type.equals("0")){
 			try{
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
-				
+
 				//Se lo enviamos al propietario del tweet
 				this.init.sendThroughCallback(event, status_owner);
-				
+
 				//Y tambien al usuario que lo acaba de modificar para que se actualice su interfaz
 				if(!this.user.getId().equals(status_owner)){
 					this.init.sendThroughCallback(event, this.user.getId());
 				}
-				
+
 			}catch(SQLException | RemoteException e){
 				ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 			}
@@ -635,9 +637,9 @@ public class TwitterImpl implements Twitter {
 		params.add(this.user.getId());
 		params.add(new Date().getTime()/1000);
 		params.add(replyId);
-
+		params.add(this.placeId);
 		//Insertamos el nuevo tweet en la BD
-		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo) VALUES (?, ?, ?, ?)", params);
+		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo, placeID) VALUES (?, ?, ?, ?,?)", params);
 
 		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
 		BigInteger status_id;
@@ -659,9 +661,9 @@ public class TwitterImpl implements Twitter {
 			while(seguidores.hasNext()){
 				//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
 				Long id_dest = seguidores.next().longValue();
-				
-					this.init.sendThroughCallback(status,id_dest);
-				
+
+				this.init.sendThroughCallback(status,id_dest);
+
 			}
 
 			//Nos notificamos a nosotros mismos sobre el tweet
@@ -699,7 +701,9 @@ public class TwitterImpl implements Twitter {
 		return new AStreamImpl(this, this.con);
 	}
 
-
+	public void setMyPlace(Long placeId){
+		this.placeId=placeId;
+	}
 
 
 }

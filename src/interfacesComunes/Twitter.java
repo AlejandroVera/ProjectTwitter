@@ -462,4 +462,12 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public AStream stream();
 	
+	
+	/**
+	 * Pone como place el de este twitter
+	 * @param placeId
+	 */
+	public void setMyPlace(Long placeId);
+	
+	
 }

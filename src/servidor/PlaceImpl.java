@@ -31,6 +31,7 @@ public class PlaceImpl implements Place {
 	 * @throws SQLException
 	 */
 	public PlaceImpl(String id, Conexion con) throws SQLException{
+		
 		this.id=id;
 		this.con=con;
 		

@@ -5,12 +5,15 @@
 package cliente;
 
 import interfacesComunes.AStream;
+import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,84 +39,118 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	private static final long serialVersionUID = 136870617271640893L;
 	
+	@FXML //  fx:id="Mapa"
+    private ImageView Mapa; // Value injected by FXMLLoader
+
     @FXML //  fx:id="globalContainer"
     private VBox globalContainer; // Value injected by FXMLLoader
-	
+
     @FXML //  fx:id="infoExtra"
     private HBox infoExtra; // Value injected by FXMLLoader
-	
-	@FXML //  fx:id="nFavoritos"
-	private Label nFavoritos; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="nRetweets"
-	private Label nRetweets; // Value injected by FXMLLoader
-	
+    @FXML //  fx:id="location"
+    private Label location; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="nFavoritos"
+    private Label nFavoritos; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="nRetweets"
+    private Label nRetweets; // Value injected by FXMLLoader
+
     @FXML //  fx:id="numeroDe"
     private Label numeroDe; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="screename"
-	private Label screename; // Value injected by FXMLLoader
+    @FXML //  fx:id="screename"
+    private Label screename; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackAbrir"
-	private StackPane stackAbrir; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackAbrir"
+    private StackPane stackAbrir; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackBorrar"
-	private StackPane stackBorrar; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackBorrar"
+    private StackPane stackBorrar; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackFavorito"
-	private StackPane stackFavorito; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackFavorito"
+    private StackPane stackFavorito; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackResponder"
-	private StackPane stackResponder; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackMapa"
+    private StackPane stackMapa; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackRespuesta"
-	private StackPane stackRespuesta; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackResponder"
+    private StackPane stackResponder; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackRetwitteado"
-	private StackPane stackRetwitteado; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackRespuesta"
+    private StackPane stackRespuesta; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackRetwittear"
-	private StackPane stackRetwittear; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackRetwitteado"
+    private StackPane stackRetwitteado; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackVerConve"
-	private StackPane stackVerConve; // Value injected by FXMLLoader
+    @FXML //  fx:id="stackRetwittear"
+    private StackPane stackRetwittear; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackYaFavorito"
-	private StackPane stackYaFavorito; // Value injected by FXMLLoader
-	
+    @FXML //  fx:id="stackVerConve"
+    private StackPane stackVerConve; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="stackYaFavorito"
+    private StackPane stackYaFavorito; // Value injected by FXMLLoader
+
     @FXML //  fx:id="textoNuevoTweet"
     private TextArea textoNuevoTweet; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="timeAgo"
-	private Label timeAgo; // Value injected by FXMLLoader
+    @FXML //  fx:id="timeAgo"
+    private Label timeAgo; // Value injected by FXMLLoader
 
     @FXML //  fx:id="tweetBox"
     private HBox tweetBox; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="tweetTextArea"
-	private TextArea tweetTextArea; // Value injected by FXMLLoader
+    @FXML //  fx:id="tweetTextArea"
+    private TextArea tweetTextArea; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="tweetsRespuesta"
-	private VBox tweetsRespuesta; // Value injected by FXMLLoader
+    @FXML //  fx:id="tweetsRespuesta"
+    private VBox tweetsRespuesta; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="userImage"
-	private ImageView userImage; // Value injected by FXMLLoader
+    @FXML //  fx:id="userImage"
+    private ImageView userImage; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="username"
-	private Hyperlink username; // Value injected by FXMLLoader
+    @FXML //  fx:id="username"
+    private Hyperlink username; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="worldTweetContainer"
-	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+    @FXML //  fx:id="worldTweetContainer"
+    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
 	private Status tweet;
 
 	private boolean desplegado = false;
 	private String currentImage = "";
 	private User user; //Usuario del tweet
+	private Place lugar; //Place asociado al tweet
 	
+	// Handler for cerrarMapa on MouseClicked
+	public void cerrarMapa(MouseEvent event){
+		this.stackMapa.setVisible(false);
+	}
 	
+	// Handler for Label [fx:id="location"] onMouseClicked
+	public void mostrarGeo (MouseEvent event){
 
+		if (lugar!=null){
+			Double latitude= lugar.getCentroid().getLatitude();
+			Double longitude= lugar.getCentroid().getLongitude(); 
+			String coord=new String(latitude.toString()+","+longitude.toString());
 
+			URL url;
+			try {
+				url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
+						"&size=185x139&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+
+				URLConnection conn = url.openConnection();
+				InputStream in = conn.getInputStream();
+				Image image= new Image(in);
+				this.Mapa.setImage(image);
+				this.stackMapa.setVisible(true);
+			} catch (Exception e) {}
+		}
+	}
+	
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void abrirTweet(MouseEvent event) {
 		// handle the event here
@@ -250,6 +287,13 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@Override
 	public void postInitialize() {
+		this.stackMapa.setVisible(false);
+		lugar=this.tweet.getPlace();
+		if(lugar!=null)
+			this.location.setText(lugar.toString());
+		else
+			this.location.setText("");
+			
 		tweetTextArea.setText(this.tweet.getText());
 		
 		this.user = this.tweet.getUser();
