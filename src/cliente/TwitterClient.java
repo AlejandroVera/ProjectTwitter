@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -56,6 +57,10 @@ public class TwitterClient extends Application {
 					new Image(getClass().getResource("Imagenes/Twitter-icon-128.png").openStream()),
 					new Image(getClass().getResource("Imagenes/Twitter-icon-256.png").openStream())
 					);
+			
+			//Cargamos las fuentes a utilizar
+			Font.loadFont(getClass().getResource("fuentes/nanum/NanumGothic.ttf").openStream(), -1);
+			Font.loadFont(getClass().getResource("fuentes/nanum/NanumGothicBold.ttf").openStream(), -1);
 
 			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
