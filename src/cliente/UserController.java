@@ -5,9 +5,13 @@
 
 package cliente;
 
+import interfacesComunes.AStream;
+import interfacesComunes.Twitter.ITweet;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -21,7 +25,7 @@ import javafx.scene.layout.HBox;
 
 /*Vista pequeñita de un usuario*/
 
-public class UserController extends Controller {
+public class UserController extends Controller implements AStream.IListen{
 	
 	@FXML //  fx:id="candado"
     private ImageView candado; // Value injected by FXMLLoader
@@ -74,19 +78,7 @@ public class UserController extends Controller {
 
 	@Override
 	public void postInitialize() {
-		
-		if (!user.getProtectedUser()){
-			descripcionUsuario.setText(this.user.getDescription());
-			candado.setVisible(false);
-		}
-		else
-			descripcionUsuario.setText("Usuario protegido.");
-			
-		screename.setText(this.user.getScreenName());
-		Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
-		if(im != null)
-			userImage.setImage(im);
-		username.setText(this.user.getName());
+		loadUserDependantInfo();		
 	}
 
 	@Override
@@ -97,6 +89,43 @@ public class UserController extends Controller {
 
 	protected void setUser(User user){
 		this.user = user;
+	}
+	
+	private void loadUserDependantInfo(){
+		if (!user.getProtectedUser()){
+			descripcionUsuario.setText(this.user.getDescription());
+			candado.setVisible(false);
+		}
+		else{
+			descripcionUsuario.setText("Usuario protegido.");
+			candado.setVisible(true);
+		}
+			
+		screename.setText(this.user.getScreenName());
+		Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+		if(im != null)
+			userImage.setImage(im);
+		username.setText(this.user.getName());
+	}
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		if(this.user != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE) 
+		  && event.getSource().getId().equals(this.user.getId())){
+			this.user = getTwitter().users().getUser(this.user.getId());
+			loadUserDependantInfo();
+		}
+		return true;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		return false;
+	}
+
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		return false;
 	}
 
 }

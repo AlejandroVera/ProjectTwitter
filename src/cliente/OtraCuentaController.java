@@ -5,16 +5,22 @@
 
 package cliente;
 
+import interfacesComunes.AStream;
 import interfacesComunes.Status;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.Twitter_Users;
 import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -25,7 +31,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +38,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class OtraCuentaController extends Controller{
+public class OtraCuentaController extends Controller implements AStream.IListen{
+
+	private static final long serialVersionUID = 460902024550111662L;
 
 	@FXML //  fx:id="ScreenName"
     private Label ScreenName; // Value injected by FXMLLoader
@@ -124,6 +131,12 @@ public class OtraCuentaController extends Controller{
      * Usuario que se está mostrando actualmente 
      */
     private User user; 
+    
+    boolean seguidoresLoaded;
+    boolean siguiendoLoaded;
+    boolean favoritosLoaded;
+    ChangeListener<Tab> listenerCambios;
+    
 
 
     // Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
@@ -239,9 +252,9 @@ public class OtraCuentaController extends Controller{
 		return null;
 	}
 	
-	protected void changeToUser(User user){
+	protected void changeToUser(User usu){
 		//Limpiamos la información anterior
-		this.user = user;
+		this.user = usu;
 		tweetsUsuario.getChildren().clear();
 		
 		//Rellenamos la caja de información del usuario
@@ -251,6 +264,22 @@ public class OtraCuentaController extends Controller{
         nSeguidores.setText(""+this.user.getFollowersCount());
         nSiguiendo.setText(""+this.user.getFriendsCount());
         descripcion.setText(this.user.getDescription());
+        
+		//Botón de seguidor
+		if(super.getTwitter().users().isFollowing(this.user)){ //Si ya le estamos siguiendo
+			botonUnfollow.setVisible(true);
+			botonFollow.setVisible(false);
+		}else{
+			botonUnfollow.setVisible(false);
+			botonFollow.setVisible(true);
+		}
+		
+		String screenName = this.user.getScreenName();
+		twitteaA.setText("@"+screenName);
+		sigueA.setText("@"+screenName);
+		desSigueA.setText("@"+screenName);
+		tituloTweet.setText("Twittea a @"+screenName);
+		textoTweet.setText("@"+screenName);
         
         //Su imagen
         Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
@@ -264,50 +293,61 @@ public class OtraCuentaController extends Controller{
 			this.addTweet(tweetsUsuario, timeline.next());
 		}
 		
-		//Cargamos sus favoritos
-		Iterator<Status> favoritos = super.getTwitter().getFavorites(this.user.getScreenName()).iterator();
-		tweetsFavoritos.getChildren().clear();
-		while(favoritos.hasNext()){
-			this.addTweet(tweetsFavoritos, favoritos.next());
-		}
+		//Borramos el anterior listener
+		if(listenerCambios != null)
+			tweetsTab.getTabPane().getSelectionModel().selectedItemProperty().removeListener(listenerCambios);
 		
-		Twitter_Users tw_users = super.getTwitter().users();
-		int count = 0;
-		
-		//Cargamos sus seguidores
-		Iterator<Long> seguidores = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
-		cajaSeguidores.getChildren().clear();
-		while(seguidores.hasNext() && count++ < 10){//TODO: limite temporal
-			User us = tw_users.getUser(seguidores.next());
-			if(us != null)
-				this.addUser(cajaSeguidores, us);
-		}
-		count = 0;
-		//Cargamos sus seguidos
-		Iterator<Long> seguidos = tw_users.getFollowerIDs(this.user.getScreenName()).iterator();
-		cajaSiguiendo.getChildren().clear();
-		while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
-			User us = tw_users.getUser(seguidos.next());
-			if(us != null)
-				this.addUser(cajaSiguiendo, us);
-		}
-		
-		//Botón de seguidor
-		if(super.getTwitter().users().isFollowing(this.user)){ //Si ya le estamos siguiendo
-			botonUnfollow.setVisible(true);
-			botonFollow.setVisible(false);
-		}else{
-			botonUnfollow.setVisible(false);
-			botonFollow.setVisible(true);
-		}
-		
-		twitteaA.setText("@"+this.user.getScreenName());
-		sigueA.setText("@"+this.user.getScreenName());
-		desSigueA.setText("@"+this.user.getScreenName());
-		tituloTweet.setText("Twittea a @"+this.user.getScreenName());
-		this.textoTweet.setText("@"+this.user.getScreenName());
-		
-		
+		//Añadimos un nuevo listener para carga por demanda
+		this.listenerCambios = new ChangeListener<Tab>() {
+	      	  @Override 
+	      	  public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
+	      		  	if(!favoritosLoaded && newTab.equals(favoritosTab)){
+	      		  		
+	      		  		//Cargamos sus favoritos
+	      				Iterator<Status> favoritos = getTwitter().getFavorites(user.getScreenName()).iterator();
+	      				tweetsFavoritos.getChildren().clear();
+	      				while(favoritos.hasNext()){
+	      					addTweet(tweetsFavoritos, favoritos.next());
+	      				}
+						favoritosLoaded = true;
+						
+	      		  	}else if(!seguidoresLoaded && newTab.equals(seguidoresTab)){
+	      		  		
+				      	Twitter_Users tw_users = getTwitter().users();
+						int count = 0;
+						
+						//Cargamos sus seguidores
+						Iterator<Long> seguidores = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+						cajaSeguidores.getChildren().clear();
+						while(seguidores.hasNext() && count++ < 10){//TODO: limite temporal
+							User us = tw_users.getUser(seguidores.next());
+							if(us != null)
+								addUser(cajaSeguidores, us);
+						}
+						seguidoresLoaded = true;
+						
+						
+	      		  	}else if(!siguiendoLoaded && newTab.equals(siguiendoTab)){
+	      		  		
+	      		  		Twitter_Users tw_users = getTwitter().users();
+	      		  		int count = 0;
+	      		  		
+	      		  		//Cargamos sus seguidos
+	      				Iterator<Long> seguidos = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+	      				cajaSiguiendo.getChildren().clear();
+	      				while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
+	      					User us = tw_users.getUser(seguidos.next());
+	      					if(us != null)
+	      						addUser(cajaSiguiendo, us);
+	      				}	
+		      			siguiendoLoaded = true;
+		      			
+	      		  	}else if(siguiendoLoaded && seguidoresLoaded && favoritosLoaded){ //Quitamos el listener
+	      		  		tweetsTab.getTabPane().getSelectionModel().selectedItemProperty().removeListener(this);
+	      		  	}
+	      	  }
+	       };
+	       menuOtraCuenta.getSelectionModel().selectedItemProperty().addListener(listenerCambios);
 		
 	}
 	
@@ -364,6 +404,24 @@ public class OtraCuentaController extends Controller{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processSystemEvent(Object[] obj) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean processTweet(ITweet tweet) throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
