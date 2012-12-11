@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-12-2012 a las 17:42:12
+-- Tiempo de generación: 11-12-2012 a las 23:50:26
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -34,28 +34,17 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=62 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=66 ;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
 INSERT INTO `eventos` (`id`, `id_autor`, `id_destinatario`, `id_tweet`, `tipo`, `fecha`) VALUES
-(56, 4, 4, 40, '1', 1355164835),
-(55, 4, 4, 42, '1', 1355164291),
-(54, 1, 4, 40, '3', 1355163408),
-(53, 1, 4, 40, '1', 1355163404),
-(52, 1, 4, 40, '3', 1355160254),
-(51, 1, 4, 40, '1', 1355160245),
-(50, 1, 4, 40, '3', 1355159908),
-(49, 1, 4, 40, '1', 1355156668),
-(48, 1, 4, 0, '2', 1355153847),
-(47, 1, 4, 0, '2', 1355153135),
-(57, 1, 4, 42, '1', 1355164958),
-(58, 1, 4, 42, '3', 1355164960),
-(59, 1, 4, 40, '1', 1355164962),
-(60, 1, 4, 40, '3', 1355168662),
-(61, 1, 4, 40, '1', 1355168664);
+(65, 1, 4, 0, '2', 1355258129),
+(64, 1, 4, 0, '6', 1355258128),
+(63, 1, 4, 0, '2', 1355258110),
+(62, 1, 4, 0, '6', 1355258108);
 
 -- --------------------------------------------------------
 
@@ -68,15 +57,6 @@ CREATE TABLE IF NOT EXISTS `favoritos` (
   `id_tweet` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_usuario`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `favoritos`
---
-
-INSERT INTO `favoritos` (`id_usuario`, `id_tweet`) VALUES
-(1, 40),
-(4, 40),
-(4, 42);
 
 -- --------------------------------------------------------
 
@@ -169,6 +149,13 @@ CREATE TABLE IF NOT EXISTS `retweet` (
   PRIMARY KEY (`id_usuario`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `retweet`
+--
+
+INSERT INTO `retweet` (`id_usuario`, `id_tweet`) VALUES
+(1, 46);
+
 -- --------------------------------------------------------
 
 --
@@ -200,19 +187,19 @@ CREATE TABLE IF NOT EXISTS `tweet` (
   `autor` int(10) unsigned NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   `inReplyTo` int(10) unsigned NOT NULL,
+  `placeID` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `autor` (`autor`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=43 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=48 ;
 
 --
 -- Volcado de datos para la tabla `tweet`
 --
 
-INSERT INTO `tweet` (`id`, `texto`, `autor`, `fecha`, `inReplyTo`) VALUES
-(39, 'Soy la hostia', 4, 1355081559, 0),
-(41, 'LOL me gusta caca', 1, 1355088091, 0),
-(40, '@Antonio mola', 4, 1355086549, 0),
-(42, '@antonio mola que te cagas', 4, 1355088249, 0);
+INSERT INTO `tweet` (`id`, `texto`, `autor`, `fecha`, `inReplyTo`, `placeID`) VALUES
+(47, 'asdasd', 1, 1355259333, 0, -1),
+(46, 'Tweet con geolocalizacion', 4, 1355258179, 0, 4),
+(45, 'Este es un tweet con geolocalizacion', 1, 1355258062, 0, 4);
 
 -- --------------------------------------------------------
 
