@@ -374,9 +374,21 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	public User stopFollowing(User user){
 		Conexion con = new ConexionImpl();	
 		int res=con.updateQuery("DELETE FROM seguidores WHERE id_seguidor="+this.loggedUser.getId()+" AND id_seguido="+user.getId());
-		if(res > 0)
+		if(res > 0){
+			try {
+				//Creamos el evento
+				TwitterEvent evento = new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.UNFOLLOW, this.con, this.loggedUser);
+				
+				//Enviamos el evento al usuario que acabamos de seguir y a nosotros mismos
+				this.init.sendThroughCallback(evento, user.getId());
+				this.init.sendThroughCallback(evento, this.loggedUser.getId());
+				
+			} catch (SQLException | RemoteException e) {
+				ServerCommon.TwitterWarning(e, "Error de evento en stopFollowing");
+			}
+
 			return user;
-		else
+		}else
 			return null;
 	}
 
