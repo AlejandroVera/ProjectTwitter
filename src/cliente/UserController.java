@@ -91,6 +91,10 @@ public class UserController extends Controller implements AStream.IListen{
 		this.user = user;
 	}
 	
+	protected User getUser(){
+		return this.user;
+	}
+	
 	private void loadUserDependantInfo(){
 		if (!user.getProtectedUser()){
 			descripcionUsuario.setText(this.user.getDescription());

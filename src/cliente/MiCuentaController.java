@@ -18,6 +18,7 @@ import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -31,7 +32,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -102,6 +102,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
     
     private HashMap<Number, TweetController> favouritesTable; //Tabla que asocia los favoritos que hay cargados con su id
     private HashMap<Number, TweetController> tweetsTable; //Tabla que asocia los tweets que hay cargados con su id
+    private HashMap<Number, UserController> seguidoresTable; //Tabla que asocia los usuarios
+    private HashMap<Number, UserController> siguiendoTable; //Tabla que asocia los usuarios
 
 
   
@@ -148,15 +150,18 @@ public class MiCuentaController extends Controller implements AStream.IListen {
          assert tweetsTab != null : "fx:id=\"tweetsTab\" was not injected: check your FXML file 'miCuenta.fxml'.";
          assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'miCuenta.fxml'.";
 
-        // initialize your logic here: all @FXML variables will have been injected
+         // initialize your logic here: all @FXML variables will have been injected
          this.favouritesTable = new HashMap<Number, TweetController>();
          this.tweetsTable = new HashMap<Number, TweetController>();
+         this.seguidoresTable = new HashMap<Number, UserController>();
+         this.siguiendoTable = new HashMap<Number, UserController>();
     }
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-
+		System.out.println("Recibido evento:"+event.getType());
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(user.getId())){
+			
 			if(favoritosLoaded)
 				this.addTweet(tweetsFavoritos, (Status)event.getTargetObject(), true);
 			Number id = ((ITweet) event.getTargetObject()).getId();
@@ -167,17 +172,36 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 				controller.processEvent(event);
 			
 		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)  && event.getSource().getId().equals(user.getId())){
+			
 			Number id = ((ITweet) event.getTargetObject()).getId();
 			this.removeFavourite(favouritesTable.get(id));
-			
 			
 			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
 			TweetController controller = tweetsTable.get(id);
 			if(controller != null)
 				controller.processEvent(event);
 		
-			//Si el evento es un follow	
-		}else if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
+		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			
+			//Se manda el evento a todos los tweets (ellos ya comprobarán si son suyos)
+			for(TweetController c : favouritesTable.values()){
+				c.processEvent(event);
+			}
+			for(TweetController c : tweetsTable.values()){
+				c.processEvent(event);
+			}
+			
+			//Se manda el evento a los UserController que corresponda
+			UserController c = seguidoresTable.get(event.getSource().getId());
+			if(c != null)
+				c.processEvent(event);
+			c = siguiendoTable.get(event.getSource().getId());
+			if(c != null)
+				c.processEvent(event);
+						
+			
+		}else if(event.getType().equals(TwitterEvent.Type.FOLLOW)){ //Si el evento es un follow
+			
 			//Si ahora tu sigues a alguien
 			if (event.getSource().getId().equals(user.getId())){
 				this.addUser(this.cajaSiguiendo, event.getTarget());
@@ -270,12 +294,6 @@ public class MiCuentaController extends Controller implements AStream.IListen {
       	  }
        });
 		
-		
-		
-
-		
-				
-		
 	}
 
 	@Override
@@ -332,6 +350,12 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 			FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), user);
 			userUI.getController().setParentController(this);
 			
+			//Lo añadimos a la tabla de asociacion
+			if(contendor.equals(cajaSeguidores))
+				seguidoresTable.put(user.getId(), userUI.getController());
+			else if(contendor.equals(cajaSiguiendo))
+				siguiendoTable.put(user.getId(), userUI.getController());
+			
 			if(!onTop)
 				contendor.getChildren().add(userUI.getRoot());
 			else{
@@ -367,6 +391,20 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 		if(c != null){
 			tweetsFavoritos.getChildren().remove(c.getContainer());
 			favouritesTable.remove(c.getTweet().getId());
+		}
+	}
+	
+	protected void removeSeguidor(UserController c){
+		if(c != null){
+			cajaSeguidores.getChildren().remove(c.getContainer());
+			seguidoresTable.remove(c.getUser().getId());
+		}
+	}
+	
+	protected void removeSiguiendo(UserController c){
+		if(c != null){
+			cajaSiguiendo.getChildren().remove(c.getContainer());
+			siguiendoTable.remove(c.getUser().getId());
 		}
 	}
 }

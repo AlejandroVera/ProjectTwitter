@@ -14,7 +14,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import excepcionesComunes.TwitterException;
@@ -346,13 +345,16 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
-			stackYaFavorito.setVisible(true);
-			stackFavorito.setVisible(false);
-		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE) && event.getSource().getId().equals(getTwitter().getSelf().getId())){
-			stackYaFavorito.setVisible(false);
-			stackFavorito.setVisible(true);
-		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.user.getId())){
+		if(event.getSource().getId().equals(getTwitter().getSelf().getId())){
+			if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
+				stackYaFavorito.setVisible(true);
+				stackFavorito.setVisible(false);
+			}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+				stackYaFavorito.setVisible(false);
+				stackFavorito.setVisible(true);
+			}
+		}
+		if(event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getSource().getId().equals(this.user.getId())){
 			this.user = getTwitter().users().getUser(this.user.getId());
 			loadUserDependantInfo();
 		}
