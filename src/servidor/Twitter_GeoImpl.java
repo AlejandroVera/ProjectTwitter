@@ -2,7 +2,6 @@ package servidor;
 
 import java.net.InetAddress;
 import java.sql.ResultSet;
-
 import com.winterwell.jgeoplanet.IPlace;
 import com.winterwell.jgeoplanet.Location;
 import com.winterwell.jgeoplanet.MFloat;
@@ -24,14 +23,11 @@ public class Twitter_GeoImpl implements Twitter_Geo{
 
 	public Place geoSearchByIP(String ipAddress) {
 		try {		
+
 			Place lugar=null;
 			boolean encontrado = false;
-
-
 			InetAddress thisIP = InetAddress.getLocalHost();
-
 			GeoLocation _gl = new GeoLocation();
-
 			_gl.GetGeoLocation(thisIP);
 		
 			String Country = _gl.Country;
@@ -48,6 +44,11 @@ public class Twitter_GeoImpl implements Twitter_Geo{
 				if (lugar.getBoundingBox().contains(punto)){
 					encontrado=true;
 				}
+			}
+			//Si no existe el place la metemos en la base de datos
+			if (lugar==null){
+				lugar = new PlaceImpl(con, punto, Country, City);
+						
 			}
 			return lugar;
 		} catch (Exception e) {

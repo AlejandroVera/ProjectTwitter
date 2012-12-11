@@ -164,13 +164,14 @@ public class WorldController extends Controller implements AStream.IListen {
 		if (lugar!=null){
 			Double latitude= lugar.getCentroid().getLatitude();
 			Double longitude= lugar.getCentroid().getLongitude(); 
-			String coord=new String(longitude.toString()+","+latitude.toString());
+			String coord=new String(latitude.toString()+","+longitude.toString());
 
 
 			URL url;
 			try {
 				url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
-						"&size=200x150&zoom=18&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+						"&size=200x150&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+				
 				URLConnection conn = url.openConnection();
 				InputStream in = conn.getInputStream();
 				Image image= new Image(in);
