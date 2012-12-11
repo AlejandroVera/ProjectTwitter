@@ -159,7 +159,7 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		System.out.println("Recibido evento:"+event.getType());
+		
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(user.getId())){
 			
 			if(favoritosLoaded)

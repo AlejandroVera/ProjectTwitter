@@ -549,8 +549,9 @@ public class TwitterSuscriptorImpl implements Twitter {
 		
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 		
-		//Lo enviamos al topic
+		//Lo enviamos al topic del destinatario y del emisor
 		TwitterInitImplSuscriptor.sendThroughTopic(mes, id_dest);
+		TwitterInitImplSuscriptor.sendThroughTopic(mes, this.user.getId());
 		
 		return mes;
 		

@@ -21,7 +21,6 @@ import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
@@ -127,7 +126,7 @@ public class TwitterImpl implements Twitter {
 		this.geo= new Twitter_GeoImpl(this.con);
 	}*/
 
-	public TwitterImpl(Long accountId, TwitterInitImpl init){
+	public TwitterImpl(Long accountId, TwitterInit init){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
 		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,init);
@@ -552,29 +551,12 @@ public class TwitterImpl implements Twitter {
 
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 
-		List<AStream.IListen> user_callbacks;
 		try {
-			user_callbacks = this.init.getCallbackArray().get(id_dest);
-			if(user_callbacks != null){
-				Iterator<AStream.IListen> it = user_callbacks.iterator();
-				while(it.hasNext()){
-					AStream.IListen call = it.next();
-					try {
-						call.processTweet(mes);
-					} catch (RemoteException e) {
-						//Suponemos que ha sido por un error de conexión.
-						//Puede que el user se haya desconectado, así que lo sacamos del array.
-						user_callbacks.remove(call);
-						if(user_callbacks.isEmpty())
-							this.init.getCallbackArray().remove(id_dest);
-						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-					}
-				}
-			}
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			this.init.sendThroughCallback(mes, id_dest);
+			this.init.sendThroughCallback(mes, this.user.getId());
+		} catch (RemoteException e) {}
+		
+		
 		return mes;
 
 	}
@@ -604,32 +586,13 @@ public class TwitterImpl implements Twitter {
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 				
 				//Se lo enviamos al propietario del tweet
-				List<AStream.IListen> user_callbacks = this.init.getCallbackArray().get(status_owner);
+				this.init.sendThroughCallback(event, status_owner);
 				
 				//Y tambien al usuario que lo acaba de modificar para que se actualice su interfaz
 				if(!this.user.getId().equals(status_owner)){
-					if(user_callbacks == null)
-						user_callbacks = new LinkedList<AStream.IListen>();
-					user_callbacks.addAll(this.init.getCallbackArray().get(this.user.getId()));
+					this.init.sendThroughCallback(event, this.user.getId());
 				}
 				
-				//Y ya procedemos al envio
-				if(user_callbacks != null){
-					Iterator<AStream.IListen> it = user_callbacks.iterator();
-					while(it.hasNext()){
-						AStream.IListen call = it.next();
-						try {
-							call.processEvent(event);
-						} catch (RemoteException e) {
-							//Suponemos que ha sido por un error de conexión.
-							//Puede que el user se haya desconectado, así que lo sacamos del array.
-							user_callbacks.remove(call);
-							if(user_callbacks.isEmpty())
-								this.init.getCallbackArray().remove(status_owner);
-							ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-						}
-					}
-				}
 			}catch(SQLException | RemoteException e){
 				ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 			}
@@ -692,16 +655,18 @@ public class TwitterImpl implements Twitter {
 
 		//Mandamos el tweet a todos los seguidores
 		Iterator<Long> seguidores = this.users().getFollowerIDs().iterator();
+		try {
+			while(seguidores.hasNext()){
+				//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
+				Long id_dest = seguidores.next().longValue();
+				
+					this.init.sendThroughCallback(status,id_dest);
+				
+			}
 
-		while(seguidores.hasNext()){
-			//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
-			Long id_dest = seguidores.next().longValue();
-			sendTweetToUserThroughCallback(status,id_dest);
-		}
-
-		//Nos notificamos a nosotros mismos sobre el tweet
-		sendTweetToUserThroughCallback(status,this.user.getId());
-
+			//Nos notificamos a nosotros mismos sobre el tweet
+			this.init.sendThroughCallback(status,this.user.getId());
+		} catch (RemoteException e) { }
 		this.user.aumentarContador();
 		return status;
 	}
@@ -719,37 +684,6 @@ public class TwitterImpl implements Twitter {
 	@Override
 	public Twitter_Users users() {
 		return this.twitter_user;
-	}
-
-
-	private void sendTweetToUserThroughCallback(ITweet tweet, Long id_dest){
-		List<AStream.IListen> user_callbacks;
-		try {
-			user_callbacks = this.init.getCallbackArray().get(id_dest);
-
-			if(user_callbacks != null){
-				Iterator<AStream.IListen> it = user_callbacks.iterator();
-	
-				//Iteramos por cada uno de los callbacks notificando el nuevo tweet
-				while(it.hasNext()){
-	
-					AStream.IListen call = it.next();
-					try {
-						call.processTweet(tweet);
-					} catch (RemoteException e) {
-						//Suponemos que ha sido por un error de conexión.
-						//Puede que el user se haya desconectado, así que lo sacamos del array.
-						user_callbacks.remove(call);
-						if(user_callbacks.isEmpty())
-							this.init.getCallbackArray().remove(id_dest);
-						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-					}
-				}
-			}
-		} catch (RemoteException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 	}
 
 

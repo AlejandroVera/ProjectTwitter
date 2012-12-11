@@ -318,10 +318,9 @@ public class TwitterInitImplSuscriptor extends UnicastRemoteObject implements Tw
 	}
 
 	@Override
-	public HashMap<Long, LinkedList<IListen>> getCallbackArray()
-			throws RemoteException {
-		// TODO liminar para JMS
-		return null;
+	public void sendThroughCallback(Serializable event, Long id_dest) {
+		// TODO Borrar para JMS
 	}
+
 
 }

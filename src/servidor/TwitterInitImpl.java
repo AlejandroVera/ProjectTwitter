@@ -1,9 +1,11 @@
 package servidor;
 
 import interfacesComunes.AStream.IListen;
+import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.TwitterInit;
 
 import java.io.ByteArrayOutputStream;
@@ -13,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -23,7 +26,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -239,9 +244,34 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		
 		
 	}
-
-	public HashMap<Long, LinkedList<IListen>> getCallbackArray() {
-		return callbackArray;
+	
+	@Override
+	public void sendThroughCallback(Serializable event, Long id_dest){
+		
+		List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
+		
+		if(user_callbacks != null){
+			Iterator<AStream.IListen> it = user_callbacks.iterator();
+			while(it.hasNext()){
+				AStream.IListen call = it.next();
+				try {
+					if (event instanceof ITweet)
+						call.processTweet((ITweet) event);
+					else if (event instanceof TwitterEvent)
+						call.processEvent((TwitterEvent) event);
+					else if (event instanceof Object[])
+						call.processSystemEvent((Object[]) event);
+				} catch (RemoteException e) {
+					//Suponemos que ha sido por un error de conexión.
+					//Puede que el user se haya desconectado, así que lo sacamos del array.
+					user_callbacks.remove(call);
+					if(user_callbacks.isEmpty())
+						this.callbackArray.remove(id_dest);
+					ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
+				}
+			}
+		}
+		
 	}
 
 	

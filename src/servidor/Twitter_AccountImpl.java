@@ -1,6 +1,5 @@
 package servidor;
 
-import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
@@ -9,9 +8,7 @@ import interfacesComunes.User;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import excepcionesComunes.TwitterException;
@@ -57,27 +54,9 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		try{
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
 			
-			//Se lo enviamos al usuario
-			List<AStream.IListen> user_callbacks = this.init.getCallbackArray().get(loggedUser.getId());
+			this.init.sendThroughCallback(event, loggedUser.getId());
 			
-			//Y ya procedemos al envio
-			if(user_callbacks != null){
-				Iterator<AStream.IListen> it = user_callbacks.iterator();
-				while(it.hasNext()){
-					AStream.IListen call = it.next();
-					try {
-						call.processEvent(event);
-					} catch (RemoteException e) {
-						//Suponemos que ha sido por un error de conexión.
-						//Puede que el user se haya desconectado, así que lo sacamos del array.
-						user_callbacks.remove(call);
-						if(user_callbacks.isEmpty())
-							this.init.getCallbackArray().remove(loggedUser.getId());
-						ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-					}
-				}
-			}
-		}catch(RemoteException | SQLException e){
+		}catch(SQLException | RemoteException e){
 			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 		}
 		

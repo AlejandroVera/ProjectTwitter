@@ -1,12 +1,8 @@
 package interfacesComunes;
 
-import interfacesComunes.AStream.IListen;
-
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 /**
  * Clase que representa nuestro servidor de Twitter. Presenta ciertos métodos para conexión, desconexión y manejo de imágenes.
@@ -78,9 +74,9 @@ public interface TwitterInit extends Remote, Serializable{
 	public String saveImage(byte[] img) throws RemoteException;
 	
 	/**
-	 * Devuelve el array de callbacks que está utilizando el servidor.
-	 * @return Array de callbacks que está utilizando el servidor.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * Envia un evento para un usuario a través del callback.
+	 * @param event Evento a enviar, puede ser un ITweet, un TwitterEvent o un Object[]
+	 * @param id_dest Usuario al cual enviar el evento.
 	 */
-	public HashMap<Long, LinkedList<IListen>> getCallbackArray() throws RemoteException;
+	public void sendThroughCallback(Serializable event, Long id_dest) throws RemoteException;
 }
