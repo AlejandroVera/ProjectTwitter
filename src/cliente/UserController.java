@@ -27,6 +27,8 @@ import javafx.scene.layout.HBox;
 
 public class UserController extends Controller implements AStream.IListen{
 	
+	private static final long serialVersionUID = 8601514130187981655L;
+
 	@FXML //  fx:id="candado"
     private ImageView candado; // Value injected by FXMLLoader
 
@@ -110,6 +112,7 @@ public class UserController extends Controller implements AStream.IListen{
 		if(im != null)
 			userImage.setImage(im);
 		username.setText(this.user.getName());
+		username.setUserData(this.user.getScreenName());
 	}
 
 	@Override

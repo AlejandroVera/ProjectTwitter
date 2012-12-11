@@ -22,7 +22,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -320,7 +319,7 @@ public class TweetController extends Controller implements AStream.IListen{
 	private void loadUserDependantInfo(){
 		screename.setText("@"+this.user.getScreenName());
 		username.setText(this.user.getName());
-		username.setTooltip(new Tooltip(this.user.getScreenName()));
+		username.setUserData(this.user.getScreenName());
 		
 		String url = this.user.getProfileImageUrl().toString();
 		if(!currentImage.equals(url)){	

@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -76,7 +75,7 @@ public class EventoController extends Controller {
 	// Handler for Hyperlink[fx:id="username"] onMouseClicked
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
-		String screenName = ((Hyperlink)event.getSource()).getTooltip().getText();
+		String screenName = (String)((Hyperlink)event.getSource()).getUserData();
 		User destUser = getTwitter().users().getUser(screenName);
 		if(destUser != null)
 			((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
@@ -109,7 +108,6 @@ public class EventoController extends Controller {
 		User source = this.event.getSource();
 		screename.setText("@"+source.getScreenName());
 		username.setText(source.getName());
-		username.setTooltip(new Tooltip(source.getScreenName()));
 
 		Image im = ClientTools.getImage(source.getProfileImageUrl().toString());
 		if(im != null)

@@ -95,7 +95,6 @@ public class MensajeDirectoController extends Controller  {
 	
 		screename.setText("@"+user.getScreenName());
 		username.setText(user.getName());
-		username.setTooltip(new Tooltip(user.getScreenName()));
 		
         Image im = ClientTools.getImage(user.getProfileImageUrl().toString());
         if(im != null)
