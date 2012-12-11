@@ -160,7 +160,7 @@ public class WorldController extends Controller implements AStream.IListen {
 	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
 	public void activarGeo(MouseEvent event) {
 		geoLocation=true;
-		Place lugar = (Place)getTwitter().getSelf().getPlace();
+		Place lugar = (Place)getTwitter().geo().getPlace("Facultad de Informatica", null);
 		if (lugar!=null){
 			Double latitude= lugar.getCentroid().getLatitude();
 			Double longitude= lugar.getCentroid().getLongitude(); 
@@ -176,13 +176,12 @@ public class WorldController extends Controller implements AStream.IListen {
 				InputStream in = conn.getInputStream();
 				Image image= new Image(in);
 				mapa.setImage(image);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (Exception e) {}
+			
 			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
+			
 		}
 		else if (lugar==null){
 			geoLocation=false;
