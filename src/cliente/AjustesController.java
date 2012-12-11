@@ -73,7 +73,7 @@ public class AjustesController extends Controller{
     }
 
     // Handler for Button[id="examinarFondo"] onMouseClicked
-    public void examinarImagenFondo(ContextMenuEvent event) {
+    public void examinarImagenFondo(MouseEvent event) {
     	 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Imágenes (*.jpg *.png)", "*.jpg", "*.png");
