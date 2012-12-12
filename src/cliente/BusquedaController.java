@@ -75,10 +75,11 @@ implements Initializable {
 		while(busquedas.hasNext()){
 
 			try {
-				FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), busquedas.next());
+				User i= busquedas.next();
+				FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), i);
 				userUI.getController().setParentController(this);
 
-				userTable.put(busquedas.next().getId(), userUI.getController());
+				userTable.put(i.getId(), userUI.getController());
 
 				LinkedList<Node> list = new LinkedList<Node>(usersBusqueda.getChildren());
 				list.addFirst(userUI.getRoot());
