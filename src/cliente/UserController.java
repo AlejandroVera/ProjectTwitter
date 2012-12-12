@@ -121,6 +121,8 @@ public class UserController extends Controller implements AStream.IListen{
 		else{
 			if(this.user.getFollowRequestSent()){
 				esperandoConfirmacion.setVisible(true);
+				this.follow.setVisible(false);
+				this.unfollow.setVisible(false);
 			}
 			else{
 				this.follow.setVisible(true);

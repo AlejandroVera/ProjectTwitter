@@ -78,7 +78,13 @@ public class UserImpl implements User{
 			this.createdAt=new Date(res.getInt("fecha_registro")*1000);
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
-			this.website=new URI(res.getString("web_link"));
+
+			if(res.getInt("followRequestSent")==1){
+				this.followRequestSent=true;
+			}
+			else{
+				this.followRequestSent=false;
+			}
 			this.description=res.getString("descripcion");
 			this.location = res.getString("location");
 			if(screenName!=null)
@@ -116,24 +122,7 @@ public class UserImpl implements User{
 		catch (URISyntaxException e) {
 			ServerCommon.TwitterWarning(e, "Error al crear la URL");
 		}
-		if(this.loggedUser!=null){
-			res = con.query("SELECT id FROM eventos WHERE id_autor="+this.loggedUser.getId()+" AND id_destinatario="+this.id+" AND tipo=2");
-			try {
-				if(res.next())
-				{
-					this.followRequestSent=true;
-				}
-				else
-				{
-					this.followRequestSent=false;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			this.followRequestSent=false;
-		}
+
 	}
 
 	public boolean getFollowRequestSent(){
@@ -142,6 +131,9 @@ public class UserImpl implements User{
 
 	public void setFollowRequestSent(boolean b) {
 		this.followRequestSent=b;
+		int value;
+		value = (b)? 1:0;
+		this.con.updateQuery("UPDATE usuario SET followRequestSent="+value+" WHERE id="+this.getId());
 	}
 
 	public String getName(){
