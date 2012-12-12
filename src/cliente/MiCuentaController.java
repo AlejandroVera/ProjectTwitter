@@ -210,6 +210,18 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 				this.addUser(this.cajaSeguidores, event.getSource());
 				
 			}
+		}else if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)){ //Si el evento es un unfollow
+			
+			//Si ahora tu ya no sigues a alguien
+			if (event.getSource().getId().equals(user.getId())){
+				UserController c = siguiendoTable.get(event.getTarget().getId());
+				this.removeSiguiendo(c);
+			}
+			//Si y no te sigue alguien
+			else if(event.getTarget().getId().equals(user.getId())){
+				UserController c = seguidoresTable.get(event.getSource().getId());
+				this.removeSeguidor(c);
+			}
 		}
 	
 		return true;
