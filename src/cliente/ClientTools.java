@@ -235,7 +235,9 @@ public class ClientTools {
 		universeController.loading.set(load);
 	}
 	
-	
+	protected static void showImage(Image im){
+		universeController.showImage(im);
+	}
 	
 	
 }

@@ -15,12 +15,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 
 public class UniverseController
     implements Initializable {
+	
+	@FXML //  fx:id="anchorImage"
+    private AnchorPane anchorImage; // Value injected by FXMLLoader
+	
+	@FXML //  fx:id="imagen"
+	private ImageView imagen; // Value injected by FXMLLoader
 
     @FXML //  fx:id="errorContainer"
     private AnchorPane errorContainer; // Value injected by FXMLLoader
@@ -62,7 +71,20 @@ public class UniverseController
     	universeWorldContainer.getChildren().clear();
     	universeWorldContainer.getChildren().add(node);
     }
-
+    
+    
+    
+    // Handler for Label[id="X"] onMouseClicked
+    public void cerrarImagen(MouseEvent event) {
+    	this.imagen.setImage(null);
+    	this.anchorImage.setVisible(false);
+    }
+    
+	public void showImage(Image im) {
+		this.imagen.setImage(im);
+    	this.anchorImage.setVisible(true);
+	}
+	
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
     	assert errorContainer != null : "fx:id=\"errorContainer\" was not injected: check your FXML file 'universe.fxml'.";
@@ -74,9 +96,15 @@ public class UniverseController
 
         // initialize your logic here: all @FXML variables will have been injected
         errorContainer.setVisible(false);
+
+        this.anchorImage.setVisible(false);
+
         loading = new SimpleBooleanProperty(false);
         loadingContainer.visibleProperty().bind(this.loading);
 
+
     }
+
+
 
 }

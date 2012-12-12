@@ -269,12 +269,23 @@
                   <children>
                     <Button fx:id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                     <Label id="numeroDe" fx:id="contadorCaracteres" text="140" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <ImageView fx:id="geoActivado" fitHeight="58.0" fitWidth="35.0" onMouseClicked="#desactivarGeo" opacity="1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <image>
+                        <Image url="@Imagenes/geoActivado.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                    <ImageView fx:id="geoDesactivado" fitHeight="51.223880004882815" fitWidth="35.0" onMouseClicked="#activarGeo" opacity="1.0" pickOnBounds="true" preserveRatio="true" translateY="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                      <image>
+                        <Image url="@Imagenes/geoDesactivado.png" preserveRatio="true" smooth="true" />
+                      </image>
+                    </ImageView>
+                    <Label id="cerrarNuevoTweet" fx:id="placeActual" onMouseClicked="#mostrarGeo" text="Geolocalizacion desactivada" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                   </children>
                   <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="37.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="252.0" minWidth="10.0" prefWidth="251.0" />
+                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="32.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="106.0" minWidth="10.0" prefWidth="106.0" />
                   </columnConstraints>
                   <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

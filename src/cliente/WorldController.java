@@ -130,18 +130,12 @@ public class WorldController extends Controller implements AStream.IListen {
 	@FXML //  fx:id="geoDesactivado"
 	private ImageView geoDesactivado; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="mapa"
-	private ImageView mapa; // Value injected by FXMLLoader
-
 	@FXML //  fx:id="menuPrincipal"
 	private TabPane menuPrincipal; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="stackMapa"
-	private StackPane stackMapa; // Value injected by FXMLLoader
-
 	@FXML //  fx:id="placeActual"
 	private Label placeActual; // Value injected by FXMLLoader
-	
+
 	@FXML //  fx:id="cerrarNuevoTweet"
 	private Label name; // Value injected by FXMLLoader
 
@@ -156,40 +150,29 @@ public class WorldController extends Controller implements AStream.IListen {
 	private MensajesController mensajesController;
 
 	private boolean geoLocation=false;
+	private Place lugar;
 
 	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
 	public void activarGeo(MouseEvent event) {
 		geoLocation=true;
-		Place lugar = (Place)getTwitter().geo().getPlace("Facultad de Informatica", null);
+		lugar = (Place)getTwitter().geo().getPlace("Facultad de Informatica", null);
 		if (lugar!=null){
-			Double latitude= lugar.getCentroid().getLatitude();
-			Double longitude= lugar.getCentroid().getLongitude(); 
-			String coord=new String(latitude.toString()+","+longitude.toString());
 
-
-			URL url;
-			try {
-				url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
-						"&size=200x150&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
-				
-				URLConnection conn = url.openConnection();
-				InputStream in = conn.getInputStream();
-				Image image= new Image(in);
-				mapa.setImage(image);
-			} catch (Exception e) {}
-			
 			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
 			super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
-			
+			this.otraCuentaController.activarGeo(lugar);	
 		}
 		else if (lugar==null){
 			geoLocation=false;
 			ClientTools.showDialog("Geolocalizacion no disponible");
-
 		}
 
+	}
+
+
+	public void activarGeo(){
 
 	}
 
@@ -198,11 +181,10 @@ public class WorldController extends Controller implements AStream.IListen {
 		super.getTwitter().setMyPlace((long)-1);
 		geoLocation=false;
 		geoActivado.setVisible(false);
-		stackMapa.setVisible(false);
 		geoDesactivado.setVisible(false);
-		mapa.setImage(null);
 		placeActual.setText("Geolocalizacion desactivada");
 		geoDesactivado.setVisible(true);
+		this.otraCuentaController.desactivarGeo();
 
 	}
 
@@ -273,15 +255,15 @@ public class WorldController extends Controller implements AStream.IListen {
 	}
 
 	// Handler for TabPane[fx:id="menuPrincipal"] onMouseClicked
-    public void ocultarPerfil(MouseEvent event) {
-    	SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
-       
-    	if (selectionModel.getSelectedItem().equals(this.miCuentaTab)){
-    		this.infCuenta.setVisible(false);
-    		
-    	}
-    }
-	
+	public void ocultarPerfil(MouseEvent event) {
+		SingleSelectionModel<Tab> selectionModel=menuPrincipal.getSelectionModel();
+
+		if (selectionModel.getSelectedItem().equals(this.miCuentaTab)){
+			this.infCuenta.setVisible(false);
+
+		}
+	}
+
 	// Handler for Button[fx:id="twittear"] onMouseClicked (publicar ya el tweet como tal)
 	public void publicarTweet(MouseEvent event) {
 		String texto = textoNuevoTweet.getText();
@@ -309,7 +291,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		this.mensajesController.postInitialize();
 		this.mensajesController.showWindow();
 	}
-	
+
 	public void responderMensaje(String destino) {
 		this.mensajesController.postInitialize();
 		this.mensajesController.responderMensaje(destino);
@@ -319,14 +301,25 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	// Handler for Label[fx:id="placeActual"] onMouseClicked
 	public void mostrarGeo(MouseEvent event) {
-		if (geoLocation==true)
-			stackMapa.setVisible(true);
+		if (geoLocation==true){
+			Double latitude= lugar.getCentroid().getLatitude();
+			Double longitude= lugar.getCentroid().getLongitude(); 
+			String coord=new String(latitude.toString()+","+longitude.toString());
+
+
+			URL url;
+			try {
+				url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
+						"&size=660x500&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+
+				URLConnection conn = url.openConnection();
+				InputStream in = conn.getInputStream();
+				Image image= new Image(in);	
+				ClientTools.showImage(image);
+			} catch (Exception e) {}
+		}
 	}
 
-	// Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
-	public void cerrarMapa(MouseEvent event) {
-		stackMapa.setVisible(false);
-	}
 
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -342,7 +335,6 @@ public class WorldController extends Controller implements AStream.IListen {
 		assert geoActivado != null : "fx:id=\"geoActivado\" was not injected: check your FXML file 'world.fxml'.";
 		assert geoDesactivado != null : "fx:id=\"geoDesactivado\" was not injected: check your FXML file 'world.fxml'.";
 		assert infCuenta != null : "fx:id=\"infCuenta\" was not injected: check your FXML file 'world.fxml'.";
-		assert mapa != null : "fx:id=\"mapa\" was not injected: check your FXML file 'world.fxml'.";
 		assert menuPrincipal != null : "fx:id=\"menuPrincipal\" was not injected: check your FXML file 'world.fxml'.";
 		assert miCuentaTab != null : "fx:id=\"miCuentaTab\" was not injected: check your FXML file 'world.fxml'.";
 		assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'world.fxml'.";
@@ -353,7 +345,6 @@ public class WorldController extends Controller implements AStream.IListen {
 		assert placeActual != null : "fx:id=\"placeActual\" was not injected: check your FXML file 'world.fxml'.";
 		assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'world.fxml'.";
 		assert screenName != null : "fx:id=\"screenName\" was not injected: check your FXML file 'world.fxml'.";
-		assert stackMapa != null : "fx:id=\"stackMapa\" was not injected: check your FXML file 'world.fxml'.";
 		assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'world.fxml'.";
 		assert timeLineTab != null : "fx:id=\"timeLineTab\" was not injected: check your FXML file 'world.fxml'.";
 		assert tweetButton != null : "fx:id=\"tweetButton\" was not injected: check your FXML file 'world.fxml'.";
@@ -364,7 +355,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		creadorTweets.setVisible(false);
 		profileImage.setPreserveRatio(false);
 		geoActivado.setVisible(false);
-		stackMapa.setVisible(false);
+
 
 		//Eventos para volver a mostrar el cuadro de informacion del usuario de la izquierda
 		timeLineTab.getTabPane().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {

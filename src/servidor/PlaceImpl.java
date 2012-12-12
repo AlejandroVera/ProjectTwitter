@@ -104,6 +104,14 @@ public class PlaceImpl implements Place {
 		//La metemos en la base de datos
 		con.updateQuery("INSERT INTO places (pais, ciudad, longitud1, latitud1, longitud2, latitud2)" +
 				" VALUES (?, ?, ?, ?, ?, ?)", params);
+		
+		ResultSet last_id = this.con.query("SELECT LAST_INSERT_ID()");
+		
+		try {
+			if (last_id.next()){
+				this.id=last_id.getString(1);
+			}
+		} catch (SQLException e) {}
 			
 	}
 
@@ -151,7 +159,7 @@ public class PlaceImpl implements Place {
 	}
 	
 	public String toString(){
-		if (getName()!=null)	
+		if (!getName().equals("vacio"))	
 			return new String(this.getName()+", "+this.getCity()+", "+this.getCountryName());
 		else
 			return new String(this.getCity()+", "+this.getCountryName());

@@ -6,6 +6,7 @@
 package cliente;
 
 import interfacesComunes.AStream;
+import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.Twitter_Users;
@@ -13,7 +14,9 @@ import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -126,18 +129,58 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	@FXML //  fx:id="textoTweet"
 	private TextArea textoTweet; // Value injected by FXMLLoader
 
+	@FXML //  fx:id="geoActivado"
+	private ImageView geoActivado; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="geoDesactivado"
+	private ImageView geoDesactivado; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="placeActual"
+	private Label placeActual; // Value injected by FXMLLoader
 
 	/** 
 	 * Usuario que se está mostrando actualmente 
 	 */
-	private User user; 
+	private User user;
+
 
 	boolean seguidoresLoaded;
 	boolean siguiendoLoaded;
 	boolean favoritosLoaded;
+	
 	ChangeListener<Tab> listenerCambios;
 
 
+
+
+	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
+	public void activarGeo(MouseEvent event) {
+		((WorldController)super.getParentController()).activarGeo(event);		
+	}
+
+
+	public void activarGeo(Place lugar){
+	
+		placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
+		geoActivado.setVisible(true);
+		geoDesactivado.setVisible(false);
+
+	}
+
+	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
+	public void desactivarGeo(MouseEvent event) {
+		((WorldController)super.getParentController()).desactivarGeo(event);
+	}
+	
+	public void desactivarGeo(){
+		geoActivado.setVisible(false);
+		geoDesactivado.setVisible(false);
+		placeActual.setText("Geolocalizacion desactivada");
+		geoDesactivado.setVisible(true);
+	}
+	public void mostrarGeo(MouseEvent event) {
+		((WorldController)super.getParentController()).mostrarGeo(event);
+	}
 
 	// Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
 	public void cambiaContador(KeyEvent event) {
@@ -229,7 +272,8 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 
 		// initialize your logic here: all @FXML variables will have been injected
 		creadorTweets.setVisible(false);
-		profileImage.setPreserveRatio(false);        
+		profileImage.setPreserveRatio(false);
+		geoActivado.setVisible(false);
 	}
 
 	@Override

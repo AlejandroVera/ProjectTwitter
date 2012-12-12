@@ -245,12 +245,6 @@
                     </GridPane>
                   </children>
                 </VBox>
-                <StackPane id="StackPane" fx:id="stackMapa" prefHeight="164.0" prefWidth="353.49993896484375">
-                  <children>
-                    <ImageView fx:id="mapa" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                    <Label id="cerrarMapa" onMouseClicked="#cerrarMapa" prefHeight="19.999908447265625" text="X" translateX="80.0" translateY="-65.0" />
-                  </children>
-                </StackPane>
               </children>
             </StackPane>
           </children>
