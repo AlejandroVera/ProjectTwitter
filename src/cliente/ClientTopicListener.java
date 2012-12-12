@@ -48,11 +48,9 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 			Topic chatTopic = (Topic) ctx.lookup("Eventos");
 
 			// Generamos la lista de ids a los que escuchar
-			String selector = "";
+			String selector = "userId = -1";
 			for (Long id : TwitterClient.amigosDelLogueado()) {
-				if (!selector.isEmpty())
-					selector += " OR ";
-				selector += "userId = " + id;
+				selector += " OR userId = " + id;
 			}
 
 			// Se crea un subscriptor JMS filtrando por usuarios a los que
