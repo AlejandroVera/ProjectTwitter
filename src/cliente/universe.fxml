@@ -24,7 +24,7 @@
             <ImageView fx:id="imagen" fitHeight="500.0" fitWidth="660.0" layoutX="120.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="716.0" layoutY="76.0" minWidth="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="31.0" text="X">
               <graphic>
-                <Label id="" onMouseClicked="#cerrarImagen" prefHeight="19.000099999997474" text="X" textFill="WHITE" />
+                <Label id="" prefHeight="19.000099999997474" text="X" textFill="WHITE" />
               </graphic>
             </Button>
           </children>
