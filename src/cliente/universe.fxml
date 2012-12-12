@@ -41,6 +41,15 @@
             </TitledPane>
           </children>
         </AnchorPane>
+        <AnchorPane fx:id="loadingContainer" prefHeight="200.0" prefWidth="200.0" visible="false">
+          <children>
+            <VBox alignment="CENTER" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <ProgressIndicator prefHeight="174.0" prefWidth="900.0" progress="-1.0" visible="true" />
+              </children>
+            </VBox>
+          </children>
+        </AnchorPane>
       </children>
     </StackPane>
   </children>

@@ -104,57 +104,62 @@ public class TwitterClient extends Application {
 
 	protected boolean notifyLogin(String user, String pass,OAuthSignpostClient oauthClient){
 		Controller control;
-		if(oauthClient!=null) {
-			this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
-			TwitterClient.tw=this.twitter;//argucia
-			try {
-				this.twitterStream = new TwitterStream(twitter);
-				List<Long> l= twitter.users().getFriendIDs();
-				l.add(twitter.getSelf().getId());
-				twitterStream.setFollowUsers(l);
-				this.cliente = new ClientCallbackListener();
-				twitterStream.addListener(this.cliente);
-
-				control = this.loadFXMLAndShow("world.fxml");
-				this.cliente.setListener((AStream.IListen) control);
-
-				twitterStream.connect();
-				twitterStream.popTweets();
-				if(twitterStream.isAlive()){
-					System.out.println("Stream conectado \n");
-
-				}
-			} 
-			catch (Exception e1) {
-				e1.printStackTrace();
-				ClientTools.showDialog("Se ha producido un error al conectar con el servidor.\n"+e1.getMessage());
-			}
-			return true;
-		}
-		else{
-			try {
-				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-				this.cliente = new ClientCallbackListener();
-				this.twitter = stub.login(user, pass, cliente);
-				if(this.twitter ==  null){
-					ClientTools.showDialog("Login invalido.");
-					return false;
-				}	
+		try{
+			ClientTools.setLoading(true);
+			if(oauthClient!=null) {
+				this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
 				TwitterClient.tw=this.twitter;//argucia
-				//lanzar la visión principal (pasandole al controlador el objeto Twitter)
-				control = this.loadFXMLAndShow("world.fxml");
-
-				//Ponemos al controlador a la escucha de los eventos de twitter
-				this.cliente.setListener((AStream.IListen) control);
-
+				try {
+					this.twitterStream = new TwitterStream(twitter);
+					List<Long> l= twitter.users().getFriendIDs();
+					l.add(twitter.getSelf().getId());
+					twitterStream.setFollowUsers(l);
+					this.cliente = new ClientCallbackListener();
+					twitterStream.addListener(this.cliente);
+	
+					control = this.loadFXMLAndShow("world.fxml");
+					this.cliente.setListener((AStream.IListen) control);
+	
+					twitterStream.connect();
+					twitterStream.popTweets();
+					if(twitterStream.isAlive()){
+						System.out.println("Stream conectado \n");
+	
+					}
+				} 
+				catch (Exception e1) {
+					e1.printStackTrace();
+					ClientTools.showDialog("Se ha producido un error al conectar con el servidor.\n"+e1.getMessage());
+				}
 				return true;
-
-
-			} catch (NotBoundException | IOException e1) {
-				e1.printStackTrace();
-				ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
-				return false;
 			}
+			else{
+				try {
+					TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
+					this.cliente = new ClientCallbackListener();
+					this.twitter = stub.login(user, pass, cliente);
+					if(this.twitter ==  null){
+						ClientTools.showDialog("Login invalido.");
+						return false;
+					}	
+					TwitterClient.tw=this.twitter;//argucia
+					//lanzar la visión principal (pasandole al controlador el objeto Twitter)
+					control = this.loadFXMLAndShow("world.fxml");
+	
+					//Ponemos al controlador a la escucha de los eventos de twitter
+					this.cliente.setListener((AStream.IListen) control);
+	
+					return true;
+	
+	
+				} catch (NotBoundException | IOException e1) {
+					e1.printStackTrace();
+					ClientTools.showDialog("Se ha producido un error al conectar con el servidor.");
+					return false;
+				}
+			}
+		}finally{
+			ClientTools.setLoading(false);
 		}
 	}
 

@@ -231,6 +231,10 @@ public class ClientTools {
 		timerRunning = false;
 	}
 	
+	protected static void setLoading(boolean load){
+		universeController.loading.set(load);
+	}
+	
 	
 	
 	
