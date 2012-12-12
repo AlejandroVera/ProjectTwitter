@@ -7,6 +7,7 @@ import interfacesComunes.TwitterInit;
 import interfacesComunes.User;
 
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Map;
@@ -39,21 +40,26 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	}
 	
 	//Cambia cosas del perfil _ Se necesita implementar el constructor User
-	public User setProfile(String name, String profileImageUrl, String location, String description) {
+	public User setProfile(String name, String profileImageUrl, String location, String description, int protectedUser) {
 		
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(name);
 		params.add(profileImageUrl);
 		params.add(location);
 		params.add(description);
+		params.add(protectedUser);
 		params.add(loggedUser.getId());
 		
-		con.updateQuery("UPDATE usuario SET name = ?, profileImageUrl = ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
+		con.updateQuery("UPDATE usuario SET name = ?, profileImageUrl = ?, location = ?, descripcion = ?, protectedUser = ? WHERE id = ? LIMIT 1", params);
 
 		try{
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
 			
-			this.init.sendThroughCallback(event, loggedUser.getId());
+			//this.init.sendThroughCallback(event, loggedUser.getId());
+			//Se lo envia a todos, por si alguien está mirando el perfil.
+			ResultSet r=this.con.query("SELECT id FROM usuario");
+			while(r.next())
+				this.init.sendThroughCallback(event, r.getLong("id"));
 			
 		}catch(SQLException | RemoteException e){
 			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");

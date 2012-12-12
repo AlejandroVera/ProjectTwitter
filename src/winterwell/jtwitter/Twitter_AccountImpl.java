@@ -236,7 +236,7 @@ public class Twitter_AccountImpl implements Twitter_Account{
 
 	@Override
 	public User setProfile(String name,
-			String profileImageUrl, String location, String description) {
+			String profileImageUrl, String location, String description, int proc) {
 		// nuestro twitter only
 		return setProfile(name, "fake web", profileImageUrl, location, description);
 	}
