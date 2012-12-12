@@ -34,17 +34,16 @@ public class Twitter_AccountImplSuscriptor implements interfacesComunes.Twitter_
 	}
 	
 	//Cambia cosas del perfil _ Se necesita implementar el constructor User
-	public User setProfile(String name, String url, String profileImageUrl, String location, String description) {
+	public User setProfile(String name,  String profileImageUrl, String location, String description) {
 		
 		LinkedList<Object> params = new LinkedList<Object>();
 		params.add(name);
-		params.add(url);
 		params.add(profileImageUrl);
 		params.add(location);
 		params.add(description);
 		params.add(loggedUser.getId());
 		
-		con.updateQuery("UPDATE usuario SET name = ?, web_link= ?, profileImageUrl = ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
+		con.updateQuery("UPDATE usuario SET name = ?, profileImageUrl = ?, location = ?, descripcion = ? WHERE id = ? LIMIT 1", params);
 
 		try {
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
@@ -69,6 +68,13 @@ public class Twitter_AccountImplSuscriptor implements interfacesComunes.Twitter_
 			return twitter.getSelf();
 		else
 			throw new TwitterException("Credenciales fallidas");
+	}
+
+	@Override
+	public User setProfile(String name, String url, String profileImageUrl,
+			String location, String description) {
+	
+		return null;
 	}
 
 }

@@ -28,7 +28,7 @@ public interface Twitter_Account extends Serializable{
 	 * @param Description: La descripcion del usuario
 	 * @*/
 	public User setProfile(String name, String url, String profileImageUrl, String location, String description);
-	
+	public User setProfile(String name,String profileImageUrl, String location, String description);
 	/**DEPRECATED*/
 	public User setProfileColors(java.util.Map<String,String> colorName2hexCode);
 	

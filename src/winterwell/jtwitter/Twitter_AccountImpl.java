@@ -233,4 +233,11 @@ public class Twitter_AccountImpl implements Twitter_Account{
 			return KAccessLevel.NONE;
 		}
 	}
+
+	@Override
+	public User setProfile(String name,
+			String profileImageUrl, String location, String description) {
+		// nuestro twitter only
+		return setProfile(name, "fake web", profileImageUrl, location, description);
+	}
 }

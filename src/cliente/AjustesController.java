@@ -111,7 +111,7 @@ public class AjustesController extends Controller{
 	public void guardarAjustes(MouseEvent event) {
 		Twitter_Account account = super.getTwitter().account();
 		User user = super.getTwitter().getSelf();
-		account.setProfile(name.getText(), "UNKNOWN", imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
+		account.setProfile(name.getText(), imagenPerfilURL.getText(), user.getLocation(), descripcion.getText());
 		account.setProfileColors(null);
 		ClientTools.showDialog("Cambios realizados con exito", "Ajustes");
 		this.hideWindow();
