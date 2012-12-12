@@ -38,84 +38,84 @@ import javafx.scene.layout.VBox;
 public class TweetController extends Controller implements AStream.IListen{
 
 	private static final long serialVersionUID = 136870617271640893L;
-	
+
 	@FXML //  fx:id="Mapa"
-    private ImageView Mapa; // Value injected by FXMLLoader
+	private ImageView Mapa; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="globalContainer"
-    private VBox globalContainer; // Value injected by FXMLLoader
+	@FXML //  fx:id="globalContainer"
+	private VBox globalContainer; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="infoExtra"
-    private HBox infoExtra; // Value injected by FXMLLoader
+	@FXML //  fx:id="infoExtra"
+	private HBox infoExtra; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="location"
-    private Label location; // Value injected by FXMLLoader
+	@FXML //  fx:id="location"
+	private Label location; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="nFavoritos"
-    private Label nFavoritos; // Value injected by FXMLLoader
+	@FXML //  fx:id="nFavoritos"
+	private Label nFavoritos; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="nRetweets"
-    private Label nRetweets; // Value injected by FXMLLoader
+	@FXML //  fx:id="nRetweets"
+	private Label nRetweets; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="numeroDe"
-    private Label numeroDe; // Value injected by FXMLLoader
+	@FXML //  fx:id="numeroDe"
+	private Label numeroDe; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="screename"
-    private Label screename; // Value injected by FXMLLoader
+	@FXML //  fx:id="screename"
+	private Label screename; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackAbrir"
-    private StackPane stackAbrir; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackAbrir"
+	private StackPane stackAbrir; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackBorrar"
-    private StackPane stackBorrar; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackBorrar"
+	private StackPane stackBorrar; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackFavorito"
-    private StackPane stackFavorito; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackFavorito"
+	private StackPane stackFavorito; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackMapa"
-    private StackPane stackMapa; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackMapa"
+	private StackPane stackMapa; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackResponder"
-    private StackPane stackResponder; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackResponder"
+	private StackPane stackResponder; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackRespuesta"
-    private StackPane stackRespuesta; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackRespuesta"
+	private StackPane stackRespuesta; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackRetwitteado"
-    private StackPane stackRetwitteado; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackRetwitteado"
+	private StackPane stackRetwitteado; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackRetwittear"
-    private StackPane stackRetwittear; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackRetwittear"
+	private StackPane stackRetwittear; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackVerConve"
-    private StackPane stackVerConve; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackVerConve"
+	private StackPane stackVerConve; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="stackYaFavorito"
-    private StackPane stackYaFavorito; // Value injected by FXMLLoader
+	@FXML //  fx:id="stackYaFavorito"
+	private StackPane stackYaFavorito; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="textoNuevoTweet"
-    private TextArea textoNuevoTweet; // Value injected by FXMLLoader
+	@FXML //  fx:id="textoNuevoTweet"
+	private TextArea textoNuevoTweet; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="timeAgo"
-    private Label timeAgo; // Value injected by FXMLLoader
+	@FXML //  fx:id="timeAgo"
+	private Label timeAgo; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetBox"
-    private HBox tweetBox; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetBox"
+	private HBox tweetBox; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetTextArea"
-    private TextArea tweetTextArea; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetTextArea"
+	private TextArea tweetTextArea; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetsRespuesta"
-    private VBox tweetsRespuesta; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetsRespuesta"
+	private VBox tweetsRespuesta; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="userImage"
-    private ImageView userImage; // Value injected by FXMLLoader
+	@FXML //  fx:id="userImage"
+	private ImageView userImage; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="username"
-    private Hyperlink username; // Value injected by FXMLLoader
+	@FXML //  fx:id="username"
+	private Hyperlink username; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="worldTweetContainer"
-    private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
+	@FXML //  fx:id="worldTweetContainer"
+	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
 	private Status tweet;
 
@@ -123,12 +123,12 @@ public class TweetController extends Controller implements AStream.IListen{
 	private String currentImage = "";
 	private User user; //Usuario del tweet
 	private Place lugar; //Place asociado al tweet
-	
+
 	// Handler for cerrarMapa on MouseClicked
 	public void cerrarMapa(MouseEvent event){
 		this.stackMapa.setVisible(false);
 	}
-	
+
 	// Handler for Label [fx:id="location"] onMouseClicked
 	public void mostrarGeo (MouseEvent event){
 
@@ -150,7 +150,7 @@ public class TweetController extends Controller implements AStream.IListen{
 			} catch (Exception e) {}
 		}
 	}
-	
+
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void abrirTweet(MouseEvent event) {
 		// handle the event here
@@ -197,20 +197,22 @@ public class TweetController extends Controller implements AStream.IListen{
 		//worldTweetContainer.setMinHeight(originalSize);
 		//worldTweetContainer.setMaxHeight(originalSize);
 		this.desplegado = false;
-		
+
 	}
 
 	// Handler for Hyperlink[fx:id="username"] onAction
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
-		User destUser = getTwitter().users().getUser(this.screename.getText().substring(1));
-		if(destUser != null){
-			if (super.getParentController() instanceof TimeLineController)
-				((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
-			else if (super.getParentController() instanceof ConectaController)
-				((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
-			else if (super.getParentController() instanceof MiCuentaController)
-				((WorldController)((MiCuentaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+		if((this.tweet.getUser().getProtectedUser())&&(!this.tweet.getUser().isFollowedByYou())){
+			User destUser = getTwitter().users().getUser(this.screename.getText().substring(1));
+			if(destUser != null){
+				if (super.getParentController() instanceof TimeLineController)
+					((WorldController)((TimeLineController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+				else if (super.getParentController() instanceof ConectaController)
+					((WorldController)((ConectaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+				else if (super.getParentController() instanceof MiCuentaController)
+					((WorldController)((MiCuentaController)this.getParentController()).getParentController()).changeToOtherAccount(destUser);
+			}
 		}
 	}
 
@@ -241,7 +243,7 @@ public class TweetController extends Controller implements AStream.IListen{
 			globalContainer.getChildren().add(stackRespuesta);
 			this.desplegado = true;
 			this.textoNuevoTweet.requestFocus();
-			
+
 			nFavoritos.setText("?");
 			nRetweets.setText(""+this.tweet.getRetweetCount());
 		}
@@ -256,28 +258,28 @@ public class TweetController extends Controller implements AStream.IListen{
 	@Override // This method is called by the FXMLLoader when initialization is complete
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		assert globalContainer != null : "fx:id=\"globalContainer\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert nFavoritos != null : "fx:id=\"nFavoritos\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert nRetweets != null : "fx:id=\"nRetweets\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert numeroDe != null : "fx:id=\"numeroDe\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert screename != null : "fx:id=\"screename\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackAbrir != null : "fx:id=\"stackAbrir\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackBorrar != null : "fx:id=\"stackBorrar\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackFavorito != null : "fx:id=\"stackFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackResponder != null : "fx:id=\"stackResponder\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackRespuesta != null : "fx:id=\"stackRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackRetwitteado != null : "fx:id=\"stackRetwitteado\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackRetwittear != null : "fx:id=\"stackRetwittear\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackVerConve != null : "fx:id=\"stackVerConve\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert stackYaFavorito != null : "fx:id=\"stackYaFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert tweetBox != null : "fx:id=\"tweetBox\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert tweetsRespuesta != null : "fx:id=\"tweetsRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
-        assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert infoExtra != null : "fx:id=\"infoExtra\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert nFavoritos != null : "fx:id=\"nFavoritos\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert nRetweets != null : "fx:id=\"nRetweets\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert numeroDe != null : "fx:id=\"numeroDe\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert screename != null : "fx:id=\"screename\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackAbrir != null : "fx:id=\"stackAbrir\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackBorrar != null : "fx:id=\"stackBorrar\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackFavorito != null : "fx:id=\"stackFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackResponder != null : "fx:id=\"stackResponder\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackRespuesta != null : "fx:id=\"stackRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackRetwitteado != null : "fx:id=\"stackRetwitteado\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackRetwittear != null : "fx:id=\"stackRetwittear\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackVerConve != null : "fx:id=\"stackVerConve\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert stackYaFavorito != null : "fx:id=\"stackYaFavorito\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert tweetBox != null : "fx:id=\"tweetBox\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert tweetsRespuesta != null : "fx:id=\"tweetsRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert worldTweetContainer != null : "fx:id=\"worldTweetContainer\" was not injected: check your FXML file 'tweet.fxml'.";
 
 
 		// initialize your logic here: all @FXML variables will have been injected
@@ -293,14 +295,14 @@ public class TweetController extends Controller implements AStream.IListen{
 			this.location.setText(lugar.toString());
 		else
 			this.location.setText("");
-			
+
 		tweetTextArea.setText(this.tweet.getText());
-		
+
 		this.user = this.tweet.getUser();
-		
+
 		//Cargamos la información que el usuario puede modificar en cualquier momento
 		loadUserDependantInfo();
-        
+
 		//Parse the time
 		Date createdAt = this.tweet.getCreatedAt();
 		Date now = new Date();
@@ -317,24 +319,24 @@ public class TweetController extends Controller implements AStream.IListen{
 			cal.setTime(createdAt);
 			timeago = ""+cal.get(Calendar.DAY_OF_MONTH);
 			switch(Calendar.MONTH){
-				case Calendar.JANUARY: timeago += " Ene"; break;
-				case Calendar.FEBRUARY: timeago += " Feb"; break;
-				case Calendar.MARCH: timeago += " Mar"; break;
-				case Calendar.APRIL: timeago += " Abr"; break;
-				case Calendar.MAY: timeago += " Mayo"; break;
-				case Calendar.JUNE: timeago += " Jun"; break;
-				case Calendar.JULY: timeago += " Jul"; break;
-				case Calendar.AUGUST: timeago += " Ago"; break;
-				case Calendar.SEPTEMBER: timeago += " Sept"; break;
-				case Calendar.OCTOBER: timeago += " Oct"; break;
-				case Calendar.NOVEMBER: timeago += " Nov"; break;
-				case Calendar.DECEMBER: timeago += " Dic"; break;
+			case Calendar.JANUARY: timeago += " Ene"; break;
+			case Calendar.FEBRUARY: timeago += " Feb"; break;
+			case Calendar.MARCH: timeago += " Mar"; break;
+			case Calendar.APRIL: timeago += " Abr"; break;
+			case Calendar.MAY: timeago += " Mayo"; break;
+			case Calendar.JUNE: timeago += " Jun"; break;
+			case Calendar.JULY: timeago += " Jul"; break;
+			case Calendar.AUGUST: timeago += " Ago"; break;
+			case Calendar.SEPTEMBER: timeago += " Sept"; break;
+			case Calendar.OCTOBER: timeago += " Oct"; break;
+			case Calendar.NOVEMBER: timeago += " Nov"; break;
+			case Calendar.DECEMBER: timeago += " Dic"; break;
 			}
 		}
 
 		timeAgo.setText(timeago);
 		ClientTools.addLabelToTimeUpdate(timeAgo, createdAt);
-		
+
 		if(this.user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
 			stackBorrar.setVisible(true);
 			stackRetwitteado.setVisible(false);
@@ -348,7 +350,7 @@ public class TweetController extends Controller implements AStream.IListen{
 			stackRetwitteado.setVisible(false);
 			stackBorrar.setVisible(false);
 		}
-		
+
 		if(this.tweet.isFavorite()){
 			stackFavorito.setVisible(false);
 			stackYaFavorito.setVisible(true);
@@ -359,24 +361,24 @@ public class TweetController extends Controller implements AStream.IListen{
 
 
 	}
-	
+
 	private void loadUserDependantInfo(){
 		screename.setText("@"+this.user.getScreenName());
 		username.setText(this.user.getName());
 		username.setUserData(this.user.getScreenName());
-		
+
 		String url = this.user.getProfileImageUrl().toString();
 		if(!currentImage.equals(url)){	
-	        Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
-	        if(im != null)
-	        	userImage.setImage(im);
+			Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+			if(im != null)
+				userImage.setImage(im);
 		}
 	}
 
 	protected void setTweet(Status tweet){
 		this.tweet = tweet;
 	}
-	
+
 	public Status getTweet() {
 		return tweet;
 	}

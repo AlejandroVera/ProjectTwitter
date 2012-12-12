@@ -182,6 +182,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		if(user.getProtectedUser()){
 			sol=null;
 			tipoevento=TwitterEvent.Type.FOLLOW_REQUEST;
+			user.setFollowRequestSent(true);
 		}
 		else{
 			sol= user;
@@ -205,7 +206,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	public void confirmarAmistad(User user/* usuario aceptado*/){
 		TwitterEvent evento;
-
+		user.setFollowRequestSent(false);
 		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		try{
 			//Creamos el evento

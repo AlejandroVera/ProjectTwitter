@@ -43,207 +43,199 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	private static final long serialVersionUID = 460902024550111662L;
 
 	@FXML //  fx:id="ScreenName"
-    private Label ScreenName; // Value injected by FXMLLoader
+	private Label ScreenName; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonFollow"
-    private VBox botonFollow; // Value injected by FXMLLoader
+	@FXML //  fx:id="botonFollow"
+	private VBox botonFollow; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonTweet"
-    private VBox botonTweet; // Value injected by FXMLLoader
+	@FXML //  fx:id="botonTweet"
+	private VBox botonTweet; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonUnfollow"
-    private VBox botonUnfollow; // Value injected by FXMLLoader
+	@FXML //  fx:id="botonUnfollow"
+	private VBox botonUnfollow; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="cajaSeguidores"
-    private VBox cajaSeguidores; // Value injected by FXMLLoader
+	@FXML //  fx:id="cajaSeguidores"
+	private VBox cajaSeguidores; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="cajaSiguiendo"
-    private VBox cajaSiguiendo; // Value injected by FXMLLoader
+	@FXML //  fx:id="cajaSiguiendo"
+	private VBox cajaSiguiendo; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="contadorCaracteres"
-    private Label contadorCaracteres; // Value injected by FXMLLoader
+	@FXML //  fx:id="contadorCaracteres"
+	private Label contadorCaracteres; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="creadorTweets"
-    private StackPane creadorTweets; // Value injected by FXMLLoader
+	@FXML //  fx:id="creadorTweets"
+	private StackPane creadorTweets; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="desSigueA"
-    private Label desSigueA; // Value injected by FXMLLoader
+	@FXML //  fx:id="desSigueA"
+	private Label desSigueA; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="descripcion"
-    private TextArea descripcion; // Value injected by FXMLLoader
+	@FXML //  fx:id="descripcion"
+	private TextArea descripcion; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="enviarMensaje"
-    private StackPane enviarMensaje; // Value injected by FXMLLoader
+	@FXML //  fx:id="enviarMensaje"
+	private StackPane enviarMensaje; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="favoritosTab"
-    private Tab favoritosTab; // Value injected by FXMLLoader
+	@FXML //  fx:id="favoritosTab"
+	private Tab favoritosTab; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="nSeguidores"
-    private Label nSeguidores; // Value injected by FXMLLoader
+	@FXML //  fx:id="nSeguidores"
+	private Label nSeguidores; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="nSiguiendo"
-    private Label nSiguiendo; // Value injected by FXMLLoader
+	@FXML //  fx:id="nSiguiendo"
+	private Label nSiguiendo; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="nTweets"
-    private Label nTweets; // Value injected by FXMLLoader
+	@FXML //  fx:id="nTweets"
+	private Label nTweets; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="name"
-    private Label name; // Value injected by FXMLLoader
+	@FXML //  fx:id="name"
+	private Label name; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="profileImage"
-    private ImageView profileImage; // Value injected by FXMLLoader
+	@FXML //  fx:id="profileImage"
+	private ImageView profileImage; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="seguidoresTab"
-    private Tab seguidoresTab; // Value injected by FXMLLoader
+	@FXML //  fx:id="seguidoresTab"
+	private Tab seguidoresTab; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="sigueA"
-    private Label sigueA; // Value injected by FXMLLoader
+	@FXML //  fx:id="sigueA"
+	private Label sigueA; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="siguiendoTab"
-    private Tab siguiendoTab; // Value injected by FXMLLoader
+	@FXML //  fx:id="siguiendoTab"
+	private Tab siguiendoTab; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetsFavoritos"
-    private VBox tweetsFavoritos; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetsFavoritos"
+	private VBox tweetsFavoritos; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetsTab"
-    private Tab tweetsTab; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetsTab"
+	private Tab tweetsTab; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tweetsUsuario"
-    private VBox tweetsUsuario; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetsUsuario"
+	private VBox tweetsUsuario; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="twitteaA"
-    private Label twitteaA; // Value injected by FXMLLoader
+	@FXML //  fx:id="twitteaA"
+	private Label twitteaA; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="twittear"
-    private Button twittear; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="menuOtraCuenta"
-    private TabPane menuOtraCuenta; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="tituloTweet"
-    private Label tituloTweet; // Value injected by FXMLLoader
-    
-    @FXML //  fx:id="textoTweet"
-    private TextArea textoTweet; // Value injected by FXMLLoader
+	@FXML //  fx:id="twittear"
+	private Button twittear; // Value injected by FXMLLoader
 
-    
-    /** 
-     * Usuario que se está mostrando actualmente 
-     */
-    private User user; 
-    
-    boolean seguidoresLoaded;
-    boolean siguiendoLoaded;
-    boolean favoritosLoaded;
-    ChangeListener<Tab> listenerCambios;
-    
+	@FXML //  fx:id="menuOtraCuenta"
+	private TabPane menuOtraCuenta; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="tituloTweet"
+	private Label tituloTweet; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="textoTweet"
+	private TextArea textoTweet; // Value injected by FXMLLoader
 
 
-    // Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
-    public void cambiaContador(KeyEvent event) {
-    	contadorCaracteres.setText(""+(140-ClientTools.countCharacters(textoTweet.getText())));
-    }
-    
-    // Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
-    public void cerrarNuevoTweet(MouseEvent event) {
-        this.creadorTweets.setVisible(false);
-    }
+	/** 
+	 * Usuario que se está mostrando actualmente 
+	 */
+	private User user; 
 
-    // Handler for VBox[fx:id="botonTweet"] onMouseClicked
-    public void crearTweetMencion(MouseEvent event) {
-        this.creadorTweets.setVisible(true);
-    }
+	boolean seguidoresLoaded;
+	boolean siguiendoLoaded;
+	boolean favoritosLoaded;
+	ChangeListener<Tab> listenerCambios;
 
-    // Handler for VBox[fx:id="botonUnfollow"] onMouseClicked
-    public void dejarDeSeguir(MouseEvent event) {
-    	User res = getTwitter().users().stopFollowing(this.user);
-        if(res != null){
-        	botonUnfollow.setVisible(false);
-			botonFollow.setVisible(true);
-        }	
-    }
 
-    // Handler for VBox[id="contenedorMensaje"] onMouseClicked
-    public void enviarMensajePrivado(MouseEvent event) {
-    	WorldController parent = (WorldController)super.getParentController();
-    	parent.responderMensaje("@"+this.user.getScreenName());
-       
-    }
 
-    // Handler for VBox[id="cajita"] onMouseClicked
-    public void mostrarFollowers(MouseEvent event) {
-    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+	// Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
+	public void cambiaContador(KeyEvent event) {
+		contadorCaracteres.setText(""+(140-ClientTools.countCharacters(textoTweet.getText())));
+	}
+
+	// Handler for Label[id="cerrarNuevoTweet"] onMouseClicked
+	public void cerrarNuevoTweet(MouseEvent event) {
+		this.creadorTweets.setVisible(false);
+	}
+
+	// Handler for VBox[fx:id="botonTweet"] onMouseClicked
+	public void crearTweetMencion(MouseEvent event) {
+		this.creadorTweets.setVisible(true);
+	}
+
+	// Handler for VBox[fx:id="botonUnfollow"] onMouseClicked
+	public void dejarDeSeguir(MouseEvent event) {
+		getTwitter().users().stopFollowing(this.user);
+		botonUnfollow.setVisible(false);
+		botonFollow.setVisible(true);
+	}
+
+	// Handler for VBox[id="contenedorMensaje"] onMouseClicked
+	public void enviarMensajePrivado(MouseEvent event) {
+		WorldController parent = (WorldController)super.getParentController();
+		parent.responderMensaje("@"+this.user.getScreenName());
+
+	}
+
+	// Handler for VBox[id="cajita"] onMouseClicked
+	public void mostrarFollowers(MouseEvent event) {
+		SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
 		selectionModel.select(seguidoresTab);
-    }
+	}
 
-    // Handler for VBox[id="cajita"] onMouseClicked
-    public void mostrarFriends(MouseEvent event) {
-    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+	// Handler for VBox[id="cajita"] onMouseClicked
+	public void mostrarFriends(MouseEvent event) {
+		SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
 		selectionModel.select(siguiendoTab);
-    }
+	}
 
-    // Handler for VBox[id="cajita"] onMouseClicked
-    public void mostrarTweetsUsuario(MouseEvent event) {
-    	SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
+	// Handler for VBox[id="cajita"] onMouseClicked
+	public void mostrarTweetsUsuario(MouseEvent event) {
+		SingleSelectionModel<Tab> selectionModel=menuOtraCuenta.getSelectionModel();
 		selectionModel.select(tweetsTab);
-    }
+	}
 
-    // Handler for Button[fx:id="twittear"] onMouseClicked
-    public void publicarTweet(MouseEvent event) {
-        super.getTwitter().updateStatus(this.textoTweet.getText());
-    }
+	// Handler for Button[fx:id="twittear"] onMouseClicked
+	public void publicarTweet(MouseEvent event) {
+		super.getTwitter().updateStatus(this.textoTweet.getText());
+	}
 
-    // Handler for VBox[fx:id="botonFollow"] onMouseClicked
-    public void seguir(MouseEvent event) {
-        User res = getTwitter().users().follow(this.user);
-        if(res != null){
-        	botonUnfollow.setVisible(true);
-			botonFollow.setVisible(false);
-        }
-        else{
-        	//usuario proteguido
-        	
-        }
-    }
+	// Handler for VBox[fx:id="botonFollow"] onMouseClicked
+	public void seguir(MouseEvent event) {
+		getTwitter().users().follow(this.user);
+		botonUnfollow.setVisible(true);
+		botonFollow.setVisible(false);
+	}
 
-    @Override // This method is called by the FXMLLoader when initialization is complete
-    public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-    	assert ScreenName != null : "fx:id=\"ScreenName\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert botonFollow != null : "fx:id=\"botonFollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert botonTweet != null : "fx:id=\"botonTweet\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert botonUnfollow != null : "fx:id=\"botonUnfollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert cajaSeguidores != null : "fx:id=\"cajaSeguidores\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert cajaSiguiendo != null : "fx:id=\"cajaSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert contadorCaracteres != null : "fx:id=\"contadorCaracteres\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert desSigueA != null : "fx:id=\"desSigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert descripcion != null : "fx:id=\"descripcion\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert enviarMensaje != null : "fx:id=\"enviarMensaje\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert favoritosTab != null : "fx:id=\"favoritosTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert seguidoresTab != null : "fx:id=\"seguidoresTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert sigueA != null : "fx:id=\"sigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert siguiendoTab != null : "fx:id=\"siguiendoTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert tweetsFavoritos != null : "fx:id=\"tweetsFavoritos\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert tweetsTab != null : "fx:id=\"tweetsTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert twitteaA != null : "fx:id=\"twitteaA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
-        assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+	@Override // This method is called by the FXMLLoader when initialization is complete
+	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+		assert ScreenName != null : "fx:id=\"ScreenName\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert botonFollow != null : "fx:id=\"botonFollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert botonTweet != null : "fx:id=\"botonTweet\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert botonUnfollow != null : "fx:id=\"botonUnfollow\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert cajaSeguidores != null : "fx:id=\"cajaSeguidores\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert cajaSiguiendo != null : "fx:id=\"cajaSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert contadorCaracteres != null : "fx:id=\"contadorCaracteres\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert creadorTweets != null : "fx:id=\"creadorTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert desSigueA != null : "fx:id=\"desSigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert descripcion != null : "fx:id=\"descripcion\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert enviarMensaje != null : "fx:id=\"enviarMensaje\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert favoritosTab != null : "fx:id=\"favoritosTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert nSeguidores != null : "fx:id=\"nSeguidores\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert nSiguiendo != null : "fx:id=\"nSiguiendo\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert nTweets != null : "fx:id=\"nTweets\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert profileImage != null : "fx:id=\"profileImage\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert seguidoresTab != null : "fx:id=\"seguidoresTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert sigueA != null : "fx:id=\"sigueA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert siguiendoTab != null : "fx:id=\"siguiendoTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert tweetsFavoritos != null : "fx:id=\"tweetsFavoritos\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert tweetsTab != null : "fx:id=\"tweetsTab\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert tweetsUsuario != null : "fx:id=\"tweetsUsuario\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert twitteaA != null : "fx:id=\"twitteaA\" was not injected: check your FXML file 'otraCuenta.fxml'.";
+		assert twittear != null : "fx:id=\"twittear\" was not injected: check your FXML file 'otraCuenta.fxml'.";
 
 
-        // initialize your logic here: all @FXML variables will have been injected
-        creadorTweets.setVisible(false);
-        profileImage.setPreserveRatio(false);        
-    }
+		// initialize your logic here: all @FXML variables will have been injected
+		creadorTweets.setVisible(false);
+		profileImage.setPreserveRatio(false);        
+	}
 
 	@Override
 	public void postInitialize() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -251,20 +243,20 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	protected void changeToUser(User usu){
 		//Limpiamos la información anterior
 		this.user = usu;
 		tweetsUsuario.getChildren().clear();
-		
+
 		//Rellenamos la caja de información del usuario
 		ScreenName.setText(this.user.getName());
 		name.setText("@"+this.user.getScreenName());
 		nTweets.setText(""+this.user.getStatusesCount());
-        nSeguidores.setText(""+this.user.getFollowersCount());
-        nSiguiendo.setText(""+this.user.getFriendsCount());
-        descripcion.setText(this.user.getDescription());
-        
+		nSeguidores.setText(""+this.user.getFollowersCount());
+		nSiguiendo.setText(""+this.user.getFriendsCount());
+		descripcion.setText(this.user.getDescription());
+
 		//Botón de seguidor
 		if(super.getTwitter().users().isFollowing(this.user)){ //Si ya le estamos siguiendo
 			botonUnfollow.setVisible(true);
@@ -273,84 +265,84 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 			botonUnfollow.setVisible(false);
 			botonFollow.setVisible(true);
 		}
-		
+
 		String screenName = this.user.getScreenName();
 		twitteaA.setText("@"+screenName);
 		sigueA.setText("@"+screenName);
 		desSigueA.setText("@"+screenName);
 		tituloTweet.setText("Twittea a @"+screenName);
 		textoTweet.setText("@"+screenName);
-        
-        //Su imagen
-        Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
-        if(im != null)
-        	profileImage.setImage(im);
-		
+
+		//Su imagen
+		Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+		if(im != null)
+			profileImage.setImage(im);
+
 		//Cargamos su "timeline"
 		Iterator<Status> timeline = super.getTwitter().getUserTimeline(this.user.getId()).iterator();
 		tweetsUsuario.getChildren().clear();
 		while(timeline.hasNext()){
 			this.addTweet(tweetsUsuario, timeline.next());
 		}
-		
+
 		//Borramos el anterior listener
 		if(listenerCambios != null)
 			tweetsTab.getTabPane().getSelectionModel().selectedItemProperty().removeListener(listenerCambios);
-		
+
 		//Añadimos un nuevo listener para carga por demanda
 		this.listenerCambios = new ChangeListener<Tab>() {
-	      	  @Override 
-	      	  public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
-	      		  	if(!favoritosLoaded && newTab.equals(favoritosTab)){
-	      		  		
-	      		  		//Cargamos sus favoritos
-	      				Iterator<Status> favoritos = getTwitter().getFavorites(user.getScreenName()).iterator();
-	      				tweetsFavoritos.getChildren().clear();
-	      				while(favoritos.hasNext()){
-	      					addTweet(tweetsFavoritos, favoritos.next());
-	      				}
-						favoritosLoaded = true;
-						
-	      		  	}else if(!seguidoresLoaded && newTab.equals(seguidoresTab)){
-	      		  		
-				      	Twitter_Users tw_users = getTwitter().users();
-						int count = 0;
-						
-						//Cargamos sus seguidores
-						Iterator<Long> seguidores = tw_users.getFollowerIDs(user.getScreenName()).iterator();
-						cajaSeguidores.getChildren().clear();
-						while(seguidores.hasNext() && count++ < 10){//TODO: limite temporal
-							User us = tw_users.getUser(seguidores.next());
-							if(us != null)
-								addUser(cajaSeguidores, us);
-						}
-						seguidoresLoaded = true;
-						
-						
-	      		  	}else if(!siguiendoLoaded && newTab.equals(siguiendoTab)){
-	      		  		
-	      		  		Twitter_Users tw_users = getTwitter().users();
-	      		  		int count = 0;
-	      		  		
-	      		  		//Cargamos sus seguidos
-	      				Iterator<Long> seguidos = tw_users.getFollowerIDs(user.getScreenName()).iterator();
-	      				cajaSiguiendo.getChildren().clear();
-	      				while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
-	      					User us = tw_users.getUser(seguidos.next());
-	      					if(us != null)
-	      						addUser(cajaSiguiendo, us);
-	      				}	
-		      			siguiendoLoaded = true;
-		      			
-	      		  	}else if(siguiendoLoaded && seguidoresLoaded && favoritosLoaded){ //Quitamos el listener
-	      		  		tweetsTab.getTabPane().getSelectionModel().selectedItemProperty().removeListener(this);
-	      		  	}
-	      	  }
-	       };
-	       menuOtraCuenta.getSelectionModel().selectedItemProperty().addListener(listenerCambios);
-		
+			@Override 
+			public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
+				if(!favoritosLoaded && newTab.equals(favoritosTab)){
+
+					//Cargamos sus favoritos
+					Iterator<Status> favoritos = getTwitter().getFavorites(user.getScreenName()).iterator();
+					tweetsFavoritos.getChildren().clear();
+					while(favoritos.hasNext()){
+						addTweet(tweetsFavoritos, favoritos.next());
+					}
+					favoritosLoaded = true;
+
+				}else if(!seguidoresLoaded && newTab.equals(seguidoresTab)){
+
+					Twitter_Users tw_users = getTwitter().users();
+					int count = 0;
+
+					//Cargamos sus seguidores
+					Iterator<Long> seguidores = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+					cajaSeguidores.getChildren().clear();
+					while(seguidores.hasNext() && count++ < 10){//TODO: limite temporal
+						User us = tw_users.getUser(seguidores.next());
+						if(us != null)
+							addUser(cajaSeguidores, us);
+					}
+					seguidoresLoaded = true;
+
+
+				}else if(!siguiendoLoaded && newTab.equals(siguiendoTab)){
+
+					Twitter_Users tw_users = getTwitter().users();
+					int count = 0;
+
+					//Cargamos sus seguidos
+					Iterator<Long> seguidos = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+					cajaSiguiendo.getChildren().clear();
+					while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
+						User us = tw_users.getUser(seguidos.next());
+						if(us != null)
+							addUser(cajaSiguiendo, us);
+					}	
+					siguiendoLoaded = true;
+
+				}else if(siguiendoLoaded && seguidoresLoaded && favoritosLoaded){ //Quitamos el listener
+					tweetsTab.getTabPane().getSelectionModel().selectedItemProperty().removeListener(this);
+				}
+			}
+		};
+		menuOtraCuenta.getSelectionModel().selectedItemProperty().addListener(listenerCambios);
+
 	}
-	
+
 	/**
 	 * Añade un tweet al final de la lista.
 	 * @param contendor VBox a la que añadir el tweet.
@@ -359,7 +351,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	private void addTweet(VBox contendor, ITweet tweet){
 		addTweet(contendor, tweet, false);
 	}
-	
+
 	/**
 	 * Añade un tweet.
 	 * @param contendor VBox a la que añadir el tweet.
@@ -370,7 +362,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 		try {
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			tweetUI.getController().setParentController(this);
-			
+
 			if(!onTop)
 				contendor.getChildren().add(tweetUI.getRoot());
 			else{
@@ -383,16 +375,16 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void addUser(VBox contendor, User user){
 		addUser(contendor, user, false);
 	}
-	
+
 	private void addUser(VBox contendor,User user, boolean onTop){
 		try {
 			FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), user);
 			userUI.getController().setParentController(this);
-			
+
 			if(!onTop)
 				contendor.getChildren().add(userUI.getRoot());
 			else{

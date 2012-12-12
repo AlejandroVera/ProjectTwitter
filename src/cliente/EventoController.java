@@ -149,6 +149,7 @@ public class EventoController extends Controller {
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
 			this.descripcionUsuario.setText("Ahora te sigue");
 			this.seguir.setVisible(true);
+			botonPeticion.setVisible(false);
 		}
 
 		if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)){

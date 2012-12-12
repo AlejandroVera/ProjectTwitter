@@ -15,7 +15,7 @@
       <children>
         <GridPane prefHeight="145.5" prefWidth="516.0">
           <children>
-            <HBox id="cajaIz" alignment="CENTER" prefHeight="159.0" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <HBox id="cajaIz" alignment="CENTER" prefHeight="75.0" prefWidth="516.0" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
               <children>
                 <GridPane prefHeight="101.0" prefWidth="514.0">
                   <children>
@@ -59,7 +59,7 @@
                             </GridPane>
                           </children>
                         </HBox>
-                        <TextArea id="descUser" fx:id="descripcionUsuario" editable="false" focusTraversable="false" prefHeight="48.0" prefWidth="435.0" text="Este usuario esta protegido." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextArea id="descUser" fx:id="descripcionUsuario" editable="false" focusTraversable="false" prefHeight="66.00009999999747" prefWidth="450.0" text="Este usuario esta protegido." wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                       </children>
                       <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="437.0" minWidth="10.0" prefWidth="435.0" />
@@ -91,11 +91,14 @@
         </GridPane>
       </children>
     </HBox>
-    <ImageView fx:id="candado" fitHeight="47.78624725341797" fitWidth="36.895009994506836" layoutX="450.0" layoutY="15.0" opacity="0.58" pickOnBounds="true" preserveRatio="false">
+    <ImageView fx:id="candado" fitHeight="47.78624725341797" fitWidth="36.895009994506836" layoutX="438.0" layoutY="6.0" opacity="0.58" pickOnBounds="true" preserveRatio="false">
       <image>
         <Image url="@Imagenes/candado.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
+    <Button fx:id="follow" alignment="CENTER" contentDisplay="CENTER" layoutX="402.0" layoutY="55.0" mnemonicParsing="false" onAction="#comenzarASeguir" prefHeight="26.0" prefWidth="110.0" text="follow" textAlignment="CENTER" textFill="#0029ff" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false" />
+    <Button fx:id="unfollow" alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="55.0" mnemonicParsing="false" onAction="#dejarDeSeguir" prefHeight="26.0" prefWidth="110.0" text="unfollow" textAlignment="CENTER" textFill="#cc0000" underline="false" visible="false" wrapText="false" />
+ 	<Label fx:id="esperandoConfirmacion" alignment="CENTER" layoutX="308.0" layoutY="60.0" opacity="0.52" prefHeight="29.0" prefWidth="185.0" text="esperando confirmacion" textFill="#0029ff"/>
   </children>
   <stylesheets>
     <URL value="@tweet.css" />

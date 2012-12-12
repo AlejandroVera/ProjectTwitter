@@ -29,4 +29,6 @@ public interface User extends Serializable,Remote{
 	void aumentarContador();
 	boolean getProtectedUser();
 	void proteger(boolean b);
+	public void setFollowRequestSent(boolean b);
+	public boolean getFollowRequestSent();
 }

@@ -67,7 +67,7 @@ public final class UserImpl implements Serializable, User {
 	 * will be false unless the friendship request is pending. False if Twitter
 	 * does not say otherwise.
 	 */
-	public final boolean followRequestSent;
+	public boolean followRequestSent;
 
 	/**
 	 * The number of people this user is following.
@@ -553,11 +553,19 @@ public final class UserImpl implements Serializable, User {
 	@Override
 	public void aumentarContador() {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	public void setFollowRequestSent(boolean b) {
+		this.followRequestSent=b;
 	}
 
 	@Override
 	public void proteger(boolean b) {
 		//valido solo en nuestro twitter
+	}
+
+	@Override
+	public boolean getFollowRequestSent() {
+		return this.followRequestSent;
 	}
 }

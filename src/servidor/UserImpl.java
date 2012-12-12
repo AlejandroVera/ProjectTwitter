@@ -116,10 +116,32 @@ public class UserImpl implements User{
 		catch (URISyntaxException e) {
 			ServerCommon.TwitterWarning(e, "Error al crear la URL");
 		}
+		if(this.loggedUser!=null){
+			res = con.query("SELECT id FROM eventos WHERE id_autor="+this.loggedUser.getId()+" AND id_destinatario="+this.id+" AND tipo=2");
+			try {
+				if(res.next())
+				{
+					this.followRequestSent=true;
+				}
+				else
+				{
+					this.followRequestSent=false;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else{
+			this.followRequestSent=false;
+		}
 	}
 
 	public boolean getFollowRequestSent(){
 		return followRequestSent;
+	}
+
+	public void setFollowRequestSent(boolean b) {
+		this.followRequestSent=b;
 	}
 
 	public String getName(){
