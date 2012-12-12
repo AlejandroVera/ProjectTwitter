@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-12-2012 a las 23:50:26
+-- Tiempo de generación: 12-12-2012 a las 13:58:41
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
 
@@ -34,17 +34,24 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `tipo` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=66 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=113 ;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
 INSERT INTO `eventos` (`id`, `id_autor`, `id_destinatario`, `id_tweet`, `tipo`, `fecha`) VALUES
-(65, 1, 4, 0, '2', 1355258129),
-(64, 1, 4, 0, '6', 1355258128),
-(63, 1, 4, 0, '2', 1355258110),
-(62, 1, 4, 0, '6', 1355258108);
+(112, 5, 6, 0, '2', 1355311643),
+(111, 6, 5, 0, '5', 1355311636),
+(110, 5, 0, 0, '4', 1355311631),
+(109, 5, 0, 0, '4', 1355311566),
+(108, 5, 0, 0, '4', 1355311547),
+(107, 5, 0, 0, '4', 1355311520),
+(106, 5, 0, 0, '4', 1355311306),
+(105, 5, 0, 0, '4', 1355311271),
+(104, 5, 0, 0, '4', 1355311251),
+(103, 5, 0, 0, '4', 1355311226),
+(102, 5, 0, 0, '4', 1355311199);
 
 -- --------------------------------------------------------
 
@@ -101,15 +108,6 @@ CREATE TABLE IF NOT EXISTS `mensajes` (
   KEY `fecha` (`fecha`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=13 ;
 
---
--- Volcado de datos para la tabla `mensajes`
---
-
-INSERT INTO `mensajes` (`id`, `id_autor`, `id_destinatario`, `texto`, `fecha`, `inReplyTo`) VALUES
-(11, 1, 2, 'esto es un mensaje para kmilinho', 1353509601, 0),
-(10, 1, 2, 'esto es un mensaje para kmilinho', 1353507332, 0),
-(12, 1, 4, ' Caca', 1355080433, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -129,14 +127,6 @@ CREATE TABLE IF NOT EXISTS `places` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=5 ;
 
---
--- Volcado de datos para la tabla `places`
---
-
-INSERT INTO `places` (`id`, `name`, `pais`, `ciudad`, `tipo`, `longitud1`, `latitud1`, `longitud2`, `latitud2`) VALUES
-(1, '', 'España', 'Madrid', '', 15, 14, 13, 55),
-(4, NULL, 'Spain', 'Fuenlabrada', NULL, -3.7931, 40.285199, -3.7950999999999997, 40.283199);
-
 -- --------------------------------------------------------
 
 --
@@ -148,13 +138,6 @@ CREATE TABLE IF NOT EXISTS `retweet` (
   `id_tweet` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id_usuario`,`id_tweet`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `retweet`
---
-
-INSERT INTO `retweet` (`id_usuario`, `id_tweet`) VALUES
-(1, 46);
 
 -- --------------------------------------------------------
 
@@ -173,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `seguidores` (
 --
 
 INSERT INTO `seguidores` (`id_seguidor`, `id_seguido`) VALUES
-(1, 4);
+(5, 6);
 
 -- --------------------------------------------------------
 
@@ -192,15 +175,6 @@ CREATE TABLE IF NOT EXISTS `tweet` (
   KEY `autor` (`autor`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=48 ;
 
---
--- Volcado de datos para la tabla `tweet`
---
-
-INSERT INTO `tweet` (`id`, `texto`, `autor`, `fecha`, `inReplyTo`, `placeID`) VALUES
-(47, 'asdasd', 1, 1355259333, 0, -1),
-(46, 'Tweet con geolocalizacion', 4, 1355258179, 0, 4),
-(45, 'Este es un tweet con geolocalizacion', 1, 1355258062, 0, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -218,20 +192,19 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `location` varchar(30) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `profileBackgroundImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
   `profileImageUrl` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
-  `web_link` varchar(50) COLLATE utf8_spanish2_ci NOT NULL DEFAULT '',
+  `followRequestSent` int(11) NOT NULL,
   `id_status` int(11) unsigned NOT NULL DEFAULT '0',
   `protectedUser` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundImageUrl`, `profileImageUrl`, `web_link`, `id_status`, `protectedUser`) VALUES
-(1, 'Antonio', 'Antonio Fernandez', 'email@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, 'Me gusta la magia negra', '', '', '', 'UNKNOWN', 0, 0),
-(2, 'kmilinho', 'Camilo Pereira', 'c.pereira.leon@gmail.com', '7f4b12a90500708eb2dacde70df4124f05685048', 0, '', '', '', '', '', 0, 0),
-(4, 'Batman', 'BatmanSoyLaHostia', 'batman@caca.com', '352c45c8d732a6fbbc554fdb2b13a8775a87aea7', 1355080340, '', '', '', '', 'UNKNOWN', 0, 0);
+INSERT INTO `usuario` (`id`, `screenName`, `name`, `email`, `password`, `fecha_registro`, `descripcion`, `location`, `profileBackgroundImageUrl`, `profileImageUrl`, `followRequestSent`, `id_status`, `protectedUser`) VALUES
+(6, 'borja', 'borja', 'ddd', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1355267793, '', '', '', 'http://imagestoge.twt/hJGRp4a', 0, 0, 0),
+(5, 'kmi', 'kmi', 'abc', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 1355266713, '', '', '', 'http://imagestoge.twt/KgZUTSK', 1, 0, 1);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
