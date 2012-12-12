@@ -415,6 +415,7 @@ public class WorldController extends Controller implements AStream.IListen {
 		this.miCuentaController.processEvent(event);
 		this.conectaController.processEvent(event);
 		this.timeLineController.processEvent(event);
+		this.busquedaController.processEvent(event);
 
 		return true;
 	}

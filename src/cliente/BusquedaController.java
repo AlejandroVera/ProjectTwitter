@@ -6,10 +6,14 @@
 package cliente;
 
 import interfacesComunes.Status;
+import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
+import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +38,8 @@ implements Initializable {
 	@FXML //  fx:id="usersBusqueda"
 	private VBox usersBusqueda; // Value injected by FXMLLoader
 
+	private HashMap<Number, TweetController> tweetTable;
+	private HashMap<Number, UserController> userTable;
 
 	// Handler for Label[id="numeroDe"] onMouseClicked
 	public void cerrarMenu(MouseEvent event) {
@@ -47,6 +53,8 @@ implements Initializable {
 		assert usersBusqueda != null : "fx:id=\"usersBusqueda\" was not injected: check your FXML file 'busqueda.fxml'.";
 
 		// initialize your logic here: all @FXML variables will have been injected
+		this.tweetTable = new HashMap<Number, TweetController>();
+		this.userTable = new HashMap<Number, UserController>();
 
 	}
 
@@ -65,12 +73,15 @@ implements Initializable {
 		usersBusqueda.getChildren().clear();
 		Iterator<User> busquedas = u.iterator();
 		while(busquedas.hasNext()){
-			
+
 			try {
-				FXMLUserAutoLoader tweetUI = new FXMLUserAutoLoader(getTwitter(), busquedas.next());
-				tweetUI.getController().setParentController(this);
+				FXMLUserAutoLoader userUI = new FXMLUserAutoLoader(getTwitter(), busquedas.next());
+				userUI.getController().setParentController(this);
+
+				userTable.put(busquedas.next().getId(), userUI.getController());
+
 				LinkedList<Node> list = new LinkedList<Node>(usersBusqueda.getChildren());
-				list.addFirst(tweetUI.getRoot());
+				list.addFirst(userUI.getRoot());
 				usersBusqueda.getChildren().clear();
 				usersBusqueda.getChildren().addAll(list);
 			} catch (IOException e) {
@@ -78,15 +89,18 @@ implements Initializable {
 			}
 		}
 	}
-	
+
 	public void addTweetResult(List<Status> s){
 		tweetsBusqueda.getChildren().clear();
 		Iterator<Status> busquedas = s.iterator();
 		while(busquedas.hasNext()){
-			
+
 			try {
 				FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), busquedas.next());
 				tweetUI.getController().setParentController(this);
+
+				tweetTable.put(busquedas.next().getId(), tweetUI.getController());
+
 				LinkedList<Node> list = new LinkedList<Node>(tweetsBusqueda.getChildren());
 				list.addFirst(tweetUI.getRoot());
 				tweetsBusqueda.getChildren().clear();
@@ -97,4 +111,29 @@ implements Initializable {
 		}
 	}
 
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		if((event.getType().equals(TwitterEvent.Type.FOLLOW))||
+				(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST))){
+
+			UserController u=userTable.get(event.getTarget().getId());
+			if(u!=null)
+				u.processEvent(event);
+		}
+		if((event.getType().equals(TwitterEvent.Type.FAVORITE))||
+				(event.getType().equals(TwitterEvent.Type.UNFAVORITE))){
+
+			TweetController s=tweetTable.get(event.getTarget().getId());
+			if(s!=null)
+				s.processEvent(event);
+		}
+		if(event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			for(TweetController c : tweetTable.values()){
+				c.processEvent(event);
+			}
+			for(UserController c : userTable.values()){
+				c.processEvent(event);
+			}
+		}
+		return true;
+	}
 }
