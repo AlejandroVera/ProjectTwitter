@@ -183,6 +183,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			sol=null;
 			tipoevento=TwitterEvent.Type.FOLLOW_REQUEST;
 			user.setFollowRequestSent(true);
+			
 		}
 		else{
 			sol= user;

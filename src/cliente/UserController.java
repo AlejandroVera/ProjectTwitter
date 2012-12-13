@@ -118,7 +118,12 @@ public class UserController extends Controller implements AStream.IListen{
 			this.unfollow.setVisible(true);
 		}
 		else{
-			if(this.user.getFollowRequestSent()){
+			if(this.user.getId().equals(getTwitter().getSelf().getId())){
+				this.follow.setVisible(false);
+				this.unfollow.setVisible(false);
+				esperandoConfirmacion.setVisible(false);
+			}
+			else if(this.user.getFollowRequestSent()){
 				esperandoConfirmacion.setVisible(true);
 				this.follow.setVisible(false);
 				this.unfollow.setVisible(false);
@@ -166,8 +171,9 @@ public class UserController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		System.out.println("Evento recibido");
+		
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
+			System.out.println("Evento twitter.followReq recibido");
 			if(this.user.getId().equals(event.getTarget().getId())){
 				this.follow.setVisible(false);
 				this.unfollow.setVisible(false);
@@ -175,13 +181,14 @@ public class UserController extends Controller implements AStream.IListen{
 			}
 		}
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)&&(this.user.getId().equals(event.getTarget().getId()))){
+			System.out.println("Evento twotter.follow recibido");
 			this.follow.setVisible(false);
 			this.unfollow.setVisible(true);
 			esperandoConfirmacion.setVisible(false);
 		}
 		if(this.user != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE) 
 				&& event.getSource().getId().equals(this.user.getId())){
-			System.out.println("y es tipo Update!");
+			System.out.println("El tipo Update!");
 			this.user = getTwitter().users().getUser(this.user.getId());
 			loadUserDependantInfo();
 		}

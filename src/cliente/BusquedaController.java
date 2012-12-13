@@ -95,12 +95,12 @@ implements Initializable {
 		tweetsBusqueda.getChildren().clear();
 		Iterator<Status> busquedas = s.iterator();
 		while(busquedas.hasNext()){
-
+				Status tweet=busquedas.next();
 			try {
-				FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), busquedas.next());
+				FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), tweet);
 				tweetUI.getController().setParentController(this);
 
-				tweetTable.put(busquedas.next().getId(), tweetUI.getController());
+				tweetTable.put(tweet.getId(), tweetUI.getController());
 
 				LinkedList<Node> list = new LinkedList<Node>(tweetsBusqueda.getChildren());
 				list.addFirst(tweetUI.getRoot());
