@@ -271,8 +271,6 @@ public class TweetController extends Controller implements AStream.IListen{
 			nFavoritos.setText("?");
 			nRetweets.setText(""+this.tweet.getRetweetCount());
 			if (super.getTwitter().getMyPlace()!=(long)-1){
-				System.out.println(super.getTwitter().getMyPlace());
-				System.out.println(super.getTwitter().getMyPlace());
 				this.activarGeo(event);
 			}
 			else

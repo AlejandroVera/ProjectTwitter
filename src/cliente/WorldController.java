@@ -159,9 +159,8 @@ public class WorldController extends Controller implements AStream.IListen {
 			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
-			if(super.getTwitter().getMyPlace()==-1){
+			if(super.getTwitter().getMyPlace()==-1)
 				super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
-				System.out.println(super.getTwitter().getMyPlace());}
 		}
 		else if (lugar==null){
 			ClientTools.showDialog("Geolocalizacion no disponible");
@@ -174,8 +173,6 @@ public class WorldController extends Controller implements AStream.IListen {
 	public void desactivarGeo(MouseEvent event) {
 
 		super.getTwitter().setMyPlace((long)-1);
-
-		System.out.println(super.getTwitter().getMyPlace());
 		geoActivado.setVisible(false);
 		geoDesactivado.setVisible(false);
 		placeActual.setText("Geolocalizacion desactivada");
@@ -249,8 +246,6 @@ public class WorldController extends Controller implements AStream.IListen {
 		creadorTweets.setVisible(!creadorTweets.isVisible());
 		if (creadorTweets.isVisible()){
 			if (super.getTwitter().getMyPlace()!=(long)-1){
-				System.out.println(super.getTwitter().getMyPlace());
-				System.out.println("AHHHHHHHHHASASAD");
 				activarGeo(event);		
 			}
 			else 

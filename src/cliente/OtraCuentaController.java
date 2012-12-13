@@ -164,9 +164,9 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
-			if(super.getTwitter().getMyPlace()==-1){
+			if(super.getTwitter().getMyPlace()==-1)
 				super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
-				System.out.println(super.getTwitter().getMyPlace());}
+
 		}
 		else if (lugar==null){
 			ClientTools.showDialog("Geolocalizacion no disponible");
@@ -178,7 +178,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
 	public void desactivarGeo(MouseEvent event) {
 		super.getTwitter().setMyPlace((long)-1);
-		System.out.println(super.getTwitter().getMyPlace());
+
 		geoActivado.setVisible(false);
 		geoDesactivado.setVisible(false);
 		placeActual.setText("Geolocalizacion desactivada");
@@ -205,9 +205,9 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	// Handler for VBox[fx:id="botonTweet"] onMouseClicked
 	public void crearTweetMencion(MouseEvent event) {
 		this.creadorTweets.setVisible(true);
-		if(super.getTwitter().getMyPlace()!=(long)-1){
+		if(super.getTwitter().getMyPlace()!=(long)-1)
 			this.activarGeo(event);
-			System.out.println(super.getTwitter().getMyPlace());}
+
 		else
 			this.desactivarGeo(event);
 	}
