@@ -96,9 +96,36 @@
         <Image url="@Imagenes/candado.png" preserveRatio="true" smooth="true" />
       </image>
     </ImageView>
-    <Button fx:id="follow" alignment="CENTER" contentDisplay="CENTER" layoutX="402.0" layoutY="55.0" mnemonicParsing="false" onAction="#comenzarASeguir" prefHeight="26.0" prefWidth="110.0" text="follow" textAlignment="CENTER" textFill="#0029ff" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false" />
-    <Button fx:id="unfollow" alignment="CENTER" contentDisplay="CENTER" layoutX="401.0" layoutY="55.0" mnemonicParsing="false" onAction="#dejarDeSeguir" prefHeight="26.0" prefWidth="110.0" text="unfollow" textAlignment="CENTER" textFill="#cc0000" underline="false" visible="false" wrapText="false" />
- 	<Label fx:id="esperandoConfirmacion" alignment="CENTER" layoutX="308.0" layoutY="60.0" opacity="0.52" prefHeight="29.0" prefWidth="185.0" text="esperando confirmacion" textFill="#0029ff"/>
+    <Button fx:id="follow" alignment="CENTER" contentDisplay="CENTER" layoutX="383.0" layoutY="55.0" mnemonicParsing="false" onAction="#comenzarASeguir" prefHeight="31.0" prefWidth="125.0" text="" textAlignment="CENTER" textOverrun="ELLIPSIS" underline="false" visible="true" wrapText="false">
+      <graphic>
+        <Label id="numeroDe" text="Follow">
+          <graphic>
+            <ImageView id="follow" fitHeight="29.0" fitWidth="34.21052569434757" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@Imagenes/follow.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Label>
+      </graphic>
+      <textFill>
+        <Color blue="1.000" green="0.161" red="0.000" fx:id="x1" />
+      </textFill>
+    </Button>
+    <Button fx:id="unfollow" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="55.0" maxHeight="-Infinity" minHeight="30.999900000002526" mnemonicParsing="false" onAction="#dejarDeSeguir" prefHeight="30.999900000002526" prefWidth="125.0" text="" textAlignment="CENTER" textFill="#cc0000" underline="false" visible="false" wrapText="false">
+      <graphic>
+        <Label id="numeroDe" prefWidth="100.0" text="Unfollow">
+          <graphic>
+            <ImageView id="unfollow" fitHeight="29.0" fitWidth="38.15789473684211" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@Imagenes/unfollow.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Label>
+      </graphic>
+    </Button>
+    <Label fx:id="esperandoConfirmacion" alignment="CENTER" layoutX="308.0" layoutY="60.0" opacity="0.52" prefHeight="29.0" prefWidth="185.0" text="Esperando Confirmacion" textFill="$x1" visible="true" />
   </children>
   <stylesheets>
     <URL value="@tweet.css" />
