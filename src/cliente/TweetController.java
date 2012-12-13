@@ -11,9 +11,7 @@ import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,8 +37,6 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	private static final long serialVersionUID = 136870617271640893L;
 
-	@FXML //  fx:id="Mapa"
-	private ImageView Mapa; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="globalContainer"
 	private VBox globalContainer; // Value injected by FXMLLoader
@@ -71,9 +67,6 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@FXML //  fx:id="stackFavorito"
 	private StackPane stackFavorito; // Value injected by FXMLLoader
-
-	@FXML //  fx:id="stackMapa"
-	private StackPane stackMapa; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="stackResponder"
 	private StackPane stackResponder; // Value injected by FXMLLoader
@@ -117,39 +110,70 @@ public class TweetController extends Controller implements AStream.IListen{
 	@FXML //  fx:id="worldTweetContainer"
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
 
+	@FXML //  fx:id="geoActivado"
+	private ImageView geoActivado; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="geoDesactivado"
+	private ImageView geoDesactivado; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="placeActual"
+	private Label placeActual; // Value injected by FXMLLoader
+
 	private Status tweet;
 
 	private boolean desplegado = false;
 	private String currentImage = "";
 	private User user; //Usuario del tweet
 	private Place lugar; //Place asociado al tweet
+	private Place lugar2;
 
-	// Handler for cerrarMapa on MouseClicked
-	public void cerrarMapa(MouseEvent event){
-		this.stackMapa.setVisible(false);
+
+	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
+	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
+	public void activarGeo(MouseEvent event) {
+
+		/*El texto pasado a getPlace solo es util con el twitterReal*/
+		lugar2 = (Place)getTwitter().geo().getPlace("Madrid, España", null);
+
+		if (lugar2!=null){
+
+			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
+			geoActivado.setVisible(true);
+			geoDesactivado.setVisible(false);
+			if(super.getTwitter().getMyPlace()==-1){
+				super.getTwitter().setMyPlace(Long.parseLong(lugar2.getId()));			
+			}
+		}
+		else if (lugar2==null){
+			ClientTools.showDialog("Geolocalizacion no disponible");
+		}
+
+	}
+
+	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
+	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
+	public void desactivarGeo(MouseEvent event) {
+		super.getTwitter().setMyPlace((long)-1);
+		geoActivado.setVisible(false);
+		geoDesactivado.setVisible(false);
+		placeActual.setText("Geolocalizacion desactivada");
+		geoDesactivado.setVisible(true);
+
 	}
 
 	// Handler for Label [fx:id="location"] onMouseClicked
 	public void mostrarGeo (MouseEvent event){
 
-		if (lugar!=null){
-			Double latitude= lugar.getCentroid().getLatitude();
-			Double longitude= lugar.getCentroid().getLongitude(); 
-			String coord=new String(latitude.toString()+","+longitude.toString());
-
-			URL url;
-			try {
-				url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
-						"&size=185x139&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
-
-				URLConnection conn = url.openConnection();
-				InputStream in = conn.getInputStream();
-				Image image= new Image(in);
-				this.Mapa.setImage(image);
-				this.stackMapa.setVisible(true);
-			} catch (Exception e) {}
+		if (super.getTwitter().getMyPlace()!=(long)-1){
+			ClientTools.showPlace(this.lugar);
 		}
 	}
+
+	// Handler for Label [fx:id="location"] onMouseClicked
+	public void mostrarGeodeTweet (MouseEvent event){
+		ClientTools.showPlace(this.lugar2);
+	}
+
 
 	// Handler for Label[id="opcion"] onMouseClicked
 	public void abrirTweet(MouseEvent event) {
@@ -246,6 +270,13 @@ public class TweetController extends Controller implements AStream.IListen{
 
 			nFavoritos.setText("?");
 			nRetweets.setText(""+this.tweet.getRetweetCount());
+			if (super.getTwitter().getMyPlace()!=(long)-1){
+				System.out.println(super.getTwitter().getMyPlace());
+				System.out.println(super.getTwitter().getMyPlace());
+				this.activarGeo(event);
+			}
+			else
+				desactivarGeo(event);
 		}
 	}
 
@@ -289,7 +320,7 @@ public class TweetController extends Controller implements AStream.IListen{
 
 	@Override
 	public void postInitialize() {
-		this.stackMapa.setVisible(false);
+
 		lugar=this.tweet.getPlace();
 		if(lugar!=null)
 			this.location.setText(lugar.toString());

@@ -691,6 +691,9 @@ public class TwitterSuscriptorImpl implements Twitter {
 	public void setMyPlace(Long placeId){
 		this.placeId=placeId;
 	}
-
+	
+	public Long getMyPlace() {
+		return this.placeId;
+	}
 
 }

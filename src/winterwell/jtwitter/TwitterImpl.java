@@ -2761,6 +2761,8 @@ public class TwitterImpl implements Serializable, Twitter {
 		this.placeId = placeId;
 	}
 
-
+	public Long getMyPlace() {
+		return this.placeId;
+	}
 
 }

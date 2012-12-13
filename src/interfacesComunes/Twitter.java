@@ -464,10 +464,18 @@ public interface Twitter extends Serializable, Remote{
 	
 	
 	/**
-	 * Pone como place el de este twitter
+	 * Cambia el valor del placeId asociado a Twitter. Este Id es el del place por geolocalizacion.
+	 * Si se le pasa -1 simboliza que la geolocalizacion está desactivada
 	 * @param placeId
 	 */
 	public void setMyPlace(Long placeId);
+	
+	
+	/**
+	 * El id del Place asociado a la sesión por Geolocalizacion, si es -1 es que no está activada
+	 * @return placeId
+	 */
+	public Long getMyPlace();
 	
 	
 }

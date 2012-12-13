@@ -85,7 +85,7 @@
                     </HBox>
                     <HBox id="HBox" alignment="CENTER" prefWidth="149.9998779296875" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="0">
                       <children>
-                        <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" prefHeight="34.0" prefWidth="111.0" text="Tweet!">
+                        <Button fx:id="tweetButton" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#twittear" prefHeight="34.0" prefWidth="111.0" text="Tweet!">
                           <graphic>
                             <ImageView id="tweet" fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                               <image>

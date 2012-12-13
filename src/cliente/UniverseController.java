@@ -5,7 +5,11 @@
 
 package cliente;
 
+import interfacesComunes.Place;
+
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
@@ -80,10 +84,25 @@ public class UniverseController
     	this.anchorImage.setVisible(false);
     }
     
-	public void showImage(Image im) {
-		this.imagen.setImage(im);
-    	this.anchorImage.setVisible(true);
+	public void showPlace(Place lugar) {
+		Double latitude= lugar.getCentroid().getLatitude();
+		Double longitude= lugar.getCentroid().getLongitude(); 
+		String coord=new String(latitude.toString()+","+longitude.toString());
+
+		URL url;
+		try {
+			url = new URL("http://maps.google.com/maps/api/staticmap?center="+coord+
+					"&size=660x500&zoom=14&maptype=hybrid&markers=color:red|"+coord+"&sensor=false");
+
+			URLConnection conn = url.openConnection();
+			InputStream in = conn.getInputStream();
+			Image image= new Image(in);
+			this.imagen.setImage(image);
+	    	this.anchorImage.setVisible(true);
+		} catch (Exception e) {}
+		
 	}
+	
 	
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {

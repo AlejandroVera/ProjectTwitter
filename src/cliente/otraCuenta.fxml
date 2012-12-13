@@ -257,7 +257,7 @@
         </HBox>
       </children>
     </VBox>
-    <StackPane fx:id="creadorTweets" layoutX="24.0" layoutY="280.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0">
+    <StackPane fx:id="creadorTweets" layoutX="24.0" layoutY="280.0" opacity="1.0" prefHeight="164.0" prefWidth="500.0" visible="true">
       <children>
         <VBox id="cajaNuevoTweet" prefHeight="172.0" prefWidth="500.0">
           <children>

@@ -23,6 +23,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
+import interfacesComunes.Place;
 import interfacesComunes.TwitterInit;
 
 public class ClientTools {
@@ -235,8 +236,8 @@ public class ClientTools {
 		universeController.loading.set(load);
 	}
 	
-	protected static void showImage(Image im){
-		universeController.showImage(im);
+	protected static void showPlace(Place place){
+		universeController.showPlace(place);
 	}
 	
 	

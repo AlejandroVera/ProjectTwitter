@@ -14,9 +14,7 @@ import interfacesComunes.User;
 import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.net.URLConnection;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -142,44 +140,56 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	 * Usuario que se está mostrando actualmente 
 	 */
 	private User user;
+	private Place lugar;
 
 
 	boolean seguidoresLoaded;
 	boolean siguiendoLoaded;
 	boolean favoritosLoaded;
-	
+
 	ChangeListener<Tab> listenerCambios;
 
 
 
 
 	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
+	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
 	public void activarGeo(MouseEvent event) {
-		((WorldController)super.getParentController()).activarGeo(event);		
-	}
 
+		/*El texto pasado a getPlace solo es util con el twitterReal*/
+		lugar = (Place)getTwitter().geo().getPlace("Madrid, España", null);
 
-	public void activarGeo(Place lugar){
-	
-		placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
-		geoActivado.setVisible(true);
-		geoDesactivado.setVisible(false);
+		if (lugar!=null){
+
+			placeActual.setText(getTwitter().geo().getPlace(null,null).toString());
+			geoActivado.setVisible(true);
+			geoDesactivado.setVisible(false);
+			if(super.getTwitter().getMyPlace()==-1){
+				super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
+				System.out.println(super.getTwitter().getMyPlace());}
+		}
+		else if (lugar==null){
+			ClientTools.showDialog("Geolocalizacion no disponible");
+		}
 
 	}
 
 	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
+	// Handler for ImageView[fx:id="geoActivado"] onMouseClicked
 	public void desactivarGeo(MouseEvent event) {
-		((WorldController)super.getParentController()).desactivarGeo(event);
-	}
-	
-	public void desactivarGeo(){
+		super.getTwitter().setMyPlace((long)-1);
+		System.out.println(super.getTwitter().getMyPlace());
 		geoActivado.setVisible(false);
 		geoDesactivado.setVisible(false);
 		placeActual.setText("Geolocalizacion desactivada");
 		geoDesactivado.setVisible(true);
+
 	}
+
+	// Handler for Label[fx:id="placeActual"] onMouseClicked
 	public void mostrarGeo(MouseEvent event) {
-		((WorldController)super.getParentController()).mostrarGeo(event);
+		if (super.getTwitter().getMyPlace()!=(long)-1)
+			ClientTools.showPlace(this.lugar);
 	}
 
 	// Handler for TextArea[id="textoNuevoTweet"] onKeyPressed
@@ -195,6 +205,11 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	// Handler for VBox[fx:id="botonTweet"] onMouseClicked
 	public void crearTweetMencion(MouseEvent event) {
 		this.creadorTweets.setVisible(true);
+		if(super.getTwitter().getMyPlace()!=(long)-1){
+			this.activarGeo(event);
+			System.out.println(super.getTwitter().getMyPlace());}
+		else
+			this.desactivarGeo(event);
 	}
 
 	// Handler for VBox[fx:id="botonUnfollow"] onMouseClicked

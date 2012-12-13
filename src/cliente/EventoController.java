@@ -108,6 +108,7 @@ public class EventoController extends Controller {
 		User source = this.event.getSource();
 		screename.setText("@"+source.getScreenName());
 		username.setText(source.getName());
+		this.botonPeticion.setVisible(false);
 
 		Image im = ClientTools.getImage(source.getProfileImageUrl().toString());
 		if(im != null)
