@@ -44,7 +44,12 @@ public class UserImpl implements User{
 	public boolean getProtectedUser() {
 		return protectedUser;
 	}
-
+	private void setProtectedUser(boolean b){
+		this.protectedUser=b;
+		int value;
+		value = (b)? 1:0;
+		this.con.updateQuery("UPDATE usuario SET protectedUser="+value+" WHERE id="+this.getId());
+	}
 	public UserImpl(String screenName, Conexion con, User loggedUser){
 		this(Long.parseLong("0"),screenName,con,loggedUser);
 	}
@@ -241,15 +246,6 @@ public class UserImpl implements User{
 
 	@Override
 	public void proteger(boolean b) {
-		int proteccion;
-		if(b){
-			proteccion=1;
-			this.protectedUser=true;
-		}
-		else{
-			proteccion=0;
-			this.protectedUser=false;
-		}
-		con.updateQuery("UPDATE usuario SET protectedUser="+proteccion+" WHERE id="+this.getId());
+		setProtectedUser(b);
 	}
 }

@@ -66,7 +66,6 @@ public class UserController extends Controller implements AStream.IListen{
 
 
 	public void comenzarASeguir(ActionEvent event) {
-		System.out.println("FUnciona Boton nuevo FOLLOW");
 		getTwitter().users().follow(this.user);
 		unfollow.setVisible(true);
 		follow.setVisible(false);
@@ -167,7 +166,7 @@ public class UserController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		
+		System.out.println("Evento recibido");
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
 			if(this.user.getId().equals(event.getTarget().getId())){
 				this.follow.setVisible(false);
@@ -182,6 +181,7 @@ public class UserController extends Controller implements AStream.IListen{
 		}
 		if(this.user != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE) 
 				&& event.getSource().getId().equals(this.user.getId())){
+			System.out.println("y es tipo Update!");
 			this.user = getTwitter().users().getUser(this.user.getId());
 			loadUserDependantInfo();
 		}

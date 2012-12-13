@@ -35,9 +35,8 @@ check
 echo "Lanzando cliente";
 sleep 1;
 java -Djava.rmi.server.codebaseile:file///${direc}/cliente/ -classpath ../libs/*:./ cliente.TwitterClient
-PIDCLI="$!";
+PIDCLI="$!" &
 check
-
 
 echo -n "Finalizando servidor";
 kill -9 $PIDSERV;

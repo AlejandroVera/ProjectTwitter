@@ -444,7 +444,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 

@@ -128,10 +128,12 @@ implements Initializable {
 				s.processEvent(event);
 		}
 		if(event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			System.out.println("evento en busquedacontroller");
 			for(TweetController c : tweetTable.values()){
 				c.processEvent(event);
 			}
 			for(UserController c : userTable.values()){
+				System.out.println("va a ser pasado a UserCOntroller from buscacontroller");
 				c.processEvent(event);
 			}
 		}
