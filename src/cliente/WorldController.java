@@ -393,6 +393,7 @@ public class WorldController extends Controller implements AStream.IListen {
 				if(im != null)
 					profileImage.setImage(im);
 				this.name.setText(u.getName());
+				System.out.println(u.getName());
 			}
 		}
 		this.miCuentaController.processEvent(event);
