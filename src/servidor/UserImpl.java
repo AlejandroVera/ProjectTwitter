@@ -60,7 +60,9 @@ public class UserImpl implements User{
 
 	public UserImpl(Long id, String screenName,Conexion con, User loggedUser) {
 		this.con=con;
+		System.out.println(loggedUser);
 		this.loggedUser=loggedUser;
+		System.out.println(this.loggedUser);
 		ResultSet res=null;
 		if(screenName==null){
 			this.id = id;
@@ -83,13 +85,6 @@ public class UserImpl implements User{
 			this.createdAt=new Date(res.getInt("fecha_registro")*1000);
 			this.profileBackgroundImageUrl=new URI(res.getString("profileBackgroundImageUrl"));
 			this.profileImageUrl=new URI(res.getString("profileImageUrl"));//The url for the user's Twitter profile picture.
-
-			if(res.getInt("followRequestSent")==1){
-				this.followRequestSent=true;
-			}
-			else{
-				this.followRequestSent=false;
-			}
 			this.description=res.getString("descripcion");
 			this.location = res.getString("location");
 			if(screenName!=null)
@@ -127,18 +122,41 @@ public class UserImpl implements User{
 		catch (URISyntaxException e) {
 			ServerCommon.TwitterWarning(e, "Error al crear la URL");
 		}
+		if(this.loggedUser!=null){//esto no se hace para el objeto del Usuario logueado
+			compruebaFollowRequestSent();
+		}
 
 	}
-
+	
+	public void compruebaFollowRequestSent(){
+		System.out.println(this.loggedUser);
+		ResultSet r = con.query("SELECT * FROM solicitudesEnviadas WHERE id_interesado="+this.loggedUser.getId()+
+				" AND id_requerido="+this.getId()+" LIMIT 1");
+		try {
+			if(r.next()){
+				this.followRequestSent=true;
+			}
+			else{
+				this.followRequestSent=false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public boolean getFollowRequestSent(){
+		compruebaFollowRequestSent();
 		return followRequestSent;
 	}
 
 	public void setFollowRequestSent(boolean b) {
 		this.followRequestSent=b;
-		int value;
-		value = (b)? 1:0;
-		this.con.updateQuery("UPDATE usuario SET followRequestSent="+value+" WHERE id="+this.getId());
+		if(b){
+			this.con.updateQuery("INSERT INTO solicitudesEnviadas VALUES ("+this.loggedUser.getId()+", "+this.getId()+")");
+		}
+		else{
+			this.con.updateQuery("DELETE FROM solicitudesEnviadas WHERE id_interesado="+this.loggedUser.getId()+" AND id_requerido="+this.getId()+" LIMIT 1");
+		}
 	}
 
 	public String getName(){

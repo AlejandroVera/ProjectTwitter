@@ -31,4 +31,5 @@ public interface User extends Serializable,Remote{
 	void proteger(boolean b);
 	public void setFollowRequestSent(boolean b);
 	public boolean getFollowRequestSent();
+	public void compruebaFollowRequestSent();
 }

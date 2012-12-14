@@ -568,4 +568,9 @@ public final class UserImpl implements Serializable, User {
 	public boolean getFollowRequestSent() {
 		return this.followRequestSent;
 	}
+
+	@Override
+	public void compruebaFollowRequestSent() {
+		
+	}
 }

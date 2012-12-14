@@ -8,6 +8,7 @@ package cliente;
 import interfacesComunes.AStream;
 import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
+import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
 import java.net.URL;
@@ -71,7 +72,13 @@ public class UserController extends Controller implements AStream.IListen{
 		follow.setVisible(false);
 		if(this.user.getProtectedUser()){
 			esperandoConfirmacion.setVisible(true);
+			//es logico que cuando lleguen las notificaciones de USERUPDATE a los clientes ya
+			//estará actualizada la info de sendfollowrequest. (aunque nunca se sabe)
 			unfollow.setVisible(false);
+			//avisamos de que ha cambiado algo en el objeto (followrequestsent).
+			Twitter_Account account = super.getTwitter().account();
+			int protec = user.getProtectedUser() ? 1:0;
+			account.setProfile(user.getName(), user.getProfileImageUrl().toString(),user.getLocation(), user.getDescription(),protec);
 		}
 	}
 
@@ -171,7 +178,7 @@ public class UserController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		
+
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
 			System.out.println("Evento twitter.followReq recibido");
 			if(this.user.getId().equals(event.getTarget().getId())){
@@ -181,16 +188,17 @@ public class UserController extends Controller implements AStream.IListen{
 			}
 		}
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)&&(this.user.getId().equals(event.getTarget().getId()))){
-			System.out.println("Evento twotter.follow recibido");
+			System.out.println("Evento twitter.follow recibido");
 			this.follow.setVisible(false);
 			this.unfollow.setVisible(true);
 			esperandoConfirmacion.setVisible(false);
 		}
-		if(this.user != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE) 
-				&& event.getSource().getId().equals(this.user.getId())){
-			System.out.println("El tipo Update!");
-			this.user = getTwitter().users().getUser(this.user.getId());
-			loadUserDependantInfo();
+		if(this.user != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			if(event.getSource().getId().equals(this.user.getId())){
+				System.out.println("El tipo Update!");
+				this.user = getTwitter().users().getUser(this.user.getId());
+				loadUserDependantInfo();
+			}
 		}
 		return true;
 	}

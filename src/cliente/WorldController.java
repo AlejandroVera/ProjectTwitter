@@ -386,6 +386,15 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		if(event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			if(event.getSource().getId().equals(getTwitter().getSelf().getId())){
+				User u = getTwitter().users().getUser(getTwitter().getSelf().getId());
+				Image im = ClientTools.getImage(u.getProfileImageUrl().toString());
+				if(im != null)
+					profileImage.setImage(im);
+				this.name.setText(u.getName());
+			}
+		}
 		this.miCuentaController.processEvent(event);
 		this.conectaController.processEvent(event);
 		this.timeLineController.processEvent(event);
