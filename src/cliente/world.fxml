@@ -206,7 +206,7 @@
                         <Label id="numeroDe" prefHeight="20.000091552734375" text="Nuevo Tweet!" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <children>
-                            <Button fx:id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onAction="#twittear" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                            <Button fx:id="twittear" minHeight="34.0" minWidth="68.0" mnemonicParsing="false" onMouseClicked="#publicarTweet" prefHeight="34.0" prefWidth="78.0" text="Twittear" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                             <Label id="numeroDe" fx:id="caracteresTweet" text="140" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                             <ImageView fx:id="geoActivado" fitHeight="58.0" fitWidth="35.0" onMouseClicked="#desactivarGeo" opacity="1.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
                               <image>
