@@ -60,9 +60,7 @@ public class UserImpl implements User{
 
 	public UserImpl(Long id, String screenName,Conexion con, User loggedUser) {
 		this.con=con;
-		System.out.println(loggedUser);
 		this.loggedUser=loggedUser;
-		System.out.println(this.loggedUser);
 		ResultSet res=null;
 		if(screenName==null){
 			this.id = id;
@@ -129,7 +127,6 @@ public class UserImpl implements User{
 	}
 	
 	public void compruebaFollowRequestSent(){
-		System.out.println(this.loggedUser);
 		ResultSet r = con.query("SELECT * FROM solicitudesEnviadas WHERE id_interesado="+this.loggedUser.getId()+
 				" AND id_requerido="+this.getId()+" LIMIT 1");
 		try {

@@ -175,8 +175,8 @@ public class UserController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST)){
+			System.out.println("usercontroller evento FOLLOWREQ-> source: "+event.getSource().getScreenName()+" target: "+event.getTarget().getScreenName());
 			if(this.user.getId().equals(event.getTarget().getId())){
 				this.follow.setVisible(false);
 				this.unfollow.setVisible(false);
@@ -184,6 +184,7 @@ public class UserController extends Controller implements AStream.IListen{
 			}
 		}
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)&&(this.user.getId().equals(event.getTarget().getId()))){
+			System.out.println("usercontroller evento FOLLOW-> source: "+event.getSource().getScreenName()+" target: "+event.getTarget().getScreenName());
 			this.follow.setVisible(false);
 			this.unfollow.setVisible(true);
 			esperandoConfirmacion.setVisible(false);

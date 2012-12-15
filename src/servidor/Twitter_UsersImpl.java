@@ -211,7 +211,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		con.updateQuery("INSERT INTO seguidores  VALUES ("+this.loggedUser.getId()+", "+user.getId()+")");
 		try{
 			//Creamos el evento
-			evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
+			evento= new TwitterEventImpl(user.getId(),this.loggedUser.getId() ,TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
 			
 			//Enviamos el evento al usuario que acabamos de seguir y a nosotros mismos
 			this.init.sendThroughCallback(evento, user.getId());

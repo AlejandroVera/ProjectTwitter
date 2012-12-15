@@ -220,18 +220,18 @@ public class EventoController extends Controller {
 	}
 
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		User source = this.event.getSource();
 		if((event.getType().equals(TwitterEvent.Type.FOLLOW))&&(this.event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST))){
 			this.descripcionUsuario.setText("Ahora te sigue");
 			this.seguir.setVisible(false);
 			botonPeticion.setVisible(false);
 			this.unfollow.setVisible(true);
 		}
-		if(source != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
-			if(event.getSource().getId().equals(source.getId())){
-				source = getTwitter().users().getUser(source.getId());
-
-			}
+		if((event.getType().equals(TwitterEvent.Type.USER_UPDATE))&&(event.getSource().getId().equals(this.event.getSource().getId()))){
+			User user = getTwitter().users().getUser(event.getSource().getId());
+			Image im = ClientTools.getImage(user.getProfileImageUrl().toString());
+			if(im != null)
+				userImage.setImage(im);
+			username.setText(user.getName());
 		}
 		return true;
 	}
