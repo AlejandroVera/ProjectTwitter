@@ -8,8 +8,10 @@ package cliente;
 import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
+import interfacesComunes.Twitter.ITweet;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -63,9 +65,9 @@ public class EventoController extends Controller {
 
 	@FXML //  fx:id="worldTweetContainer"
 	private AnchorPane worldTweetContainer; // Value injected by FXMLLoader
-	
+
 	@FXML //  fx:id="unfollow"
-    private ImageView unfollow; // Value injected by FXMLLoader
+	private ImageView unfollow; // Value injected by FXMLLoader
 
 	//Variables privadas propias
 
@@ -119,7 +121,7 @@ public class EventoController extends Controller {
 		seguir.setVisible(false);
 		peticionSeguir.setVisible(false);
 		unfollow.setVisible(false);
-		
+
 		if(event.getType().equals(TwitterEvent.Type.FAVORITE)){
 			Status status=(Status) this.event.getTargetObject();
 			favorito.setVisible(true);
@@ -169,8 +171,8 @@ public class EventoController extends Controller {
 			}
 			descripcionUsuario.setText("Quiere poder seguirte");
 		}
-		
-		
+
+
 		//Parse the time
 		Date createdAt = this.event.getCreatedAt();
 		Date now = new Date();
@@ -215,6 +217,23 @@ public class EventoController extends Controller {
 
 	public TwitterEvent getEvent (){
 		return this.event;
+	}
+
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+		User source = this.event.getSource();
+		if((event.getType().equals(TwitterEvent.Type.FOLLOW))&&(this.event.getType().equals(TwitterEvent.Type.FOLLOW_REQUEST))){
+			this.descripcionUsuario.setText("Ahora te sigue");
+			this.seguir.setVisible(false);
+			botonPeticion.setVisible(false);
+			this.unfollow.setVisible(true);
+		}
+		if(source != null && event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			if(event.getSource().getId().equals(source.getId())){
+				source = getTwitter().users().getUser(source.getId());
+
+			}
+		}
+		return true;
 	}
 
 }

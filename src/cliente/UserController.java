@@ -83,7 +83,6 @@ public class UserController extends Controller implements AStream.IListen{
 	}
 
 	public void dejarDeSeguir(ActionEvent event) {
-		System.out.println("FUnciona Boton nuevo UNFOLLOW");
 		getTwitter().users().stopFollowing(this.user);
 		unfollow.setVisible(false);
 		follow.setVisible(true);
@@ -158,12 +157,10 @@ public class UserController extends Controller implements AStream.IListen{
 
 	private void loadUserDependantInfo(){
 		if (!user.getProtectedUser()){
-			System.out.println("no protegido");
 			descripcionUsuario.setText(this.user.getDescription());
 			candado.setVisible(false);
 		}
 		else{
-			System.out.println("protegido");
 			descripcionUsuario.setText("Usuario protegido.");
 			candado.setVisible(true);
 		}

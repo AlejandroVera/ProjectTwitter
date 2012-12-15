@@ -41,6 +41,7 @@ public class ConectaController extends Controller implements AStream.IListen {
     private VBox tweetsMenciones; // Value injected by FXMLLoader
     
     private HashMap<Number, TweetController> mentionsTable;
+    private HashMap<Long, EventoController> eventos;
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
@@ -50,6 +51,7 @@ public class ConectaController extends Controller implements AStream.IListen {
        
         // initialize your logic here: all @FXML variables will have been injected
         this.mentionsTable = new HashMap<Number, TweetController>();
+        this.eventos = new HashMap<Long, EventoController>();
     }
 
 
@@ -62,6 +64,11 @@ public class ConectaController extends Controller implements AStream.IListen {
 			TweetController controller = mentionsTable.get(id);
 			if(controller != null)
 				controller.processEvent(event);
+		}
+		if ((event.getType().equals(TwitterEvent.Type.USER_UPDATE))||() ){
+			for(EventoController c : eventos.values()){
+				c.processEvent(event);
+			}
 		}
 		return true;
 	}
@@ -94,7 +101,6 @@ public class ConectaController extends Controller implements AStream.IListen {
 		Iterator<Status> menciones = super.getTwitter().getMentions().iterator();
 		tweetsMenciones.getChildren().clear();
 		while(menciones.hasNext()){
-			System.out.println("Hay mencion");
 			this.addTweet(tweetsMenciones, menciones.next());
 		}
 		
@@ -164,6 +170,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 					contendor.getChildren().clear();
 					contendor.getChildren().addAll(list);
 				}
+/*importante esta linea*/eventos.put(event.getTarget().getId(), eventUI.getController());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
