@@ -12,7 +12,7 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -21,34 +21,122 @@
               <children>
                 <StackPane id="StackPane" prefHeight="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                    <FlowPane id="menuComedor" fx:id="salon" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP">
+                    <FlowPane id="menuComedor" fx:id="salon" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="false">
                       <children>
-                        <Button fx:id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuPersianas" prefHeight="150.0" prefWidth="150.0" text="Persianas">
+                        <Button fx:id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuPersianas" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/ventanaIcono.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Persianas" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" fx:id="botonTelevision" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Television">
+                        <Button id="botonPersianas" fx:id="botonTelevision" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/tv.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Television" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Luz">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="105.0" fitWidth="70.6730737357304" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/bombilla.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Luz" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Ventilador">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="109.0" fitWidth="134.20624999999998" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/ventilador.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Ventilador" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Temperatura">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.6730728149414" fitWidth="116.6730728149414" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/temperatura.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Temperatura" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
                         <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Cadena musica">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="109.0" fitWidth="134.20624999999998" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/minicadena.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Minicadena">
+                                  <VBox.margin>
+                                    <Insets top="15.0" />
+                                  </VBox.margin>
+                                </Label>
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
@@ -57,53 +145,206 @@
                     </FlowPane>
                     <FlowPane id="menuComedor" fx:id="habitacion" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="true">
                       <children>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Persianas">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/ventanaIcono.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Persianas" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Television">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/tv.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Television" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Luz">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/bombilla.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Luz" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" fx:id="botonArmario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuArmario" prefHeight="150.0" prefWidth="150.0" text="Armario">
+                        <Button id="botonPersianas" fx:id="botonArmario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuArmario" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/armario.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Armario" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Temperatura">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/temperatura.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Temperatura" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Ventilador">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="115.88719940185547" fitWidth="142.68611832467738" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/ventilador.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Ventilador" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Despertador">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/despertador.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Despertador" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
                       </children>
                     </FlowPane>
-                    <FlowPane id="menuComedor" fx:id="terraza" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP">
+                    <FlowPane id="menuComedor" fx:id="terraza" alignment="CENTER" disable="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="false">
                       <children>
-                        <Button id="botonPersianas" fx:id="botonPlantas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Persianas">
+                        <Button id="botonPersianas" fx:id="botonPlantas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="116.0" fitWidth="115.59861690897337" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/ventanaIcono.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <Label id="Persianas" text="Persianas" />
+                              </children>
+                            </VBox>
+                          </graphic>
                           <FlowPane.margin>
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Toldo" FlowPane.margin="$x1" />
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Luz" FlowPane.margin="$x1" />
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuPlantas" prefHeight="150.0" prefWidth="150.0" text="Plantas" FlowPane.margin="$x1" />
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="" FlowPane.margin="$x1">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <GridPane id="GridPane" prefHeight="116.0" prefWidth="128.00009999999747">
+                                  <children>
+                                    <ImageView id="ventanaIcono" fitHeight="67.93032038574859" fitWidth="131.3319549560547" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                      <image>
+                                        <Image url="@imagenes/toldo.png" preserveRatio="true" smooth="true" />
+                                      </image>
+                                    </ImageView>
+                                    <Label id="Persianas" text="Toldo" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                  </children>
+                                  <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                    <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="31.0" minHeight="7.0" prefHeight="24.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="17.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
+                                </GridPane>
+                              </children>
+                            </VBox>
+                          </graphic>
+                        </Button>
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="" FlowPane.margin="$x1">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="105.0" fitWidth="70.6730737357304" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/bombilla.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Luz" />
+                              </children>
+                            </VBox>
+                          </graphic>
+                        </Button>
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuPlantas" prefHeight="150.0" prefWidth="150.0" text="" FlowPane.margin="$x1">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" spacing="5.0">
+                              <children>
+                                <ImageView id="ventanaIcono" fitHeight="95.0" fitWidth="64.87804939006936" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/planta.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                  <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                  </VBox.margin>
+                                </ImageView>
+                                <Label id="Persianas" text="Plantas" />
+                              </children>
+                            </VBox>
+                          </graphic>
+                        </Button>
                       </children>
                     </FlowPane>
                   </children>
@@ -121,7 +362,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <ImageView fitHeight="64.5" fitWidth="86.0" layoutX="610.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
         <VBox id="VBox" alignment="CENTER" layoutX="113.0" layoutY="50.0" spacing="5.0">
