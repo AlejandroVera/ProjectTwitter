@@ -125,7 +125,7 @@ public class UserImpl implements User{
 		}
 
 	}
-	
+
 	public void compruebaFollowRequestSent(){
 		ResultSet r = con.query("SELECT * FROM solicitudesEnviadas WHERE id_interesado="+this.loggedUser.getId()+
 				" AND id_requerido="+this.getId()+" LIMIT 1");
@@ -140,7 +140,7 @@ public class UserImpl implements User{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean getFollowRequestSent(){
 		compruebaFollowRequestSent();
 		return followRequestSent;
@@ -152,7 +152,7 @@ public class UserImpl implements User{
 			this.con.updateQuery("INSERT INTO solicitudesEnviadas VALUES ("+this.loggedUser.getId()+", "+this.getId()+")");
 		}
 		else{
-			this.con.updateQuery("DELETE FROM solicitudesEnviadas WHERE id_interesado="+this.loggedUser.getId()+" AND id_requerido="+this.getId()+" LIMIT 1");
+			this.con.updateQuery("DELETE FROM solicitudesEnviadas WHERE id_interesado="+this.getId()+" AND id_requerido="+this.loggedUser.getId()+" LIMIT 1");
 		}
 	}
 
@@ -215,15 +215,13 @@ public class UserImpl implements User{
 	public Boolean isFollowedByYou() {
 		boolean sol=false;
 		Conexion con = new ConexionImpl();
-		ResultSet res = con.query("SELECT id_seguidor FROM seguidores WHERE id_seguido="+this.id);
+		ResultSet res = con.query("SELECT * FROM seguidores WHERE id_seguidor="+this.loggedUser.getId() +" AND id_seguido="+this.id+" LIMIT 1");
 		try {
-			while(res.next()){
-				if(res.getInt(1)==this.loggedUser.getId()){
-					sol=true;
-					break;
-				}
+			if(res.next()){
+				sol=true;
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
 		}
 		return sol;	
