@@ -399,10 +399,12 @@ public class WorldController extends Controller implements AStream.IListen {
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
 			if(event.getTarget().getId().equals(this.getTwitter().getSelf().getId())){
 				int n=Integer.parseInt(nSeguidores.getText().trim());
+				n++;
 				nSeguidores.setText(String.valueOf(n));
 			}
 			else if(event.getSource().getId().equals(this.getTwitter().getSelf().getId())){
 				int n=Integer.parseInt(nSeguidores.getText().trim());
+				n++;
 				nSiguiendo.setText(String.valueOf(n));
 			}
 		}
