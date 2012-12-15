@@ -1,0 +1,24 @@
+#menuComedor .button, #botonRegarAhora{
+	-fx-background-color: linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, rgba(256, 256, 256, 1), rgba(200, 200, 256, 0.6));
+	-fx-border-style: solid;
+	-fx-border-radius: 8,8,8,8;
+	-fx-border-color: rgba(50,50,50,0.6);
+} 
+
+#menuComedor .button:hover, #menuPlanta .button:hover{
+	-fx-effect: innershadow( three-pass-box , rgba(255,255,255,1) , 10, 0.0 , 0 , 0 );
+	/*-fx-background-color: linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, rgba(206, 206, 206, 1), rgba(150, 150, 206, 0.6));*/
+
+}
+
+#menuComedor .button:pressed,  #botonRegarAhora:pressed{
+	
+	-fx-background-color: linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, rgba(206, 206, 206, 1), rgba(150, 150, 206, 0.6));
+
+}
+
+#flecha: pressed{
+	-fx-effect: innershadow( gaussian , rgba(0,0,0,0.5) , 1000, 0.0 , 0 , 0 );
+
+}
+
