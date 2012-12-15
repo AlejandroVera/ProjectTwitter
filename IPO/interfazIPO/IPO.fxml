@@ -12,7 +12,7 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -121,7 +121,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0">
+    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <ImageView fitHeight="64.5" fitWidth="86.0" layoutX="610.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
         <VBox id="VBox" alignment="CENTER" layoutX="113.0" layoutY="50.0" spacing="5.0">
@@ -156,7 +156,7 @@
             <Image url="@imagenes/fondoventana.png" preserveRatio="true" smooth="true" />
           </image>
         </ImageView>
-        <VBox layoutX="394.0" layoutY="29.0" onDragDetected="#movimientoPersianaDrag" onDragDropped="#pararPersianaDrop" prefHeight="435.0" prefWidth="288.0" />
+        <VBox layoutX="394.0" layoutY="29.0" onDragDetected="#movimientoPersianaDrag" prefHeight="435.0" prefWidth="288.0" />
       </children>
     </AnchorPane>
     <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="false" />
