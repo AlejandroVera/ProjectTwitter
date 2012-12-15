@@ -65,7 +65,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 			if(controller != null)
 				controller.processEvent(event);
 		}
-		if ((event.getType().equals(TwitterEvent.Type.USER_UPDATE))||() ){
+		if ((event.getType().equals(TwitterEvent.Type.USER_UPDATE))||(event.getType().equals(TwitterEvent.Type.FOLLOW)) ){
 			for(EventoController c : eventos.values()){
 				c.processEvent(event);
 			}
