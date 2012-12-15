@@ -7,13 +7,19 @@ package interfazIPO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
@@ -78,12 +84,27 @@ public class IPOMainController
     @FXML //  fx:id="tiempoRiegoAhora"
     private TextField tiempoRiegoAhora; // Value injected by FXMLLoader
 
+    //VARIABLES DE CONTROL DE PERSIANA
+    double persianaPos = 254; //254 representa bajada, 0 subida totalmente
+    Timer t;
+    double prevMousePos = -1234567890; //Valor para identificar el no definido (no hay pantalla que tenga tantos pixeles xD)
 
     // Handler for ImageView[fx:id="bajarPersiana"] onMousePressed
     public void bajarPersiana(MouseEvent event) {
-        // handle the event here
+    	t = new Timer(true);
+    	t.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				if(persianaPos <= 252){
+					persianaMovil.setTranslateY(persianaMovil.getTranslateY()+2);
+					persianaPos += 2;
+				}
+			}
+		}, 0, 100);
+    	
     }
-
+    
     // Handler for Button[fx:id="botonArmario"] onMouseClicked
     public void irMenuArmario(MouseEvent event) {
         // handle the event here
@@ -91,28 +112,48 @@ public class IPOMainController
 
     // Handler for Button[fx:id="botonPersianas"] onMouseClicked
     public void irMenuPersianas(MouseEvent event) {
-        // handle the event here
+        menuPrincipal.setVisible(false);
+        menuPersiana.setVisible(true);
     }
 
     // Handler for Button[id="botonPersianas"] onMouseClicked
     public void irMenuPlantas(MouseEvent event) {
         // handle the event here
     }
-
-    // Handler for VBox[VBox@3281dca5] onDragDetected
-    public void movimientoPersianaDrag(MouseEvent event) {
-        // handle the event here
+    
+    // Handler for VBox[VBox@50d1cbcc] onMouseDragged
+    public void movimientoDedoPersiana(MouseEvent event) {
+    	
+		//Primer movimiento?
+		if(prevMousePos == -1234567890) 
+			prevMousePos = event.getSceneY();
+		
+		double newMousePos = event.getSceneY();
+		double diferencia = Math.abs(newMousePos-prevMousePos);
+		
+		if(newMousePos > prevMousePos){ //Estamos haciendo el gesto de bajar
+			if(persianaPos+diferencia <= 254){
+				persianaMovil.setTranslateY(persianaMovil.getTranslateY()+diferencia);
+				persianaPos += diferencia;
+			}
+		}else if(newMousePos < prevMousePos){ //Hacemos el gesto de subir
+			if(persianaPos-diferencia >= 0){
+				persianaMovil.setTranslateY(persianaMovil.getTranslateY()-diferencia);
+				persianaPos -= diferencia;
+			}
+		}
+		
+		//Actualizamos los valores
+		prevMousePos = newMousePos;
+				
     }
 
     // Handler for ImageView[fx:id="bajarPersiana"] onMouseReleased
     // Handler for ImageView[fx:id="subirPersiana"] onMouseReleased
     public void pararPersiana(MouseEvent event) {
-        // handle the event here
-    }
-
-    // Handler for VBox[VBox@3281dca5] onDragDropped
-    public void pararPersianaDrop(DragEvent event) {
-        // handle the event here
+        if(t != null)
+        	t.cancel();
+        t=null;
     }
 
     // Handler for Button[fx:id="botonProgramarRiego"] onMouseClicked
@@ -122,7 +163,17 @@ public class IPOMainController
 
     // Handler for ImageView[fx:id="subirPersiana"] onMousePressed
     public void subirPersiana(MouseEvent event) {
-        // handle the event here
+    	t = new Timer(true);
+    	t.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				if(persianaPos >= 2){
+					persianaMovil.setTranslateY(persianaMovil.getTranslateY()-2);
+					persianaPos -= 2;
+				}
+			}
+		}, 0, 100);
     }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
@@ -147,12 +198,21 @@ public class IPOMainController
         assert terraza != null : "fx:id=\"terraza\" was not injected: check your FXML file 'IPO.fxml'.";
         assert tiempoRiegoAhora != null : "fx:id=\"tiempoRiegoAhora\" was not injected: check your FXML file 'IPO.fxml'.";
 
-        // initialize your logic here: all @FXML variables will have been injected
+        //Mostramos el menu principal
         menuArmario.setVisible(false);
-        menuHabitaciones.setVisible(false);
         menuPersiana.setVisible(false);
         menuPlanta.setVisible(false);
         menuPrincipal.setVisible(true);
+        
+        //Mostramos solo las opciones del salon
+        salon.setVisible(true);
+        habitacion.setVisible(false);
+        terraza.setVisible(false);
+        
+        //Movemos la persiana a la posición 100 (bastante subida)
+        persianaMovil.setTranslateY(persianaMovil.getTranslateY()+100-254);
+		persianaPos = 100;
+        
 
     }
 
