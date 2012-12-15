@@ -396,6 +396,13 @@ public class WorldController extends Controller implements AStream.IListen {
 				System.out.println(u.getName());
 			}
 		}
+		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
+			if(event.getTarget().getId().equals(this.getTwitter().getSelf().getId())){
+				int n=Integer.parseInt(nSeguidores.getText().trim());
+				nSeguidores.setText(String.valueOf(n));
+			}
+			else{}
+		}
 		this.miCuentaController.processEvent(event);
 		this.conectaController.processEvent(event);
 		this.timeLineController.processEvent(event);
