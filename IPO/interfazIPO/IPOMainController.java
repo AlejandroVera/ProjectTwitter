@@ -187,13 +187,16 @@ implements Initializable {
 	// Handler for ImageView[id="deshacer"] onMouseClicked
 	@FXML
 	void goToMenuInicialPlanta(MouseEvent event) {
-		// handle the event here
+		irMenuPlantas(null);
 	}
 
 	// Handler for ImageView[id="deshacer"] onMouseClicked
 	@FXML
 	void goToMenuPrincipal(MouseEvent event) {
-		// handle the event here
+		menuPrincipal.setVisible(true);
+        menuPersiana.setVisible(false);
+        menuPlanta.setVisible(false);
+        menuArmario.setVisible(false);
 	}
 
 	// Handler for Button[id="botonRegarAhora"] onMouseClicked
@@ -227,7 +230,8 @@ implements Initializable {
 	// Handler for Button[fx:id="botonArmario"] onMouseClicked
 	public void irMenuArmario(MouseEvent event) {
 		menuPrincipal.setVisible(false);
-		menuArmario.setVisible(true);
+        menuArmario.setVisible(true);
+        menuArmarioCategorias.setVisible(true);
 	}
 
 	// Handler for Button[fx:id="botonPersianas"] onMouseClicked
@@ -239,7 +243,10 @@ implements Initializable {
 	// Handler for Button[id="botonPersianas"] onMouseClicked
 	public void irMenuPlantas(MouseEvent event) {
 		menuPrincipal.setVisible(false);
-		menuPlanta.setVisible(true);
+        menuPlanta.setVisible(true);
+        menuInicialPlanta.setVisible(true);
+        menuProgramas.setVisible(false);
+        menuEditandoPrograma.setVisible(false);
 	}
 
 	// Handler for VBox[VBox@50d1cbcc] onMouseDragged
