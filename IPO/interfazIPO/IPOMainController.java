@@ -125,35 +125,34 @@ public class IPOMainController
 	    @FXML // fx:id="tiempoRiegoPrograma"
 	    private TextField tiempoRiegoPrograma; // Value injected by FXMLLoader
 
-    //VARIABLES DE CONTROL DE PERSIANA
+    //VARIABLES DE CONTROL
     double persianaPos = 254; //254 representa bajada, 0 subida totalmente
     Timer t;
     double prevMousePos = -1234567890; //Valor para identificar el no definido (no hay pantalla que tenga tantos pixeles xD)
-
     
 
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void aumentarHoraRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(horaRiego, 1);
     }
 
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void aumentarMinutoRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(minutoRiego, 1);
     }
 
-    // Handler for ImageView[id="botonflecha"] onMouseClicked
+    // Handler for ImageView[id="botonflecha"] onMousePressed
     @FXML
     void aumentarTiempoRiegoAhora(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(tiempoRiegoAhora, 1);
     }
 
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void aumentarTiempoRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(tiempoRiegoPrograma, 1);
     }
 
     // Handler for Button[id="botonRegarAhora"] onMouseClicked
@@ -162,23 +161,23 @@ public class IPOMainController
         // handle the event here
     }
 
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void disminuirHoraRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(horaRiego, -1);
     }
 
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void disminuirMinutoRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(minutoRiego, -1);
     }
 
     
-    // Handler for ImageView[id="flecha"] onMouseClicked
+    // Handler for ImageView[id="flecha"] onMousePressed
     @FXML
     void disminuirTiempoRiegoPrograma(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(tiempoRiegoPrograma, -1);
     }
 
     // Handler for ImageView[id="deshacer"] onMouseClicked
@@ -200,10 +199,10 @@ public class IPOMainController
         // handle the event here
     }
 
-    // Handler for ImageView[id="botonflechaabajo"] onMouseClicked
+    // Handler for ImageView[id="botonflechaabajo"] onMousePressed
     @FXML
     void disminuirTiempoRiegoAhora(MouseEvent event) {
-        // handle the event here
+    	programarIncrementador(tiempoRiegoAhora, -1);
     }
     
     // Handler for ImageView[fx:id="bajarPersiana"] onMousePressed
@@ -224,7 +223,8 @@ public class IPOMainController
     
     // Handler for Button[fx:id="botonArmario"] onMouseClicked
     public void irMenuArmario(MouseEvent event) {
-        // handle the event here
+    	 menuPrincipal.setVisible(false);
+         menuArmario.setVisible(true);
     }
 
     // Handler for Button[fx:id="botonPersianas"] onMouseClicked
@@ -235,7 +235,8 @@ public class IPOMainController
 
     // Handler for Button[id="botonPersianas"] onMouseClicked
     public void irMenuPlantas(MouseEvent event) {
-        // handle the event here
+    	 menuPrincipal.setVisible(false);
+         menuPlanta.setVisible(true);
     }
     
     // Handler for VBox[VBox@50d1cbcc] onMouseDragged
@@ -342,6 +343,32 @@ public class IPOMainController
 		persianaPos = 100;
         
 
+    }
+    
+    private void programarIncrementador(final TextField field, final int cantidad){
+    	t = new Timer(true);
+    	t.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				int horaRiegoValue = Integer.getInteger(field.getText());
+				if(horaRiegoValue < 23)
+					field.setText(""+(horaRiegoValue+cantidad));
+				else
+					field.setText("0");
+			}
+		}, 0, 100);
+    	
+    	field.setOnMouseReleased(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(t != null)
+					t.cancel();
+				t=null;
+				field.setOnMouseReleased(null);
+			}
+		});
     }
 
 }
