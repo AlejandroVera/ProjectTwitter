@@ -443,7 +443,7 @@
     </AnchorPane>
     <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
           <children>
             <VBox id="cajaColorAmarillo" layoutX="0.0" layoutY="66.0" prefHeight="430.0" prefWidth="283.0" />
             <VBox id="cajaColorAzul" layoutX="328.0" layoutY="66.0" prefHeight="426.0" prefWidth="283.0" />
@@ -642,7 +642,7 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="true">
           <children>
             <HBox id="cajaColorAmarillo" layoutX="-10.0" layoutY="0.0" prefHeight="568.0" prefWidth="772.0" />
             <Label id="titulo" font="$x3" layoutX="218.0" layoutY="24.0" text="EDITANDO PROGRAMA" />
@@ -753,7 +753,7 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="664.0" layoutY="0.0" onMouseClicked="#goToMenuProgramas" pickOnBounds="true" preserveRatio="true" rotate="0.0">
+            <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="664.0" layoutY="0.0" onMouseClicked="#goToMenuProgramasBack" pickOnBounds="true" preserveRatio="true" rotate="0.0">
               <image>
                 <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
               </image>
