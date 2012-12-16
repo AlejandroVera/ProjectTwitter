@@ -124,6 +124,10 @@ public class IPOMainController
 
 	    @FXML // fx:id="tiempoRiegoPrograma"
 	    private TextField tiempoRiegoPrograma; // Value injected by FXMLLoader
+	    
+	    @FXML //  fx:id="menuArmarioCamisetas"
+	    private AnchorPane menuArmarioCamisetas; // Value injected by FXMLLoader
+    
 
     //VARIABLES DE CONTROL
     double persianaPos = 254; //254 representa bajada, 0 subida totalmente

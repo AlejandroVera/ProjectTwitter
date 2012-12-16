@@ -362,7 +362,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <VBox id="VBox" alignment="CENTER" layoutX="111.0" layoutY="104.0" spacing="5.0">
           <children>
@@ -409,9 +409,9 @@
         </ImageView>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="true">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -419,6 +419,20 @@
               </image>
             </ImageView>
             <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="689.0" layoutY="16.0" onMouseClicked="#goToMenuPrincipal" pickOnBounds="true" preserveRatio="true" rotate="0.0">
+              <image>
+                <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+        </AnchorPane>
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="true">
+          <children>
+            <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
+              <image>
+                <Image url="@imagenes/armarioabierto.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="689.0" layoutY="16.0" onMouseClicked="#goToMenuArmarioCategorias" pickOnBounds="true" preserveRatio="true" rotate="0.0">
               <image>
                 <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
               </image>
@@ -463,13 +477,13 @@
                   <children>
                     <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                       <children>
-                        <ImageView id="botonflecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMousePressed="#aumentarTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="flecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMousePressed="#aumentarTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
                           <image>
                             <Image url="@imagenes/botonflecha.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
                         <TextField id="texto" fx:id="tiempoRiegoAhora" alignment="CENTER" opacity="1.0" prefHeight="53.0" prefWidth="96.9998779296875" promptText="" text="60" />
-                        <ImageView id="botonflechaabajo" fitHeight="34.0" fitWidth="38.09638366699218" onMousePressed="#disminuirTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="flecha" fitHeight="34.0" fitWidth="38.09638366699218" onMousePressed="#disminuirTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
                           <image>
                             <Image url="@imagenes/botonflechaabajo.png" preserveRatio="true" smooth="true" />
                           </image>
