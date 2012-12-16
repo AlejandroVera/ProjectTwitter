@@ -202,7 +202,11 @@ implements Initializable {
 	// Handler for Button[id="botonRegarAhora"] onMouseClicked
 	@FXML
 	void goToMenuProgramas(MouseEvent event) {
-		// handle the event here
+		menuPrincipal.setVisible(false);
+        menuPlanta.setVisible(true);
+        menuInicialPlanta.setVisible(false);
+        menuProgramas.setVisible(true);
+        menuEditandoPrograma.setVisible(false);
 	}
 
 	// Handler for ImageView[id="botonflechaabajo"] onMousePressed
@@ -286,7 +290,7 @@ implements Initializable {
 
 	// Handler for Button[fx:id="botonProgramarRiego"] onMouseClicked
 	public void programarRiego(MouseEvent event) {
-		// handle the event here
+		//TODO: y aquí qué hay que hacer?
 	}
 
 	// Handler for ImageView[fx:id="subirPersiana"] onMousePressed
