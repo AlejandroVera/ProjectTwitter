@@ -12,7 +12,7 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -362,7 +362,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
         <VBox id="VBox" alignment="CENTER" layoutX="111.0" layoutY="104.0" spacing="5.0">
           <children>
@@ -402,7 +402,7 @@
             <Font size="30.0" fx:id="x3" />
           </font>
         </Label>
-        <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="688.0" layoutY="15.0" onMouseClicked="#goToMenuPrincipal" pickOnBounds="true" preserveRatio="true" rotate="0.0">
+        <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="688.0" layoutY="15.0" onMouseClicked="#goToMenuPrincipalFromPersiana" pickOnBounds="true" preserveRatio="true" rotate="0.0">
           <image>
             <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
           </image>
