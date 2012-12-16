@@ -11,6 +11,9 @@ import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Calendar;
@@ -18,9 +21,13 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import excepcionesComunes.TwitterException;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.HyperlinkBuilder;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -28,9 +35,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 
 
 public class TweetController extends Controller implements AStream.IListen{
@@ -95,8 +104,8 @@ public class TweetController extends Controller implements AStream.IListen{
 	@FXML //  fx:id="tweetBox"
 	private HBox tweetBox; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="tweetTextArea"
-	private TextArea tweetTextArea; // Value injected by FXMLLoader
+	@FXML //  fx:id="tweetFlow"
+	private FlowPane tweetFlow; // Value injected by FXMLLoader
 
 	@FXML //  fx:id="tweetsRespuesta"
 	private VBox tweetsRespuesta; // Value injected by FXMLLoader
@@ -304,7 +313,7 @@ public class TweetController extends Controller implements AStream.IListen{
 		assert textoNuevoTweet != null : "fx:id=\"textoNuevoTweet\" was not injected: check your FXML file 'tweet.fxml'.";
 		assert timeAgo != null : "fx:id=\"timeAgo\" was not injected: check your FXML file 'tweet.fxml'.";
 		assert tweetBox != null : "fx:id=\"tweetBox\" was not injected: check your FXML file 'tweet.fxml'.";
-		assert tweetTextArea != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
+		assert tweetFlow != null : "fx:id=\"tweetTextArea\" was not injected: check your FXML file 'tweet.fxml'.";
 		assert tweetsRespuesta != null : "fx:id=\"tweetsRespuesta\" was not injected: check your FXML file 'tweet.fxml'.";
 		assert userImage != null : "fx:id=\"userImage\" was not injected: check your FXML file 'tweet.fxml'.";
 		assert username != null : "fx:id=\"username\" was not injected: check your FXML file 'tweet.fxml'.";
@@ -324,10 +333,142 @@ public class TweetController extends Controller implements AStream.IListen{
 			this.location.setText(lugar.toString());
 		else
 			this.location.setText("");
-
-		tweetTextArea.setText(this.tweet.getText());
-
 		this.user = this.tweet.getUser();
+
+		tweetFlow.setVgap(0);
+		tweetFlow.setHgap(4);
+		String tweetText = tweet.getText();
+		tweetText = tweetText.replaceAll("\\s+", " ");
+		String[] words = tweetText.split(" ");
+		for (int i = 0; i < words.length; i++) {
+			final String word = words[i];
+			Node wordNode;
+			if (word.startsWith("@")) {
+				try{
+					final User destUser = getTwitter().users().getUser(word.substring(1));
+					wordNode =  HyperlinkBuilder.create()
+							.text(word)
+							.onAction(new EventHandler<ActionEvent>() {
+								@Override public void handle(ActionEvent e) {
+
+
+									if( (!destUser.getProtectedUser()) || (destUser.isFollowedByYou())){
+										if(destUser != null){
+											if (getParentController() instanceof TimeLineController){
+
+												((WorldController)((TimeLineController)getParentController()).getParentController()).changeToOtherAccount(destUser);
+											}
+											else if (getParentController() instanceof ConectaController){
+
+												((WorldController)((ConectaController)getParentController()).getParentController()).changeToOtherAccount(destUser);
+											}
+
+											else if (getParentController() instanceof MiCuentaController){
+
+												((WorldController)((MiCuentaController)getParentController()).getParentController()).changeToOtherAccount(destUser);
+											}
+
+											else if (getParentController() instanceof BusquedaController){
+
+												((WorldController)((BusquedaController)getParentController()).getParentController()).changeToOtherAccount(destUser);
+
+											}
+										}
+									}
+								}
+							})
+							.build();
+					((Hyperlink)wordNode).setTextFill(Paint.valueOf("#00BFFF"));
+				}catch(excepcionesComunes.TwitterException e){
+					wordNode = new Label(word);
+				}
+
+			}
+			else if (word.startsWith("#") && word.length() > 1) {
+				wordNode =  HyperlinkBuilder.create()
+						.text(word)
+						.onAction(new EventHandler<ActionEvent>() {
+							@Override public void handle(ActionEvent e) {
+
+								if (getParentController() instanceof TimeLineController){
+
+									((WorldController)((TimeLineController)getParentController()).getParentController()).buscaHashtags(word);
+								}
+								else if (getParentController() instanceof ConectaController){
+
+									((WorldController)((ConectaController)getParentController()).getParentController()).buscaHashtags(word);
+								}
+
+								else if (getParentController() instanceof MiCuentaController){
+
+									((WorldController)((MiCuentaController)getParentController()).getParentController()).buscaHashtags(word);
+								}
+
+								else if (getParentController() instanceof BusquedaController){
+
+									((WorldController)((BusquedaController)getParentController()).getParentController()).buscaHashtags(word);
+
+								}
+							}
+						})
+						.build();
+				((Hyperlink)wordNode).setTextFill(Paint.valueOf("#00BFFF"));
+			}
+			else if (word.matches("^(http(s)?://)?([a-zA-Z0-9_]+(\\.[a-zA-Z0-9/_#]+)+)")){
+				String p;
+
+				if(word.matches("^(http://).*")){
+					p=word.substring(7);
+				}
+				else if(word.matches("^(https://).*")){
+					p=word.substring(8);
+				}
+				else{
+					p= word;
+				}
+				if(p.length()>20){
+					p=p.substring(0,20)+"...";
+				}
+				System.out.println(p);
+				wordNode =  HyperlinkBuilder.create()
+						.text(p)
+						.onMouseClicked(new EventHandler<MouseEvent>() {
+							@Override public void handle(MouseEvent me) {
+								URL url;
+								try {
+									String wordAux;
+									if(word.matches("^(http(s)?://).*")){
+										wordAux=word;
+									}
+									else{
+										wordAux="http://"+word;
+
+									}
+									url = new URL(wordAux);
+								} 
+								catch (MalformedURLException exception) {
+									throw new RuntimeException(exception);
+								}
+
+								try {
+									java.awt.Desktop.getDesktop().browse(url.toURI());
+								} 
+								catch (URISyntaxException exception) {
+									throw new RuntimeException(exception);
+								} 
+								catch (IOException exception) {
+									throw new RuntimeException(exception);
+								}
+							}
+						})
+						.build();
+				((Hyperlink)wordNode).setTextFill(Paint.valueOf("#00BFFF"));
+			}
+			else {
+				wordNode = new Label(word);
+			}
+			tweetFlow.getChildren().add(wordNode);
+		}
 
 		//Cargamos la información que el usuario puede modificar en cualquier momento
 		loadUserDependantInfo();

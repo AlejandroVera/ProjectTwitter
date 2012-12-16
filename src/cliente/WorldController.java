@@ -474,6 +474,13 @@ public class WorldController extends Controller implements AStream.IListen {
 		}
 	}
 
+	public void buscaHashtags(String text) {
+		menuPrincipal.getSelectionModel().select(this.busquedaTab);
+		infCuenta.setVisible(false);
+		List<Status> x=super.getTwitter().search(text);
+		if(x!=null)
+			busquedaController.addTweetResult(x);
+	}
 
 
 }
