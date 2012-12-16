@@ -27,68 +27,183 @@ import javafx.scene.layout.FlowPane;
 public class IPOMainController
     implements Initializable {
 
-    @FXML //  fx:id="bajarPersiana"
-    private ImageView bajarPersiana; // Value injected by FXMLLoader
+	 @FXML // ResourceBundle that was given to the FXMLLoader
+	    private ResourceBundle resources;
 
-    @FXML //  fx:id="botonArmario"
-    private Button botonArmario; // Value injected by FXMLLoader
+	    @FXML // URL location of the FXML file that was given to the FXMLLoader
+	    private URL location;
 
-    @FXML //  fx:id="botonPersianas"
-    private Button botonPersianas; // Value injected by FXMLLoader
+	    @FXML // fx:id="bajarPersiana"
+	    private ImageView bajarPersiana; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonPlantas"
-    private Button botonPlantas; // Value injected by FXMLLoader
+	    @FXML // fx:id="bisemanal"
+	    private RadioButton bisemanal; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonProgramarRiego"
-    private Button botonProgramarRiego; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonArmario"
+	    private Button botonArmario; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonRegarAhora"
-    private Button botonRegarAhora; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonPersianas"
+	    private Button botonPersianas; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="botonTelevision"
-    private Button botonTelevision; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonPlantas"
+	    private Button botonPlantas; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="habitacion"
-    private FlowPane habitacion; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonProgramarRiego"
+	    private Button botonProgramarRiego; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="menuArmario"
-    private AnchorPane menuArmario; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonRegarAhora"
+	    private Button botonRegarAhora; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="menuHabitaciones"
-    private AnchorPane menuHabitaciones; // Value injected by FXMLLoader
+	    @FXML // fx:id="botonTelevision"
+	    private Button botonTelevision; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="menuPersiana"
-    private AnchorPane menuPersiana; // Value injected by FXMLLoader
+	    @FXML // fx:id="habitacion"
+	    private FlowPane habitacion; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="menuPlanta"
-    private AnchorPane menuPlanta; // Value injected by FXMLLoader
+	    @FXML // fx:id="horaRiego"
+	    private TextField horaRiego; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="menuPrincipal"
-    private AnchorPane menuPrincipal; // Value injected by FXMLLoader
+	    @FXML // fx:id="mensual"
+	    private RadioButton mensual; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="persianaMovil"
-    private ImageView persianaMovil; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuArmario"
+	    private AnchorPane menuArmario; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="salon"
-    private FlowPane salon; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuArmarioCategorias"
+	    private AnchorPane menuArmarioCategorias; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="selectorGiratorio"
-    private AnchorPane selectorGiratorio; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuEditandoPrograma"
+	    private AnchorPane menuEditandoPrograma; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="subirPersiana"
-    private ImageView subirPersiana; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuHabitaciones"
+	    private AnchorPane menuHabitaciones; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="terraza"
-    private FlowPane terraza; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuInicialPlanta"
+	    private AnchorPane menuInicialPlanta; // Value injected by FXMLLoader
 
-    @FXML //  fx:id="tiempoRiegoAhora"
-    private TextField tiempoRiegoAhora; // Value injected by FXMLLoader
+	    @FXML // fx:id="menuPersiana"
+	    private AnchorPane menuPersiana; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="menuPlanta"
+	    private AnchorPane menuPlanta; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="menuPrincipal"
+	    private AnchorPane menuPrincipal; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="menuProgramas"
+	    private AnchorPane menuProgramas; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="minutoRiego"
+	    private TextField minutoRiego; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="persianaMovil"
+	    private ImageView persianaMovil; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="programaUtil"
+	    private HBox programaUtil; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="salon"
+	    private FlowPane salon; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="selectorGiratorio"
+	    private AnchorPane selectorGiratorio; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="semanal"
+	    private RadioButton semanal; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="subirPersiana"
+	    private ImageView subirPersiana; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="terraza"
+	    private FlowPane terraza; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="tiempoRiegoAhora"
+	    private TextField tiempoRiegoAhora; // Value injected by FXMLLoader
+
+	    @FXML // fx:id="tiempoRiegoPrograma"
+	    private TextField tiempoRiegoPrograma; // Value injected by FXMLLoader
 
     //VARIABLES DE CONTROL DE PERSIANA
     double persianaPos = 254; //254 representa bajada, 0 subida totalmente
     Timer t;
     double prevMousePos = -1234567890; //Valor para identificar el no definido (no hay pantalla que tenga tantos pixeles xD)
 
+    
+
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void aumentarHoraRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void aumentarMinutoRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="botonflecha"] onMouseClicked
+    @FXML
+    void aumentarTiempoRiegoAhora(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void aumentarTiempoRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for Button[id="botonRegarAhora"] onMouseClicked
+    @FXML
+    void confirmarPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void disminuirHoraRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void disminuirMinutoRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    
+    // Handler for ImageView[id="flecha"] onMouseClicked
+    @FXML
+    void disminuirTiempoRiegoPrograma(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="deshacer"] onMouseClicked
+    @FXML
+    void goToMenuInicialPlanta(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="deshacer"] onMouseClicked
+    @FXML
+    void goToMenuPrincipal(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for Button[id="botonRegarAhora"] onMouseClicked
+    // Handler for ImageView[id="deshacer"] onMouseClicked
+    @FXML
+    void goToMenuProgramas(MouseEvent event) {
+        // handle the event here
+    }
+
+    // Handler for ImageView[id="botonflechaabajo"] onMouseClicked
+    @FXML
+    void disminuirTiempoRiegoAhora(MouseEvent event) {
+        // handle the event here
+    }
+    
     // Handler for ImageView[fx:id="bajarPersiana"] onMousePressed
     public void bajarPersiana(MouseEvent event) {
     	t = new Timer(true);
@@ -179,6 +294,7 @@ public class IPOMainController
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert bajarPersiana != null : "fx:id=\"bajarPersiana\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert bisemanal != null : "fx:id=\"bisemanal\" was not injected: check your FXML file 'IPO.fxml'.";
         assert botonArmario != null : "fx:id=\"botonArmario\" was not injected: check your FXML file 'IPO.fxml'.";
         assert botonPersianas != null : "fx:id=\"botonPersianas\" was not injected: check your FXML file 'IPO.fxml'.";
         assert botonPlantas != null : "fx:id=\"botonPlantas\" was not injected: check your FXML file 'IPO.fxml'.";
@@ -186,17 +302,27 @@ public class IPOMainController
         assert botonRegarAhora != null : "fx:id=\"botonRegarAhora\" was not injected: check your FXML file 'IPO.fxml'.";
         assert botonTelevision != null : "fx:id=\"botonTelevision\" was not injected: check your FXML file 'IPO.fxml'.";
         assert habitacion != null : "fx:id=\"habitacion\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert horaRiego != null : "fx:id=\"horaRiego\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert mensual != null : "fx:id=\"mensual\" was not injected: check your FXML file 'IPO.fxml'.";
         assert menuArmario != null : "fx:id=\"menuArmario\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert menuArmarioCategorias != null : "fx:id=\"menuArmarioCategorias\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert menuEditandoPrograma != null : "fx:id=\"menuEditandoPrograma\" was not injected: check your FXML file 'IPO.fxml'.";
         assert menuHabitaciones != null : "fx:id=\"menuHabitaciones\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert menuInicialPlanta != null : "fx:id=\"menuInicialPlanta\" was not injected: check your FXML file 'IPO.fxml'.";
         assert menuPersiana != null : "fx:id=\"menuPersiana\" was not injected: check your FXML file 'IPO.fxml'.";
         assert menuPlanta != null : "fx:id=\"menuPlanta\" was not injected: check your FXML file 'IPO.fxml'.";
         assert menuPrincipal != null : "fx:id=\"menuPrincipal\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert menuProgramas != null : "fx:id=\"menuProgramas\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert minutoRiego != null : "fx:id=\"minutoRiego\" was not injected: check your FXML file 'IPO.fxml'.";
         assert persianaMovil != null : "fx:id=\"persianaMovil\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert programaUtil != null : "fx:id=\"programaUtil\" was not injected: check your FXML file 'IPO.fxml'.";
         assert salon != null : "fx:id=\"salon\" was not injected: check your FXML file 'IPO.fxml'.";
         assert selectorGiratorio != null : "fx:id=\"selectorGiratorio\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert semanal != null : "fx:id=\"semanal\" was not injected: check your FXML file 'IPO.fxml'.";
         assert subirPersiana != null : "fx:id=\"subirPersiana\" was not injected: check your FXML file 'IPO.fxml'.";
         assert terraza != null : "fx:id=\"terraza\" was not injected: check your FXML file 'IPO.fxml'.";
         assert tiempoRiegoAhora != null : "fx:id=\"tiempoRiegoAhora\" was not injected: check your FXML file 'IPO.fxml'.";
+        assert tiempoRiegoPrograma != null : "fx:id=\"tiempoRiegoPrograma\" was not injected: check your FXML file 'IPO.fxml'.";
 
         //Mostramos el menu principal
         menuArmario.setVisible(false);
