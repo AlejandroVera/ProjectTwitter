@@ -362,7 +362,7 @@
         </GridPane>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="menuPersiana" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <VBox id="VBox" alignment="CENTER" layoutX="111.0" layoutY="104.0" spacing="5.0">
           <children>
@@ -628,29 +628,36 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="true">
           <children>
             <HBox id="cajaColorAmarillo" layoutX="-10.0" layoutY="0.0" prefHeight="568.0" prefWidth="772.0" />
             <Label font="$x3" layoutX="218.0" layoutY="24.0" text="EDITANDO PROGRAMA" />
             <HBox id="HBox" alignment="CENTER" layoutX="0.0" layoutY="127.0" spacing="5.0">
               <children>
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Lunes">
+                <ToggleButton id="botonDia" mnemonicParsing="false" text="Lunes">
+                  <font>
+                    <Font name="Monospaced Regular" size="18.0" fx:id="x6" />
+                  </font>
                   <HBox.margin>
                     <Insets fx:id="x5" />
                   </HBox.margin>
                 </ToggleButton>
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Martes" HBox.margin="$x5" />
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Miercoles" />
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Jueves" />
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Viernes" />
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Sabado" />
-                <ToggleButton id="botonDia" font="$x4" mnemonicParsing="false" text="Domingo" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Martes" HBox.margin="$x5" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Miercoles" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Jueves" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Viernes" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Sabado" />
+                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Domingo" />
               </children>
             </HBox>
             <Label font="$x4" layoutX="0.0" layoutY="88.0" text="Pulse en los dias que quiere el riego:" />
             <GridPane id="GridPane" layoutX="25.0" layoutY="223.0" prefWidth="713.0">
               <children>
-                <Label font="$x4" prefWidth="188.0" text="Frecuencia de riego:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label prefWidth="273.0" text="Frecuencia de riego:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <font>
+                    <Font name="Monospaced Regular" size="20.0" />
+                  </font>
+                </Label>
                 <RadioButton fx:id="semanal" font="$x4" mnemonicParsing="false" text="Semanal" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <RadioButton fx:id="mensual" font="$x4" mnemonicParsing="false" text="Mensual" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                 <RadioButton fx:id="bisemanal" font="$x4" mnemonicParsing="false" text="Bisemanal" GridPane.columnIndex="2" GridPane.rowIndex="0" />
@@ -758,7 +765,7 @@
                             <Image url="@imagenes/confirmar.png" preserveRatio="true" smooth="true" />
                           </image>
                         </ImageView>
-                        <Label alignment="CENTER" font="$x4" prefWidth="97.0" text="Confirmar" />
+                        <Label alignment="CENTER" font="$x4" prefWidth="146.0" text="Confirmar" />
                       </children>
                     </HBox>
                   </graphic>
