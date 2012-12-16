@@ -38,10 +38,10 @@ public class IPOLauncher extends Application {
 					new Image(getClass().getResource("Imagenes/Twitter-icon-128.png").openStream()),
 					new Image(getClass().getResource("Imagenes/Twitter-icon-256.png").openStream())
 					);
-			
+			*/
 			//Cargamos las fuentes a utilizar
-			Font.loadFont(getClass().getResource("fuentes/nanum/NanumGothic.ttf").openStream(), -1);
-			Font.loadFont(getClass().getResource("fuentes/nanum/NanumGothicBold.ttf").openStream(), -1);*/
+			Font.loadFont(getClass().getResource("fuentes/SEGOEUI.ttf").openStream(), -1);
+			Font.loadFont(getClass().getResource("fuentes/SEGOEUIB.ttf").openStream(), -1);
 
 			this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
