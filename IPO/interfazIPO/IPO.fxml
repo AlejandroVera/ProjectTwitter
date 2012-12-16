@@ -12,7 +12,7 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -425,7 +425,7 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="true">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -441,7 +441,7 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
           <children>
