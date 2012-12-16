@@ -52,14 +52,21 @@
 	-fx-background-color: linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, rgba(256, 256, 256, 1), rgba(200, 200, 256, 0.6));
 	-fx-border-style: solid;
 	-fx-border-color: rgba(50,50,50,0.6);
+	-fx-font-family: "Segoe UI";
+	-fx-font-size: 20;
 } 
 
 #botonDia:pressed, #botonDia:selected	{
 	-fx-background-color: linear-gradient(from 0.0% 0.0% to 0.0% 100.0%, rgba(206, 206, 206, 1), rgba(150, 150, 206, 0.6));
 
 }
-
-#menuEditandoPrograma {
-	-fx-font-family: "NanumGothic";
+.button, .label {
+	-fx-font-family: "Segoe UI";
+	-fx-font-size: 20;
 }
+
+#titulo{
+	-fx-font-size: 30;
+}
+
 

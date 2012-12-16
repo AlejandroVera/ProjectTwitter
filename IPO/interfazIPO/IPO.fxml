@@ -12,7 +12,7 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
@@ -117,7 +117,7 @@
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="Cadena musica">
+                        <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
                           <graphic>
                             <VBox id="VBox" alignment="CENTER" spacing="5.0">
                               <children>
@@ -143,7 +143,7 @@
                         </Button>
                       </children>
                     </FlowPane>
-                    <FlowPane id="menuComedor" fx:id="habitacion" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="true">
+                    <FlowPane id="menuComedor" fx:id="habitacion" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="false">
                       <children>
                         <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
                           <graphic>
@@ -266,7 +266,7 @@
                         </Button>
                       </children>
                     </FlowPane>
-                    <FlowPane id="menuComedor" fx:id="terraza" alignment="CENTER" disable="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="true">
+                    <FlowPane id="menuComedor" fx:id="terraza" alignment="CENTER" disable="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="false">
                       <children>
                         <Button id="botonPersianas" fx:id="botonPlantas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
                           <graphic>
@@ -397,7 +397,7 @@
           </image>
         </ImageView>
         <VBox layoutX="392.0" layoutY="83.0" onMouseDragged="#movimientoDedoPersiana" prefHeight="435.0" prefWidth="288.0" visible="true" />
-        <Label layoutX="278.0" layoutY="38.0" text="MENU PERSIANA">
+        <Label id="titulo" layoutX="278.0" layoutY="38.0" text="MENU PERSIANA">
           <font>
             <Font size="30.0" fx:id="x3" />
           </font>
@@ -427,13 +427,13 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="false">
           <children>
             <VBox id="cajaColorAmarillo" layoutX="0.0" layoutY="66.0" prefHeight="430.0" prefWidth="283.0" />
             <VBox id="cajaColorAzul" layoutX="328.0" layoutY="66.0" prefHeight="426.0" prefWidth="283.0" />
-            <Label id="#pajarito" focusTraversable="false" font="$x3" layoutX="151.0" layoutY="0.0" text="RIEGO AUTOMATICO" underline="false" visible="true" wrapText="false" />
+            <Label id="titulo" focusTraversable="false" font="$x3" layoutX="151.0" layoutY="0.0" text="RIEGO AUTOMATICO" underline="false" visible="true" wrapText="false" />
             <GridPane layoutX="0.0" layoutY="80.0" prefHeight="426.0" prefWidth="608.0">
               <children>
                 <Label text="REGAR AHORA:" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -526,7 +526,7 @@
         </AnchorPane>
         <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="false">
           <children>
-            <Label alignment="CENTER" font="$x3" layoutX="251.0" layoutY="31.0" text="MENU PROGRAMAS" />
+            <Label id="titulo" alignment="CENTER" font="$x3" layoutX="251.0" layoutY="31.0" text="MENU PROGRAMAS" />
             <VBox layoutX="0.0" layoutY="83.0" prefHeight="465.11834716796875" prefWidth="772.0">
               <children>
                 <Button id="botonRegarAhora" minHeight="63.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="772.0" text="">
@@ -628,10 +628,10 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="false">
           <children>
             <HBox id="cajaColorAmarillo" layoutX="-10.0" layoutY="0.0" prefHeight="568.0" prefWidth="772.0" />
-            <Label font="$x3" layoutX="218.0" layoutY="24.0" text="EDITANDO PROGRAMA" />
+            <Label id="titulo" font="$x3" layoutX="218.0" layoutY="24.0" text="EDITANDO PROGRAMA" />
             <HBox id="HBox" alignment="CENTER" layoutX="0.0" layoutY="127.0" spacing="5.0">
               <children>
                 <ToggleButton id="botonDia" mnemonicParsing="false" text="Lunes">
@@ -659,14 +659,18 @@
                   </font>
                 </Label>
                 <RadioButton fx:id="semanal" font="$x4" mnemonicParsing="false" text="Semanal" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <RadioButton fx:id="mensual" font="$x4" mnemonicParsing="false" text="Mensual" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                <RadioButton fx:id="mensual" mnemonicParsing="false" text="Mensual" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                  <font>
+                    <Font name="Segoe UI" size="20.0" />
+                  </font>
+                </RadioButton>
                 <RadioButton fx:id="bisemanal" font="$x4" mnemonicParsing="false" text="Bisemanal" GridPane.columnIndex="2" GridPane.rowIndex="0" />
               </children>
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="244.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="152.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="164.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.0" minWidth="10.0" prefWidth="153.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -689,7 +693,7 @@
                     </ImageView>
                   </children>
                 </VBox>
-                <Label font="$x4" prefWidth="174.0" text="Tiempo de riego:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label font="$x4" prefWidth="202.0" text="Tiempo de riego:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <VBox id="VBox" alignment="CENTER" prefHeight="169.0" prefWidth="55.000099999997474" spacing="5.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
                   <children>
                     <ImageView id="flecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMouseClicked="#aumentarHoraRiegoPrograma" pickOnBounds="true" preserveRatio="true">
@@ -705,7 +709,7 @@
                     </ImageView>
                   </children>
                 </VBox>
-                <Label font="$x4" prefWidth="174.0" text="Tiempo de riego:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label font="$x4" prefWidth="170.0" text="Hora de riego:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                 <VBox id="VBox" alignment="CENTER" prefHeight="169.0" prefWidth="55.000099999997474" spacing="5.0" GridPane.columnIndex="5" GridPane.rowIndex="0">
                   <children>
                     <ImageView id="flecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMouseClicked="#aumentarMinutoRiegoPrograma" pickOnBounds="true" preserveRatio="true">
@@ -721,15 +725,15 @@
                     </ImageView>
                   </children>
                 </VBox>
-                <Label font="$x3" prefWidth="15.0" text=":" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <Label font="$x3" minWidth="5.0" prefWidth="11.0" text=":" GridPane.columnIndex="4" GridPane.rowIndex="0" />
               </children>
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="191.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="110.0" />
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="205.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="77.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="43.0" minWidth="8.0" prefWidth="22.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="73.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="167.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="101.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="227.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="81.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="107.0" minWidth="0.0" prefWidth="25.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="8.0" prefWidth="77.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
