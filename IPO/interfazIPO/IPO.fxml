@@ -411,7 +411,7 @@
     </AnchorPane>
     <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="false">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -425,7 +425,7 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="false">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -441,7 +441,7 @@
         </AnchorPane>
       </children>
     </AnchorPane>
-    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
         <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
           <children>
@@ -753,7 +753,7 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="664.0" layoutY="0.0" onMouseClicked="#goToMenuProgramasBack" pickOnBounds="true" preserveRatio="true" rotate="0.0">
+            <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="664.0" layoutY="0.0" onMouseClicked="#goToMenuProgramas" pickOnBounds="true" preserveRatio="true" rotate="0.0">
               <image>
                 <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
               </image>

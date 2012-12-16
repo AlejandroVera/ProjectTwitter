@@ -202,12 +202,6 @@ implements Initializable {
 		// handle the event here
 	}
 
-	// Handler for ImageView[id="deshacer"] onMouseClicked
-	@FXML
-	void goToMenuProgramasBack(MouseEvent event) {
-		// handle the event here
-	}
-
 	// Handler for ImageView[id="botonflechaabajo"] onMousePressed
 	@FXML
 	void disminuirTiempoRiegoAhora(MouseEvent event) {
