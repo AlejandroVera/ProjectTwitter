@@ -12,12 +12,17 @@
 
 <StackPane id="StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml" fx:controller="interfazIPO.IPOMainController">
   <children>
-    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="true">
+    <AnchorPane id="AnchorPane" fx:id="menuPrincipal" prefHeight="600.0" prefWidth="800.0" visible="false">
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
             <AnchorPane id="selectorGiratorio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
               <children>
+                <ImageView id="rotable" fitHeight="38.0" fitWidth="44.02325439453125" layoutX="370.0" layoutY="50.0" opacity="0.28" pickOnBounds="true" preserveRatio="false">
+                  <image>
+                    <Image url="@imagenes/rotable.png" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
                 <VBox fx:id="selectorGiratorio" alignment="BOTTOM_CENTER" prefHeight="153.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
               </children>
             </AnchorPane>
@@ -413,7 +418,7 @@
         </ImageView>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
         <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="true">
           <children>
@@ -453,11 +458,16 @@
             </AnchorPane>
           </children>
         </AnchorPane>
+        <ImageView id="rotable" fitHeight="58.841278076171875" fitWidth="71.02325439453125" layoutX="375.0" layoutY="180.0" opacity="0.28" pickOnBounds="true" preserveRatio="false">
+          <image>
+            <Image url="@imagenes/rotable.png" preserveRatio="true" smooth="true" />
+          </image>
+        </ImageView>
       </children>
     </AnchorPane>
     <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
           <children>
             <VBox id="cajaColorAmarillo" layoutX="0.0" layoutY="66.0" prefHeight="430.0" prefWidth="283.0" />
             <VBox id="cajaColorAzul" layoutX="328.0" layoutY="66.0" prefHeight="426.0" prefWidth="283.0" />
@@ -489,26 +499,34 @@
                 </Button>
                 <GridPane GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <children>
-                    <VBox id="VBox" alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label font="$x4" text="Tiempo de riego:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <HBox id="HBox" alignment="CENTER" prefWidth="117.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                       <children>
-                        <ImageView id="flecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMousePressed="#aumentarTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@imagenes/botonflecha.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
-                        <TextField id="texto" fx:id="tiempoRiegoAhora" alignment="CENTER" opacity="1.0" prefHeight="53.0" prefWidth="96.9998779296875" promptText="" text="60" />
-                        <ImageView id="flecha" fitHeight="34.0" fitWidth="38.09638366699218" onMousePressed="#disminuirTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
-                          <image>
-                            <Image url="@imagenes/botonflechaabajo.png" preserveRatio="true" smooth="true" />
-                          </image>
-                        </ImageView>
+                        <Label text="min">
+                          <graphic>
+                            <VBox id="VBox" alignment="CENTER" prefHeight="169.0" prefWidth="52.0" spacing="5.0">
+                              <children>
+                                <ImageView id="flecha" fitHeight="33.999977111816406" fitWidth="38.09636018936691" onMousePressed="#aumentarTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/botonflecha.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                                <TextField id="texto" fx:id="tiempoRiegoAhora" alignment="CENTER" opacity="1.0" prefHeight="53.0" prefWidth="57.0" promptText="" text="60" />
+                                <ImageView id="flecha" fitHeight="34.0" fitWidth="38.09638366699218" onMousePressed="#disminuirTiempoRiegoAhora" pickOnBounds="true" preserveRatio="true">
+                                  <image>
+                                    <Image url="@imagenes/botonflechaabajo.png" preserveRatio="true" smooth="true" />
+                                  </image>
+                                </ImageView>
+                              </children>
+                            </VBox>
+                          </graphic>
+                        </Label>
                       </children>
-                    </VBox>
-                    <Label font="$x4" text="Tiempo de riego" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    </HBox>
                   </children>
                   <columnConstraints>
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="175.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="93.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="161.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="212.0" minWidth="10.0" prefWidth="107.0" />
                   </columnConstraints>
                   <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -533,6 +551,11 @@
                     </Button>
                   </children>
                 </VBox>
+                <ImageView id="weather_icon" fitHeight="149.0" fitWidth="198.66666218232825" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <image>
+                    <Image url="@imagenes/weather_icon.jpg" preserveRatio="true" smooth="true" />
+                  </image>
+                </ImageView>
               </children>
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="268.0" />
@@ -552,7 +575,7 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="false">
           <children>
             <Label id="titulo" alignment="CENTER" font="$x3" layoutX="251.0" layoutY="31.0" text="MENU PROGRAMAS" />
             <VBox layoutX="0.0" layoutY="83.0" prefHeight="465.11834716796875" prefWidth="772.0">
@@ -807,6 +830,16 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+          </children>
+        </AnchorPane>
+      </children>
+    </AnchorPane>
+    <AnchorPane fx:id="mensaje" prefHeight="447.0" prefWidth="800.0" visible="false">
+      <children>
+        <AnchorPane id="cajaColorAmarilloNitido" layoutX="97.0" layoutY="188.0" prefHeight="171.0" prefWidth="608.0">
+          <children>
+            <TextArea id="texto" fx:id="textoMensaje" editable="false" layoutX="47.0" layoutY="22.0" prefHeight="115.0" prefWidth="522.0" wrapText="true" />
+            <Button layoutX="257.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#esconderMessage" text="Aceptar" />
           </children>
         </AnchorPane>
       </children>

@@ -69,4 +69,20 @@
 	-fx-font-size: 30;
 }
 
+#cajaColorAmarilloNitido{
+	
+	-fx-background-color: rgba(255, 200, 0, 0.95);
+	-fx-border-style: solid;
+	-fx-border-radius: 8,8,8,8;
+	-fx-border-color: rgba(50,50,50,0.2);
+	-fx-background-radius: 8,8,8,8;
+
+}
+
+#texto2{
+	-fx-background-color: rgba(255, 200, 0, 0);
+	-fx-font-family: "Segoe UI";
+	-fx-font-size: 20;
+}
+
 
