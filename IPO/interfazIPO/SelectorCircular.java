@@ -28,7 +28,11 @@ public class SelectorCircular {
 	private Ellipse pathe;
 	private AnchorPane root;
 
-	public SelectorCircular(List<SelectorEntry> lista, double duracionMilis, double sizeX, double sizeY) {
+	public SelectorCircular(List<SelectorEntry> lista, double duracionMilis, double sizeX, double sizeY){
+		this(lista, duracionMilis, sizeX, sizeY, 0.5);
+	}
+	
+	public SelectorCircular(List<SelectorEntry> lista, double duracionMilis, double sizeX, double sizeY, double visibilidad) {
 		root = new AnchorPane();
         root.setMinSize(sizeX*1.1, sizeY*1.1); //400 260
         root.setMaxSize(sizeX*1.1, sizeY*1.1); //400 260
@@ -83,7 +87,7 @@ public class SelectorCircular {
             	        .node(node)
             	        .duration(Duration.millis(DURATION/2))
             	        .fromValue(1.0)
-            	        .toValue(0.5)
+            	        .toValue(visibilidad)
             	        .cycleCount(Timeline.INDEFINITE)
                         .autoReverse(true)
                         .build() ,
@@ -112,7 +116,7 @@ public class SelectorCircular {
 		            .build();
         	trans[x].setRate(0.001);
             trans[x].jumpTo(new Duration((DURATION/ELEMENTS)*x));
-            System.out.println("Unicialmente para "+x+" es "+trans[x].getCurrentTime());
+            //System.out.println("Unicialmente para "+x+" es "+trans[x].getCurrentTime());
             
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
 
