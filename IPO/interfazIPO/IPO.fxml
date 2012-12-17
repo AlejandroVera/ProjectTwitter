@@ -418,7 +418,7 @@
         </ImageView>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
         <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="true">
           <children>
@@ -465,9 +465,9 @@
         </ImageView>
       </children>
     </AnchorPane>
-    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
+    <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="true">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="false">
           <children>
             <VBox id="cajaColorAmarillo" layoutX="0.0" layoutY="66.0" prefHeight="430.0" prefWidth="283.0" />
             <VBox id="cajaColorAzul" layoutX="328.0" layoutY="66.0" prefHeight="426.0" prefWidth="283.0" />
@@ -575,7 +575,7 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="true">
           <children>
             <Label id="titulo" alignment="CENTER" font="$x3" layoutX="251.0" layoutY="31.0" text="MENU PROGRAMAS" />
             <VBox layoutX="0.0" layoutY="83.0" prefHeight="465.11834716796875" prefWidth="772.0">
@@ -651,7 +651,7 @@
                   <children>
                     <GridPane id="GridPane" prefHeight="38.0" prefWidth="746.0000915527344" visible="true">
                       <children>
-                        <CheckBox mnemonicParsing="false" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <CheckBox mnemonicParsing="false" selected="true" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <Label fx:id="dias" font="$x4" text="L" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <Label fx:id="hora" font="$x4" text="Hora Inicio: 08:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <Label fx:id="duracion" font="$x4" text="Duracion: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
