@@ -72,15 +72,6 @@
                         </GridPane>
                         <GridPane prefHeight="26.0" prefWidth="467.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                           <children>
-                            <StackPane id="StackPane" fx:id="stackAbrir" opacity="1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                              <children>
-                                <HBox id="HBox" alignment="CENTER" spacing="5.0">
-                                  <children>
-                                    <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" text="Abrir" />
-                                  </children>
-                                </HBox>
-                              </children>
-                            </StackPane>
                             <StackPane id="StackPane" fx:id="stackResponder" GridPane.columnIndex="1" GridPane.rowIndex="0">
                               <children>
                                 <HBox id="HBox" alignment="CENTER" prefHeight="26.000099999997474" prefWidth="96.99990000000253" spacing="5.0">
@@ -107,23 +98,6 @@
                                         <ImageView id="favoritos" fitHeight="21.399999618530273" fitWidth="22.291667617433447" pickOnBounds="true" preserveRatio="true">
                                           <image>
                                             <Image url="@Imagenes/favoritos.png" preserveRatio="true" smooth="true" />
-                                          </image>
-                                        </ImageView>
-                                      </graphic>
-                                    </Label>
-                                  </children>
-                                </HBox>
-                              </children>
-                            </StackPane>
-                            <StackPane id="StackPane" fx:id="stackVerConve" opacity="1.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                              <children>
-                                <HBox id="HBox" alignment="CENTER" spacing="5.0">
-                                  <children>
-                                    <Label id="opcion" onMouseClicked="#abrirTweet" opacity="1.0" prefWidth="414.0" text="Conversacion" underline="false" visible="true">
-                                      <graphic>
-                                        <ImageView id="verconv" fitHeight="29.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                          <image>
-                                            <Image url="@Imagenes/verconv.png" preserveRatio="true" smooth="true" />
                                           </image>
                                         </ImageView>
                                       </graphic>
