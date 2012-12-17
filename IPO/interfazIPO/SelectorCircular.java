@@ -24,7 +24,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.util.Duration;
 public class SelectorCircular {
 
-	private ParallelTransition[] trans = new ParallelTransition[5];
+	private ParallelTransition[] trans;
 	private Ellipse pathe;
 	private AnchorPane root;
 
@@ -37,6 +37,11 @@ public class SelectorCircular {
         final double CENTER_X = sizeX/2;
         final double CENTER_Y = sizeY/2;
         final int ELEMENTS = lista.size();
+        
+        trans = new ParallelTransition[ELEMENTS];
+        
+        pathe = new Ellipse(CENTER_X, CENTER_Y, sizeY/2, sizeX/2);
+        pathe.rotateProperty().setValue(90);
         
         for(int x= 0; x < ELEMENTS; x++){
         	
@@ -70,10 +75,7 @@ public class SelectorCircular {
 				}
 			});
             root.getChildren().add(node);
-            pathe = new Ellipse(CENTER_X, CENTER_Y, sizeY/2, sizeX/2);
-            pathe.rotateProperty().setValue(90);
-
-        	
+            
             trans[x] = ParallelTransitionBuilder.create()
             	.node(node)
             	.children(
@@ -109,9 +111,8 @@ public class SelectorCircular {
 		            .autoReverse(false)
 		            .build();
         	trans[x].setRate(0.001);
-        	trans[x].play();
-        	trans[x].pause();
             trans[x].jumpTo(new Duration((DURATION/ELEMENTS)*x));
+            System.out.println("Unicialmente para "+x+" es "+trans[x].getCurrentTime());
             
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
 
@@ -156,7 +157,7 @@ public class SelectorCircular {
 
 	//Hack que me he montado para que se muestre inicialmente en la posicion correcta
     private void initialize() {
-    	for(int x= 0; x < 5; x++){
+    	for(int x= 0; x < trans.length; x++){
     		trans[x].play();
     		final int v = x;
     		final Timer t = new Timer();
@@ -165,22 +166,22 @@ public class SelectorCircular {
 				@Override
 				public void run() {
 					trans[v].setRate(1);
-					trans[v].pause();
-					
+					trans[v].setRate(0);
 				}
-			}, 2500);
+			}, 1500);
+    		Thread.yield();
     	}
     }
     
     private void play() {
-    	for(int x= 0; x < 5; x++){
-    		trans[x].play();
+    	for(int x= 0; x < trans.length; x++){
+    		trans[x].setRate(1);
     	}
     }
 
     private void pause() {
-    	for(int x= 0; x < 5; x++){
-    		trans[x].pause();
+    	for(int x= 0; x < trans.length; x++){
+    		trans[x].setRate(0);
     	}
     }
 

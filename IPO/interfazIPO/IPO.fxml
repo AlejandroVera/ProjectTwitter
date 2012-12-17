@@ -147,7 +147,7 @@
                         </Button>
                       </children>
                     </FlowPane>
-                    <FlowPane id="menuComedor" fx:id="habitacion" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="false">
+                    <FlowPane id="menuComedor" fx:id="habitacion" alignment="CENTER" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="900.0" prefWidth="800.0" rowValignment="TOP" visible="true">
                       <children>
                         <Button id="botonPersianas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" text="">
                           <graphic>
@@ -200,7 +200,7 @@
                             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                           </FlowPane.margin>
                         </Button>
-                        <Button id="botonPersianas" fx:id="botonArmario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#irMenuArmario" prefHeight="150.0" prefWidth="150.0" text="">
+                        <Button id="botonPersianas" fx:id="botonArmario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#goToMenuArmarioCategorias" prefHeight="150.0" prefWidth="150.0" text="">
                           <graphic>
                             <VBox id="VBox" alignment="CENTER" spacing="5.0">
                               <children>
@@ -413,9 +413,9 @@
         </ImageView>
       </children>
     </AnchorPane>
-    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="true">
+    <AnchorPane fx:id="menuArmario" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCategorias" layoutX="0.0" layoutY="0.0" visible="true">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -427,9 +427,14 @@
                 <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
+            <AnchorPane id="selectorArmario" layoutX="117.0" layoutY="144.0" prefHeight="200.0" prefWidth="572.0">
+              <children>
+                <VBox fx:id="selectorCategorias" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="572.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuArmarioCamisetas" layoutX="0.0" layoutY="0.0" visible="false">
           <children>
             <ImageView id="armarioabierto" layoutX="0.0" layoutY="0.0" pickOnBounds="true">
               <image>
@@ -441,13 +446,18 @@
                 <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
               </image>
             </ImageView>
+            <AnchorPane id="selectorArmario" layoutX="117.0" layoutY="141.0" prefHeight="200.0" prefWidth="572.0">
+              <children>
+                <VBox fx:id="selectorCamisetas" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="572.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
           </children>
         </AnchorPane>
       </children>
     </AnchorPane>
     <AnchorPane id="menuArmario" fx:id="menuPlanta" prefHeight="200.0" prefWidth="200.0" visible="false">
       <children>
-        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuInicialPlanta" layoutX="95.0" layoutY="39.0" visible="false">
           <children>
             <VBox id="cajaColorAmarillo" layoutX="0.0" layoutY="66.0" prefHeight="430.0" prefWidth="283.0" />
             <VBox id="cajaColorAzul" layoutX="328.0" layoutY="66.0" prefHeight="426.0" prefWidth="283.0" />
@@ -542,12 +552,12 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="false">
+        <AnchorPane id="AnchorPane" fx:id="menuProgramas" layoutX="14.0" layoutY="14.0" prefHeight="572.0" prefWidth="773.0" visible="true">
           <children>
             <Label id="titulo" alignment="CENTER" font="$x3" layoutX="251.0" layoutY="31.0" text="MENU PROGRAMAS" />
             <VBox layoutX="0.0" layoutY="83.0" prefHeight="465.11834716796875" prefWidth="772.0">
               <children>
-                <Button id="botonRegarAhora" minHeight="63.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="772.0" text="">
+                <Button id="botonRegarAhora" minHeight="63.0" mnemonicParsing="false" onMouseClicked="#crearNuevoPrograma" prefHeight="63.0" prefWidth="772.0" text="">
                   <graphic>
                     <VBox id="VBox" alignment="CENTER" spacing="5.0">
                       <children>
@@ -573,17 +583,17 @@
                     <GridPane id="GridPane" prefHeight="38.0" prefWidth="746.0000915527344">
                       <children>
                         <CheckBox mnemonicParsing="false" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="L, X, V" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Hora de Inicio: 15:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Duracion del Riego: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="L_X_V__" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="Hora Inicio: 15:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="Duracion: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label font="$x4" text="Frecuencia: Mensual" GridPane.columnIndex="4" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="38.0" minWidth="10.0" prefWidth="36.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="68.0" minWidth="10.0" prefWidth="67.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="196.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="254.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="194.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="38.0" minWidth="10.0" prefWidth="17.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="128.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="191.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="192.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="219.0" />
                       </columnConstraints>
                       <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -596,17 +606,17 @@
                     <GridPane id="GridPane" prefHeight="38.0" prefWidth="746.0000915527344">
                       <children>
                         <CheckBox mnemonicParsing="false" selected="true" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="M, J" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Hora de Inicio: 15:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Duracion del Riego: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="_M_J___" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="Hora Inicio: 15:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label font="$x4" text="Duracion: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label font="$x4" text="Frecuencia: Mensual" GridPane.columnIndex="4" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="42.0" minWidth="10.0" prefWidth="29.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="71.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="185.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="261.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="201.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="42.0" minWidth="10.0" prefWidth="17.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="130.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="189.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="192.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="219.0" />
                       </columnConstraints>
                       <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -614,22 +624,22 @@
                     </GridPane>
                   </children>
                 </HBox>
-                <HBox id="cajaColorAzul" fx:id="programaUtil" alignment="CENTER" prefHeight="53.0" prefWidth="772.0">
+                <HBox id="cajaColorAzul" fx:id="programaUtil" alignment="CENTER" prefHeight="53.0" prefWidth="772.0" visible="false">
                   <children>
-                    <GridPane id="GridPane" prefHeight="38.0" prefWidth="746.0000915527344">
+                    <GridPane id="GridPane" prefHeight="38.0" prefWidth="746.0000915527344" visible="true">
                       <children>
                         <CheckBox mnemonicParsing="false" text="" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="L" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Hora de Inicio: 08:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Duracion del Riego: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                        <Label font="$x4" text="Frecuencia: Semanal" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                        <Label fx:id="dias" font="$x4" text="L" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="hora" font="$x4" text="Hora Inicio: 08:00" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label fx:id="duracion" font="$x4" text="Duracion: 10 min" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label fx:id="frecuencia" font="$x4" text="Frecuencia: Semanal" GridPane.columnIndex="4" GridPane.rowIndex="0" />
                       </children>
                       <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="42.0" minWidth="10.0" prefWidth="29.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="73.0" minWidth="10.0" prefWidth="71.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="185.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="261.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="201.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="42.0" minWidth="10.0" prefWidth="17.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="131.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="190.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="189.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="220.0" minWidth="10.0" prefWidth="220.0" />
                       </columnConstraints>
                       <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -646,13 +656,13 @@
             </ImageView>
           </children>
         </AnchorPane>
-        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="true">
+        <AnchorPane id="AnchorPane" fx:id="menuEditandoPrograma" layoutX="24.0" layoutY="16.0" prefHeight="529.0" prefWidth="753.0" visible="false">
           <children>
             <HBox id="cajaColorAmarillo" layoutX="-10.0" layoutY="0.0" prefHeight="568.0" prefWidth="772.0" />
             <Label id="titulo" font="$x3" layoutX="218.0" layoutY="24.0" text="EDITANDO PROGRAMA" />
             <HBox id="HBox" alignment="CENTER" layoutX="0.0" layoutY="127.0" spacing="5.0">
               <children>
-                <ToggleButton id="botonDia" mnemonicParsing="false" text="Lunes">
+                <ToggleButton id="botonDia" fx:id="lunes" mnemonicParsing="false" text="Lunes">
                   <font>
                     <Font name="Monospaced Regular" size="18.0" fx:id="x6" />
                   </font>
@@ -660,12 +670,12 @@
                     <Insets fx:id="x5" />
                   </HBox.margin>
                 </ToggleButton>
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Martes" HBox.margin="$x5" />
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Miercoles" />
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Jueves" />
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Viernes" />
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Sabado" />
-                <ToggleButton id="botonDia" font="$x6" mnemonicParsing="false" text="Domingo" />
+                <ToggleButton id="botonDia" fx:id="martes" font="$x6" mnemonicParsing="false" text="Martes" HBox.margin="$x5" />
+                <ToggleButton id="botonDia" fx:id="miercoles" font="$x6" mnemonicParsing="false" text="Miercoles" />
+                <ToggleButton id="botonDia" fx:id="jueves" font="$x6" mnemonicParsing="false" text="Jueves" />
+                <ToggleButton id="botonDia" fx:id="viernes" font="$x6" mnemonicParsing="false" text="Viernes" />
+                <ToggleButton id="botonDia" fx:id="sabado" font="$x6" mnemonicParsing="false" text="Sabado" />
+                <ToggleButton id="botonDia" fx:id="domingo" font="$x6" mnemonicParsing="false" text="Domingo" />
               </children>
             </HBox>
             <Label font="$x4" layoutX="0.0" layoutY="88.0" text="Pulse en los dias que quiere el riego:" />

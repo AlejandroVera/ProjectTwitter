@@ -18,13 +18,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -34,104 +34,139 @@ import javafx.scene.layout.VBox;
 public class IPOMainController
 implements Initializable {
 
-	@FXML // ResourceBundle that was given to the FXMLLoader
-	private ResourceBundle resources;
 
-	@FXML // URL location of the FXML file that was given to the FXMLLoader
-	private URL location;
+    @FXML //  fx:id="bajarPersiana"
+    private ImageView bajarPersiana; // Value injected by FXMLLoader
 
-	@FXML // fx:id="bajarPersiana"
-	private ImageView bajarPersiana; // Value injected by FXMLLoader
+    @FXML //  fx:id="bisemanal"
+    private RadioButton bisemanal; // Value injected by FXMLLoader
 
-	@FXML // fx:id="bisemanal"
-	private RadioButton bisemanal; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonArmario"
+    private Button botonArmario; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonArmario"
-	private Button botonArmario; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonPersianas"
+    private Button botonPersianas; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonPersianas"
-	private Button botonPersianas; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonPlantas"
+    private Button botonPlantas; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonPlantas"
-	private Button botonPlantas; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonProgramarRiego"
+    private Button botonProgramarRiego; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonProgramarRiego"
-	private Button botonProgramarRiego; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonRegarAhora"
+    private Button botonRegarAhora; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonRegarAhora"
-	private Button botonRegarAhora; // Value injected by FXMLLoader
+    @FXML //  fx:id="botonTelevision"
+    private Button botonTelevision; // Value injected by FXMLLoader
 
-	@FXML // fx:id="botonTelevision"
-	private Button botonTelevision; // Value injected by FXMLLoader
+    @FXML //  fx:id="dias"
+    private Label dias; // Value injected by FXMLLoader
 
-	@FXML // fx:id="habitacion"
-	private FlowPane habitacion; // Value injected by FXMLLoader
+    @FXML //  fx:id="domingo"
+    private ToggleButton domingo; // Value injected by FXMLLoader
 
-	@FXML // fx:id="horaRiego"
-	private TextField horaRiego; // Value injected by FXMLLoader
+    @FXML //  fx:id="duracion"
+    private Label duracion; // Value injected by FXMLLoader
 
-	@FXML // fx:id="mensual"
-	private RadioButton mensual; // Value injected by FXMLLoader
+    @FXML //  fx:id="frecuencia"
+    private Label frecuencia; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuArmario"
-	private AnchorPane menuArmario; // Value injected by FXMLLoader
+    @FXML //  fx:id="habitacion"
+    private FlowPane habitacion; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuArmarioCategorias"
-	private AnchorPane menuArmarioCategorias; // Value injected by FXMLLoader
+    @FXML //  fx:id="hora"
+    private Label hora; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuEditandoPrograma"
-	private AnchorPane menuEditandoPrograma; // Value injected by FXMLLoader
+    @FXML //  fx:id="horaRiego"
+    private TextField horaRiego; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuHabitaciones"
-	private AnchorPane menuHabitaciones; // Value injected by FXMLLoader
+    @FXML //  fx:id="jueves"
+    private ToggleButton jueves; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuInicialPlanta"
-	private AnchorPane menuInicialPlanta; // Value injected by FXMLLoader
+    @FXML //  fx:id="lunes"
+    private ToggleButton lunes; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuPersiana"
-	private AnchorPane menuPersiana; // Value injected by FXMLLoader
+    @FXML //  fx:id="martes"
+    private ToggleButton martes; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuPlanta"
-	private AnchorPane menuPlanta; // Value injected by FXMLLoader
+    @FXML //  fx:id="mensual"
+    private RadioButton mensual; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuPrincipal"
-	private AnchorPane menuPrincipal; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuArmario"
+    private AnchorPane menuArmario; // Value injected by FXMLLoader
 
-	@FXML // fx:id="menuProgramas"
-	private AnchorPane menuProgramas; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuArmarioCamisetas"
+    private AnchorPane menuArmarioCamisetas; // Value injected by FXMLLoader
 
-	@FXML // fx:id="minutoRiego"
-	private TextField minutoRiego; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuArmarioCategorias"
+    private AnchorPane menuArmarioCategorias; // Value injected by FXMLLoader
 
-	@FXML // fx:id="persianaMovil"
-	private ImageView persianaMovil; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuEditandoPrograma"
+    private AnchorPane menuEditandoPrograma; // Value injected by FXMLLoader
 
-	@FXML // fx:id="programaUtil"
-	private HBox programaUtil; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuHabitaciones"
+    private AnchorPane menuHabitaciones; // Value injected by FXMLLoader
 
-	@FXML // fx:id="salon"
-	private FlowPane salon; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuInicialPlanta"
+    private AnchorPane menuInicialPlanta; // Value injected by FXMLLoader
 
-	@FXML // fx:id="selectorGiratorio"
-	private VBox selectorGiratorio; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuPersiana"
+    private AnchorPane menuPersiana; // Value injected by FXMLLoader
 
-	@FXML // fx:id="semanal"
-	private RadioButton semanal; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuPlanta"
+    private AnchorPane menuPlanta; // Value injected by FXMLLoader
 
-	@FXML // fx:id="subirPersiana"
-	private ImageView subirPersiana; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuPrincipal"
+    private AnchorPane menuPrincipal; // Value injected by FXMLLoader
 
-	@FXML // fx:id="terraza"
-	private FlowPane terraza; // Value injected by FXMLLoader
+    @FXML //  fx:id="menuProgramas"
+    private AnchorPane menuProgramas; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tiempoRiegoAhora"
-	private TextField tiempoRiegoAhora; // Value injected by FXMLLoader
+    @FXML //  fx:id="miercoles"
+    private ToggleButton miercoles; // Value injected by FXMLLoader
 
-	@FXML // fx:id="tiempoRiegoPrograma"
-	private TextField tiempoRiegoPrograma; // Value injected by FXMLLoader
+    @FXML //  fx:id="minutoRiego"
+    private TextField minutoRiego; // Value injected by FXMLLoader
 
-	@FXML //  fx:id="menuArmarioCamisetas"
-	private AnchorPane menuArmarioCamisetas; // Value injected by FXMLLoader
+    @FXML //  fx:id="persianaMovil"
+    private ImageView persianaMovil; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="programaUtil"
+    private HBox programaUtil; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="sabado"
+    private ToggleButton sabado; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="salon"
+    private FlowPane salon; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="selectorCamisetas"
+    private VBox selectorCamisetas; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="selectorCategorias"
+    private VBox selectorCategorias; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="selectorGiratorio"
+    private VBox selectorGiratorio; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="semanal"
+    private RadioButton semanal; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="subirPersiana"
+    private ImageView subirPersiana; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="terraza"
+    private FlowPane terraza; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="tiempoRiegoAhora"
+    private TextField tiempoRiegoAhora; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="tiempoRiegoPrograma"
+    private TextField tiempoRiegoPrograma; // Value injected by FXMLLoader
+
+    @FXML //  fx:id="viernes"
+    private ToggleButton viernes; // Value injected by FXMLLoader
+
 
 
 	//VARIABLES DE CONTROL
@@ -143,54 +178,114 @@ implements Initializable {
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void aumentarHoraRiegoPrograma(MouseEvent event) {
-		programarIncrementador(horaRiego, 1);
+		programarIncrementador(horaRiego, 1, 23);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void aumentarMinutoRiegoPrograma(MouseEvent event) {
-		programarIncrementador(minutoRiego, 1);
+		programarIncrementador(minutoRiego, 1, 59);
 	}
 
 	// Handler for ImageView[id="botonflecha"] onMousePressed
 	@FXML
 	public void aumentarTiempoRiegoAhora(MouseEvent event) {
-		programarIncrementador(tiempoRiegoAhora, 1);
+		programarIncrementador(tiempoRiegoAhora, 1, 99);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void aumentarTiempoRiegoPrograma(MouseEvent event) {
-		programarIncrementador(tiempoRiegoPrograma, 1);
+		programarIncrementador(tiempoRiegoPrograma, 1, 99);
 	}
 
 	// Handler for Button[id="botonRegarAhora"] onMouseClicked
 	@FXML
 	public void confirmarPrograma(MouseEvent event) {
-		//TODO
+		programaUtil.setVisible(true);
+		menuProgramas.setVisible(true);
+		menuEditandoPrograma.setVisible(false);
+		
+		//Rellenamos la info del nuevo 
+			//Los dias
+		String diassemana = "";
+		if(lunes.isSelected())
+			diassemana+="L";
+		else
+			diassemana+="_";
+		if(martes.isSelected())
+			diassemana+="M";
+		else
+			diassemana+="_";
+		if(miercoles.isSelected())
+			diassemana+="X";
+		else
+			diassemana+="_";
+		if(jueves.isSelected())
+			diassemana+="J";
+		else
+			diassemana+="_";
+		if(viernes.isSelected())
+			diassemana+="V";
+		else
+			diassemana+="_";
+		if(sabado.isSelected())
+			diassemana+="S";
+		else
+			diassemana+="_";
+		if(domingo.isSelected())
+			diassemana+="D";
+		else
+			diassemana+="_";
+		dias.setText(diassemana);
+		
+			//Hora de comienzo
+		hora.setText("Hora Inicio: "+horaRiego.getText()+":"+minutoRiego.getText());
+		
+			//Duracion del riego
+		duracion.setText("Duracion: "+ tiempoRiegoPrograma.getText() +" min");
+		
+			//Frecuencia del riego
+		String frecstr = "";
+		if(bisemanal.isSelected())
+			frecstr = "Bisemanal";
+		else if(semanal.isSelected())
+			frecstr = "Semanal";
+		else if(mensual.isSelected())
+			frecstr = "Mensual";
+		
+		frecuencia.setText("Frecuencia: "+frecstr);
+
 	}
+	
+	// Handler for Button[id="botonRegarAhora"] onMouseClicked
+    public void crearNuevoPrograma(MouseEvent event) {
+        menuEditandoPrograma.setVisible(true);
+        menuProgramas.setVisible(false);
+    }
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void disminuirHoraRiegoPrograma(MouseEvent event) {
-		programarIncrementador(horaRiego, -1);
+		programarIncrementador(horaRiego, -1, 23);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void disminuirMinutoRiegoPrograma(MouseEvent event) {
-		programarIncrementador(minutoRiego, -1);
+		programarIncrementador(minutoRiego, -1, 59);
 	}
 
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
 	public void disminuirTiempoRiegoPrograma(MouseEvent event) {
-		programarIncrementador(tiempoRiegoPrograma, -1);
+		programarIncrementador(tiempoRiegoPrograma, -1, 99);
 	}
 	
     // Handler for ImageView[id="deshacer"] onMouseClicked
     public void goToMenuArmarioCategorias(MouseEvent event) {
+    	System.out.println("Desde goToMenuArmarioCategorias");
     	menuPrincipal.setVisible(false);
     	menuArmario.setVisible(true);
     	menuArmarioCategorias.setVisible(true);
@@ -225,7 +320,7 @@ implements Initializable {
 	// Handler for ImageView[id="botonflechaabajo"] onMousePressed
 	@FXML
 	public void disminuirTiempoRiegoAhora(MouseEvent event) {
-		programarIncrementador(tiempoRiegoAhora, -1);
+		programarIncrementador(tiempoRiegoAhora, -1, 99);
 	}
 
 	// Handler for ImageView[fx:id="bajarPersiana"] onMousePressed
@@ -246,9 +341,11 @@ implements Initializable {
 
 	// Handler for Button[fx:id="botonArmario"] onMouseClicked
 	public void irMenuArmario(MouseEvent event) {
+		System.out.println("Desde irMenuArmario");
 		menuPrincipal.setVisible(false);
         menuArmario.setVisible(true);
-        menuArmarioCategorias.setVisible(true);
+        menuArmarioCategorias.setVisible(false);
+        menuArmarioCamisetas.setVisible(true);
 	}
 
 	// Handler for Button[fx:id="botonPersianas"] onMouseClicked
@@ -303,7 +400,8 @@ implements Initializable {
 
 	// Handler for Button[fx:id="botonProgramarRiego"] onMouseClicked
 	public void programarRiego(MouseEvent event) {
-		//TODO: y aquí qué hay que hacer?
+		menuProgramas.setVisible(true);
+		menuInicialPlanta.setVisible(false);
 	}
 
 	// Handler for ImageView[fx:id="subirPersiana"] onMousePressed
@@ -388,6 +486,41 @@ implements Initializable {
     	AnchorPane pane = selector.getRoot();
     	selectorGiratorio.getChildren().add(pane);
     	
+    	//Cargamos selector giratorio de categorias de ropa
+		List<SelectorEntry> listaCategorias = new LinkedList<SelectorEntry>();
+		try {
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/calzado.png").openStream())), null, null));
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisa.png").openStream())), null, null));
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camiseta.png").openStream())),
+					this.getClass().getMethod("camisetaSelected", Node.class), this));
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/pantalon.png").openStream())), null, null));
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/ropaAbrigo.png").openStream())), null, null));
+			listaCategorias.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/ropainterior.png").openStream())), null, null));
+		} catch (NoSuchMethodException | SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		SelectorCircular selectorCat = new SelectorCircular(listaCategorias, 4000, 400, 90);
+    	AnchorPane panc = selectorCat.getRoot();
+    	selectorCategorias.getChildren().add(panc);
+    	
+    	//Cargamos selector giratorio de camisetas
+		List<SelectorEntry> listaCamisetas = new LinkedList<SelectorEntry>();
+		try {
+			listaCamisetas.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisetaLargaBlanca.png").openStream())), null, null));
+			listaCamisetas.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisetaNaranja.png").openStream())), null, null));
+			listaCamisetas.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisetaNegra.png").openStream())),
+					this.getClass().getMethod("camisetaNegraSelected", Node.class), this));
+			listaCamisetas.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisetaRoja.png").openStream())), null, null));
+			listaCamisetas.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/camisetaVerde.png").openStream())), null, null));
+		} catch (NoSuchMethodException | SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		SelectorCircular selectorCam = new SelectorCircular(listaCamisetas, 4000, 400, 90);
+    	AnchorPane panm = selectorCam.getRoot();
+    	selectorCamisetas.getChildren().add(panm);
+    	
     	
     	
     	//Incializamos ciertos valores
@@ -396,7 +529,7 @@ implements Initializable {
 
 	}
 
-	private void programarIncrementador(final TextField field, final int cantidad){
+	private void programarIncrementador(final TextField field, final int cantidad, final int maximo){
 		if(t == null){
 			t = new Timer(true);
 			t.schedule(new TimerTask() {
@@ -404,7 +537,7 @@ implements Initializable {
 				@Override
 				public void run() {
 					Integer horaRiegoValue = Integer.parseInt(field.getText());
-					if(horaRiegoValue+cantidad >= 0 && horaRiegoValue+cantidad <= 23)
+					if(horaRiegoValue+cantidad >= 0 && horaRiegoValue+cantidad <= maximo)
 						field.setText(""+(horaRiegoValue+cantidad));
 					else
 						field.setText("0");
@@ -440,6 +573,16 @@ implements Initializable {
 		salon.setVisible(false);
 		habitacion.setVisible(false);
 		terraza.setVisible(true);
+	}
+	
+	public void camisetaSelected(Node n){
+		menuArmario.setVisible(true);
+		menuArmarioCamisetas.setVisible(true);
+		menuArmarioCategorias.setVisible(false);
+	}
+	
+	public void camisetaNegraSelected(Node n){
+		//TODO
 	}
 
 }

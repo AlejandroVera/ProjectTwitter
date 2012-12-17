@@ -8,16 +8,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class IPOLauncher extends Application {
 
-	private Stage primaryStage;
-	private IPOMainController controller;
-	
+	private Stage primaryStage;	
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -55,9 +52,6 @@ public class IPOLauncher extends Application {
 			URL resource = getClass().getResource("IPO.fxml");
 			loader.setLocation(resource);
 			Parent root = (Parent) loader.load(resource.openStream());
-
-			//Obtenemos el objeto controlador
-			this.controller = loader.getController();
 
 			//Mostramos la nueva vista
 			Scene scene = new Scene(root, this.primaryStage.getWidth(), this.primaryStage.getHeight());
