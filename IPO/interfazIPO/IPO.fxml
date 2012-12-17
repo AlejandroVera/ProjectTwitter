@@ -16,7 +16,11 @@
       <children>
         <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
-            <AnchorPane fx:id="selectorGiratorio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <AnchorPane id="selectorGiratorio" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+              <children>
+                <VBox fx:id="selectorGiratorio" alignment="BOTTOM_CENTER" prefHeight="153.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
             <AnchorPane fx:id="menuHabitaciones" minHeight="446.0" prefHeight="446.0" prefWidth="800.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
               <children>
                 <StackPane id="StackPane" prefHeight="446.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -402,7 +406,7 @@
             <Font size="30.0" fx:id="x3" />
           </font>
         </Label>
-        <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="688.0" layoutY="15.0" onMouseClicked="#goToMenuPrincipalFromPersiana" pickOnBounds="true" preserveRatio="true" rotate="0.0">
+        <ImageView id="deshacer" fitHeight="58.84128189086914" fitWidth="77.42274133903402" layoutX="688.0" layoutY="15.0" onMouseClicked="#goToMenuPrincipal" pickOnBounds="true" preserveRatio="true" rotate="0.0">
           <image>
             <Image url="@imagenes/deshacer.png" preserveRatio="true" smooth="true" />
           </image>
@@ -673,11 +677,7 @@
                   </font>
                 </Label>
                 <RadioButton fx:id="semanal" font="$x4" mnemonicParsing="false" text="Semanal" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <RadioButton fx:id="mensual" mnemonicParsing="false" text="Mensual" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                  <font>
-                    <Font name="Segoe UI" size="20.0" />
-                  </font>
-                </RadioButton>
+                <RadioButton fx:id="mensual" font="$x4" mnemonicParsing="false" text="Mensual" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                 <RadioButton fx:id="bisemanal" font="$x4" mnemonicParsing="false" text="Bisemanal" GridPane.columnIndex="2" GridPane.rowIndex="0" />
               </children>
               <columnConstraints>

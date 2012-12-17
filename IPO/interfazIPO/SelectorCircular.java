@@ -168,7 +168,7 @@ public class SelectorCircular {
 					trans[v].pause();
 					
 				}
-			}, 800);
+			}, 2500);
     	}
     }
     

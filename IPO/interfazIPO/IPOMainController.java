@@ -5,7 +5,10 @@ package interfazIPO;
  * You can copy and paste this code into your favorite IDE
  **/
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +28,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 public class IPOMainController
@@ -108,7 +113,7 @@ implements Initializable {
 	private FlowPane salon; // Value injected by FXMLLoader
 
 	@FXML // fx:id="selectorGiratorio"
-	private AnchorPane selectorGiratorio; // Value injected by FXMLLoader
+	private VBox selectorGiratorio; // Value injected by FXMLLoader
 
 	@FXML // fx:id="semanal"
 	private RadioButton semanal; // Value injected by FXMLLoader
@@ -137,62 +142,70 @@ implements Initializable {
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void aumentarHoraRiegoPrograma(MouseEvent event) {
+	public void aumentarHoraRiegoPrograma(MouseEvent event) {
 		programarIncrementador(horaRiego, 1);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void aumentarMinutoRiegoPrograma(MouseEvent event) {
+	public void aumentarMinutoRiegoPrograma(MouseEvent event) {
 		programarIncrementador(minutoRiego, 1);
 	}
 
 	// Handler for ImageView[id="botonflecha"] onMousePressed
 	@FXML
-	void aumentarTiempoRiegoAhora(MouseEvent event) {
+	public void aumentarTiempoRiegoAhora(MouseEvent event) {
 		programarIncrementador(tiempoRiegoAhora, 1);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void aumentarTiempoRiegoPrograma(MouseEvent event) {
+	public void aumentarTiempoRiegoPrograma(MouseEvent event) {
 		programarIncrementador(tiempoRiegoPrograma, 1);
 	}
 
 	// Handler for Button[id="botonRegarAhora"] onMouseClicked
 	@FXML
-	void confirmarPrograma(MouseEvent event) {
-		// handle the event here
+	public void confirmarPrograma(MouseEvent event) {
+		//TODO
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void disminuirHoraRiegoPrograma(MouseEvent event) {
+	public void disminuirHoraRiegoPrograma(MouseEvent event) {
 		programarIncrementador(horaRiego, -1);
 	}
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void disminuirMinutoRiegoPrograma(MouseEvent event) {
+	public void disminuirMinutoRiegoPrograma(MouseEvent event) {
 		programarIncrementador(minutoRiego, -1);
 	}
 
 
 	// Handler for ImageView[id="flecha"] onMousePressed
 	@FXML
-	void disminuirTiempoRiegoPrograma(MouseEvent event) {
+	public void disminuirTiempoRiegoPrograma(MouseEvent event) {
 		programarIncrementador(tiempoRiegoPrograma, -1);
 	}
+	
+    // Handler for ImageView[id="deshacer"] onMouseClicked
+    public void goToMenuArmarioCategorias(MouseEvent event) {
+    	menuPrincipal.setVisible(false);
+    	menuArmario.setVisible(true);
+    	menuArmarioCategorias.setVisible(true);
+    	menuArmarioCamisetas.setVisible(false);
+    }
 
 	// Handler for ImageView[id="deshacer"] onMouseClicked
 	@FXML
-	void goToMenuInicialPlanta(MouseEvent event) {
+	public void goToMenuInicialPlanta(MouseEvent event) {
 		irMenuPlantas(null);
 	}
 
 	// Handler for ImageView[id="deshacer"] onMouseClicked
 	@FXML
-	void goToMenuPrincipal(MouseEvent event) {
+	public void goToMenuPrincipal(MouseEvent event) {
 		menuPrincipal.setVisible(true);
         menuPersiana.setVisible(false);
         menuPlanta.setVisible(false);
@@ -201,7 +214,7 @@ implements Initializable {
 
 	// Handler for Button[id="botonRegarAhora"] onMouseClicked
 	@FXML
-	void goToMenuProgramas(MouseEvent event) {
+	public void goToMenuProgramas(MouseEvent event) {
 		menuPrincipal.setVisible(false);
         menuPlanta.setVisible(true);
         menuInicialPlanta.setVisible(false);
@@ -211,7 +224,7 @@ implements Initializable {
 
 	// Handler for ImageView[id="botonflechaabajo"] onMousePressed
 	@FXML
-	void disminuirTiempoRiegoAhora(MouseEvent event) {
+	public void disminuirTiempoRiegoAhora(MouseEvent event) {
 		programarIncrementador(tiempoRiegoAhora, -1);
 	}
 
@@ -355,34 +368,78 @@ implements Initializable {
 		//Movemos la persiana a la posición 100 (bastante subida)
 		persianaMovil.setTranslateY(persianaMovil.getTranslateY()+100-254);
 		persianaPos = 100;
-
+		
+		//Cargamos selector giratorio menu principal
+		List<SelectorEntry> listaMenuPrincipal = new LinkedList<SelectorEntry>();
+		try {
+			listaMenuPrincipal.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/salon.png").openStream())),
+					this.getClass().getMethod("salonSelected", Node.class), this));
+			listaMenuPrincipal.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/cocina.png").openStream())), null, null));
+			listaMenuPrincipal.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/dormitorio.png").openStream())),
+					this.getClass().getMethod("dormitorioSelected", Node.class), this));
+			listaMenuPrincipal.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/baño.png").openStream())), null, null));
+			listaMenuPrincipal.add(new SelectorEntry(new ImageView(new Image(getClass().getResource("imagenes/balcon.png").openStream())),
+					this.getClass().getMethod("terrazaSelected", Node.class), this));
+		} catch (NoSuchMethodException | SecurityException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		SelectorCircular selector = new SelectorCircular(listaMenuPrincipal, 4000, 400, 90);
+    	AnchorPane pane = selector.getRoot();
+    	selectorGiratorio.getChildren().add(pane);
+    	
+    	
+    	
+    	//Incializamos ciertos valores
+    	tiempoRiegoPrograma.setText("0");
+    	tiempoRiegoAhora.setText("0");
 
 	}
 
 	private void programarIncrementador(final TextField field, final int cantidad){
-		t = new Timer(true);
-		t.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				int horaRiegoValue = Integer.getInteger(field.getText());
-				if(horaRiegoValue < 23)
-					field.setText(""+(horaRiegoValue+cantidad));
-				else
-					field.setText("0");
-			}
-		}, 0, 100);
-
-		field.setOnMouseReleased(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				if(t != null)
-					t.cancel();
-				t=null;
-				field.setOnMouseReleased(null);
-			}
-		});
+		if(t == null){
+			t = new Timer(true);
+			t.schedule(new TimerTask() {
+	
+				@Override
+				public void run() {
+					Integer horaRiegoValue = Integer.parseInt(field.getText());
+					if(horaRiegoValue+cantidad >= 0 && horaRiegoValue+cantidad <= 23)
+						field.setText(""+(horaRiegoValue+cantidad));
+					else
+						field.setText("0");
+				}
+			}, 0, 200);
+	
+			field.getScene().setOnMouseReleased(new EventHandler<MouseEvent>() {
+	
+				@Override
+				public void handle(MouseEvent event) {
+					if(t != null)
+						t.cancel();
+					t=null;
+					field.getScene().setOnMouseReleased(null);
+				}
+			});
+		}
+	}
+	
+	public void salonSelected(Node n){
+		salon.setVisible(true);
+		habitacion.setVisible(false);
+		terraza.setVisible(false);
+	}
+	
+	public void dormitorioSelected(Node n){
+		salon.setVisible(false);
+		habitacion.setVisible(true);
+		terraza.setVisible(false);
+	}
+	
+	public void terrazaSelected(Node n){
+		salon.setVisible(false);
+		habitacion.setVisible(false);
+		terraza.setVisible(true);
 	}
 
 }
