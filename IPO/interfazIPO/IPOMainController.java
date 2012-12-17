@@ -500,7 +500,7 @@ implements Initializable {
 			e.printStackTrace();
 		}
 		
-		SelectorCircular selectorCat = new SelectorCircular(listaCategorias, 4000, 400, 90);
+		SelectorCircular selectorCat = new SelectorCircular(listaCategorias, 4000, 600, 150);
     	AnchorPane panc = selectorCat.getRoot();
     	selectorCategorias.getChildren().add(panc);
     	
@@ -517,7 +517,7 @@ implements Initializable {
 			e.printStackTrace();
 		}
 		
-		SelectorCircular selectorCam = new SelectorCircular(listaCamisetas, 4000, 400, 90);
+		SelectorCircular selectorCam = new SelectorCircular(listaCamisetas, 4000, 600, 150, 1.0);
     	AnchorPane panm = selectorCam.getRoot();
     	selectorCamisetas.getChildren().add(panm);
     	

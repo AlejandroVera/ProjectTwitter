@@ -9,42 +9,38 @@
 
 <AnchorPane id="Content" fx:id="imagenFondo" minHeight="0.0" minWidth="0.0" prefHeight="584.0" prefWidth="889.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.BusquedaController">
   <children>
-    <AnchorPane id="AnchorPane" layoutX="139.0" layoutY="14.0" prefHeight="570.0" prefWidth="613.0">
-      <children>
-        <HBox id="cajaNitida" layoutX="3.0" layoutY="0.0" prefHeight="37.0" prefWidth="602.0" />
-        <TabPane id="MenuArriba" layoutX="3.0" layoutY="1.0" prefHeight="555.0" prefWidth="602.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
-          <tabs>
-            <Tab text="Tweets">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="602.0">
-                  <children>
-                    <ScrollPane prefHeight="417.0" prefWidth="602.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <content>
-                        <VBox id="bandejaEntrada" fx:id="tweetsBusqueda" prefHeight="402.0" prefWidth="595.0" />
-                      </content>
-                    </ScrollPane>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-            <Tab text="Personas">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                  <children>
-                    <ScrollPane layoutX="0.0" layoutY="0.0" prefHeight="519.0" prefWidth="602.0">
-                      <content>
-                        <VBox id="bandejaSalida" fx:id="usersBusqueda" prefHeight="402.0" prefWidth="595.0" />
-                      </content>
-                    </ScrollPane>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
-        <Label id="numeroDe" layoutX="582.0" layoutY="10.0" onMouseClicked="#cerrarMenu" text="X" />
-      </children>
-    </AnchorPane>
+    <AnchorPane id="cajaNitida" layoutX="178.0" layoutY="14.0" prefHeight="555.0" prefWidth="531.0" />
+    <TabPane id="MenuArriba" layoutX="177.0" layoutY="14.0" prefHeight="555.0" prefWidth="531.0" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Tweets">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="379.0" prefWidth="602.0">
+              <children>
+                <ScrollPane disable="false" hbarPolicy="NEVER" prefHeight="519.0" prefWidth="522.0" vbarPolicy="ALWAYS" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <content>
+                    <VBox id="bandejaEntrada" fx:id="tweetsBusqueda" alignment="TOP_CENTER" prefHeight="402.0" prefWidth="517.0" />
+                  </content>
+                </ScrollPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Personas">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <ScrollPane hbarPolicy="NEVER" prefHeight="519.0" prefWidth="522.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <content>
+                    <VBox id="bandejaSalida" fx:id="usersBusqueda" alignment="TOP_CENTER" prefHeight="402.0" prefWidth="517.0" />
+                  </content>
+                </ScrollPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+    <Label id="numeroDe" layoutX="687.0" layoutY="24.0" onMouseClicked="#cerrarMenu" text="X" />
   </children>
   <stylesheets>
     <URL value="@timeline.css" />
