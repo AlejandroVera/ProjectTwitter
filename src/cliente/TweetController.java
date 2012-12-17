@@ -174,13 +174,13 @@ public class TweetController extends Controller implements AStream.IListen{
 	public void mostrarGeo (MouseEvent event){
 
 		if (super.getTwitter().getMyPlace()!=(long)-1){
-			ClientTools.showPlace(this.lugar);
+			ClientTools.showPlace(this.lugar2);
 		}
 	}
 
 	// Handler for Label [fx:id="location"] onMouseClicked
 	public void mostrarGeodeTweet (MouseEvent event){
-		ClientTools.showPlace(this.lugar2);
+		ClientTools.showPlace(this.lugar);
 	}
 
 

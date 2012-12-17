@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.UniverseController">
+<AnchorPane id="" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" visible="true" xmlns:fx="http://javafx.com/fxml" fx:controller="cliente.UniverseController">
   <children>
-    <StackPane fx:id="universeContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <StackPane fx:id="universeContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="900.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <HBox id="HBox" alignment="CENTER" spacing="5.0">
+        <HBox id="HBox" alignment="CENTER" spacing="5.0" visible="true">
           <children>
             <AnchorPane fx:id="universeWorldContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" visible="true" />
           </children>
         </HBox>
-        <AnchorPane id="AnchorPane" fx:id="anchorImage" minHeight="494.5" minWidth="659.333251953125" prefHeight="494.5" prefWidth="659.333251953125">
+        <AnchorPane id="errorContainer" fx:id="anchorImage" minHeight="494.5" minWidth="659.333251953125" prefHeight="494.5" prefWidth="659.333251953125">
           <children>
             <ImageView fx:id="imagen" fitHeight="500.0" fitWidth="660.0" layoutX="120.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="716.0" layoutY="76.0" minWidth="16.0" mnemonicParsing="false" onMouseClicked="#cerrarImagen" prefHeight="25.0" prefWidth="31.0" text="X">
