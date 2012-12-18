@@ -236,7 +236,7 @@ public class TweetController extends Controller implements AStream.IListen{
 	// Handler for Hyperlink[fx:id="username"] onAction
 	// Handler for ImageView[fx:id="userImage"] onMouseClicked
 	public void goToPerfilUsuario(Event event) {
-		if((this.tweet.getUser().getProtectedUser())&&(!this.tweet.getUser().isFollowedByYou())){
+		if(!this.tweet.getUser().getProtectedUser()){
 			User destUser = getTwitter().users().getUser(this.screename.getText().substring(1));
 			if(destUser != null){
 				if (super.getParentController() instanceof TimeLineController)

@@ -144,8 +144,7 @@ public class UserController extends Controller implements AStream.IListen{
 
 	@Override
 	protected AnchorPane getContainer() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.worldTweetContainer;
 	}
 
 	protected void setUser(User user){
