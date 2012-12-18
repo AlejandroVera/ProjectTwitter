@@ -348,7 +348,8 @@ public class TwitterImpl implements Twitter {
 	public Status retweet(Status tweet) {
 		if(this.user == null)
 			return null;
-		this.con.updateQuery("INSERT INTO retweet VALUES ("+this.user.getId()+", "+tweet.getId()+")");
+		this.con.updateQuery("INSERT INTO retweet (id_usuario, id_tweet) VALUES ("+this.user.getId()+", "+tweet.getId()+") " +
+				"ON DUPLICATE KEY UPDATE id_usuario=id_usuario, id_tweet=id_tweet");
 		return tweet;
 	}
 
