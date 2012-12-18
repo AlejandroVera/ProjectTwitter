@@ -186,7 +186,8 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 				Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
 				if(im != null)
 					profileImage.setImage(im);
-				this.name.setText(user.getName());
+				name.setText(user.getName());
+				descripcion.setText(user.getDescription());
 			}
 
 			//Se manda el evento a todos los tweets (ellos ya comprobarán si son suyos)

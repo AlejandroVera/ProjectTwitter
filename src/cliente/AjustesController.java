@@ -112,9 +112,15 @@ public class AjustesController extends Controller{
 		Twitter_Account account = super.getTwitter().account();
 		User user = super.getTwitter().getSelf();
 		int protec = protegida ? 1:0;
+		String aviso = "";
+		if(ClientTools.countCharacters(descripcion.getText()) > 160){
+			descripcion.setText(descripcion.getText().substring(0, 160));
+			aviso = "El texto de la descripción era demasiado largo y se ha recortado a 160 caracteres.\n";
+		}
+			
 		account.setProfile(name.getText(), imagenPerfilURL.getText(), user.getLocation(), descripcion.getText(),protec);
 		account.setProfileColors(null);
-		ClientTools.showDialog("Cambios realizados con exito", "Ajustes");
+		ClientTools.showDialog(aviso+"Cambios realizados con exito", "Ajustes");
 		this.hideWindow();
 	}
 

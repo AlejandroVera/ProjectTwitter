@@ -392,8 +392,7 @@ public class WorldController extends Controller implements AStream.IListen {
 				Image im = ClientTools.getImage(u.getProfileImageUrl().toString());
 				if(im != null)
 					profileImage.setImage(im);
-				this.name.setText(u.getName());
-				System.out.println(u.getName());
+				name.setText(u.getName());
 			}
 		}
 		if(event.getType().equals(TwitterEvent.Type.FOLLOW)){
