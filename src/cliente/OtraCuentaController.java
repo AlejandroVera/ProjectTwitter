@@ -304,6 +304,10 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	}
 
 	protected void changeToUser(User usu){
+		
+		if(usu.getId().equals(this.user.getId()))
+			return; //No hay que hacer nada porque ya lo tenemos cargado...
+		
 		//Limpiamos la información anterior
 		this.user = usu;
 		tweetsUsuario.getChildren().clear();
