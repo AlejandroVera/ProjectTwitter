@@ -120,16 +120,17 @@ public class TwitterClient extends Application {
 					twitterStream.setFollowUsers(l);
 					this.cliente = new ClientCallbackListener();
 					twitterStream.addListener(this.cliente);
-	
-					control = this.loadFXMLAndShow("world.fxml");
-					this.cliente.setListener((AStream.IListen) control);
-	
+					
 					twitterStream.connect();
 					twitterStream.popTweets();
 					if(twitterStream.isAlive()){
 						System.out.println("Stream conectado \n");
-	
 					}
+	
+					control = this.loadFXMLAndShow("world.fxml");
+					this.cliente.setListener((AStream.IListen) control);
+	
+					
 				} 
 				catch (Exception e1) {
 					e1.printStackTrace();
