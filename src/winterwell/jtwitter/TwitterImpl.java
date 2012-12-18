@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import servidor.AStreamImpl;
+
 import excepcionesComunes.TwitterException;
 
 
@@ -2746,12 +2748,6 @@ public class TwitterImpl implements Serializable, Twitter {
 		return (Twitter_Users) new Twitter_UsersImpl(this);
 	}
 
-	@Override
-	public AStream stream() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	/**
 	 * If set, this will place-id be sent with status-updates to geo-tag your tweets.
 	 * @param placeId Can be null (which is the default)
@@ -2763,6 +2759,12 @@ public class TwitterImpl implements Serializable, Twitter {
 
 	public Long getMyPlace() {
 		return this.placeId;
+	}
+
+	@Override
+	public AStream stream() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

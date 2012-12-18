@@ -105,7 +105,16 @@ public class ConectaController extends Controller implements AStream.IListen {
 			this.addTweet(tweetsMenciones, menciones.next());
 		}
 
-		Iterator<TwitterEvent> interacciones =super.getTwitter().stream().getEvents().iterator();
+		Iterator<TwitterEvent> interacciones=null;
+		if(TwitterClient.isReal()){
+			System.out.println(TwitterClient.getStream());
+			System.out.println(TwitterClient.getStream().getEvents());
+			interacciones=TwitterClient.getStream().getEvents().iterator();
+		}
+		else{
+			interacciones=super.getTwitter().stream().getEvents().iterator();
+		}
+		
 		cajaInteracciones.getChildren().clear();
 		while(interacciones.hasNext()){
 			this.addEvent(cajaInteracciones, interacciones.next());

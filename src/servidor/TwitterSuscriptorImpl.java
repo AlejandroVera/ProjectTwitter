@@ -684,7 +684,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 	@Override
 	public AStream stream() {
-
 		return new AStreamImpl(this, this.con);
 	}
 

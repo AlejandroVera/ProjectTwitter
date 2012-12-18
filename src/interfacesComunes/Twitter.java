@@ -456,12 +456,6 @@ public interface Twitter extends Serializable, Remote{
 	 */
 	public Twitter_Geo geo();
 	
-
-	/**
-	 * Devuelve los metodos del AStream, esto no se puede usar con JTwitter
-	 */
-	public AStream stream();
-	
 	
 	/**
 	 * Cambia el valor del placeId asociado a Twitter. Este Id es el del place por geolocalizacion.
@@ -476,6 +470,6 @@ public interface Twitter extends Serializable, Remote{
 	 * @return placeId
 	 */
 	public Long getMyPlace();
-	
+	public AStream stream();
 	
 }

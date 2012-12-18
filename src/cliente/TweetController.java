@@ -345,7 +345,9 @@ public class TweetController extends Controller implements AStream.IListen{
 			Node wordNode;
 			if (word.startsWith("@")) {
 				try{
+					System.out.println("STOY AQUI: "+word);
 					final User destUser = getTwitter().users().getUser(word.substring(1));
+					System.out.println("objeto creado: "+destUser.getName());
 					wordNode =  HyperlinkBuilder.create()
 							.text(word)
 							.onAction(new EventHandler<ActionEvent>() {
@@ -379,7 +381,7 @@ public class TweetController extends Controller implements AStream.IListen{
 							})
 							.build();
 					((Hyperlink)wordNode).setTextFill(Paint.valueOf("#00BFFF"));
-				}catch(excepcionesComunes.TwitterException e){
+				}catch(Exception e){
 					wordNode = new Label(word);
 				}
 

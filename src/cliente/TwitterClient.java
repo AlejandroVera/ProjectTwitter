@@ -29,14 +29,15 @@ import javafx.stage.WindowEvent;
 public class TwitterClient extends Application {
 
 	private static final String SERVER_URL = "rmi://localhost/Conectar";
-
+	private static TwitterStream twitterStreamS;
+	
 	private Twitter twitter;
 	private ClientCallbackListener cliente;
 	private Stage primaryStage;
 	private UniverseController universeController;
 	private TwitterStream twitterStream;
 	private static Twitter tw;
-	
+	private static boolean twitterReal;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -107,10 +108,13 @@ public class TwitterClient extends Application {
 		try{
 			ClientTools.setLoading(true);
 			if(oauthClient!=null) {
+				twitterReal=true;
 				this.twitter = new winterwell.jtwitter.TwitterImpl(user, oauthClient);
 				TwitterClient.tw=this.twitter;//argucia
 				try {
 					this.twitterStream = new TwitterStream(twitter);
+					System.out.println("HECHAAAAASXX "+this.twitterStream);
+					twitterStreamS = this.twitterStream ;
 					List<Long> l= twitter.users().getFriendIDs();
 					l.add(twitter.getSelf().getId());
 					twitterStream.setFollowUsers(l);
@@ -135,6 +139,7 @@ public class TwitterClient extends Application {
 			}
 			else{
 				try {
+					twitterReal=false;
 					TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
 					this.cliente = new ClientCallbackListener();
 					this.twitter = stub.login(user, pass, cliente);
@@ -163,6 +168,13 @@ public class TwitterClient extends Application {
 		}
 	}
 
+	public static TwitterStream getStream(){
+		return twitterStreamS;
+	}
+	public static boolean isReal(){
+		return twitterReal;
+	}
+	
 	/**
 	 * Desloguea
 	 * @param force Este parametro está a true si el logout es forzoso (cerrar ventana)
