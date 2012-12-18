@@ -5,6 +5,7 @@ import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.TwitterEvent;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -28,12 +29,19 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 
 	private AStream.IListen listener;
 	private TopicConnection connection;
+	private TopicSubscriber subscriber;
+	private TopicSession subSession;
+	private Topic chatTopic;
+	private List<Long> userList;
+	private Long userId;
 
-	protected ClientTopicListener() throws RemoteException {
+	protected ClientTopicListener(Long userId) throws RemoteException {
 		super();
 
 		try {
 
+			this.userId = userId;
+			
 			// Obtiene una conexión JNDI por medio del fichero jndi.properties
 			InitialContext ctx = new InitialContext();
 
@@ -42,20 +50,18 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 			this.connection = conFactory.createTopicConnection();
 
 			// Se crea una sesión JMS
-			TopicSession subSession = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-
+			subSession = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+			
 			// Se busca un topic JMS
-			Topic chatTopic = (Topic) ctx.lookup("Eventos");
-
+			chatTopic = (Topic) ctx.lookup("Eventos");
+			
 			// Generamos la lista de ids a los que escuchar
-			String selector = "userId = -1";
-			for (Long id : TwitterClient.amigosDelLogueado()) {
-				selector += " OR userId = " + id;
-			}
+			userList = TwitterClient.amigosDelLogueado();
+			String selector = getSelectorString();	
 
 			// Se crea un subscriptor JMS filtrando por usuarios a los que
 			// escuchar.
-			TopicSubscriber subscriber = subSession.createSubscriber(chatTopic, selector, true);
+			subscriber = subSession.createSubscriber(chatTopic, selector, true);
 			// Establece el listener de mensajes JMS
 			subscriber.setMessageListener(this);
 			
@@ -73,7 +79,32 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 
 	public boolean processEvent(final TwitterEvent event)
 			throws RemoteException {
+		
 		if (listener != null) {
+			
+			//hacer que se añada o borre usuario del conjunto de escuchados al seguir o dejar de seguir
+			String selector = null;
+			if(event.getType().equals(TwitterEvent.Type.FOLLOW) && event.getSource().getId().equals(this.userId)){
+				userList.add(event.getTarget().getId());
+				selector = getSelectorString();	
+			}else if(event.getType().equals(TwitterEvent.Type.UNFOLLOW) && event.getSource().getId().equals(this.userId)){
+				userList.remove(event.getTarget().getId());
+				selector = getSelectorString();	
+			}
+			if(selector != null){
+				
+				//Creamos una nueva suscripción (actualizada)
+				try {
+					subscriber.close();
+					subscriber = subSession.createSubscriber(chatTopic, selector, true);
+					subscriber.setMessageListener(this);
+				} catch (JMSException e) {
+					e.printStackTrace();
+				}
+				
+			}
+				
+			
 			// No se puede interactuar directamente con el thread de javafx
 			Platform.runLater(new Runnable() { 
 				@Override
@@ -150,4 +181,12 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 		this.listener = null;
 	}
 
+	
+	private String getSelectorString(){
+		String selector = "userId = -1";
+		for (Long id : TwitterClient.amigosDelLogueado()) {
+			selector += " OR userId = " + id;
+		}
+		return selector;
+	}
 }
