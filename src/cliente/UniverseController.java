@@ -84,7 +84,13 @@ public class UniverseController
     	this.anchorImage.setVisible(false);
     }
     
-	public void showPlace(Place lugar) {
+	/**
+	 * Dado un Place obtiene y muestra una imagen con la API de imágenes estáticas de Google
+	 * Maps. Para ello obtiene el centro en coordenadas del place y obtiene la imagen respecto
+	 * a este punto.
+	 * @param lugar
+	 */
+    public void showPlace(Place lugar) {
 		Double latitude= lugar.getCentroid().getLatitude();
 		Double longitude= lugar.getCentroid().getLongitude(); 
 		String coord=new String(latitude.toString()+","+longitude.toString());
