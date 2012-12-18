@@ -73,7 +73,7 @@ public class TwitterClient extends Application {
 					System.exit(0);
 				}
 			});
-
+ 
 			FXMLLoader loader = new FXMLLoader();
 			URL resource = getClass().getResource("universe.fxml");
 			loader.setLocation(resource);
