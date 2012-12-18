@@ -29,9 +29,9 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <ScrollPane hbarPolicy="NEVER" prefHeight="519.0" prefWidth="522.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <ScrollPane hbarPolicy="NEVER" prefHeight="519.0" prefWidth="522.0" vbarPolicy="AS_NEEDED" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <content>
-                    <VBox id="bandejaSalida" fx:id="usersBusqueda" alignment="TOP_CENTER" prefHeight="402.0" prefWidth="517.0" />
+                    <VBox id="bandejaSalida" fx:id="usersBusqueda" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="518.9999000000025" prefWidth="517.0" />
                   </content>
                 </ScrollPane>
               </children>

@@ -112,7 +112,7 @@
         <Color blue="1.000" green="0.161" red="0.000" fx:id="x1" />
       </textFill>
     </Button>
-    <Button fx:id="unfollow" alignment="CENTER" contentDisplay="CENTER" layoutX="386.0" layoutY="55.0" maxHeight="-Infinity" minHeight="30.999900000002526" mnemonicParsing="false" onAction="#dejarDeSeguir" prefHeight="30.999900000002526" prefWidth="125.0" text="" textAlignment="CENTER" textFill="#cc0000" underline="false" visible="false" wrapText="false">
+    <Button fx:id="unfollow" alignment="CENTER" contentDisplay="CENTER" layoutX="383.0" layoutY="55.0" maxHeight="-Infinity" minHeight="30.999900000002526" mnemonicParsing="false" onAction="#dejarDeSeguir" prefHeight="30.999900000002526" prefWidth="125.0" text="" textAlignment="CENTER" textFill="#cc0000" underline="false" visible="false" wrapText="false">
       <graphic>
         <Label id="numeroDe" prefWidth="100.0" text="Unfollow">
           <graphic>
