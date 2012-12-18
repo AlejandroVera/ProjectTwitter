@@ -450,12 +450,8 @@ public class WorldController extends Controller implements AStream.IListen {
 			this.conectaController.processTweet(tweet);
 		}
 		else if (tweet instanceof Message){
-			System.out.println("Se lo pasamos a mensajesController");
 			this.mensajesController.processTweet(tweet);
 		}
-		else
-			System.out.println("No puede ser!");
-
 		return true;
 	}
 
