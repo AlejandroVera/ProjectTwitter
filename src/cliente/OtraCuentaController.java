@@ -16,6 +16,7 @@ import interfacesComunes.Twitter.ITweet;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -142,12 +143,16 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	private User user;
 	private Place lugar;
 
-
 	boolean seguidoresLoaded;
 	boolean siguiendoLoaded;
 	boolean favoritosLoaded;
 
 	ChangeListener<Tab> listenerCambios;
+
+	private HashMap<Number, TweetController> favouritesTable; //Tabla que asocia los favoritos que hay cargados con su id
+	private HashMap<Number, TweetController> tweetsTable; //Tabla que asocia los tweets que hay cargados con su id
+	private HashMap<Number, UserController> seguidoresTable; //Tabla que asocia los usuarios
+	private HashMap<Number, UserController> siguiendoTable; //Tabla que asocia los usuarios
 
 
 
@@ -304,10 +309,6 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 	}
 
 	protected void changeToUser(User usu){
-		
-		if(usu.getId().equals(this.user.getId()))
-			return; //No hay que hacer nada porque ya lo tenemos cargado...
-		
 		//Limpiamos la información anterior
 		this.user = usu;
 		tweetsUsuario.getChildren().clear();
@@ -388,7 +389,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 					int count = 0;
 
 					//Cargamos sus seguidos
-					Iterator<Long> seguidos = tw_users.getFollowerIDs(user.getScreenName()).iterator();
+					Iterator<Long> seguidos = tw_users.getFriendIDs(user.getScreenName()).iterator();
 					cajaSiguiendo.getChildren().clear();
 					while(seguidos.hasNext() && count++ < 10){ //TODO: limite temporal
 						User us = tw_users.getUser(seguidos.next());
@@ -404,6 +405,98 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 		};
 		menuOtraCuenta.getSelectionModel().selectedItemProperty().addListener(listenerCambios);
 
+	}
+
+
+
+	@Override
+	public boolean processEvent(TwitterEvent event) throws RemoteException {
+
+		if(event.getType().equals(TwitterEvent.Type.FAVORITE) && event.getSource().getId().equals(user.getId())){
+
+			if(favoritosLoaded)
+				this.addTweet(tweetsFavoritos, (Status)event.getTargetObject(), true);
+			Number id = ((ITweet) event.getTargetObject()).getId();
+
+			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
+			TweetController controller = tweetsTable.get(id);
+			if(controller != null)
+				controller.processEvent(event);
+
+		}else if(event.getType().equals(TwitterEvent.Type.UNFAVORITE)  && event.getSource().getId().equals(user.getId())){
+
+			Number id = ((ITweet) event.getTargetObject()).getId();
+			this.removeFavourite(favouritesTable.get(id));
+
+			//Mandamos el evento a la lista de tweets propios para que se actualice el icono de favorito
+			TweetController controller = tweetsTable.get(id);
+			if(controller != null)
+				controller.processEvent(event);
+
+		}else if(event.getType().equals(TwitterEvent.Type.USER_UPDATE)){
+			if(event.getSource().getId().equals(this.user.getId())){
+				this.user = getTwitter().users().getUser(this.user.getId());
+				Image im = ClientTools.getImage(this.user.getProfileImageUrl().toString());
+				if(im != null)
+					profileImage.setImage(im);
+				this.name.setText(user.getName());
+			}
+
+			//Se manda el evento a todos los tweets (ellos ya comprobarán si son suyos)
+			for(TweetController c : favouritesTable.values()){
+				c.processEvent(event);
+			}
+			for(TweetController c : tweetsTable.values()){
+				c.processEvent(event);
+			}
+
+			//Se manda el evento a los UserController que corresponda
+			UserController c = seguidoresTable.get(event.getSource().getId());
+			if(c != null)
+				c.processEvent(event);
+			c = siguiendoTable.get(event.getSource().getId());
+			if(c != null)
+				c.processEvent(event);
+
+
+		}else if(event.getType().equals(TwitterEvent.Type.FOLLOW)){ //Si el evento es un follow
+
+			//Si ahora tu sigues a alguien
+			if (event.getSource().getId().equals(user.getId())){
+				this.addUser(this.cajaSiguiendo, event.getTarget());
+				int n=Integer.parseInt(nSiguiendo.getText().trim());
+				n++;
+				nSiguiendo.setText(String.valueOf(n));
+			}
+			//Si ahora te sigue alguien
+			else if(event.getTarget().getId().equals(user.getId())){
+				this.addUser(this.cajaSeguidores, event.getSource());
+				int n=Integer.parseInt(nSeguidores.getText().trim());
+				n++;
+				nSeguidores.setText(String.valueOf(n));
+
+			}
+		}else if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)){ //Si el evento es un unfollow
+
+			//Si ahora tu ya no sigues a alguien
+			if (event.getSource().getId().equals(user.getId())){
+				UserController c = siguiendoTable.get(event.getTarget().getId());
+				this.removeSiguiendo(c);
+				int n=Integer.parseInt(nSiguiendo.getText().trim());
+				n--;
+				nSiguiendo.setText(String.valueOf(n));
+			}
+			//Si y no te sigue alguien
+			else if(event.getTarget().getId().equals(user.getId())){
+				UserController c = seguidoresTable.get(event.getSource().getId());
+				this.removeSeguidor(c);
+				int n=Integer.parseInt(nSeguidores.getText().trim());
+				n--;
+				nSeguidores.setText(String.valueOf(n));
+			}
+		}
+
+		return true;
 	}
 
 	/**
@@ -460,13 +553,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public boolean processEvent(TwitterEvent event) throws RemoteException {
-
-		return false;
-	}
-
+	
 	@Override
 	public boolean processSystemEvent(Object[] obj) throws RemoteException {
 		// TODO Auto-generated method stub
@@ -475,8 +562,36 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		this.addTweet(tweetsUsuario, tweet, true);
+		return true;
+	}
+
+	protected void removeTweet(TweetController c){
+		if(c != null){
+			tweetsUsuario.getChildren().remove(c.getContainer());
+			tweetsTable.remove(c.getTweet().getId());
+		}
+	}
+
+	protected void removeFavourite(TweetController c){
+		if(c != null){
+			tweetsFavoritos.getChildren().remove(c.getContainer());
+			favouritesTable.remove(c.getTweet().getId());
+		}
+	}
+
+	protected void removeSeguidor(UserController c){
+		if(c != null){
+			cajaSeguidores.getChildren().remove(c.getContainer());
+			seguidoresTable.remove(c.getUser().getId());
+		}
+	}
+
+	protected void removeSiguiendo(UserController c){
+		if(c != null){
+			cajaSiguiendo.getChildren().remove(c.getContainer());
+			siguiendoTable.remove(c.getUser().getId());
+		}
 	}
 
 }
