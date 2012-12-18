@@ -6,6 +6,7 @@
 package cliente;
 
 import interfacesComunes.AStream;
+import interfacesComunes.Message;
 import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter.ITweet;
@@ -407,7 +408,7 @@ public class WorldController extends Controller implements AStream.IListen {
 				nSiguiendo.setText(String.valueOf(n));
 			}
 		}
-		
+
 		if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)){
 			if(event.getTarget().getId().equals(this.getTwitter().getSelf().getId())){
 				int n=Integer.parseInt(nSeguidores.getText().trim());
@@ -436,15 +437,24 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
+		if (tweet instanceof Status){
+			//Inc numero tweets
+			if(super.getTwitter().getSelf().getId().equals(tweet.getUser().getId())){
+				nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
+				this.miCuentaController.processTweet(tweet);
+			}
 
-		//Inc numero tweets
-		if(super.getTwitter().getSelf().getId().equals(tweet.getUser().getId())){
-			nTweets.setText(""+(new Integer(nTweets.getText()).intValue() + 1));
-			this.miCuentaController.processTweet(tweet);
+			//Propagamos el evento
+
+			this.timeLineController.processTweet(tweet);
+			this.conectaController.processTweet(tweet);
 		}
-
-		//Propagamos el evento
-		this.timeLineController.processTweet(tweet);
+		else if (tweet instanceof Message){
+			System.out.println("Se lo pasamos a mensajesController");
+			this.mensajesController.processTweet(tweet);
+		}
+		else
+			System.out.println("No puede ser!");
 
 		return true;
 	}

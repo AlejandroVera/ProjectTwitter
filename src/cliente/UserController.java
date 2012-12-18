@@ -195,6 +195,16 @@ public class UserController extends Controller implements AStream.IListen{
 				loadUserDependantInfo();
 			}
 		}
+		if(event.getType().equals(TwitterEvent.Type.UNFOLLOW)&&(this.user.getId().equals(event.getTarget().getId()))){			
+			this.follow.setVisible(true);
+			this.unfollow.setVisible(false);
+			esperandoConfirmacion.setVisible(false);
+			if (user.getProtectedUser()){
+				this.candado.setVisible(true);
+				this.descripcionUsuario.setText("Usuario protegido.");
+			}
+		}
+		
 		return true;
 	}
 

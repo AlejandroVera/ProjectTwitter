@@ -211,6 +211,11 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 
 			//Si ahora tu sigues a alguien
 			if (event.getSource().getId().equals(user.getId())){
+				
+				//Si esta en seguidores ahora el boton no tiene que poner para seguirlo
+				UserController c = seguidoresTable.get(event.getTarget().getId());
+				if (c!=null)
+					c.processEvent(event);
 				this.addUser(this.cajaSiguiendo, event.getTarget());
 				int n=Integer.parseInt(nSiguiendo.getText().trim());
 				n++;
@@ -229,6 +234,11 @@ public class MiCuentaController extends Controller implements AStream.IListen {
 			//Si ahora tu ya no sigues a alguien
 			if (event.getSource().getId().equals(user.getId())){
 				UserController c = siguiendoTable.get(event.getTarget().getId());
+				//Si esta en seguidores ahora el boton de unfollow tiene que ponerse en follow
+				UserController c2 = seguidoresTable.get(event.getTarget().getId());
+				if (c2!=null){
+					c2.processEvent(event);
+				}
 				this.removeSiguiendo(c);
 				int n=Integer.parseInt(nSiguiendo.getText().trim());
 				n--;

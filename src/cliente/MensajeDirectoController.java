@@ -133,6 +133,7 @@ public class MensajeDirectoController extends Controller  {
 		}
 
 		fecha.setText(timeago);
+		ClientTools.addLabelToTimeUpdate(fecha, createdAt);
 		
 	}
 

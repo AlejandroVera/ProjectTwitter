@@ -103,11 +103,12 @@ public class MensajesController extends Controller implements AStream.IListen {
 	public boolean processTweet(ITweet mensaje) throws RemoteException {
 		if (mensaje instanceof Message){
 			mensaje=(Message) mensaje;
-			if (((Message) mensaje).getSender().getScreenName().equals(super.getTwitter().getSelf().getScreenName()))
+			System.out.println("Llega a mensajesController");
+			if (((Message) mensaje).getSender().getId().equals(super.getTwitter().getSelf().getId()))
 				
 				addMessage(bandejaSalida, (Message) mensaje, true);
 			
-			else if (((Message) mensaje).getRecipient().getScreenName().equals(super.getTwitter().getSelf().getScreenName()))
+			else if (((Message) mensaje).getRecipient().getId().equals(super.getTwitter().getSelf().getId()))
 				addMessage(bandejaEntrada, (Message) mensaje, false);
 		}
 		return false;
@@ -147,7 +148,7 @@ public class MensajesController extends Controller implements AStream.IListen {
 	 * @param mensaje Mensaje a añadir.
 	 */
 	private void addMessage(VBox contendor, ITweet message, boolean deSalida){
-		addMessage(contendor, message, deSalida, false);
+		addMessage(contendor, message, deSalida, true);
 	}
 	
 	/**

@@ -40,7 +40,6 @@
         </Tab>
       </tabs>
     </TabPane>
-    <Label id="numeroDe" layoutX="687.0" layoutY="24.0" onMouseClicked="#cerrarMenu" text="X" />
   </children>
   <stylesheets>
     <URL value="@timeline.css" />
