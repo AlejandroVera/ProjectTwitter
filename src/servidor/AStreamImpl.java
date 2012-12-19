@@ -11,6 +11,7 @@ import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
 
+
 public class AStreamImpl implements AStream{
 	
 	/**

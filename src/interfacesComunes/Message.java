@@ -3,7 +3,11 @@ package interfacesComunes;
 import java.io.Serializable;
 import java.rmi.Remote;
 
-
+/**
+ * 
+ * Representa los mensajes privados de twitter
+ *
+ */
 public interface Message extends Twitter.ITweet, Serializable, Remote {
 	
 	/**

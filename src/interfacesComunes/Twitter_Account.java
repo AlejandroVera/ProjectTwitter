@@ -2,6 +2,11 @@ package interfacesComunes;
 
 import java.io.Serializable;
 
+/**
+ * Clase que contiene los metodos para actualizar los valores de un usario asociados a su cuenta, como la
+ * imagen de perfil o su descripcion.
+ *
+ */
 public interface Twitter_Account extends Serializable{
 
 	static String 	COLOR_BG= "0000"; 
@@ -10,6 +15,11 @@ public interface Twitter_Account extends Serializable{
 	static String 	COLOR_SIDEBAR_FILL="0100"; 
 	static String 	COLOR_TEXT="1000"; 
 	
+	/**
+	 * 
+	 * Los distintos tipos de accesos para un usario
+	 *
+	 */
 	static enum KAccessLevel{
 		NONE,					//No puede leer ni escribir tweets publicos
 		READ_ONLY,				//Solo puede leer tweets publicos		

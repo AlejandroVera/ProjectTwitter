@@ -3,7 +3,9 @@ package interfacesComunes;
 import java.io.Serializable;
 
 
-
+/**Metodos para la geolocalizaon
+ * 
+ */
 public interface Twitter_Geo extends Serializable{
 	
     //public Place geoSearch(double latitude,double longitude);
