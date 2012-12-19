@@ -444,22 +444,14 @@ public class TweetController extends Controller implements AStream.IListen{
 
 									}
 									url = new URL(wordAux);
-								} 
-								catch (MalformedURLException exception) {
-									throw new RuntimeException(exception);
-								}
-
-								try {
+									
 									if (java.awt.Desktop.isDesktopSupported())
 										java.awt.Desktop.getDesktop().browse(url.toURI());
 									else
 										ClientTools.showDialog("Tu sistema no soporta los métodos de awt.Desktop. No se puede conectar con el Twitter Real.");
 								} 
-								catch (URISyntaxException exception) {
-									throw new RuntimeException(exception);
-								} 
-								catch (IOException exception) {
-									throw new RuntimeException(exception);
+								catch (IOException | URISyntaxException exception) {
+									//throw new RuntimeException(exception);
 								}
 							}
 						})
