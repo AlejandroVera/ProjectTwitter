@@ -103,7 +103,6 @@ public class TimeLineController extends Controller implements AStream.IListen {
 	 */
 	private void addTweet(ITweet tweet, boolean onTop){
 		try {
-			System.out.println("dueño: "+tweet.getUser().getScreenName()+"texto: "+tweet.getText());
 			FXMLTweetAutoLoader tweetUI = new FXMLTweetAutoLoader(getTwitter(), (Status) tweet);
 			tweetUI.getController().setParentController(this);
 			

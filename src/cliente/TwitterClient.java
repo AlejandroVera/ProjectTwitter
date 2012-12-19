@@ -113,7 +113,6 @@ public class TwitterClient extends Application {
 				TwitterClient.tw=this.twitter;//argucia
 				try {
 					this.twitterStream = new TwitterStream(twitter);
-					System.out.println("HECHAAAAASXX "+this.twitterStream);
 					twitterStreamS = this.twitterStream ;
 					List<Long> l= twitter.users().getFriendIDs();
 					l.add(twitter.getSelf().getId());
@@ -123,10 +122,6 @@ public class TwitterClient extends Application {
 					
 					twitterStream.connect();
 					twitterStream.popTweets();
-					if(twitterStream.isAlive()){
-						System.out.println("Stream conectado \n");
-					}
-	
 					control = this.loadFXMLAndShow("world.fxml");
 					this.cliente.setListener((AStream.IListen) control);
 	

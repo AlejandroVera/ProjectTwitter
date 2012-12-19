@@ -345,9 +345,7 @@ public class TweetController extends Controller implements AStream.IListen{
 			Node wordNode;
 			if (word.startsWith("@")) {
 				try{
-					System.out.println("STOY AQUI: "+word);
 					final User destUser = getTwitter().users().getUser(word.substring(1));
-					System.out.println("objeto creado: "+destUser.getName());
 					wordNode =  HyperlinkBuilder.create()
 							.text(word)
 							.onAction(new EventHandler<ActionEvent>() {
@@ -431,7 +429,6 @@ public class TweetController extends Controller implements AStream.IListen{
 				if(p.length()>20){
 					p=p.substring(0,20)+"...";
 				}
-				System.out.println(p);
 				wordNode =  HyperlinkBuilder.create()
 						.text(p)
 						.onMouseClicked(new EventHandler<MouseEvent>() {
@@ -509,7 +506,7 @@ public class TweetController extends Controller implements AStream.IListen{
 		timeAgo.setText(timeago);
 		ClientTools.addLabelToTimeUpdate(timeAgo, createdAt);
 
-		if(this.user.getId().equals(getTwitter().getSelf().getId())){ //Es propio
+		if(this.user.getScreenName().equals(getTwitter().getSelf().getScreenName())){ //Es propio
 			stackBorrar.setVisible(true);
 			stackRetwitteado.setVisible(false);
 			stackRetwittear.setVisible(false);

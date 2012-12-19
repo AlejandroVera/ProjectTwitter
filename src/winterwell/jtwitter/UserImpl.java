@@ -276,7 +276,6 @@ public final class UserImpl implements Serializable, User {
 	}
 
 	private UserImpl(String screenName, Long id) {
-		System.out.println("todo a null!!!");
 		this.id = id;
 		name = null;
 		if (screenName != null && !TwitterImpl.CASE_SENSITIVE_SCREENNAMES) {
