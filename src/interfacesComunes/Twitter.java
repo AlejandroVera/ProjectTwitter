@@ -8,14 +8,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import winterwell.jtwitter.OAuthSignpostClient;
 import winterwell.jtwitter.RateLimit;
-import winterwell.jtwitter.TwitterExceptionImpl;
-import winterwell.jtwitter.URLConnectionHttpClient;
 import winterwell.jtwitter.TwitterImpl.KRequestType;
 
 import excepcionesComunes.TwitterException;
 
+/**
+ * Es el punto inicial a partir de la cual se puede acceder a Twitter y todos sus metodos.
+ */
 public interface Twitter extends Serializable, Remote{
 
 

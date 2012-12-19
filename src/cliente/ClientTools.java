@@ -143,6 +143,7 @@ public class ClientTools {
 			while((leidos = ie.read(buf)) != -1)
 				array.write(buf, 0, leidos);
 				
+			ie.close();
 			return FALSE_IMAGESERVER_URL+twi.saveImage(array.toByteArray());
 
 		} catch (NotBoundException | IOException e) {

@@ -6,8 +6,6 @@ import java.rmi.RemoteException;
 
 /**
  * Clase que solo nos sirve a nosotros para el método getEvents()
- * 
- *
  */
 public interface AStream extends Remote, Serializable{
 

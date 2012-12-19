@@ -3,8 +3,8 @@ package interfacesComunes;
 import java.io.Serializable;
 
 
-/**Metodos para la geolocalizaon
- * 
+/**
+ * Metodos para la geolocalizacion
  */
 public interface Twitter_Geo extends Serializable{
 	

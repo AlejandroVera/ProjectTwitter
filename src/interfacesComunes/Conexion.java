@@ -3,6 +3,9 @@ package interfacesComunes;
 import java.sql.ResultSet;
 import java.util.List;
 
+/**
+ * Representa la conexión con la base de datos. Solo utilizada por el servidor.
+ */
 public interface Conexion {
 
 	/**

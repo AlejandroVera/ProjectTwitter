@@ -5,8 +5,8 @@ import java.math.BigInteger;
 import java.rmi.Remote;
 import java.util.List;
 
-/** Define las operaciones que se pueden realizar sobre un tweet
- *
+/** 
+ * Define las operaciones que se pueden realizar sobre un tweet
  */
 public interface Status extends Twitter.ITweet, Serializable, Remote{
 	

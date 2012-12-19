@@ -7,7 +7,6 @@ import java.util.List;
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Message;
-import interfacesComunes.Place;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
@@ -40,7 +39,6 @@ public class TwitterImpl implements Twitter {
 		private Conexion con;
 		private Status tweet;
 		private BigInteger tweet_id;
-		private User loggedUser;
 
 		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con, User loggedUser){
 			this.con=con;
@@ -48,7 +46,6 @@ public class TwitterImpl implements Twitter {
 			this.start = start;
 			this.end=end;
 			this.tweet_id=tweet_id;
-			this.loggedUser=loggedUser;
 			this.tweet=new StatusImpl(tweet_id,con,loggedUser);
 		}
 

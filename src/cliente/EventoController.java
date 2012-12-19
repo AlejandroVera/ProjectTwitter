@@ -8,7 +8,6 @@ package cliente;
 import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
-import interfacesComunes.Twitter.ITweet;
 
 import java.net.URL;
 import java.rmi.RemoteException;

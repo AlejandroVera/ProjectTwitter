@@ -8,7 +8,6 @@ package cliente;
 import interfacesComunes.Status;
 import interfacesComunes.TwitterEvent;
 import interfacesComunes.User;
-import interfacesComunes.Twitter.ITweet;
 
 import java.io.IOException;
 import java.net.URL;
