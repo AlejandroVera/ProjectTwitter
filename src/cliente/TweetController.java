@@ -432,7 +432,7 @@ public class TweetController extends Controller implements AStream.IListen{
 						.text(p)
 						.onMouseClicked(new EventHandler<MouseEvent>() {
 							@Override public void handle(MouseEvent me) {
-								URL url;
+								URL url1;
 								try {
 									String wordAux;
 									if(word.matches("^(http(s)?://).*")){
@@ -442,12 +442,48 @@ public class TweetController extends Controller implements AStream.IListen{
 										wordAux="http://"+word;
 
 									}
-									url = new URL(wordAux);
+									url1 = new URL(wordAux);
 									
 									if (java.awt.Desktop.isDesktopSupported())
-										java.awt.Desktop.getDesktop().browse(url.toURI());
-									else
-										ClientTools.showDialog("Tu sistema no soporta los métodos de awt.Desktop. No se puede conectar con el Twitter Real.");
+										java.awt.Desktop.getDesktop().browse(url1.toURI());
+									else{
+
+										String url =wordAux;
+										String os = System.getProperty("os.name").toLowerCase();
+										Runtime rt = Runtime.getRuntime();
+
+										try{
+
+											if (os.indexOf( "win" ) >= 0) {
+
+												// this doesn't support showing urls in the form of "page.html#nameLink" 
+												rt.exec( "rundll32 url.dll,FileProtocolHandler " + url);
+
+											} else if (os.indexOf( "mac" ) >= 0) {
+
+												rt.exec( "open " + url);
+
+											} else if (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0) {
+
+												// Do a best guess on unix until we get a platform independent way
+												// Build a list of browsers to try, in this order.
+												String[] browsers = {"epiphany", "firefox", "mozilla", "konqueror",
+														"netscape","opera","links","lynx"};
+
+												// Build a command string which looks like "browser1 "url" || browser2 "url" ||..."
+												StringBuffer cmd = new StringBuffer();
+												for (int i=0; i<browsers.length; i++)
+													cmd.append( (i==0  ? "" : " || " ) + browsers[i] +" \"" + url + "\" ");
+
+												rt.exec(new String[] { "sh", "-c", cmd.toString() });
+
+											} else {
+												return;
+											}
+										}catch (Exception e){
+											return;
+										}
+									}
 								} 
 								catch (IOException | URISyntaxException exception) {
 									//throw new RuntimeException(exception);

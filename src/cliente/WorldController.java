@@ -358,9 +358,11 @@ public class WorldController extends Controller implements AStream.IListen {
 				if(newTab.equals(timeLineTab)) {
 					infCuenta.setVisible(true);
 				}else if (newTab.equals(conectaTab)){
+					infCuenta.setVisible(true);
 					conectaController.loadEvents();//Entramos por primera vez y hay que cargar eventos
 				}
 				else if(newTab.equals(miCuentaTab)){
+					infCuenta.setVisible(false);
 					miCuentaController.loadTweets(); //Entramos por primera vez y hay que cargar tweets?
 				}
 			}
