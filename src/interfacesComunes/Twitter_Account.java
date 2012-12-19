@@ -32,16 +32,17 @@ public interface Twitter_Account extends Serializable{
 	
 	public User setProfile(String name,String profileImageUrl, String location, String description, int protectedUser);
 	
-	/**DEPRECATED
+	/**DEPRECATED: No nos era util, no hemos entrado en detalles de colores de fuente
 	 * 
 	 */
 	public User setProfileColors(java.util.Map<String,String> colorName2hexCode);
 	
 	
-	//public String toString();
-
-	//public User verifyCredentials();
-	
+	/**
+	 * Comprueba las credenciales del usuario logueado
+	 * @return User el usuario logueado
+	 * @throws Exception
+	 */
 	public User verifyCredentials() throws Exception;
 	
 	

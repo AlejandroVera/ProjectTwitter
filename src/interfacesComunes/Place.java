@@ -5,34 +5,60 @@ import java.io.Serializable;
 import com.winterwell.jgeoplanet.BoundingBox;
 import com.winterwell.jgeoplanet.IPlace;
 
+/**
+ * Representa un lugar con distintos campos de informacion útiles
+ * para la geolocalización * 
+ *
+ */
 public interface Place extends IPlace, Serializable {
 	
-    //public com.winterwell.jgeoplanet.BoundingBox getBoundingBox();
-    //public java.lang.String getCountryCode();
-	
-	/**Nombre del pais*/
+    
+    /**
+	 * Nombre del pais
+	 * @return String
+	 */
     public java.lang.String getCountryName();
-    //public java.util.List<com.winterwell.jgeoplanet.Location> getGeometry();
     
-    /**Id del place*/
+    
+    /**
+     * Id
+     * @return String id en forma de String
+     */
     public String getId();
-    //public java.lang.String getInfoUrl();
     
-    /**Devuelve el nombre del place*/
+    
+    /**
+     * Nombre especifico del place
+     * @return String
+     */
     public java.lang.String getName();
     
-    /**Devuelve el tipo del place, puede ser cualquier String*/
+    /**
+     * Tipo de lugar
+     * @return String tipo
+     */
     public java.lang.String getType();
     
-    /**Devuelve el place en forma de String. Muy util para interfaz gráfica*/
+    /**
+     * Devuelve el place en forma de String. Muy util para interfaz gráfica
+     * @return String Nombre,Ciudad,Pais
+     */
     public java.lang.String toString();
     
-    /**Centro del place, en forma de Location (latitud, longitud)*/
+    /**
+     * Centro del place
+     * @return Location (latitud, longitud)
+     */
+      
     public com.winterwell.jgeoplanet.Location getCentroid();
-   // public java.lang.String getUID();
+  
     
-    /**La boundingBox del lugar, el cuadrado que ocupa*/
-    public BoundingBox getBoundingBox(); //La Bounding Box del lugar, el cuadradito que ocupa
+    /**
+     * La boundingBox del lugar, el cuadrado que ocupa
+     * @return BoundingBox
+     */
+     
+    public BoundingBox getBoundingBox();
     
 	
 }
