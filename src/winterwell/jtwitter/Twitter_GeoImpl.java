@@ -31,7 +31,7 @@ import winterwell.jtwitter.TwitterImpl.KRequestType;
  * @author Daniel Winterstein
  * @testedby {@link Twitter_GeoTest}
  */
-public class Twitter_GeoImpl implements IGeoCode, interfacesComunes.Twitter_Geo{
+public class Twitter_GeoImpl implements interfacesComunes.Twitter_Geo{
 
 	/**
 	 * 
