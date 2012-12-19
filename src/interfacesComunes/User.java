@@ -126,7 +126,7 @@ public interface User extends Serializable,Remote{
 	/**
 	 * Utilidad interna para establecer si el usuario loggueado ha enviado una solicitud
 	 * para seguir a este usuario. Solo tiene sentido para usuarios protegidos.
-	 * @param true=solicitud enviada false=sin solicitud enviada pendiente de tratar
+	 * @param b true=solicitud enviada false=sin solicitud enviada pendiente de tratar
 	 */
 	public void setFollowRequestSent(boolean b);
 	
