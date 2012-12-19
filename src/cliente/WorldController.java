@@ -345,9 +345,12 @@ public class WorldController extends Controller implements AStream.IListen {
 		timeLineTab.getTabPane().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 			@Override 
 			public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
-				if(newTab.equals(timeLineTab) || newTab.equals(conectaTab)){
+				if(newTab.equals(timeLineTab)) {
 					infCuenta.setVisible(true);
-				}else if(newTab.equals(miCuentaTab)){
+				}else if (newTab.equals(conectaTab)){
+					conectaController.loadEvents();//Entramos por primera vez y hay que cargar eventos
+				}
+				else if(newTab.equals(miCuentaTab)){
 					miCuentaController.loadTweets(); //Entramos por primera vez y hay que cargar tweets?
 				}
 			}

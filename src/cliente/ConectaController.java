@@ -18,8 +18,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -40,6 +44,16 @@ public class ConectaController extends Controller implements AStream.IListen {
 	@FXML //  fx:id="tweetsMenciones"
 	private VBox tweetsMenciones; // Value injected by FXMLLoader
 
+	@FXML //  fx:id="mentionsTab"
+	private Tab mentionsTab; // Value injected by FXMLLoader
+
+	@FXML //  fx:id="eventsTab"
+	private Tab interactionsTab; // Value injected by FXMLLoader
+
+	private boolean mentionsLoaded;
+	private boolean eventsLoaded;
+
+
 	private HashMap<Number, TweetController> mentionsTable;
 	private HashMap<Long, EventoController> eventos;
 
@@ -57,24 +71,24 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processEvent(TwitterEvent event) throws RemoteException {
-		if (!event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getTarget().getScreenName().equals(super.getTwitter().getScreenName()))
-			this.addEvent(cajaInteracciones, event, true);
-		if (event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
-			Number id = ((ITweet) event.getTargetObject()).getId();
-			TweetController controller = mentionsTable.get(id);
-			if(controller != null)
-				controller.processEvent(event);
-		}
-		if ((event.getType().equals(TwitterEvent.Type.USER_UPDATE))||(event.getType().equals(TwitterEvent.Type.FOLLOW))
-				||(event.getType().equals(TwitterEvent.Type.UNFOLLOW))){
-			for(EventoController c : eventos.values()){
-				c.processEvent(event);
+		if (eventsLoaded){
+			if (!event.getType().equals(TwitterEvent.Type.USER_UPDATE) && event.getTarget().getScreenName().equals(super.getTwitter().getScreenName()))
+				this.addEvent(cajaInteracciones, event, true);
+			if (event.getType().equals(TwitterEvent.Type.FAVORITE) || event.getType().equals(TwitterEvent.Type.UNFAVORITE)){
+				Number id = ((ITweet) event.getTargetObject()).getId();
+				TweetController controller = mentionsTable.get(id);
+				if(controller != null)
+					controller.processEvent(event);
+			}
+			if ((event.getType().equals(TwitterEvent.Type.USER_UPDATE))||(event.getType().equals(TwitterEvent.Type.FOLLOW))
+					||(event.getType().equals(TwitterEvent.Type.UNFOLLOW))){
+				for(EventoController c : eventos.values()){
+					c.processEvent(event);
+				}
 			}
 		}
 		return true;
 	}
-
-
 
 
 	@Override
@@ -86,10 +100,12 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public boolean processTweet(ITweet tweet) throws RemoteException {
-		List<Status> menciones = super.getTwitter().getMentions();
-		if (tweet instanceof Status){
-			if (menciones.contains((Status) tweet))
-				addTweet(tweetsMenciones, (Status) tweet);
+		if (mentionsLoaded){
+			List<Status> menciones = super.getTwitter().getMentions();
+			if (tweet instanceof Status){
+				if (menciones.contains((Status) tweet))
+					addTweet(tweetsMenciones, (Status) tweet);
+			}
 		}
 		return true;
 	}
@@ -97,31 +113,41 @@ public class ConectaController extends Controller implements AStream.IListen {
 
 	@Override
 	public void postInitialize() {
-
-		//Inicializar tweets
-		Iterator<Status> menciones = super.getTwitter().getMentions().iterator();
-		tweetsMenciones.getChildren().clear();
-		while(menciones.hasNext()){
-			this.addTweet(tweetsMenciones, menciones.next());
-		}
-
-		Iterator<TwitterEvent> interacciones=null;
-		if(TwitterClient.isReal()){
-			System.out.println(TwitterClient.getStream());
-			System.out.println(TwitterClient.getStream().getEvents());
-			interacciones=TwitterClient.getStream().getEvents().iterator();
-		}
-		else{
-			interacciones=super.getTwitter().stream().getEvents().iterator();
-		}
-		
-		cajaInteracciones.getChildren().clear();
-		while(interacciones.hasNext()){
-			this.addEvent(cajaInteracciones, interacciones.next());
-		}
-
+		mentionsTab.getTabPane().getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+			@Override 
+			public void changed(ObservableValue<? extends Tab> tab, Tab oldTab, Tab newTab) {
+				if(!mentionsLoaded && newTab.equals(mentionsTab)){
+					//Inicializar tweets
+					Iterator<Status> menciones = getTwitter().getMentions().iterator();
+					tweetsMenciones.getChildren().clear();
+					while(menciones.hasNext())
+						addTweet(tweetsMenciones, menciones.next());
+					mentionsLoaded = true;
+				}
+			}
+		});
 	}
 
+
+	public void loadEvents(){
+		if (!eventsLoaded){
+			Iterator<TwitterEvent> interacciones=null;
+			if(TwitterClient.isReal()){
+				System.out.println(TwitterClient.getStream());
+				System.out.println(TwitterClient.getStream().getEvents());
+				interacciones=TwitterClient.getStream().getEvents().iterator();
+			}
+			else{
+				interacciones=super.getTwitter().stream().getEvents().iterator();
+			}
+
+			cajaInteracciones.getChildren().clear();
+			while(interacciones.hasNext()){
+				this.addEvent(cajaInteracciones, interacciones.next());
+			}
+		}
+		eventsLoaded=true;
+	}
 
 	@Override
 	protected AnchorPane getContainer() {

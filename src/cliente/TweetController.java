@@ -450,7 +450,10 @@ public class TweetController extends Controller implements AStream.IListen{
 								}
 
 								try {
-									java.awt.Desktop.getDesktop().browse(url.toURI());
+									if (java.awt.Desktop.isDesktopSupported())
+										java.awt.Desktop.getDesktop().browse(url.toURI());
+									else
+										ClientTools.showDialog("Tu sistema no soporta los métodos de awt.Desktop. No se puede conectar con el Twitter Real.");
 								} 
 								catch (URISyntaxException exception) {
 									throw new RuntimeException(exception);

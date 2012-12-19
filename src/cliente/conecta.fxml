@@ -12,7 +12,7 @@
     <HBox id="fondoPestana" prefHeight="584.0" prefWidth="859.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="0.0" />
     <TabPane id="MenuArriba" layoutX="305.0" layoutY="25.0" prefHeight="553.0" prefWidth="555.0" side="LEFT" styleClass="floating" tabClosingPolicy="UNAVAILABLE">
       <tabs>
-        <Tab text="Interacciones">
+        <Tab fx:id="interactionsTab" text="Interacciones">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -41,7 +41,7 @@
             </AnchorPane>
           </content>
         </Tab>
-        <Tab text="Menciones">
+        <Tab fx:id="mentionsTab" text="Menciones">
           <content>
             <AnchorPane id="Content2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
