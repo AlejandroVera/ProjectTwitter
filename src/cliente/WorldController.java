@@ -19,6 +19,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.winterwell.jgeoplanet.IPlace;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -154,7 +156,8 @@ public class WorldController extends Controller implements AStream.IListen {
 	public void activarGeo(MouseEvent event) {
 
 		/*El texto pasado a getPlace solo es util con el twitterReal*/
-		lugar = (Place)getTwitter().geo().getPlace("Madrid, España", null);
+		IPlace lugar = getTwitter().geo().getPlace("Madrid, España", null);
+		
 
 		if (lugar!=null){
 
@@ -162,7 +165,7 @@ public class WorldController extends Controller implements AStream.IListen {
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
 			if(super.getTwitter().getMyPlace()==-1)
-				super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
+				super.getTwitter().setMyPlace(Long.parseLong(lugar.getUID()));
 		}
 		else if (lugar==null){
 			ClientTools.showDialog("Geolocalizacion no disponible");

@@ -119,7 +119,7 @@ public class PlaceImpl implements Place {
 		return countryName;
 	}
 
-	@Override
+
 	public String getId() {
 		return id;
 	}
@@ -138,10 +138,6 @@ public class PlaceImpl implements Place {
 		return city;
 	}
 	
-	/*public String getUID() {
-		return serialVersionUID;
-	}*/
-
 	@Override
 	public BoundingBox getBoundingBox() {
 		return boundingBox;
@@ -154,8 +150,7 @@ public class PlaceImpl implements Place {
 
 	@Override
 	public String getUID() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getId();
 	}
 	
 	public String toString(){

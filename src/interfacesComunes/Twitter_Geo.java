@@ -2,6 +2,8 @@ package interfacesComunes;
 
 import java.io.Serializable;
 
+import com.winterwell.jgeoplanet.IPlace;
+
 
 /**
  * Metodos para la geolocalizacion

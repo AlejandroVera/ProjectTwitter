@@ -149,7 +149,7 @@ public class TweetController extends Controller implements AStream.IListen{
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
 			if(super.getTwitter().getMyPlace()==-1){
-				super.getTwitter().setMyPlace(Long.parseLong(lugar2.getId()));			
+				super.getTwitter().setMyPlace(Long.parseLong(lugar2.getUID()));			
 			}
 		}
 		else if (lugar2==null){

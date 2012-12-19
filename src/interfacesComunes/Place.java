@@ -24,7 +24,7 @@ public interface Place extends IPlace, Serializable {
      * Id
      * @return String id en forma de String
      */
-    public String getId();
+    public String getUID();
     
     
     /**

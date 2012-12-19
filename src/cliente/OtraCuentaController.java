@@ -170,7 +170,7 @@ public class OtraCuentaController extends Controller implements AStream.IListen{
 			geoActivado.setVisible(true);
 			geoDesactivado.setVisible(false);
 			if(super.getTwitter().getMyPlace()==-1)
-				super.getTwitter().setMyPlace(Long.parseLong(lugar.getId()));
+				super.getTwitter().setMyPlace(Long.parseLong(lugar.getUID()));
 
 		}
 		else if (lugar==null){

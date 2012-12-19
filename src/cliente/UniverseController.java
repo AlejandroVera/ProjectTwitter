@@ -12,6 +12,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ResourceBundle;
 
+import com.winterwell.jgeoplanet.IPlace;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -90,7 +92,7 @@ public class UniverseController
 	 * a este punto.
 	 * @param lugar
 	 */
-    public void showPlace(Place lugar) {
+    public void showPlace(IPlace lugar) {
 		Double latitude= lugar.getCentroid().getLatitude();
 		Double longitude= lugar.getCentroid().getLongitude(); 
 		String coord=new String(latitude.toString()+","+longitude.toString());

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.winterwell.jgeoplanet.IPlace;
+
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -237,7 +239,7 @@ public class ClientTools {
 		universeController.loading.set(load);
 	}
 	
-	protected static void showPlace(Place place){
+	protected static void showPlace(IPlace place){
 		universeController.showPlace(place);
 	}
 	
