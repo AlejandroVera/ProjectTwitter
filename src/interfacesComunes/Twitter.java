@@ -122,18 +122,20 @@ public interface Twitter extends Serializable, Remote{
 		 */
 		List<TweetEntity> getTweetEntities(KEntityType type);
 
-		/** The User who made the tweet */
+		/** 
+		 * @return usuario que hizo el tweet
+		 */
 		User getUser();
 
 		/**
-		 * @return text, with the t.co urls replaced.
-		 * Use-case: for filtering based on text contents, when we want to
-		 * match against the full url.
-		 * Note: this does NOT resolve short urls from bit.ly etc. 
+		 * @return texto del tweet o mensaje
 		 */
 		String getDisplayText();
 	}
 
+	/**
+	 * Obtiene el objeto Twitter_Account
+	 */
 	public Twitter_Account account();
 
 	/**
