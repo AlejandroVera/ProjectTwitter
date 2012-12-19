@@ -13,6 +13,8 @@ public interface AStream extends Remote, Serializable{
 		public boolean processTweet(Twitter.ITweet tweet) throws RemoteException;
 	}
 	
-	/**Devuelve los eventos cuyo objetivo es el user loggeado*/
+	/**Devuelve los eventos cuyo objetivo es el user loggeado
+	 * @return List<TwitterEvent> lista de eventos
+	 **/
 	public java.util.List<TwitterEvent>	getEvents(); 
 }

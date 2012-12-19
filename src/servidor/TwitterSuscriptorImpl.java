@@ -366,12 +366,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 	}
 
 	@Override
-	public List<Status> search(String searchTerm, ICallback callback, int rpp) {
-		// TODO
-		return null;
-	}
-
-	@Override
 	public int getMaxResults() {
 		return this.maxResults;
 	}

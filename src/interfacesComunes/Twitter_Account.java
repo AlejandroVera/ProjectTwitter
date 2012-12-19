@@ -21,15 +21,20 @@ public interface Twitter_Account extends Serializable{
 	public KAccessLevel getAccesLevel();
 		
 	/**Cambia los valores del usuario
-	 * @param name : El nombre
-	 * @param url: La url asociada al usuario
-	 * @param profileImageUrl: La imagen de perfil
-	 * @param Location: Cambia la location del usuario
-	 * @param Description: La descripcion del usuario
-	 * @*/
+	 * @param name El nombre
+	 * @param url La url asociada al usuario
+	 * @param profileImageUrl La imagen de perfil
+	 * @param location Cambia la location del usuario
+	 * @param description La descripcion del usuario
+	 * @return User Objeto usuario con información actualizada
+	 */
 	public User setProfile(String name, String url, String profileImageUrl, String location, String description);
+	
 	public User setProfile(String name,String profileImageUrl, String location, String description, int protectedUser);
-	/**DEPRECATED*/
+	
+	/**DEPRECATED
+	 * 
+	 */
 	public User setProfileColors(java.util.Map<String,String> colorName2hexCode);
 	
 	

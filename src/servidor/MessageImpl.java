@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import interfacesComunes.Conexion;
 import interfacesComunes.Message;
 import interfacesComunes.Place;
+import interfacesComunes.Twitter.KEntityType;
 import interfacesComunes.Twitter_Geo;
 import servidor.TwitterImpl;
 import interfacesComunes.Twitter.TweetEntity;
@@ -103,38 +104,6 @@ public class MessageImpl implements Message{
 		return text;
 	}
 
-
-	public List<TweetEntity> getTweetEntities(interfacesComunes.Twitter.KEntityType type) {
-
-		List<TweetEntity> entities=new ArrayList<interfacesComunes.Twitter.TweetEntity>();
-		int inicio;
-		Pattern p=null;
-		Matcher m=null;
-		if(type==interfacesComunes.Twitter.KEntityType.urls){
-			p=Pattern.compile("((^|\\s)[a-zA-Z0-9]+)(\\.[a-zA-Z0-9]+)+");
-		}
-		else if(type==interfacesComunes.Twitter.KEntityType.hashtags){
-			p=Pattern.compile("(^|\\s)#[a-zA-Z0-9]+");
-		}
-		else if(type==interfacesComunes.Twitter.KEntityType.user_mentions){
-			p=Pattern.compile("(^|\\s)@[a-zA-Z0-9]+");
-		}
-		m= p.matcher(this.text);
-		while(m.find()){
-			if(this.text.substring(m.start(),m.end()).charAt(0)==' '){
-				inicio=m.start()+1;
-			}
-			else{
-				inicio=m.start();
-			}
-			entities.add(new TwitterImpl.TweetEntityImpl(this.id, type,inicio,m.end(),this.con,this.loggedUser));
-		}
-		return entities;
-	}
-
-
-
-
 	public User getUser() {
 		ResultSet res = con.query("SELECT id_autor FROM mensajes WHERE id ="+id+" LIMIT 1");
 		try{
@@ -183,6 +152,11 @@ public class MessageImpl implements Message{
 	public User getSender() {
 		User user = getUser();
 		return user;
+	}
+
+	@Override
+	public List<TweetEntity> getTweetEntities(KEntityType type) {
+		return null;
 	}
 }
 

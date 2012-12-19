@@ -357,6 +357,7 @@ public class WorldController extends Controller implements AStream.IListen {
 
 	@Override
 	public void postInitialize() {
+		super.getTwitter().setMyPlace((long)-1);
 		name.setText(super.getTwitter().getSelf().getName());
 		screenName.setText("@"+super.getTwitter().getScreenName());
 		User user = super.getTwitter().getSelf();

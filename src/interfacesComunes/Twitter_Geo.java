@@ -9,7 +9,7 @@ public interface Twitter_Geo extends Serializable{
     //public Place geoSearch(double latitude,double longitude);
    
 	/**Devuelve un place por geolocalizacion pasandole una direccion IP
-	 * @param ipAddress: la direccion IP*/
+	 * @param ipAddress la direccion IP*/
 	public Place geoSearchByIP(java.lang.String ipAddress);
 
     //public java.util.List<Place> getTrendRegions();
