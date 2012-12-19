@@ -248,9 +248,9 @@ public interface Twitter extends Serializable, Remote{
 	public Twitter_Account account();
 	
 	/**
-	 * Devuelve el número de caracteres de un texto teniendo en cuenta que Twitter trata las urls como cadenas de 20 caracteres.
+	 * Devuelve el numero de caracteres de un texto teniendo en cuenta que Twitter trata las urls como cadenas de 20 caracteres.
 	 * @param statusText Texto del que obtener la longitud
-	 * @return Número de caracteres del texto
+	 * @return Numero de caracteres del texto
 	 */
 	public int countCharacters(String statusText);
 	
@@ -265,7 +265,7 @@ public interface Twitter extends Serializable, Remote{
 	 * Elimina un mensaje privado.
 	 * @param id Id del mensaje a eliminar.
 	 */
-	public void destroyMessage(Number id); //Y ESTE POR QUÉ COJONES NO LANZA EXCEPCIÓN??
+	public void destroyMessage(Number id); //Y ESTE POR QUe COJONES NO LANZA EXCEPCIoN??
 	
 	/**
 	 * Elimina un Tweet (Status).
@@ -275,46 +275,46 @@ public interface Twitter extends Serializable, Remote{
 	public void destroyStatus(Number id) throws TwitterException;
 	
 	/**
-	 * Método que devuelve la lista de Message's enviados <u>al</u> usuario actual
+	 * Metodo que devuelve la lista de Message's enviados <u>al</u> usuario actual
 	 * @return Lista de Message's enviados <u>al</u> usuario actual
 	 */
 	public List<Message> getDirectMessages();
 	
 	/**
-	 * Método que devuelve la lista de Message's enviados <u>por</u> el usuario actual
+	 * Metodo que devuelve la lista de Message's enviados <u>por</u> el usuario actual
 	 * @return Lista de Message's enviados <u>por</u> el usuario actual
 	 */
 	public List<Message> getDirectMessagesSent();
 	
 	/**
 	 * Obtiene una lista de status favoritos para el usuario autenticado.
-	 * @return Lista de status favoritos más recientes ordenados de más a menos recientes.
+	 * @return Lista de status favoritos mas recientes ordenados de mas a menos recientes.
 	 */
 	public List<Status> getFavorites();
 	
 	/**
 	 * Obtiene una lista de status favoritos para el usuario indicado.
 	 * @param screenName
-	 * @return Lista de status favoritos más recientes ordenados de más a menos recientes para el usuario indicado.
+	 * @return Lista de status favoritos mas recientes ordenados de mas a menos recientes para el usuario indicado.
 	 */
 	public List<Status> getFavorites(String screenName);
 	
 	/**
-	 * Devuelve los 20 (o número definido por maxResults) Status más recientes posteados por el usuario y sus amigos, incluyendo retweets.
-	 * @return Lista de los 20 (o número definido por maxResults) Status más recientes del timeline
-	 * @throws TwitterException Si no se ha podido obtener el timeline (P.E: el usuario no está logueado)
+	 * Devuelve los 20 (o numero definido por maxResults) Status mas recientes posteados por el usuario y sus amigos, incluyendo retweets.
+	 * @return Lista de los 20 (o numero definido por maxResults) Status mas recientes del timeline
+	 * @throws TwitterException Si no se ha podido obtener el timeline (P.E: el usuario no esta logueado)
 	 */
 	public List<Status> getHomeTimeline() throws TwitterException;
 	
 	/**
-	 * Provee soporte para obtener varias páginas de datos. -1 indica que se quiere obtener el máximo posible.
-	 * @return Máximo de resultados que se pueden obtener.
+	 * Provee soporte para obtener varias paginas de datos. -1 indica que se quiere obtener el maximo posible.
+	 * @return Maximo de resultados que se pueden obtener.
 	 */
 	public int getMaxResults();
 	
 	/**
-	 * Obtiene una lista de las menciones más recientes al usuario autenticado.
-	 * @return Lista de las menciones más recientes ordenadas de más a menos reciente.
+	 * Obtiene una lista de las menciones mas recientes al usuario autenticado.
+	 * @return Lista de las menciones mas recientes ordenadas de mas a menos reciente.
 	 */
 	public List<Status> getMentions();
 	
@@ -345,65 +345,65 @@ public interface Twitter extends Serializable, Remote{
 	
 	/**
 	 * Devuelve al usuario actual.
-	 * @return El User actual o <b>null</b> si no se ha logeado y es una sesión anónima.
+	 * @return El User actual o <b>null</b> si no se ha logeado y es una sesion anonima.
 	 */
 	public User getSelf();
 	
 	/**
-	 * Obtiene el "status" del usuario (su último tweet).
-	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
-	 * @throws TwitterException Si el usuario no está logueado.
+	 * Obtiene el "status" del usuario (su ultimo tweet).
+	 * @return El ultimo Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @throws TwitterException Si el usuario no esta logueado.
 	 */
 	public Status getStatus() throws TwitterException;
 	
 	/**
-	 * Obtiene el "status" del usuario indicado(su último tweet).
+	 * Obtiene el "status" del usuario indicado(su ultimo tweet).
 	 * @param userId Usuario del que obtener el status.
-	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @return El ultimo Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
 	 * @throws TwitterException Si el usuario no existe.
 	 */
 	public Status getStatus(Number id) throws TwitterException;
 	
 	/**
-	 * Obtiene el "status" del usuario indicado(su último tweet).
+	 * Obtiene el "status" del usuario indicado(su ultimo tweet).
 	 * @param screenName Usuario del que obtener el status.
-	 * @return El último Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
+	 * @return El ultimo Status o <b>null</b> en caso de que el usuario no haya publicado nunca un tweet.
 	 * @throws TwitterException Si el usuario no existe.
 	 */
 	public Status getStatus(String screenName) throws TwitterException;
 	
 	/**
-	 * Devuelve los Status más recientes del usuario indicado.
+	 * Devuelve los Status mas recientes del usuario indicado.
 	 * @param userId Id del usuario del que obtener sus Status
-	 * @return Lista de Status del usuario ordenada de más a menos reciente.
+	 * @return Lista de Status del usuario ordenada de mas a menos reciente.
 	 * @throws TwitterException Si no se ha podido encontrar al usuario o no se ha podido obtener sus status.
 	 */
 	public List<Status> getUserTimeline(Long userId) throws TwitterException;
 	
 	/**
-	 * Devuelve los Status más recientes del usuario indicado.
+	 * Devuelve los Status mas recientes del usuario indicado.
 	 * @param screenName Screenname del usuario del que obtener sus Status
-	 * @return Lista de Status del usuario ordenada de más a menos reciente.
+	 * @return Lista de Status del usuario ordenada de mas a menos reciente.
 	 * @throws TwitterException Si no se ha podido encontrar al usuario o no se ha podido obtener sus status.
 	 */
 	public List<Status> getUserTimeline(String screenName) throws TwitterException;
 	
 	/**
-	 * Inica si el usuario está logueado
-	 * @return True si está logueado. False en caso contrario.
+	 * Inica si el usuario esta logueado
+	 * @return True si esta logueado. False en caso contrario.
 	 */
 	public boolean isValidLogin();
 	
 	/**
 	 * Hace un retweet sin modificar el texto.
 	 * @param tweet Tweet a retweetear
-	 * @return El mismo tweet. Null si no se ha podido hacer retweet (el usuario no está logueado).
+	 * @return El mismo tweet. Null si no se ha podido hacer retweet (el usuario no esta logueado).
 	 */
 	public Status retweet(Status tweet);
 	
 	/**
-	 * Realiza una búsqueda en Tweets
-	 * @param searchTerm Término a buscar
+	 * Realiza una busqueda en Tweets
+	 * @param searchTerm Termino a buscar
 	 * @return Lista de tweets coincidentes.
 	 * @see search(String searchTerm, Twitter.ICallback callback, int rpp)
 	 */
@@ -431,14 +431,14 @@ public interface Twitter extends Serializable, Remote{
 	
 	/**
 	 * Actualiza el status del usuario conectado (crea un nuevo tweet).
-	 * @param statusText Texto del mensaje. No debe tener más de 140 caracteres.
+	 * @param statusText Texto del mensaje. No debe tener mas de 140 caracteres.
 	 * @return El nuevo tweet, o <b>null</b> en caso de error.
 	 */
 	public Status updateStatus(String statusText);
 	
 	/**
 	 * Actualiza el status del usuario conectado (crea un nuevo tweet) en respuesta a otro.
-	 * @param statusText Texto del tweet. No debe tener más de 140 caracteres.
+	 * @param statusText Texto del tweet. No debe tener mas de 140 caracteres.
 	 * @param inReplyToStatusId Id del tweet al cual estamos respondiendo.
 	 * @return Status publicado
 	 * @throws TwitterException Si no se ha podido publicar el status (el id de respuesta no es correcto)
@@ -459,14 +459,14 @@ public interface Twitter extends Serializable, Remote{
 	
 	/**
 	 * Cambia el valor del placeId asociado a Twitter. Este Id es el del place por geolocalizacion.
-	 * Si se le pasa -1 simboliza que la geolocalizacion está desactivada
+	 * Si se le pasa -1 simboliza que la geolocalizacion esta desactivada
 	 * @param placeId
 	 */
 	public void setMyPlace(Long placeId);
 	
 	
 	/**
-	 * El id del Place asociado a la sesión por Geolocalizacion, si es -1 es que no está activada
+	 * El id del Place asociado a la sesion por Geolocalizacion, si es -1 es que no esta activada
 	 * @return placeId
 	 */
 	public Long getMyPlace();

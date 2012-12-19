@@ -5,7 +5,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Clase que representa nuestro servidor de Twitter. Presenta ciertos métodos para conexión, desconexión y manejo de imágenes.
+ * Clase que representa nuestro servidor de Twitter. Presenta ciertos metodos para conexion, desconexion y manejo de imagenes.
  */
 public interface TwitterInit extends Remote, Serializable{
 	
@@ -30,51 +30,51 @@ public interface TwitterInit extends Remote, Serializable{
 	final int REG_WRONG_UNKNOWN = 3;
 	
 	/**
-	 * Método para iniciar sesión en nuestro Twitter.
+	 * Metodo para iniciar sesion en nuestro Twitter.
 	 * @param user ScreenName del usuario al cual loguear.
 	 * @param pass Contraseña del usuario.
 	 * @param client CallBack por el que mandar eventos del servidor al cliente.
 	 * @return Objeto Twitter con el que poder realizar todas las acciones necesarias con Twitter.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * @throws RemoteException Excepcion de Java RMI.
 	 */
 	public Twitter login(String user, String pass, AStream.IListen client) throws RemoteException;
 	
 	/**
-	 * Método para cerrar sesión en nuestro Twitter.
-	 * @param userId Id del usuario al cual cerrar la sesión.
+	 * Metodo para cerrar sesion en nuestro Twitter.
+	 * @param userId Id del usuario al cual cerrar la sesion.
 	 * @param client CallBack por el que mandar eventos del servidor al cliente.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * @throws RemoteException Excepcion de Java RMI.
 	 */
 	public void logout(Long userId, AStream.IListen client) throws RemoteException;
 	
 	/**
-	 * Método para registrar a un usuario en nuestro Twitter.
-	 * @param user ScreenName que tendrá el usuario.
-	 * @param pass Contraseña que tendrá el usuario.
+	 * Metodo para registrar a un usuario en nuestro Twitter.
+	 * @param user ScreenName que tendra el usuario.
+	 * @param pass Contraseña que tendra el usuario.
 	 * @param email Email del usuario.
-	 * @return Una constante con estado del registro: REG_OK, REG_WRONG_USER, REG_WRONG_EMAIL ó REG_WRONG_UNKNOWN.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * @return Una constante con estado del registro: REG_OK, REG_WRONG_USER, REG_WRONG_EMAIL o REG_WRONG_UNKNOWN.
+	 * @throws RemoteException Excepcion de Java RMI.
 	 */
 	public int register(String user, String pass, String email) throws RemoteException;
 	
 	/**
 	 * Obtiene una imagen guardada en nuestro servidor.
-	 * @param url Es un identificador de 7 caracteres alfanuméricos.
+	 * @param url Es un identificador de 7 caracteres alfanumericos.
 	 * @return Devuelve un array de bytes que representan la imagen.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * @throws RemoteException Excepcion de Java RMI.
 	 */
 	public byte[] getImage(String url) throws RemoteException;
 	
 	/**
 	 * Guarda una imagen en nuestro servidor.
 	 * @param img Array de bytes que representan la imagen.
-	 * @return Un identificador de 7 caracteres alfanuméricos.
-	 * @throws RemoteException Excepción de Java RMI.
+	 * @return Un identificador de 7 caracteres alfanumericos.
+	 * @throws RemoteException Excepcion de Java RMI.
 	 */
 	public String saveImage(byte[] img) throws RemoteException;
 	
 	/**
-	 * Envia un evento para un usuario a través del callback.
+	 * Envia un evento para un usuario a traves del callback.
 	 * @param event Evento a enviar, puede ser un ITweet, un TwitterEvent o un Object[]
 	 * @param id_dest Usuario al cual enviar el evento.
 	 */
