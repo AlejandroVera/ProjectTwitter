@@ -208,7 +208,23 @@ public class LoginController extends Controller{
 			@Override
 			public void handle(KeyEvent event) {
 				if(event.getCode() == KeyCode.ENTER){
-					login();
+					if(serverSelector.getSelectionModel().getSelectedIndex() == 1){
+						//Si no está el usuario en el archivo
+						String us;
+						if((us=userLine(username.getText()))==null){
+							serverSelector.setValue("Nuestro twitter");
+							avisoConexion.setVisible(true);	
+						}
+						//si está
+						else{
+							String[] aux=us.split(":");
+							OAuthSignpostClient oauthClient = new OAuthSignpostClient(JKEY, JSECRET, aux[1], aux[2]);
+							loginReal(oauthClient);
+						}
+					}
+					else{
+						login();
+					}
 				}
 			}
 		});
