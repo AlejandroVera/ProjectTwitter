@@ -36,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -192,6 +193,12 @@ public class WorldController extends Controller implements AStream.IListen {
 		if(x!=null)
 			busquedaController.addTweetResult(x);
 	}
+	
+	 // Handler for TextField[fx:id="busquedaLabel"] onKeyPressed
+    public void buscaKey(KeyEvent event) {
+    	if(event.getCode() == KeyCode.ENTER)
+    		busca(null);
+    }
 
 	// Handler for TextArea[fx:id="textoNuevoTweet"] onKeyPressed
 	public void cambiaContador(KeyEvent event) {
