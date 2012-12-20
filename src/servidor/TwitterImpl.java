@@ -1,7 +1,6 @@
 package servidor;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import interfacesComunes.AStream;
@@ -21,6 +20,7 @@ import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
@@ -29,7 +29,7 @@ import servidor.db.ConexionImpl;
 
 public class TwitterImpl implements Twitter {
 
-	public  final static class TweetEntityImpl implements Twitter.TweetEntity{
+	public static final class TweetEntityImpl implements Twitter.TweetEntity{
 
 		private static final long serialVersionUID = -4096887025640652171L;
 
@@ -40,7 +40,7 @@ public class TwitterImpl implements Twitter {
 		private Status tweet;
 		private BigInteger tweet_id;
 
-		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con, User loggedUser){
+		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con,User loggedUser){
 			this.con=con;
 			this.type = type;
 			this.start = start;
@@ -111,7 +111,7 @@ public class TwitterImpl implements Twitter {
 	private Conexion con;
 	private int maxResults = 20;
 	private TwitterInit init;
-	private Long placeId=(long) -1;
+	private Long placeId= (long)-1;
 
 
 	/**
@@ -128,7 +128,7 @@ public class TwitterImpl implements Twitter {
 	public TwitterImpl(Long accountId, TwitterInit init){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
-		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,init);
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user, init);
 		this.geo= new Twitter_GeoImpl(this.con);
 		this.init = init;
 	}
@@ -178,6 +178,7 @@ public class TwitterImpl implements Twitter {
 						while(res.next())
 							con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
 									" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
+
 					con.updateQuery("DELETE FROM eventos WHERE id_tweet = "+id);
 					con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
 				}else
@@ -345,8 +346,14 @@ public class TwitterImpl implements Twitter {
 	public Status retweet(Status tweet) {
 		if(this.user == null)
 			return null;
-		this.con.updateQuery("INSERT INTO retweet (id_usuario, id_tweet) VALUES ("+this.user.getId()+", "+tweet.getId()+") " +
+		Integer val = this.con.updateQuery("INSERT INTO retweet (id_usuario, id_tweet) VALUES ("+this.user.getId()+", "+tweet.getId()+") " +
 				"ON DUPLICATE KEY UPDATE id_usuario=id_usuario, id_tweet=id_tweet");
+		if(val != null && val > 0)
+			try {
+				this.init.sendThroughTopic(tweet, this.user.getId());
+			} catch (RemoteException e) {
+				ServerCommon.TwitterWarning(e, "Error en retweet.");
+			}
 		return tweet;
 	}
 
@@ -361,8 +368,7 @@ public class TwitterImpl implements Twitter {
 			while(res.next()){
 				sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt(1)).toString()),con,getSelf()));
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
 		}
 		return sol;
@@ -546,11 +552,13 @@ public class TwitterImpl implements Twitter {
 
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 
+		//Lo enviamos al topic del destinatario y del emisor
 		try {
-			this.init.sendThroughCallback(mes, id_dest);
-			this.init.sendThroughCallback(mes, this.user.getId());
-		} catch (RemoteException e) {}
-
+			this.init.sendThroughTopic(mes, id_dest);
+			this.init.sendThroughTopic(mes, this.user.getId());
+		} catch (RemoteException e) {
+			ServerCommon.TwitterWarning(e, "Error en sendMessage");
+		}
 
 		return mes;
 
@@ -576,20 +584,20 @@ public class TwitterImpl implements Twitter {
 		}
 
 		Long status_owner = status.getUser().getId();
+
 		if(!event_type.equals("0")){
-			try{
+			try {
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 
 				//Se lo enviamos al propietario del tweet
-				this.init.sendThroughCallback(event, status_owner);
+				this.init.sendThroughTopic(event, status_owner);
 
 				//Y tambien al usuario que lo acaba de modificar para que se actualice su interfaz
-				if(!this.user.getId().equals(status_owner)){
-					this.init.sendThroughCallback(event, this.user.getId());
-				}
+				if(!this.user.getId().equals(status_owner))
+					this.init.sendThroughTopic(event, this.user.getId());
 
-			}catch(SQLException | RemoteException e){
-				ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
+			} catch (SQLException | RemoteException e) {
+				ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
 			}
 		}
 
@@ -630,6 +638,8 @@ public class TwitterImpl implements Twitter {
 		params.add(this.user.getId());
 		params.add(new Date().getTime()/1000);
 		params.add(replyId);
+
+		//Comprobación para meter el ID del place
 		params.add(this.placeId);
 		//Insertamos el nuevo tweet en la BD
 		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo, placeID) VALUES (?, ?, ?, ?,?)", params);
@@ -649,19 +659,12 @@ public class TwitterImpl implements Twitter {
 		Status status = new StatusImpl(status_id, this.con,this.user);		
 
 		//Mandamos el tweet a todos los seguidores
-		Iterator<Long> seguidores = this.users().getFollowerIDs().iterator();
 		try {
-			while(seguidores.hasNext()){
-				//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
-				Long id_dest = seguidores.next().longValue();
+			this.init.sendThroughTopic(status, this.user.getId());
+		} catch (RemoteException e) {
+			ServerCommon.TwitterWarning(e, "Error en updateStatus al evniar por el topic.");
+		}
 
-				this.init.sendThroughCallback(status,id_dest);
-
-			}
-
-			//Nos notificamos a nosotros mismos sobre el tweet
-			this.init.sendThroughCallback(status,this.user.getId());
-		} catch (RemoteException e) { }
 		this.user.aumentarContador();
 		return status;
 	}
@@ -690,7 +693,6 @@ public class TwitterImpl implements Twitter {
 
 	@Override
 	public AStream stream() {
-
 		return new AStreamImpl(this, this.con);
 	}
 

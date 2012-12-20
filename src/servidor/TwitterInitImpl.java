@@ -1,11 +1,9 @@
 package servidor;
 
 import interfacesComunes.AStream.IListen;
-import interfacesComunes.Twitter.ITweet;
 import interfacesComunes.AStream;
 import interfacesComunes.Conexion;
 import interfacesComunes.Twitter;
-import interfacesComunes.TwitterEvent;
 import interfacesComunes.TwitterInit;
 
 import java.io.ByteArrayOutputStream;
@@ -26,9 +24,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
+
+import javax.jms.JMSException;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+import javax.jms.Topic;
+import javax.jms.TopicConnection;
+import javax.jms.TopicConnectionFactory;
+import javax.jms.TopicPublisher;
+import javax.jms.TopicSession;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -41,6 +48,8 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 
 	
 	private static final long serialVersionUID = -4305345588180033587L;
+	private static TopicPublisher publisher;
+	private static TopicSession pubSession;
 	
 	/**
 	 * Ruta al directorio donde se guardarán las imágenes
@@ -48,16 +57,14 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	private final String IMAGE_CONTAINER_PATH = getClass().getResource("."+File.separator+"contenedorImagenes"+File.separator).getPath();
 	
 	private Conexion con;
-	private HashMap<Long, LinkedList<IListen>> callbackArray;
 	
 	public TwitterInitImpl(LinkedList<IListen> clientes) throws RemoteException {
 		super();
 		this.con = new ConexionImpl();
-		callbackArray = new HashMap<Long, LinkedList<IListen>>();
 	}
 	
 	@Override
-	public Twitter login(String screenName, String pass, IListen cliente) throws RemoteException {
+	public Twitter login(String screenName, String pass) throws RemoteException {
 
 		//Hacemos el hash de la contraseña
 		try {
@@ -77,9 +84,6 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			//Si existe un usuario con esos datos, se devuelve un objeto
 			if(res.next()){
 				Long accountId = res.getLong(1);
-				if(this.callbackArray.get(accountId) == null)
-					this.callbackArray.put(accountId, new LinkedList<IListen>());
-				this.callbackArray.get(accountId).add(cliente);
 				return new TwitterImpl(accountId, this);
 			}
 		} catch (SQLException e) {
@@ -141,13 +145,8 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 	}
 	
 		@Override
-	public void logout(Long userId, IListen client) throws RemoteException {
-			LinkedList<IListen> userRow = this.callbackArray.get(userId);
-			if(userRow != null){
-				userRow.remove(client);
-				if(userRow.size() == 0) //Liberamos memoria
-					this.callbackArray.remove(userRow);
-			}
+	public void logout(Long userId) throws RemoteException {
+		//No es necesario hacer nada en JMS
 	}
 		
 	/**
@@ -186,6 +185,29 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			// Obtiene una conexión JNDI por medio del fichero jndi.properties
+			InitialContext ctx = new InitialContext();
+			
+			// Busca una factoría de conexiones y crea una conexión
+			TopicConnectionFactory conFactory = (TopicConnectionFactory) ctx.lookup("Twitter");
+			TopicConnection connection = conFactory.createTopicConnection();
+	
+			// Se crean objeto de sesión JMS
+			pubSession = connection.createTopicSession(false,
+					Session.AUTO_ACKNOWLEDGE);
+	
+			// Se busca un topic JMS
+			Topic chatTopic = (Topic) ctx.lookup("Eventos");
+			
+			//Y obtenemos el publicador
+			publisher = pubSession.createPublisher(chatTopic);
+			
+		} catch (NamingException | JMSException e) {
+			e.printStackTrace();
+		}
+		
 
 	}
 
@@ -205,8 +227,9 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 			
 			while((leidos = ie.read(buf)) != -1)
 				array.write(buf, 0, leidos);
-				
+			
 			ie.close();
+				
 			return array.toByteArray();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -241,38 +264,48 @@ public class TwitterInitImpl extends UnicastRemoteObject implements TwitterInit 
 		}
 		
 		return "";
-		
-		
+	
 	}
 	
-	@Override
-	public void sendThroughCallback(Serializable event, Long id_dest){
+	public void sendThroughTopic(Serializable event, Long id_dest){
 		
-		List<AStream.IListen> user_callbacks = this.callbackArray.get(id_dest);
+		if(pubSession == null || publisher == null){
+			try {
+				// Obtiene una conexión JNDI por medio del fichero jndi.properties
+				InitialContext ctx = new InitialContext();
+				
+				// Busca una factoría de conexiones y crea una conexión
+				TopicConnectionFactory conFactory = (TopicConnectionFactory) ctx.lookup("Twitter");
+				TopicConnection connection = conFactory.createTopicConnection();
 		
-		if(user_callbacks != null){
-			Iterator<AStream.IListen> it = user_callbacks.iterator();
-			while(it.hasNext()){
-				AStream.IListen call = it.next();
-				try {
-					if (event instanceof ITweet)
-						call.processTweet((ITweet) event);
-					else if (event instanceof TwitterEvent)
-						call.processEvent((TwitterEvent) event);
-					else if (event instanceof Object[])
-						call.processSystemEvent((Object[]) event);
-				} catch (RemoteException e) {
-					//Suponemos que ha sido por un error de conexión.
-					//Puede que el user se haya desconectado, así que lo sacamos del array.
-					user_callbacks.remove(call);
-					if(user_callbacks.isEmpty())
-						this.callbackArray.remove(id_dest);
-					ServerCommon.TwitterWarning(e, "Se ha eliminado un usuario del array de callbacks");
-				}
+				// Se crean objeto de sesión JMS
+				pubSession = connection.createTopicSession(false,
+						Session.AUTO_ACKNOWLEDGE);
+		
+				// Se busca un topic JMS
+				Topic chatTopic = (Topic) ctx.lookup("Eventos");
+				
+				//Y obtenemos el publicador
+				publisher = pubSession.createPublisher(chatTopic);
+				
+				//Arrancamos la conexion
+				connection.start();
+				
+			} catch (NamingException | JMSException e) {
+				e.printStackTrace();
 			}
 		}
 		
+		try {
+			//Publicamos el evento
+			ObjectMessage pubMes = pubSession.createObjectMessage();
+			pubMes.setLongProperty("userId", id_dest);
+			pubMes.setObject(event);
+			publisher.publish(pubMes);
+		} catch (JMSException e) {
+			ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
+		}
 	}
 
-	
+
 }

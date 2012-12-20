@@ -40,8 +40,8 @@
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl" project="ProyectTwitter" 
-    file="/ProyectTwitter/src/servidor/TwitterImpl.java" binary="false">    
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl_RMI" project="ProyectTwitter" 
+    file="/ProyectTwitter/src/servidor/TwitterImpl_RMI.java" binary="false">    
     <position height="705" width="219" x="1544" y="-51"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -136,8 +136,8 @@
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="18" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterInitImpl" project="ProyectTwitter" 
-    file="/ProyectTwitter/src/servidor/TwitterInitImpl.java" binary="false">    
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterInitImpl_RMI" project="ProyectTwitter" 
+    file="/ProyectTwitter/src/servidor/TwitterInitImpl_RMI.java" binary="false">    
     <position height="246" width="291" x="891" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -264,8 +264,8 @@
       <operations public="true" package="true" protected="true" private="false"/>    
     </display>  
   </interface>  
-  <class id="34" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl.TweetEntityImpl" 
-    project="ProyectTwitter" file="/ProyectTwitter/src/servidor/TwitterImpl.java" binary="false">    
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="servidor.TwitterImpl_RMI.TweetEntityImpl" 
+    project="ProyectTwitter" file="/ProyectTwitter/src/servidor/TwitterImpl_RMI.java" binary="false">    
     <position height="246" width="319" x="3010" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      

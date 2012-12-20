@@ -1,6 +1,7 @@
-package servidor;
+/*package servidor;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import interfacesComunes.AStream;
@@ -9,6 +10,7 @@ import interfacesComunes.Message;
 import interfacesComunes.Status;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterEvent;
+import interfacesComunes.TwitterInit;
 import interfacesComunes.Twitter_Geo;
 import interfacesComunes.Twitter_Users;
 import excepcionesComunes.TwitterException;
@@ -16,18 +18,18 @@ import interfacesComunes.Twitter_Account;
 import interfacesComunes.User;
 
 import java.math.BigInteger;
+import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
 
 
 
-public class TwitterSuscriptorImpl implements Twitter {
+public class TwitterImpl_RMI implements Twitter {
 
-	public static final class TweetEntityImpl implements Twitter.TweetEntity{
+	public  final static class TweetEntityImpl implements Twitter.TweetEntity{
 
 		private static final long serialVersionUID = -4096887025640652171L;
 
@@ -38,7 +40,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		private Status tweet;
 		private BigInteger tweet_id;
 
-		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con,User loggedUser){
+		public TweetEntityImpl(BigInteger tweet_id, KEntityType type, int start, int end, Conexion con, User loggedUser){
 			this.con=con;
 			this.type = type;
 			this.start = start;
@@ -97,9 +99,9 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 	}
 
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = -6621123794067420801L;
 	private static final int maxAllowedResults = 300;
 
@@ -108,30 +110,32 @@ public class TwitterSuscriptorImpl implements Twitter {
 	private Twitter_Users twitter_user;
 	private Conexion con;
 	private int maxResults = 20;
-	private Long placeId= (long)-1;
+	private TwitterInit init;
+	private Long placeId=(long) -1;
 
 
-	/**
+	*//**
 	 * Contructor para conexión sin usuario. Solo lectura. Cambio: por ahora no lo vamos a soportar
-	 */
-	/*public TwitterImpl() {
+	 *//*
+	public TwitterImpl() {
 		super();
 		this.user = null;
 		this.twitter_user = null;
 		this.con = new ConexionImpl();
 		this.geo= new Twitter_GeoImpl(this.con);
-	}*/
+	}
 
-	public TwitterSuscriptorImpl(Long accountId, HashMap<Long, LinkedList<AStream.IListen>> callbackArray){
+	public TwitterImpl_RMI(Long accountId, TwitterInit init){
 		this.con = new ConexionImpl();
 		this.user = new UserImpl(accountId, this.con,this.user);
-		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,null); //TODO!!!!!!!!!!
+		this.twitter_user = new Twitter_UsersImpl(this.con,this.user,init);
 		this.geo= new Twitter_GeoImpl(this.con);
+		this.init = init;
 	}
 
 
 	public Twitter_Account account() {
-		return new Twitter_AccountImplSuscriptor(this, this.con,this.user);
+		return new Twitter_AccountImpl(this, this.con,this.user, this.init);
 	}
 
 	public int countCharacters(String statusText) {
@@ -174,7 +178,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 						while(res.next())
 							con.updateQuery("DELETE FROM hashtag WHERE id = "+res.getInt(1)+
 									" AND (SELECT COUNT(*) FROM hashtagsTweets id_hashtag = "+res.getInt(1)+") = 0 LIMIT 1");
-
 					con.updateQuery("DELETE FROM eventos WHERE id_tweet = "+id);
 					con.updateQuery("DELETE FROM tweet WHERE id = "+id+" LIMIT 1");
 				}else
@@ -233,7 +236,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		if(this.user != null){
 			ResultSet res = con.query("SELECT tw.id FROM favoritos fa, tweet tw WHERE fa.id_usuario = " +
 					this.user.getId()+" AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
-					(this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+					(this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 			if(res != null)
 				try {
 					while(res.next())
@@ -258,7 +261,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 			ResultSet res = this.con.query("SELECT tw.id FROM favoritos fa, tweet tw, usuario us WHERE us.screenName = ? AND " +
 					"fa.id_usuario = us.id AND tw.id = fa.id_tweet ORDER BY tw.fecha DESC LIMIT " +
-					(this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults), param);
+					(this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults), param);
 			if(res != null)
 				try {
 					while(res.next())
@@ -283,7 +286,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 				" AND tw.autor = se.id_seguido UNION SELECT id, fecha FROM tweet tw, retweet re, seguidores se WHERE " +
 				"se.id_seguidor = "+this.user.getId()+" AND se.id_seguido = re.id_usuario AND tw.id = re.id_tweet ) res " +
 				"ORDER BY fecha DESC " +
-				"LIMIT " + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+				"LIMIT " + (this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 
 		if(res != null)
 			try {
@@ -305,7 +308,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 		ResultSet res = this.con.query("(SELECT id, fecha FROM tweet WHERE autor = "+userId+") " +
 				"UNION (SELECT tw.id, tw.fecha FROM tweet tw , retweet re WHERE tw.id = re.id_tweet AND re.id_usuario = "+userId+") ORDER BY fecha DESC " +
-				"LIMIT " + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+				"LIMIT " + (this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 
 		if(res != null)
 			try {
@@ -342,8 +345,8 @@ public class TwitterSuscriptorImpl implements Twitter {
 	public Status retweet(Status tweet) {
 		if(this.user == null)
 			return null;
-		this.con.updateQuery("INSERT INTO retweet VALUES ("+this.user.getId()+", "+tweet.getId()+")");
-		TwitterInitImplSuscriptor.sendThroughTopic(tweet, this.user.getId());
+		this.con.updateQuery("INSERT INTO retweet (id_usuario, id_tweet) VALUES ("+this.user.getId()+", "+tweet.getId()+") " +
+				"ON DUPLICATE KEY UPDATE id_usuario=id_usuario, id_tweet=id_tweet");
 		return tweet;
 	}
 
@@ -353,14 +356,13 @@ public class TwitterSuscriptorImpl implements Twitter {
 			return null;
 		}
 		List<Status> sol = new ArrayList<Status>();
-		ResultSet res = con.query("SELECT * FROM tweet");
+		ResultSet res = con.query("SELECT id FROM tweet WHERE texto LIKE '%"+searchTerm+"%'");
 		try {
 			while(res.next()){
-				if(res.getString("texto").matches(".*"+searchTerm+".*") ){
-					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
-				}
+				sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt(1)).toString()),con,getSelf()));
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
 		}
 		return sol;
@@ -374,12 +376,10 @@ public class TwitterSuscriptorImpl implements Twitter {
 	@Override
 	public List<Status> getMentions() {
 		List<Status> sol = new ArrayList<Status>();
-		ResultSet res = con.query("SELECT * FROM tweet");
+		ResultSet res = con.query("SELECT id FROM tweet WHERE texto REGEXP BINARY'.*(@"+this.getSelf().getScreenName()+").*'");
 		try {
 			while(res.next()){
-				if(res.getString("texto").matches(".*((^|\\s)@[a-zA-Z0-9]+).*")){
-					sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt("id")).toString()),con,getSelf()));
-				}
+				sol.add(new StatusImpl(new BigInteger(new Integer(res.getInt(1)).toString()),con,getSelf()));
 			}
 		} catch (SQLException e) {
 			ServerCommon.TwitterWarning(e, "Error de BD");
@@ -392,7 +392,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 		if(this.user == null)
 			return null;
 		ResultSet res = this.con.query("SELECT id_usuario FROM retweet WHERE re.id_tweet = "+tweet.getId() + 
-				"LIMIT" + (this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+				"LIMIT" + (this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 
 		List<User> list = new LinkedList<User>();
 		if(res != null){
@@ -413,7 +413,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 			return null;
 		ResultSet res = this.con.query("SELECT tw.id FROM tweet tw, retweet re WHERE re.id_usuario = "+this.user.getId() + 
 				" AND re.id_tweet = tw.id ORDER BY tw.fecha DESC LIMIT" +
-				(this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+				(this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 
 		List<Status> list = new LinkedList<Status>();
 		if(res != null){
@@ -434,7 +434,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 			return null;
 		ResultSet res = this.con.query("SELECT tw.id FROM tweet tw, retweet re WHERE tw.autor = "+this.user.getId() + 
 				" AND re.id_tweet = tw.id ORDER BY tw.fecha DESC LIMIT" +
-				(this.maxResults == -1 ? TwitterSuscriptorImpl.maxAllowedResults : this.maxResults));
+				(this.maxResults == -1 ? TwitterImpl_RMI.maxAllowedResults : this.maxResults));
 
 		List<Status> list = new LinkedList<Status>();
 		if(res != null){
@@ -546,9 +546,11 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 		Message mes = new MessageImpl(message_id, this.con,this.user);
 
-		//Lo enviamos al topic del destinatario y del emisor
-		TwitterInitImplSuscriptor.sendThroughTopic(mes, id_dest);
-		TwitterInitImplSuscriptor.sendThroughTopic(mes, this.user.getId());
+		try {
+			this.init.sendThroughCallback(mes, id_dest);
+			this.init.sendThroughCallback(mes, this.user.getId());
+		} catch (RemoteException e) {}
+
 
 		return mes;
 
@@ -563,31 +565,31 @@ public class TwitterSuscriptorImpl implements Twitter {
 		String event_type = "0";
 
 		if(!isFavorite){
-			int res = this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
-			if(res > 0)
+			Integer res = this.con.updateQuery("DELETE FROM favoritos WHERE id_usuario = "+this.user.getId()+" AND id_tweet = "+status.getId()+" LIMIT 1");
+			if(res != null && res > 0)
 				event_type = TwitterEvent.Type.UNFAVORITE;
 
 		}else{
-			int res = this.con.updateQuery("INSERT INTO favoritos (id_usuario, id_tweet) VALUES ("+this.user.getId()+","+status.getId()+")");
-			if(res > 0)
+			Integer res = this.con.updateQuery("INSERT INTO favoritos (id_usuario, id_tweet) VALUES ("+this.user.getId()+","+status.getId()+")");
+			if(res != null && res > 0)
 				event_type = TwitterEvent.Type.FAVORITE;
 		}
 
 		Long status_owner = status.getUser().getId();
-
 		if(!event_type.equals("0")){
-			try {
+			try{
 				TwitterEvent event = new TwitterEventImpl(this.user.getId(), status_owner, status, event_type, this.con,this.user);
 
 				//Se lo enviamos al propietario del tweet
-				TwitterInitImplSuscriptor.sendThroughTopic(event, status_owner);
+				this.init.sendThroughCallback(event, status_owner);
 
 				//Y tambien al usuario que lo acaba de modificar para que se actualice su interfaz
-				if(!this.user.getId().equals(status_owner))
-					TwitterInitImplSuscriptor.sendThroughTopic(event, this.user.getId());
+				if(!this.user.getId().equals(status_owner)){
+					this.init.sendThroughCallback(event, this.user.getId());
+				}
 
-			} catch (SQLException e) {
-				ServerCommon.TwitterWarning(e, "No se ha podido publicar en el topic");
+			}catch(SQLException | RemoteException e){
+				ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 			}
 		}
 
@@ -628,8 +630,6 @@ public class TwitterSuscriptorImpl implements Twitter {
 		params.add(this.user.getId());
 		params.add(new Date().getTime()/1000);
 		params.add(replyId);
-
-		//Comprobación para meter el ID del place
 		params.add(this.placeId);
 		//Insertamos el nuevo tweet en la BD
 		this.con.updateQuery("INSERT INTO tweet (texto, autor, fecha, inReplyTo, placeID) VALUES (?, ?, ?, ?,?)", params);
@@ -649,8 +649,19 @@ public class TwitterSuscriptorImpl implements Twitter {
 		Status status = new StatusImpl(status_id, this.con,this.user);		
 
 		//Mandamos el tweet a todos los seguidores
-		TwitterInitImplSuscriptor.sendThroughTopic(status, this.user.getId());
+		Iterator<Long> seguidores = this.users().getFollowerIDs().iterator();
+		try {
+			while(seguidores.hasNext()){
+				//Obtenemos la lista de callbacks de cada seguidor (puede tener varios clientes abiertos)
+				Long id_dest = seguidores.next().longValue();
 
+				this.init.sendThroughCallback(status,id_dest);
+
+			}
+
+			//Nos notificamos a nosotros mismos sobre el tweet
+			this.init.sendThroughCallback(status,this.user.getId());
+		} catch (RemoteException e) { }
 		this.user.aumentarContador();
 		return status;
 	}
@@ -679,6 +690,7 @@ public class TwitterSuscriptorImpl implements Twitter {
 
 	@Override
 	public AStream stream() {
+
 		return new AStreamImpl(this, this.con);
 	}
 
@@ -691,3 +703,4 @@ public class TwitterSuscriptorImpl implements Twitter {
 	}
 
 }
+*/

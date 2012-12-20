@@ -7,7 +7,6 @@ import interfacesComunes.TwitterInit;
 import interfacesComunes.User;
 
 import java.rmi.RemoteException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Map;
@@ -29,7 +28,6 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		this.con=con;
 		this.loggedUser=loggedUser;
 		this.init = init;
-		
 	}
 	
 	//Nivel de acceso del login, lo pongo como login normal
@@ -52,19 +50,11 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 		
 		con.updateQuery("UPDATE usuario SET name = ?, profileImageUrl = ?, location = ?, descripcion = ?, protectedUser = ? WHERE id = ? LIMIT 1", params);
 
-		try{
+		try {
 			TwitterEvent event = new TwitterEventImpl(loggedUser.getId(), TwitterEvent.Type.USER_UPDATE, this.con,loggedUser);
+			this.init.sendThroughTopic(event, loggedUser.getId());
+		} catch (SQLException | RemoteException e) { }
 			
-			//this.init.sendThroughCallback(event, loggedUser.getId());
-			//Se lo envia a todos, por si alguien está mirando el perfil.
-			ResultSet r=this.con.query("SELECT id FROM usuario");
-			while(r.next())
-				this.init.sendThroughCallback(event, r.getLong("id"));
-			
-		}catch(SQLException | RemoteException e){
-			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
-		}
-		
 		return new UserImpl(this.loggedUser.getId(), this.con, this.loggedUser);
 		
 	}
@@ -88,6 +78,7 @@ public class Twitter_AccountImpl implements interfacesComunes.Twitter_Account {
 	@Override
 	public User setProfile(String name, String url, String profileImageUrl,
 			String location, String description) {
+	
 		return null;
 	}
 

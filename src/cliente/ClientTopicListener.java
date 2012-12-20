@@ -25,7 +25,7 @@ import javafx.application.Platform;
  * Esta clase se trata de un intermediario entre el cliente y el servidor
  * encargándose de distribuir el evento al listener que está asociado.
  */
-public class ClientTopicListener implements javax.jms.MessageListener {
+public class ClientTopicListener implements javax.jms.MessageListener, ClientListener {
 
 	private AStream.IListen listener;
 	private TopicConnection connection;
@@ -73,6 +73,7 @@ public class ClientTopicListener implements javax.jms.MessageListener {
 		}
 	}
 
+	@Override
 	public void setListener(AStream.IListen listener) {
 		this.listener = listener;
 	}

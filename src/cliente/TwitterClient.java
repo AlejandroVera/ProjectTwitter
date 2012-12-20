@@ -1,6 +1,7 @@
 package cliente;
 
 import interfacesComunes.AStream;
+import interfacesComunes.AStream.IListen;
 import interfacesComunes.Twitter;
 import interfacesComunes.TwitterInit;
 
@@ -32,7 +33,7 @@ public class TwitterClient extends Application {
 	private static TwitterStream twitterStreamS;
 	
 	private Twitter twitter;
-	private ClientCallbackListener cliente;
+	private ClientListener cliente;
 	private Stage primaryStage;
 	private UniverseController universeController;
 	private TwitterStream twitterStream;
@@ -118,7 +119,7 @@ public class TwitterClient extends Application {
 					l.add(twitter.getSelf().getId());
 					twitterStream.setFollowUsers(l);
 					this.cliente = new ClientCallbackListener();
-					twitterStream.addListener(this.cliente);
+					twitterStream.addListener((IListen) this.cliente);
 					
 					twitterStream.connect();
 					twitterStream.popTweets();
@@ -137,12 +138,14 @@ public class TwitterClient extends Application {
 				try {
 					twitterReal=false;
 					TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-					this.cliente = new ClientCallbackListener();
-					this.twitter = stub.login(user, pass, cliente);
+					
+					this.twitter = stub.login(user, pass);
 					if(this.twitter ==  null){
 						ClientTools.showDialog("Login invalido.");
 						return false;
-					}	
+					}
+					this.cliente = new ClientTopicListener(this.twitter.getSelf().getId());	
+					
 					TwitterClient.tw=this.twitter;//argucia
 					//lanzar la visión principal (pasandole al controlador el objeto Twitter)
 					control = this.loadFXMLAndShow("world.fxml");
@@ -182,7 +185,7 @@ public class TwitterClient extends Application {
 				this.twitterStream = null;
 			}else{
 				TwitterInit stub = (TwitterInit) Naming.lookup(SERVER_URL);
-				stub.logout(this.twitter.getSelf().getId(), cliente);
+				stub.logout(this.twitter.getSelf().getId());
 			}
 			
 			ClientTools.stopTimeUpdate();

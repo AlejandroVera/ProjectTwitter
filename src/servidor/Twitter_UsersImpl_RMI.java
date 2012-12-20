@@ -1,4 +1,5 @@
 package servidor;
+/*package servidor;
 
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
@@ -33,9 +34,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFollowerIDs()
-	 */
+	 
 	@Override
 	public List<Long> getFollowerIDs(){
 		List<Long> seguidores=new ArrayList<Long>();
@@ -50,9 +51,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		}
 		return seguidores;
 	}
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFollowerIDs(java.lang.String)
-	 */
+	 
 	@Override
 	public List<Long> getFollowerIDs(String screenName){
 		List<Long> seguidores=new ArrayList<Long>();
@@ -74,9 +75,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFollowers(java.lang.String)
-	 */
+	 
 	@Override
 	public List<User> getFollowers(String screenName){
 		List<User> seguidores=new ArrayList<User>();
@@ -98,9 +99,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return seguidores;
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFriendIDs()
-	 */
+	 
 	@Override
 	public List<Long> getFriendIDs(){
 		List<Long> amigos=new ArrayList<Long>();
@@ -116,9 +117,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return amigos;
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFriendIDs(java.lang.String)
-	 */
+	 
 	@Override
 	public List<Long> getFriendIDs(String screenName){
 		List<Long> amigos=new ArrayList<Long>();
@@ -141,9 +142,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getFriends(java.lang.String)
-	 */
+	 
 	@Override
 	public List<User> getFriends(String screenName){
 		List<User> amigos=new ArrayList<User>();
@@ -163,17 +164,17 @@ public class Twitter_UsersImpl implements Twitter_Users {
 
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#follow(java.lang.String)
-	 */
+	 
 	@Override
 	public User follow(String screenName){
 		return follow(new UserImpl(screenName,con,loggedUser));
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#follow(interfacesComunes.User)
-	 */
+	 
 	@Override
 	public User follow(User user){
 		TwitterEvent evento;
@@ -196,8 +197,8 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			evento= new TwitterEventImpl(this.loggedUser.getId(),user.getId(), tipoevento, this.con, this.loggedUser);
 			
 			//Enviamos el evento al usuario que acabamos de seguir y a nosotros mismos
-			this.init.sendThroughTopic(evento, user.getId());
-			this.init.sendThroughTopic(evento, this.loggedUser.getId());
+			this.init.sendThroughCallback(evento, user.getId());
+			this.init.sendThroughCallback(evento, this.loggedUser.getId());
 			
 		}catch(SQLException | RemoteException e){
 			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
@@ -205,7 +206,7 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return sol;
 	}
 
-	public void confirmarAmistad(User user/* usuario aceptado*/){
+	public void confirmarAmistad(User user usuario aceptado){
 		TwitterEvent evento;
 		user.setFollowRequestSent(false);
 		con.updateQuery("INSERT INTO seguidores  VALUES ("+user.getId()+", "+this.loggedUser.getId()+")");
@@ -214,41 +215,41 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			evento= new TwitterEventImpl(user.getId(),this.loggedUser.getId() ,TwitterEvent.Type.FOLLOW, this.con, this.loggedUser);
 			
 			//Enviamos el evento al usuario que acabamos de seguir y a nosotros mismos
-			this.init.sendThroughTopic(evento, user.getId());
-			this.init.sendThroughTopic(evento, this.loggedUser.getId());
+			this.init.sendThroughCallback(evento, user.getId());
+			this.init.sendThroughCallback(evento, this.loggedUser.getId());
 		}catch(SQLException | RemoteException e){
 			ServerCommon.TwitterWarning(e, "No se ha podido crear el evento");
 		}
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getUser(long)
-	 */
+	 
 	@Override
 	public User getUser(long userId){
 		return show(userId);
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#getUser(java.lang.String)
-	 */
+	 
 	@Override
 	public User getUser(String screenName){
 		return show(screenName);
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#isFollower(java.lang.String)
-	 */
+	 
 	@Override
 	public boolean isFollower(String userB){
 		User u=new UserImpl(userB,con,loggedUser);
 		return u.isFollowingYou();
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#isFollower(java.lang.String, java.lang.String)
-	 */
+	 
 	@Override
 	public boolean isFollower(String followerScreenName,String followedScreenName){
 		boolean sol=true;
@@ -267,17 +268,17 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#isFollowing(java.lang.String)
-	 */
+	 
 	@Override
 	public boolean isFollowing(java.lang.String userB){
 		return isFollowing(new UserImpl(userB,con,loggedUser));
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#isFollowing(interfacesComunes.User)
-	 */
+	 
 	@Override
 	public boolean isFollowing(User user){
 		return user.isFollowedByYou();
@@ -301,25 +302,25 @@ public class Twitter_UsersImpl implements Twitter_Users {
 		return sol;
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#show(java.lang.Number)
-	 */
+	 
 	@Override
 	public User show(Number userId){
 		return new UserImpl(userId.longValue(),con,loggedUser);
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#show(java.lang.String)
-	 */
+	 
 	@Override
 	public User show(String screenName) throws TwitterException{
 		return new UserImpl(screenName,con,loggedUser);
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#showById(java.util.Collection)
-	 */
+	 
 	@Override
 	public List<User> showById(java.util.Collection<? extends Number> userIds){
 		List<User> sol= new ArrayList<User>();
@@ -331,17 +332,17 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#stopFollowing(java.lang.String)
-	 */
+	 
 	@Override
 	public User stopFollowing(String username){
 		return stopFollowing(new UserImpl(username,con,loggedUser));
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#stopFollowing(interfacesComunes.User)
-	 */
+	 
 	@Override
 	public User stopFollowing(User user){
 		Conexion con = new ConexionImpl();	
@@ -352,8 +353,8 @@ public class Twitter_UsersImpl implements Twitter_Users {
 				TwitterEvent evento = new TwitterEventImpl(this.loggedUser.getId(),user.getId(), TwitterEvent.Type.UNFOLLOW, this.con, this.loggedUser);
 				
 				//Enviamos el evento al usuario que acabamos de seguir y a nosotros mismos
-				this.init.sendThroughTopic(evento, user.getId());
-				this.init.sendThroughTopic(evento, this.loggedUser.getId());
+				this.init.sendThroughCallback(evento, user.getId());
+				this.init.sendThroughCallback(evento, this.loggedUser.getId());
 				
 			} catch (SQLException | RemoteException e) {
 				ServerCommon.TwitterWarning(e, "Error de evento en stopFollowing");
@@ -364,9 +365,9 @@ public class Twitter_UsersImpl implements Twitter_Users {
 			return null;
 	}
 
-	/* (non-Javadoc)
+	 (non-Javadoc)
 	 * @see servidor.Twitter_Users#userExists(java.lang.String)
-	 */
+	 
 	@Override
 	public boolean userExists(String screenName){
 		boolean sol=false;
@@ -383,4 +384,4 @@ public class Twitter_UsersImpl implements Twitter_Users {
 	}
 
 
-}
+}*/

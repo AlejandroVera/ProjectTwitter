@@ -14,11 +14,15 @@ import javafx.application.Platform;
  * Esta clase se trata de un intermediario entre el cliente y el servidor encargándose de distribuir el evento al 
  * listener que está asociado.
  */
-public class ClientCallbackListener extends UnicastRemoteObject implements AStream.IListen, Remote{
+public class ClientCallbackListener extends UnicastRemoteObject implements AStream.IListen, Remote, ClientListener{
 
 	private static final long serialVersionUID = 6865106167203455251L;
 	private AStream.IListen listener;
 
+	/* (non-Javadoc)
+	 * @see cliente.ClientListener#setListener(interfacesComunes.AStream.IListen)
+	 */
+	@Override
 	public void setListener(AStream.IListen listener) {
 		this.listener = listener;
 	}

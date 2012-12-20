@@ -33,19 +33,17 @@ public interface TwitterInit extends Remote, Serializable{
 	 * Metodo para iniciar sesion en nuestro Twitter.
 	 * @param user ScreenName del usuario al cual loguear.
 	 * @param pass Contraseña del usuario.
-	 * @param client CallBack por el que mandar eventos del servidor al cliente.
 	 * @return Objeto Twitter con el que poder realizar todas las acciones necesarias con Twitter.
 	 * @throws RemoteException Excepcion de Java RMI.
 	 */
-	public Twitter login(String user, String pass, AStream.IListen client) throws RemoteException;
+	public Twitter login(String user, String pass) throws RemoteException;
 	
 	/**
 	 * Metodo para cerrar sesion en nuestro Twitter.
 	 * @param userId Id del usuario al cual cerrar la sesion.
-	 * @param client CallBack por el que mandar eventos del servidor al cliente.
 	 * @throws RemoteException Excepcion de Java RMI.
 	 */
-	public void logout(Long userId, AStream.IListen client) throws RemoteException;
+	public void logout(Long userId) throws RemoteException;
 	
 	/**
 	 * Metodo para registrar a un usuario en nuestro Twitter.
@@ -74,9 +72,9 @@ public interface TwitterInit extends Remote, Serializable{
 	public String saveImage(byte[] img) throws RemoteException;
 	
 	/**
-	 * Envia un evento para un usuario a traves del callback.
+	 * Envia un evento para un usuario a traves del topic.
 	 * @param event Evento a enviar, puede ser un ITweet, un TwitterEvent o un Object[]
 	 * @param id_dest Usuario al cual enviar el evento.
 	 */
-	public void sendThroughCallback(Serializable event, Long id_dest) throws RemoteException;
+	public void sendThroughTopic(Serializable event, Long id_dest) throws RemoteException;
 }
