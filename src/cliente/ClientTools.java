@@ -25,7 +25,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
-import interfacesComunes.Place;
 import interfacesComunes.TwitterInit;
 
 public class ClientTools {

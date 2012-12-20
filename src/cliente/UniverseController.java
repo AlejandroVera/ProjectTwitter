@@ -5,8 +5,6 @@
 
 package cliente;
 
-import interfacesComunes.Place;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;

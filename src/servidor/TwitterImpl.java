@@ -20,7 +20,6 @@ import java.math.BigInteger;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import servidor.db.ConexionImpl;
