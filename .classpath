@@ -17,6 +17,6 @@
 	<classpathentry kind="lib" path="libs/geronimo-j2ee-management_1.1_spec-1.0.1.jar"/>
 	<classpathentry kind="lib" path="libs/geronimo-jms_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/comwinterwellModificadoNuestro.jar"/>
-	<classpathentry kind="lib" path="/home/borja/workspace/ProyectTwitter/libs/winterwellModificadoNuestro.jar"/>
+	<classpathentry kind="lib" path="libs/winterwellModificadoNuestro.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
