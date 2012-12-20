@@ -8,7 +8,7 @@ public class ServerCommon {
 	/**
 	 * Contante que indica si se está realizando debug o no.
 	 */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	/**
 	 * Muestra un error del servidor y termina la ejecución.
