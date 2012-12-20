@@ -142,8 +142,7 @@ public class ConectaController extends Controller implements AStream.IListen {
 			}
 
 			cajaInteracciones.getChildren().clear();
-			while(interacciones.hasNext()){
-				System.out.println("HOLA");
+			while(interacciones.hasNext()){		
 				this.addEvent(cajaInteracciones, interacciones.next());
 			}
 		}
