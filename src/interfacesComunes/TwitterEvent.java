@@ -63,6 +63,7 @@ public interface TwitterEvent extends Serializable{
 		static String	USER_UPDATE="4";
 		static String	FOLLOW_REQUEST="5";
 		static String	UNFOLLOW="6";
+		
 
 	}
 

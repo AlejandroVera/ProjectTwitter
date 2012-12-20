@@ -18,16 +18,19 @@ public class TwitterEventImpl implements TwitterEvent{
 
 	public static interface Type {
 		public static final String ADDED_TO_LIST = "list_member_added";
-		public static final String FAVORITE = "favorite";
-		public static final String FOLLOW = "follow";
 		public static final String LIST_CREATED = "list_created";
 		public static final String REMOVED_FROM_LIST = "list_member_removed";
-		public static final String UNFAVORITE = "unfavorite";
+		public static final String	FAVORITE="1"; 
+		public static final String	FOLLOW="2";
+		public static final String	UNFAVORITE="3";
+		
+		public static final String	FOLLOW_REQUEST="5";
+		public static final String	UNFOLLOW="6";
 		/**
 		 * Indicates changes to the user's profile -- eg. their picture or
 		 * location.
 		 */
-		public static final String USER_UPDATE = "user_update";
+		public static final String	USER_UPDATE="4";
 	}
 
 	public final Date createdAt;

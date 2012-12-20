@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.winterwell.jgeoplanet.IGeoCode;
 import com.winterwell.jgeoplanet.IPlace;
+import com.winterwell.jgeoplanet.MFloat;
 
 
 /**
@@ -22,6 +23,8 @@ public interface Twitter_Geo extends Serializable, IGeoCode{
     //public java.util.List<Place> getTrendRegions();
 
     //public void setAccuracy(double metres);
+	
+	public IPlace getPlace(String description, MFloat accuracy);
                                            
 
 }

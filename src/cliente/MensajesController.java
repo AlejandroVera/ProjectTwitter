@@ -102,8 +102,7 @@ public class MensajesController extends Controller implements AStream.IListen {
 	@Override
 	public boolean processTweet(ITweet mensaje) throws RemoteException {
 		if (mensaje instanceof Message){
-			mensaje=(Message) mensaje;
-			System.out.println("Llega a mensajesController");
+			mensaje=(Message) mensaje;			
 			if (((Message) mensaje).getSender().getId().equals(super.getTwitter().getSelf().getId()))
 				
 				addMessage(bandejaSalida, (Message) mensaje, true);

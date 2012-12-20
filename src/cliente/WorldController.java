@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.winterwell.jgeoplanet.IPlace;
+import com.winterwell.jgeoplanet.MFloat;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -155,8 +156,10 @@ public class WorldController extends Controller implements AStream.IListen {
 	// Handler for ImageView[fx:id="geoDesactivado"] onMouseClicked
 	public void activarGeo(MouseEvent event) {
 
-		/*El texto pasado a getPlace solo es util con el twitterReal*/
-		IPlace lugar = getTwitter().geo().getPlace("Madrid, España", null);
+		/*El texto pasado a getPlace solo es util con el twitterReal
+		 * No se porque pero siempre devuelve null con jtwitter :(*/
+		MFloat f= new MFloat(1);
+		IPlace lugar = getTwitter().geo().getPlace("www.google.com", f);
 		
 
 		if (lugar!=null){
